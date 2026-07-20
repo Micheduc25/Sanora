@@ -1,0 +1,87 @@
+name: bodi
+description: "Bodi — Know Your Body. AI-powered personal health companion."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State management
+  hooks_riverpod: ^2.6.1
+  flutter_hooks: ^0.21.2
+  riverpod_annotation: ^2.6.1
+
+  # Navigation
+  go_router: ^15.1.2
+
+  # Models & immutability
+  freezed_annotation: ^3.0.0
+  json_annotation: ^4.9.0
+
+  # Networking
+  dio: ^5.8.0
+  connectivity_plus: ^6.1.4
+
+  # Backend
+  supabase_flutter: ^2.9.0
+
+  # Local storage (offline-first)
+  hive_ce: ^2.11.0
+  hive_ce_flutter: ^2.3.0
+  flutter_secure_storage: ^9.2.4
+
+  # UI
+  google_fonts: ^6.2.1
+  fl_chart: ^0.71.0
+  lottie: ^3.3.1
+  shimmer: ^3.0.0
+  cached_network_image: ^3.4.1
+  smooth_page_indicator: ^1.2.1
+
+  # Media & sensors
+  image_picker: ^1.1.2
+  speech_to_text: ^7.0.0
+  flutter_tts: ^4.2.2
+
+  # Utilities
+  intl: any
+  uuid: ^4.5.1
+  collection: ^1.19.1
+  equatable: ^2.0.7
+  path_provider: ^2.1.5
+  url_launcher: ^6.3.1
+  package_info_plus: ^8.3.0
+  share_plus: ^11.0.0
+  pdf: ^3.11.3
+  printing: ^5.14.2
+
+  # Notifications
+  flutter_local_notifications: ^19.2.1
+  timezone: ^0.10.1
+
+  # Health platform integration
+  health: ^12.2.0
+  permission_handler: ^12.0.0+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: ^2.4.15
+  freezed: ^3.0.6
+  json_serializable: ^6.9.5
+  riverpod_generator: ^2.6.5
+  mocktail: ^1.0.4
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/lottie/
+    - assets/data/

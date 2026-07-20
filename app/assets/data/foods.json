@@ -1,0 +1,2182 @@
+[
+ {
+  "id": "eru_with_waterleaf",
+  "name": "Eru with waterleaf",
+  "aliases": [
+   "eru",
+   "okok"
+  ],
+  "region": "Cameroon",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 140,
+   "protein_g": 6.5,
+   "fat_g": 10.2,
+   "carbs_g": 7.8,
+   "fiber_g": 4.2,
+   "sugar_g": 1.1,
+   "sodium_mg": 380,
+   "micronutrients": {
+    "iron_mg": 3.2,
+    "vitamin_a_ug": 420
+   }
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 bowl"
+ },
+ {
+  "id": "ndol",
+  "name": "Ndolé",
+  "aliases": [
+   "ndole",
+   "bitterleaf stew"
+  ],
+  "region": "Cameroon",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 165,
+   "protein_g": 9.8,
+   "fat_g": 11.5,
+   "carbs_g": 6.4,
+   "fiber_g": 3.1,
+   "sugar_g": 1.4,
+   "sodium_mg": 420,
+   "micronutrients": {
+    "iron_mg": 3.8
+   }
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 bowl"
+ },
+ {
+  "id": "achu_soup_yellow_soup",
+  "name": "Achu soup (yellow soup)",
+  "aliases": [
+   "achu",
+   "taro with yellow soup"
+  ],
+  "region": "Cameroon",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 128,
+   "protein_g": 3.2,
+   "fat_g": 6.8,
+   "carbs_g": 15.2,
+   "fiber_g": 2.4,
+   "sugar_g": 0.8,
+   "sodium_mg": 460,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 350,
+  "serving_label": "1 plate"
+ },
+ {
+  "id": "koki_beans",
+  "name": "Koki beans",
+  "aliases": [
+   "koki",
+   "koki corn",
+   "bean cake"
+  ],
+  "region": "Cameroon",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 182,
+   "protein_g": 9.4,
+   "fat_g": 9.6,
+   "carbs_g": 15.8,
+   "fiber_g": 5.2,
+   "sugar_g": 1.2,
+   "sodium_mg": 340,
+   "micronutrients": {
+    "iron_mg": 2.6
+   }
+  },
+  "typical_serving_g": 200,
+  "serving_label": "1 wrap"
+ },
+ {
+  "id": "fufu_corn",
+  "name": "Fufu corn",
+  "aliases": [
+   "corn fufu",
+   "couscous de maïs"
+  ],
+  "region": "Cameroon",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 112,
+   "protein_g": 2.4,
+   "fat_g": 0.8,
+   "carbs_g": 24.6,
+   "fiber_g": 1.8,
+   "sugar_g": 0.4,
+   "sodium_mg": 8,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 ball"
+ },
+ {
+  "id": "water_fufu_cassava_fufu",
+  "name": "Water fufu (cassava fufu)",
+  "aliases": [
+   "water fufu",
+   "cassava fufu",
+   "akpu"
+  ],
+  "region": "West/Central Africa",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 130,
+   "protein_g": 0.9,
+   "fat_g": 0.3,
+   "carbs_g": 31.2,
+   "fiber_g": 1.6,
+   "sugar_g": 0.6,
+   "sodium_mg": 10,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 ball"
+ },
+ {
+  "id": "pounded_yam_fufu",
+  "name": "Pounded yam fufu",
+  "aliases": [
+   "pounded yam",
+   "iyan"
+  ],
+  "region": "West Africa",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 118,
+   "protein_g": 1.8,
+   "fat_g": 0.2,
+   "carbs_g": 27.8,
+   "fiber_g": 1.9,
+   "sugar_g": 0.5,
+   "sodium_mg": 9,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 ball"
+ },
+ {
+  "id": "corn_chaff",
+  "name": "Corn chaff",
+  "aliases": [
+   "corn chaff",
+   "beans and corn"
+  ],
+  "region": "Cameroon",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 158,
+   "protein_g": 7.2,
+   "fat_g": 5.4,
+   "carbs_g": 21.6,
+   "fiber_g": 5.8,
+   "sugar_g": 1.8,
+   "sodium_mg": 320,
+   "micronutrients": {
+    "iron_mg": 2.4
+   }
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 plate"
+ },
+ {
+  "id": "kwacoco",
+  "name": "Kwacoco",
+  "aliases": [
+   "kwacoco",
+   "grated cocoyam"
+  ],
+  "region": "Cameroon",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 145,
+   "protein_g": 2.6,
+   "fat_g": 4.8,
+   "carbs_g": 24.2,
+   "fiber_g": 2.8,
+   "sugar_g": 1.1,
+   "sodium_mg": 280,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 wrap"
+ },
+ {
+  "id": "ekwang",
+  "name": "Ekwang",
+  "aliases": [
+   "ekwang",
+   "ekpang nkukwo"
+  ],
+  "region": "Cameroon/Nigeria",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 172,
+   "protein_g": 4.4,
+   "fat_g": 8.6,
+   "carbs_g": 20.5,
+   "fiber_g": 3.4,
+   "sugar_g": 1.3,
+   "sodium_mg": 410,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 plate"
+ },
+ {
+  "id": "okra_soup",
+  "name": "Okra soup",
+  "aliases": [
+   "okro soup",
+   "gombo"
+  ],
+  "region": "West/Central Africa",
+  "category": "Soup",
+  "nutrition_per100g": {
+   "calories": 95,
+   "protein_g": 4.8,
+   "fat_g": 6.2,
+   "carbs_g": 5.4,
+   "fiber_g": 2.9,
+   "sugar_g": 1.6,
+   "sodium_mg": 390,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 bowl"
+ },
+ {
+  "id": "pepper_soup_fish",
+  "name": "Pepper soup (fish)",
+  "aliases": [
+   "peppersoup",
+   "fish pepper soup"
+  ],
+  "region": "West Africa",
+  "category": "Soup",
+  "nutrition_per100g": {
+   "calories": 78,
+   "protein_g": 11.2,
+   "fat_g": 2.8,
+   "carbs_g": 2.1,
+   "fiber_g": 0.6,
+   "sugar_g": 0.8,
+   "sodium_mg": 520,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 bowl"
+ },
+ {
+  "id": "pepper_soup_goat_meat",
+  "name": "Pepper soup (goat meat)",
+  "aliases": [
+   "goat pepper soup"
+  ],
+  "region": "West Africa",
+  "category": "Soup",
+  "nutrition_per100g": {
+   "calories": 112,
+   "protein_g": 13.6,
+   "fat_g": 5.8,
+   "carbs_g": 1.8,
+   "fiber_g": 0.5,
+   "sugar_g": 0.6,
+   "sodium_mg": 540,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 bowl"
+ },
+ {
+  "id": "mbongo_tchobi",
+  "name": "Mbongo tchobi",
+  "aliases": [
+   "mbongo",
+   "black stew"
+  ],
+  "region": "Cameroon",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 148,
+   "protein_g": 10.4,
+   "fat_g": 9.8,
+   "carbs_g": 4.2,
+   "fiber_g": 1.8,
+   "sugar_g": 1,
+   "sodium_mg": 430,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 serving"
+ },
+ {
+  "id": "poulet_dg",
+  "name": "Poulet DG",
+  "aliases": [
+   "poulet dg",
+   "chicken dg"
+  ],
+  "region": "Cameroon",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 186,
+   "protein_g": 12.8,
+   "fat_g": 10.4,
+   "carbs_g": 10.2,
+   "fiber_g": 1.9,
+   "sugar_g": 3.1,
+   "sodium_mg": 380,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 plate"
+ },
+ {
+  "id": "sanga_corn_cassava_leaves",
+  "name": "Sanga (corn & cassava leaves)",
+  "aliases": [
+   "sanga"
+  ],
+  "region": "Cameroon",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 132,
+   "protein_g": 4.1,
+   "fat_g": 5.6,
+   "carbs_g": 17.4,
+   "fiber_g": 3.6,
+   "sugar_g": 1.9,
+   "sodium_mg": 210,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 bowl"
+ },
+ {
+  "id": "jollof_rice",
+  "name": "Jollof rice",
+  "aliases": [
+   "jollof"
+  ],
+  "region": "West Africa",
+  "category": "Rice dish",
+  "nutrition_per100g": {
+   "calories": 168,
+   "protein_g": 3.8,
+   "fat_g": 5.2,
+   "carbs_g": 27.1,
+   "fiber_g": 1.4,
+   "sugar_g": 2.2,
+   "sodium_mg": 420,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 plate"
+ },
+ {
+  "id": "fried_rice_west_african",
+  "name": "Fried rice (West African)",
+  "aliases": [
+   "nigerian fried rice"
+  ],
+  "region": "West Africa",
+  "category": "Rice dish",
+  "nutrition_per100g": {
+   "calories": 178,
+   "protein_g": 4.6,
+   "fat_g": 6.8,
+   "carbs_g": 25.4,
+   "fiber_g": 1.6,
+   "sugar_g": 1.8,
+   "sodium_mg": 460,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 plate"
+ },
+ {
+  "id": "waakye",
+  "name": "Waakye",
+  "aliases": [
+   "waakye",
+   "rice and beans"
+  ],
+  "region": "Ghana",
+  "category": "Rice dish",
+  "nutrition_per100g": {
+   "calories": 152,
+   "protein_g": 5.4,
+   "fat_g": 2.8,
+   "carbs_g": 27.6,
+   "fiber_g": 3.8,
+   "sugar_g": 0.9,
+   "sodium_mg": 280,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 plate"
+ },
+ {
+  "id": "suya_grilled_beef_skewer",
+  "name": "Suya (grilled beef skewer)",
+  "aliases": [
+   "suya",
+   "soya"
+  ],
+  "region": "Nigeria/Cameroon",
+  "category": "Grilled meat",
+  "nutrition_per100g": {
+   "calories": 255,
+   "protein_g": 26.4,
+   "fat_g": 14.2,
+   "carbs_g": 4.8,
+   "fiber_g": 1.1,
+   "sugar_g": 1.2,
+   "sodium_mg": 620,
+   "micronutrients": {
+    "iron_mg": 2.9
+   }
+  },
+  "typical_serving_g": 100,
+  "serving_label": "1 skewer"
+ },
+ {
+  "id": "roasted_fish_braised_fish",
+  "name": "Roasted fish (braised fish)",
+  "aliases": [
+   "poisson braisé",
+   "braised fish",
+   "bar braisé"
+  ],
+  "region": "Cameroon",
+  "category": "Grilled fish",
+  "nutrition_per100g": {
+   "calories": 148,
+   "protein_g": 22.6,
+   "fat_g": 6.2,
+   "carbs_g": 0.8,
+   "fiber_g": 0.2,
+   "sugar_g": 0.3,
+   "sodium_mg": 480,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 fish"
+ },
+ {
+  "id": "banku",
+  "name": "Banku",
+  "aliases": [
+   "banku"
+  ],
+  "region": "Ghana",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 118,
+   "protein_g": 2.1,
+   "fat_g": 0.6,
+   "carbs_g": 26.2,
+   "fiber_g": 1.2,
+   "sugar_g": 0.5,
+   "sodium_mg": 45,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 ball"
+ },
+ {
+  "id": "kenkey",
+  "name": "Kenkey",
+  "aliases": [
+   "kenkey",
+   "komi"
+  ],
+  "region": "Ghana",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 124,
+   "protein_g": 2.8,
+   "fat_g": 0.8,
+   "carbs_g": 26.8,
+   "fiber_g": 1.6,
+   "sugar_g": 0.6,
+   "sodium_mg": 60,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 ball"
+ },
+ {
+  "id": "egusi_soup",
+  "name": "Egusi soup",
+  "aliases": [
+   "egusi",
+   "melon seed soup"
+  ],
+  "region": "Nigeria",
+  "category": "Soup",
+  "nutrition_per100g": {
+   "calories": 198,
+   "protein_g": 8.6,
+   "fat_g": 16.4,
+   "carbs_g": 5.8,
+   "fiber_g": 2.6,
+   "sugar_g": 1.4,
+   "sodium_mg": 440,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 bowl"
+ },
+ {
+  "id": "groundnut_soup",
+  "name": "Groundnut soup",
+  "aliases": [
+   "peanut soup",
+   "sauce arachide",
+   "maafe"
+  ],
+  "region": "West Africa",
+  "category": "Soup",
+  "nutrition_per100g": {
+   "calories": 172,
+   "protein_g": 7.8,
+   "fat_g": 12.6,
+   "carbs_g": 8.4,
+   "fiber_g": 2.2,
+   "sugar_g": 2.6,
+   "sodium_mg": 410,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 bowl"
+ },
+ {
+  "id": "moin_moin",
+  "name": "Moin moin",
+  "aliases": [
+   "moi moi",
+   "steamed bean pudding"
+  ],
+  "region": "Nigeria",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 142,
+   "protein_g": 9.2,
+   "fat_g": 5.8,
+   "carbs_g": 14.6,
+   "fiber_g": 3.9,
+   "sugar_g": 1.1,
+   "sodium_mg": 350,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 wrap"
+ },
+ {
+  "id": "akara_bean_fritters",
+  "name": "Akara (bean fritters)",
+  "aliases": [
+   "akara",
+   "accra",
+   "beignet haricot"
+  ],
+  "region": "West Africa",
+  "category": "Snack",
+  "nutrition_per100g": {
+   "calories": 226,
+   "protein_g": 8.4,
+   "fat_g": 14.8,
+   "carbs_g": 15.2,
+   "fiber_g": 3.2,
+   "sugar_g": 1,
+   "sodium_mg": 320,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 60,
+  "serving_label": "3 pieces"
+ },
+ {
+  "id": "puff_puff",
+  "name": "Puff-puff",
+  "aliases": [
+   "puff puff",
+   "beignet"
+  ],
+  "region": "West Africa",
+  "category": "Snack",
+  "nutrition_per100g": {
+   "calories": 336,
+   "protein_g": 5.4,
+   "fat_g": 14.2,
+   "carbs_g": 46.8,
+   "fiber_g": 1.2,
+   "sugar_g": 12.4,
+   "sodium_mg": 210,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 60,
+  "serving_label": "3 pieces"
+ },
+ {
+  "id": "chin_chin",
+  "name": "Chin chin",
+  "aliases": [
+   "chinchin"
+  ],
+  "region": "West Africa",
+  "category": "Snack",
+  "nutrition_per100g": {
+   "calories": 452,
+   "protein_g": 6.8,
+   "fat_g": 22.4,
+   "carbs_g": 56.2,
+   "fiber_g": 1.4,
+   "sugar_g": 16.8,
+   "sodium_mg": 180,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 40,
+  "serving_label": "1 handful"
+ },
+ {
+  "id": "atti_k",
+  "name": "Attiéké",
+  "aliases": [
+   "attieke",
+   "cassava couscous"
+  ],
+  "region": "Côte d'Ivoire",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 155,
+   "protein_g": 1.2,
+   "fat_g": 0.4,
+   "carbs_g": 36.8,
+   "fiber_g": 2.1,
+   "sugar_g": 0.8,
+   "sodium_mg": 15,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 plate"
+ },
+ {
+  "id": "alloco_fried_plantain",
+  "name": "Alloco (fried plantain)",
+  "aliases": [
+   "alloco",
+   "dodo",
+   "fried plantain"
+  ],
+  "region": "West Africa",
+  "category": "Side",
+  "nutrition_per100g": {
+   "calories": 252,
+   "protein_g": 1.4,
+   "fat_g": 11.8,
+   "carbs_g": 36.4,
+   "fiber_g": 2.2,
+   "sugar_g": 14.6,
+   "sodium_mg": 12,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 serving"
+ },
+ {
+  "id": "thieboudienne",
+  "name": "Thieboudienne",
+  "aliases": [
+   "thieb",
+   "ceebu jen"
+  ],
+  "region": "Senegal",
+  "category": "Rice dish",
+  "nutrition_per100g": {
+   "calories": 162,
+   "protein_g": 8.4,
+   "fat_g": 5.6,
+   "carbs_g": 20.8,
+   "fiber_g": 1.8,
+   "sugar_g": 1.9,
+   "sodium_mg": 470,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 350,
+  "serving_label": "1 plate"
+ },
+ {
+  "id": "ugali",
+  "name": "Ugali",
+  "aliases": [
+   "ugali",
+   "nsima",
+   "posho"
+  ],
+  "region": "East Africa",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 112,
+   "protein_g": 2.6,
+   "fat_g": 0.5,
+   "carbs_g": 24.8,
+   "fiber_g": 1.4,
+   "sugar_g": 0.3,
+   "sodium_mg": 6,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 portion"
+ },
+ {
+  "id": "injera",
+  "name": "Injera",
+  "aliases": [
+   "injera",
+   "teff flatbread"
+  ],
+  "region": "Ethiopia",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 89,
+   "protein_g": 3.4,
+   "fat_g": 0.7,
+   "carbs_g": 18.2,
+   "fiber_g": 2.8,
+   "sugar_g": 0.6,
+   "sodium_mg": 220,
+   "micronutrients": {
+    "iron_mg": 2.2
+   }
+  },
+  "typical_serving_g": 120,
+  "serving_label": "1 piece"
+ },
+ {
+  "id": "doro_wat",
+  "name": "Doro wat",
+  "aliases": [
+   "doro wot",
+   "ethiopian chicken stew"
+  ],
+  "region": "Ethiopia",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 158,
+   "protein_g": 12.4,
+   "fat_g": 9.8,
+   "carbs_g": 5.2,
+   "fiber_g": 1.6,
+   "sugar_g": 1.8,
+   "sodium_mg": 480,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 serving"
+ },
+ {
+  "id": "sadza",
+  "name": "Sadza",
+  "aliases": [
+   "sadza"
+  ],
+  "region": "Zimbabwe",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 110,
+   "protein_g": 2.4,
+   "fat_g": 0.4,
+   "carbs_g": 24.6,
+   "fiber_g": 1.3,
+   "sugar_g": 0.2,
+   "sodium_mg": 5,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 portion"
+ },
+ {
+  "id": "pap_mieliepap",
+  "name": "Pap (mieliepap)",
+  "aliases": [
+   "pap",
+   "mealie pap"
+  ],
+  "region": "South Africa",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 108,
+   "protein_g": 2.3,
+   "fat_g": 0.4,
+   "carbs_g": 24.2,
+   "fiber_g": 1.2,
+   "sugar_g": 0.2,
+   "sodium_mg": 5,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 portion"
+ },
+ {
+  "id": "chapati_east_african",
+  "name": "Chapati (East African)",
+  "aliases": [
+   "chapo"
+  ],
+  "region": "East Africa",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 302,
+   "protein_g": 7.2,
+   "fat_g": 10.8,
+   "carbs_g": 45.6,
+   "fiber_g": 2.4,
+   "sugar_g": 2.8,
+   "sodium_mg": 340,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 90,
+  "serving_label": "1 piece"
+ },
+ {
+  "id": "nyama_choma",
+  "name": "Nyama choma",
+  "aliases": [
+   "nyama choma",
+   "grilled goat"
+  ],
+  "region": "Kenya",
+  "category": "Grilled meat",
+  "nutrition_per100g": {
+   "calories": 218,
+   "protein_g": 26.8,
+   "fat_g": 12.4,
+   "carbs_g": 0.4,
+   "fiber_g": 0,
+   "sugar_g": 0.2,
+   "sodium_mg": 380,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 serving"
+ },
+ {
+  "id": "githeri",
+  "name": "Githeri",
+  "aliases": [
+   "githeri",
+   "maize and beans"
+  ],
+  "region": "Kenya",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 148,
+   "protein_g": 6.8,
+   "fat_g": 2.4,
+   "carbs_g": 26.2,
+   "fiber_g": 5.4,
+   "sugar_g": 1.4,
+   "sodium_mg": 240,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 bowl"
+ },
+ {
+  "id": "matoke_cooked_banana",
+  "name": "Matoke (cooked banana)",
+  "aliases": [
+   "matoke",
+   "matooke"
+  ],
+  "region": "Uganda",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 116,
+   "protein_g": 1.2,
+   "fat_g": 0.3,
+   "carbs_g": 29.4,
+   "fiber_g": 2.4,
+   "sugar_g": 8.2,
+   "sodium_mg": 8,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 portion"
+ },
+ {
+  "id": "bobotie",
+  "name": "Bobotie",
+  "aliases": [
+   "bobotie"
+  ],
+  "region": "South Africa",
+  "category": "Traditional dish",
+  "nutrition_per100g": {
+   "calories": 196,
+   "protein_g": 12.6,
+   "fat_g": 11.8,
+   "carbs_g": 10.4,
+   "fiber_g": 1.1,
+   "sugar_g": 4.2,
+   "sodium_mg": 420,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 serving"
+ },
+ {
+  "id": "white_rice_cooked",
+  "name": "White rice (cooked)",
+  "aliases": [
+   "rice",
+   "riz"
+  ],
+  "region": "Global",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 130,
+   "protein_g": 2.7,
+   "fat_g": 0.3,
+   "carbs_g": 28.2,
+   "fiber_g": 0.4,
+   "sugar_g": 0.1,
+   "sodium_mg": 2,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 200,
+  "serving_label": "1 cup"
+ },
+ {
+  "id": "brown_rice_cooked",
+  "name": "Brown rice (cooked)",
+  "aliases": [
+   "brown rice"
+  ],
+  "region": "Global",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 122,
+   "protein_g": 2.7,
+   "fat_g": 1,
+   "carbs_g": 25.6,
+   "fiber_g": 1.6,
+   "sugar_g": 0.4,
+   "sodium_mg": 4,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 200,
+  "serving_label": "1 cup"
+ },
+ {
+  "id": "boiled_plantain",
+  "name": "Boiled plantain",
+  "aliases": [
+   "plantain",
+   "plantain bouilli"
+  ],
+  "region": "Africa",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 116,
+   "protein_g": 0.8,
+   "fat_g": 0.2,
+   "carbs_g": 31.2,
+   "fiber_g": 2.3,
+   "sugar_g": 14.2,
+   "sodium_mg": 5,
+   "micronutrients": {
+    "vitamin_a_ug": 56
+   }
+  },
+  "typical_serving_g": 200,
+  "serving_label": "1 medium"
+ },
+ {
+  "id": "ripe_fried_plantain",
+  "name": "Ripe fried plantain",
+  "aliases": [
+   "fried plantains"
+  ],
+  "region": "Africa",
+  "category": "Side",
+  "nutrition_per100g": {
+   "calories": 252,
+   "protein_g": 1.4,
+   "fat_g": 11.8,
+   "carbs_g": 36.4,
+   "fiber_g": 2.2,
+   "sugar_g": 14.6,
+   "sodium_mg": 12,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 serving"
+ },
+ {
+  "id": "boiled_cassava",
+  "name": "Boiled cassava",
+  "aliases": [
+   "cassava",
+   "manioc",
+   "yuca"
+  ],
+  "region": "Africa",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 160,
+   "protein_g": 1.4,
+   "fat_g": 0.3,
+   "carbs_g": 38.1,
+   "fiber_g": 1.8,
+   "sugar_g": 1.7,
+   "sodium_mg": 14,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 200,
+  "serving_label": "1 portion"
+ },
+ {
+  "id": "garri_eba",
+  "name": "Garri (eba)",
+  "aliases": [
+   "garri",
+   "eba",
+   "gari"
+  ],
+  "region": "West Africa",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 144,
+   "protein_g": 1,
+   "fat_g": 0.5,
+   "carbs_g": 34.2,
+   "fiber_g": 1.9,
+   "sugar_g": 0.4,
+   "sodium_mg": 12,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 ball"
+ },
+ {
+  "id": "boiled_yam",
+  "name": "Boiled yam",
+  "aliases": [
+   "yam",
+   "igname"
+  ],
+  "region": "West Africa",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 118,
+   "protein_g": 1.5,
+   "fat_g": 0.1,
+   "carbs_g": 27.9,
+   "fiber_g": 4.1,
+   "sugar_g": 0.5,
+   "sodium_mg": 9,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 200,
+  "serving_label": "2 slices"
+ },
+ {
+  "id": "sweet_potato_boiled",
+  "name": "Sweet potato (boiled)",
+  "aliases": [
+   "sweet potato",
+   "patate douce"
+  ],
+  "region": "Global",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 86,
+   "protein_g": 1.6,
+   "fat_g": 0.1,
+   "carbs_g": 20.1,
+   "fiber_g": 3,
+   "sugar_g": 4.2,
+   "sodium_mg": 55,
+   "micronutrients": {
+    "vitamin_a_ug": 709
+   }
+  },
+  "typical_serving_g": 180,
+  "serving_label": "1 medium"
+ },
+ {
+  "id": "cocoyam_taro_boiled",
+  "name": "Cocoyam (taro, boiled)",
+  "aliases": [
+   "cocoyam",
+   "taro",
+   "macabo"
+  ],
+  "region": "Africa",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 142,
+   "protein_g": 0.6,
+   "fat_g": 0.1,
+   "carbs_g": 34.6,
+   "fiber_g": 5.1,
+   "sugar_g": 0.5,
+   "sodium_mg": 15,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 200,
+  "serving_label": "1 portion"
+ },
+ {
+  "id": "irish_potato_boiled",
+  "name": "Irish potato (boiled)",
+  "aliases": [
+   "potato",
+   "pomme de terre"
+  ],
+  "region": "Global",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 87,
+   "protein_g": 1.9,
+   "fat_g": 0.1,
+   "carbs_g": 20.1,
+   "fiber_g": 1.8,
+   "sugar_g": 0.9,
+   "sodium_mg": 4,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 180,
+  "serving_label": "2 medium"
+ },
+ {
+  "id": "boiled_green_corn",
+  "name": "Boiled green corn",
+  "aliases": [
+   "corn on the cob",
+   "maize"
+  ],
+  "region": "Global",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 96,
+   "protein_g": 3.4,
+   "fat_g": 1.5,
+   "carbs_g": 20.9,
+   "fiber_g": 2.4,
+   "sugar_g": 4.5,
+   "sodium_mg": 15,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 cob"
+ },
+ {
+  "id": "spaghetti_cooked",
+  "name": "Spaghetti (cooked)",
+  "aliases": [
+   "pasta",
+   "spaghetti"
+  ],
+  "region": "Global",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 158,
+   "protein_g": 5.8,
+   "fat_g": 0.9,
+   "carbs_g": 30.9,
+   "fiber_g": 1.8,
+   "sugar_g": 0.6,
+   "sodium_mg": 1,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 200,
+  "serving_label": "1 plate"
+ },
+ {
+  "id": "bread_white",
+  "name": "Bread (white)",
+  "aliases": [
+   "bread",
+   "pain"
+  ],
+  "region": "Global",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 265,
+   "protein_g": 9,
+   "fat_g": 3.2,
+   "carbs_g": 49,
+   "fiber_g": 2.7,
+   "sugar_g": 5,
+   "sodium_mg": 490,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 60,
+  "serving_label": "2 slices"
+ },
+ {
+  "id": "bread_whole_wheat",
+  "name": "Bread (whole wheat)",
+  "aliases": [
+   "whole wheat bread"
+  ],
+  "region": "Global",
+  "category": "Staple",
+  "nutrition_per100g": {
+   "calories": 247,
+   "protein_g": 13,
+   "fat_g": 3.4,
+   "carbs_g": 41,
+   "fiber_g": 6,
+   "sugar_g": 4.3,
+   "sodium_mg": 450,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 60,
+  "serving_label": "2 slices"
+ },
+ {
+  "id": "beans_red_stewed",
+  "name": "Beans (red, stewed)",
+  "aliases": [
+   "red beans",
+   "haricot"
+  ],
+  "region": "Africa",
+  "category": "Legume",
+  "nutrition_per100g": {
+   "calories": 127,
+   "protein_g": 8.7,
+   "fat_g": 0.5,
+   "carbs_g": 22.8,
+   "fiber_g": 6.4,
+   "sugar_g": 0.3,
+   "sodium_mg": 240,
+   "micronutrients": {
+    "iron_mg": 2.9
+   }
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 cup"
+ },
+ {
+  "id": "black_eyed_peas_cooked",
+  "name": "Black-eyed peas (cooked)",
+  "aliases": [
+   "cowpeas",
+   "niebe"
+  ],
+  "region": "Africa",
+  "category": "Legume",
+  "nutrition_per100g": {
+   "calories": 116,
+   "protein_g": 7.7,
+   "fat_g": 0.5,
+   "carbs_g": 20.8,
+   "fiber_g": 6.5,
+   "sugar_g": 3.3,
+   "sodium_mg": 4,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 200,
+  "serving_label": "1 cup"
+ },
+ {
+  "id": "lentils_cooked",
+  "name": "Lentils (cooked)",
+  "aliases": [
+   "lentils"
+  ],
+  "region": "Global",
+  "category": "Legume",
+  "nutrition_per100g": {
+   "calories": 116,
+   "protein_g": 9,
+   "fat_g": 0.4,
+   "carbs_g": 20.1,
+   "fiber_g": 7.9,
+   "sugar_g": 1.8,
+   "sodium_mg": 2,
+   "micronutrients": {
+    "iron_mg": 3.3
+   }
+  },
+  "typical_serving_g": 200,
+  "serving_label": "1 cup"
+ },
+ {
+  "id": "groundnuts_roasted_peanuts",
+  "name": "Groundnuts (roasted peanuts)",
+  "aliases": [
+   "peanuts",
+   "arachide"
+  ],
+  "region": "Africa",
+  "category": "Nuts",
+  "nutrition_per100g": {
+   "calories": 585,
+   "protein_g": 24.4,
+   "fat_g": 49.7,
+   "carbs_g": 21.5,
+   "fiber_g": 8.4,
+   "sugar_g": 4.9,
+   "sodium_mg": 6,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 30,
+  "serving_label": "1 handful"
+ },
+ {
+  "id": "groundnut_paste",
+  "name": "Groundnut paste",
+  "aliases": [
+   "peanut butter",
+   "pâte d'arachide"
+  ],
+  "region": "Africa",
+  "category": "Nuts",
+  "nutrition_per100g": {
+   "calories": 588,
+   "protein_g": 25.1,
+   "fat_g": 50.4,
+   "carbs_g": 20,
+   "fiber_g": 6,
+   "sugar_g": 9.2,
+   "sodium_mg": 430,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 32,
+  "serving_label": "2 tbsp"
+ },
+ {
+  "id": "cashew_nuts",
+  "name": "Cashew nuts",
+  "aliases": [
+   "cashews"
+  ],
+  "region": "Global",
+  "category": "Nuts",
+  "nutrition_per100g": {
+   "calories": 553,
+   "protein_g": 18.2,
+   "fat_g": 43.9,
+   "carbs_g": 30.2,
+   "fiber_g": 3.3,
+   "sugar_g": 5.9,
+   "sodium_mg": 12,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 30,
+  "serving_label": "1 handful"
+ },
+ {
+  "id": "grilled_chicken_breast",
+  "name": "Grilled chicken breast",
+  "aliases": [
+   "chicken breast",
+   "poulet grillé"
+  ],
+  "region": "Global",
+  "category": "Protein",
+  "nutrition_per100g": {
+   "calories": 165,
+   "protein_g": 31,
+   "fat_g": 3.6,
+   "carbs_g": 0,
+   "fiber_g": 0,
+   "sugar_g": 0,
+   "sodium_mg": 74,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 breast"
+ },
+ {
+  "id": "chicken_thigh_roasted",
+  "name": "Chicken thigh (roasted)",
+  "aliases": [
+   "chicken thigh"
+  ],
+  "region": "Global",
+  "category": "Protein",
+  "nutrition_per100g": {
+   "calories": 209,
+   "protein_g": 26,
+   "fat_g": 10.9,
+   "carbs_g": 0,
+   "fiber_g": 0,
+   "sugar_g": 0,
+   "sodium_mg": 90,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 130,
+  "serving_label": "1 thigh"
+ },
+ {
+  "id": "beef_lean_stewed",
+  "name": "Beef (lean, stewed)",
+  "aliases": [
+   "beef",
+   "boeuf"
+  ],
+  "region": "Global",
+  "category": "Protein",
+  "nutrition_per100g": {
+   "calories": 217,
+   "protein_g": 26.1,
+   "fat_g": 11.8,
+   "carbs_g": 0,
+   "fiber_g": 0,
+   "sugar_g": 0,
+   "sodium_mg": 60,
+   "micronutrients": {
+    "iron_mg": 2.6
+   }
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 serving"
+ },
+ {
+  "id": "goat_meat_stewed",
+  "name": "Goat meat (stewed)",
+  "aliases": [
+   "goat",
+   "chèvre"
+  ],
+  "region": "Africa",
+  "category": "Protein",
+  "nutrition_per100g": {
+   "calories": 143,
+   "protein_g": 27.1,
+   "fat_g": 3,
+   "carbs_g": 0,
+   "fiber_g": 0,
+   "sugar_g": 0,
+   "sodium_mg": 82,
+   "micronutrients": {
+    "iron_mg": 3.7
+   }
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 serving"
+ },
+ {
+  "id": "mackerel_grilled",
+  "name": "Mackerel (grilled)",
+  "aliases": [
+   "mackerel",
+   "maquereau"
+  ],
+  "region": "Global",
+  "category": "Fish",
+  "nutrition_per100g": {
+   "calories": 262,
+   "protein_g": 23.9,
+   "fat_g": 17.8,
+   "carbs_g": 0,
+   "fiber_g": 0,
+   "sugar_g": 0,
+   "sodium_mg": 90,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 fillet"
+ },
+ {
+  "id": "tilapia_grilled",
+  "name": "Tilapia (grilled)",
+  "aliases": [
+   "tilapia",
+   "carpe"
+  ],
+  "region": "Global",
+  "category": "Fish",
+  "nutrition_per100g": {
+   "calories": 128,
+   "protein_g": 26.2,
+   "fat_g": 2.7,
+   "carbs_g": 0,
+   "fiber_g": 0,
+   "sugar_g": 0,
+   "sodium_mg": 56,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 fillet"
+ },
+ {
+  "id": "sardines_canned_in_oil",
+  "name": "Sardines (canned in oil)",
+  "aliases": [
+   "sardines"
+  ],
+  "region": "Global",
+  "category": "Fish",
+  "nutrition_per100g": {
+   "calories": 208,
+   "protein_g": 24.6,
+   "fat_g": 11.5,
+   "carbs_g": 0,
+   "fiber_g": 0,
+   "sugar_g": 0,
+   "sodium_mg": 505,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 90,
+  "serving_label": "1 tin"
+ },
+ {
+  "id": "smoked_fish",
+  "name": "Smoked fish",
+  "aliases": [
+   "poisson fumé",
+   "stockfish"
+  ],
+  "region": "Africa",
+  "category": "Fish",
+  "nutrition_per100g": {
+   "calories": 180,
+   "protein_g": 35.2,
+   "fat_g": 4.1,
+   "carbs_g": 0,
+   "fiber_g": 0,
+   "sugar_g": 0,
+   "sodium_mg": 620,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 80,
+  "serving_label": "1 piece"
+ },
+ {
+  "id": "eggs_boiled",
+  "name": "Eggs (boiled)",
+  "aliases": [
+   "egg",
+   "oeuf"
+  ],
+  "region": "Global",
+  "category": "Protein",
+  "nutrition_per100g": {
+   "calories": 155,
+   "protein_g": 12.6,
+   "fat_g": 10.6,
+   "carbs_g": 1.1,
+   "fiber_g": 0,
+   "sugar_g": 1.1,
+   "sodium_mg": 124,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 100,
+  "serving_label": "2 eggs"
+ },
+ {
+  "id": "fried_egg",
+  "name": "Fried egg",
+  "aliases": [
+   "oeuf au plat"
+  ],
+  "region": "Global",
+  "category": "Protein",
+  "nutrition_per100g": {
+   "calories": 196,
+   "protein_g": 13.6,
+   "fat_g": 14.8,
+   "carbs_g": 0.8,
+   "fiber_g": 0,
+   "sugar_g": 0.4,
+   "sodium_mg": 207,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 55,
+  "serving_label": "1 egg"
+ },
+ {
+  "id": "tofu",
+  "name": "Tofu",
+  "aliases": [
+   "tofu"
+  ],
+  "region": "Global",
+  "category": "Protein",
+  "nutrition_per100g": {
+   "calories": 76,
+   "protein_g": 8.1,
+   "fat_g": 4.8,
+   "carbs_g": 1.9,
+   "fiber_g": 0.3,
+   "sugar_g": 0.6,
+   "sodium_mg": 7,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 serving"
+ },
+ {
+  "id": "cassava_leaves_cooked",
+  "name": "Cassava leaves (cooked)",
+  "aliases": [
+   "feuilles de manioc",
+   "pondu",
+   "saka saka"
+  ],
+  "region": "Central Africa",
+  "category": "Vegetable",
+  "nutrition_per100g": {
+   "calories": 91,
+   "protein_g": 6.2,
+   "fat_g": 3.8,
+   "carbs_g": 8.4,
+   "fiber_g": 4.2,
+   "sugar_g": 1.1,
+   "sodium_mg": 240,
+   "micronutrients": {
+    "vitamin_a_ug": 480,
+    "iron_mg": 2.8
+   }
+  },
+  "typical_serving_g": 200,
+  "serving_label": "1 serving"
+ },
+ {
+  "id": "huckleberry_greens_njama_njama",
+  "name": "Huckleberry greens (njama njama)",
+  "aliases": [
+   "njama njama",
+   "huckleberry leaves"
+  ],
+  "region": "Cameroon",
+  "category": "Vegetable",
+  "nutrition_per100g": {
+   "calories": 68,
+   "protein_g": 4.4,
+   "fat_g": 3.2,
+   "carbs_g": 6.1,
+   "fiber_g": 3.4,
+   "sugar_g": 1.2,
+   "sodium_mg": 220,
+   "micronutrients": {
+    "vitamin_a_ug": 520
+   }
+  },
+  "typical_serving_g": 200,
+  "serving_label": "1 serving"
+ },
+ {
+  "id": "bitterleaf_washed_cooked",
+  "name": "Bitterleaf (washed, cooked)",
+  "aliases": [
+   "bitterleaf",
+   "vernonia"
+  ],
+  "region": "West/Central Africa",
+  "category": "Vegetable",
+  "nutrition_per100g": {
+   "calories": 52,
+   "protein_g": 4.2,
+   "fat_g": 1.1,
+   "carbs_g": 7.8,
+   "fiber_g": 3.9,
+   "sugar_g": 0.8,
+   "sodium_mg": 25,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 serving"
+ },
+ {
+  "id": "okra_steamed",
+  "name": "Okra (steamed)",
+  "aliases": [
+   "okra",
+   "gombo frais"
+  ],
+  "region": "Global",
+  "category": "Vegetable",
+  "nutrition_per100g": {
+   "calories": 33,
+   "protein_g": 1.9,
+   "fat_g": 0.2,
+   "carbs_g": 7.5,
+   "fiber_g": 3.2,
+   "sugar_g": 1.5,
+   "sodium_mg": 7,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 cup"
+ },
+ {
+  "id": "spinach_cooked",
+  "name": "Spinach (cooked)",
+  "aliases": [
+   "spinach",
+   "épinard"
+  ],
+  "region": "Global",
+  "category": "Vegetable",
+  "nutrition_per100g": {
+   "calories": 23,
+   "protein_g": 2.9,
+   "fat_g": 0.4,
+   "carbs_g": 3.6,
+   "fiber_g": 2.2,
+   "sugar_g": 0.4,
+   "sodium_mg": 79,
+   "micronutrients": {
+    "vitamin_a_ug": 469,
+    "iron_mg": 2.7
+   }
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 cup"
+ },
+ {
+  "id": "tomato_stew_base",
+  "name": "Tomato stew base",
+  "aliases": [
+   "tomato sauce",
+   "sauce tomate"
+  ],
+  "region": "Africa",
+  "category": "Sauce",
+  "nutrition_per100g": {
+   "calories": 89,
+   "protein_g": 1.8,
+   "fat_g": 6.4,
+   "carbs_g": 7.2,
+   "fiber_g": 1.6,
+   "sugar_g": 4.1,
+   "sodium_mg": 380,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 120,
+  "serving_label": "1 ladle"
+ },
+ {
+  "id": "avocado",
+  "name": "Avocado",
+  "aliases": [
+   "avocat"
+  ],
+  "region": "Global",
+  "category": "Fruit",
+  "nutrition_per100g": {
+   "calories": 160,
+   "protein_g": 2,
+   "fat_g": 14.7,
+   "carbs_g": 8.5,
+   "fiber_g": 6.7,
+   "sugar_g": 0.7,
+   "sodium_mg": 7,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 100,
+  "serving_label": "1/2 fruit"
+ },
+ {
+  "id": "banana",
+  "name": "Banana",
+  "aliases": [
+   "banane"
+  ],
+  "region": "Global",
+  "category": "Fruit",
+  "nutrition_per100g": {
+   "calories": 89,
+   "protein_g": 1.1,
+   "fat_g": 0.3,
+   "carbs_g": 22.8,
+   "fiber_g": 2.6,
+   "sugar_g": 12.2,
+   "sodium_mg": 1,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 120,
+  "serving_label": "1 medium"
+ },
+ {
+  "id": "mango",
+  "name": "Mango",
+  "aliases": [
+   "mangue"
+  ],
+  "region": "Global",
+  "category": "Fruit",
+  "nutrition_per100g": {
+   "calories": 60,
+   "protein_g": 0.8,
+   "fat_g": 0.4,
+   "carbs_g": 15,
+   "fiber_g": 1.6,
+   "sugar_g": 13.7,
+   "sodium_mg": 1,
+   "micronutrients": {
+    "vitamin_a_ug": 54
+   }
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 cup"
+ },
+ {
+  "id": "papaya_pawpaw",
+  "name": "Papaya (pawpaw)",
+  "aliases": [
+   "papaya",
+   "papaye"
+  ],
+  "region": "Global",
+  "category": "Fruit",
+  "nutrition_per100g": {
+   "calories": 43,
+   "protein_g": 0.5,
+   "fat_g": 0.3,
+   "carbs_g": 10.8,
+   "fiber_g": 1.7,
+   "sugar_g": 7.8,
+   "sodium_mg": 8,
+   "micronutrients": {
+    "vitamin_a_ug": 47
+   }
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 cup"
+ },
+ {
+  "id": "pineapple",
+  "name": "Pineapple",
+  "aliases": [
+   "ananas"
+  ],
+  "region": "Global",
+  "category": "Fruit",
+  "nutrition_per100g": {
+   "calories": 50,
+   "protein_g": 0.5,
+   "fat_g": 0.1,
+   "carbs_g": 13.1,
+   "fiber_g": 1.4,
+   "sugar_g": 9.9,
+   "sodium_mg": 1,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 cup"
+ },
+ {
+  "id": "orange",
+  "name": "Orange",
+  "aliases": [
+   "orange"
+  ],
+  "region": "Global",
+  "category": "Fruit",
+  "nutrition_per100g": {
+   "calories": 47,
+   "protein_g": 0.9,
+   "fat_g": 0.1,
+   "carbs_g": 11.8,
+   "fiber_g": 2.4,
+   "sugar_g": 9.4,
+   "sodium_mg": 0,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 130,
+  "serving_label": "1 medium"
+ },
+ {
+  "id": "watermelon",
+  "name": "Watermelon",
+  "aliases": [
+   "pastèque"
+  ],
+  "region": "Global",
+  "category": "Fruit",
+  "nutrition_per100g": {
+   "calories": 30,
+   "protein_g": 0.6,
+   "fat_g": 0.2,
+   "carbs_g": 7.6,
+   "fiber_g": 0.4,
+   "sugar_g": 6.2,
+   "sodium_mg": 1,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 200,
+  "serving_label": "1 slice"
+ },
+ {
+  "id": "apple",
+  "name": "Apple",
+  "aliases": [
+   "pomme"
+  ],
+  "region": "Global",
+  "category": "Fruit",
+  "nutrition_per100g": {
+   "calories": 52,
+   "protein_g": 0.3,
+   "fat_g": 0.2,
+   "carbs_g": 13.8,
+   "fiber_g": 2.4,
+   "sugar_g": 10.4,
+   "sodium_mg": 1,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 medium"
+ },
+ {
+  "id": "bissap_hibiscus_drink_sweetened",
+  "name": "Bissap (hibiscus drink, sweetened)",
+  "aliases": [
+   "bissap",
+   "zobo",
+   "foléré"
+  ],
+  "region": "West Africa",
+  "category": "Drink",
+  "nutrition_per100g": {
+   "calories": 38,
+   "protein_g": 0.1,
+   "fat_g": 0,
+   "carbs_g": 9.6,
+   "fiber_g": 0.1,
+   "sugar_g": 9.2,
+   "sodium_mg": 4,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 glass"
+ },
+ {
+  "id": "palm_wine",
+  "name": "Palm wine",
+  "aliases": [
+   "palm wine",
+   "matango",
+   "mimbo"
+  ],
+  "region": "Africa",
+  "category": "Drink",
+  "nutrition_per100g": {
+   "calories": 37,
+   "protein_g": 0.2,
+   "fat_g": 0,
+   "carbs_g": 7.2,
+   "fiber_g": 0,
+   "sugar_g": 6.8,
+   "sodium_mg": 4,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 300,
+  "serving_label": "1 glass"
+ },
+ {
+  "id": "soft_drink_cola",
+  "name": "Soft drink (cola)",
+  "aliases": [
+   "soda",
+   "coca"
+  ],
+  "region": "Global",
+  "category": "Drink",
+  "nutrition_per100g": {
+   "calories": 42,
+   "protein_g": 0,
+   "fat_g": 0,
+   "carbs_g": 10.6,
+   "fiber_g": 0,
+   "sugar_g": 10.6,
+   "sodium_mg": 4,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 330,
+  "serving_label": "1 can"
+ },
+ {
+  "id": "beer_lager",
+  "name": "Beer (lager)",
+  "aliases": [
+   "beer",
+   "bière",
+   "33 export"
+  ],
+  "region": "Global",
+  "category": "Drink",
+  "nutrition_per100g": {
+   "calories": 43,
+   "protein_g": 0.5,
+   "fat_g": 0,
+   "carbs_g": 3.6,
+   "fiber_g": 0,
+   "sugar_g": 0,
+   "sodium_mg": 4,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 500,
+  "serving_label": "1 bottle"
+ },
+ {
+  "id": "fresh_orange_juice",
+  "name": "Fresh orange juice",
+  "aliases": [
+   "orange juice",
+   "jus d'orange"
+  ],
+  "region": "Global",
+  "category": "Drink",
+  "nutrition_per100g": {
+   "calories": 45,
+   "protein_g": 0.7,
+   "fat_g": 0.2,
+   "carbs_g": 10.4,
+   "fiber_g": 0.2,
+   "sugar_g": 8.4,
+   "sodium_mg": 1,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 glass"
+ },
+ {
+  "id": "yoghurt_plain",
+  "name": "Yoghurt (plain)",
+  "aliases": [
+   "yaourt",
+   "yogurt"
+  ],
+  "region": "Global",
+  "category": "Dairy",
+  "nutrition_per100g": {
+   "calories": 61,
+   "protein_g": 3.5,
+   "fat_g": 3.3,
+   "carbs_g": 4.7,
+   "fiber_g": 0,
+   "sugar_g": 4.7,
+   "sodium_mg": 46,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 150,
+  "serving_label": "1 pot"
+ },
+ {
+  "id": "full_cream_milk",
+  "name": "Full-cream milk",
+  "aliases": [
+   "milk",
+   "lait"
+  ],
+  "region": "Global",
+  "category": "Dairy",
+  "nutrition_per100g": {
+   "calories": 61,
+   "protein_g": 3.2,
+   "fat_g": 3.3,
+   "carbs_g": 4.8,
+   "fiber_g": 0,
+   "sugar_g": 5.1,
+   "sodium_mg": 43,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 250,
+  "serving_label": "1 glass"
+ },
+ {
+  "id": "plantain_chips",
+  "name": "Plantain chips",
+  "aliases": [
+   "plantain chips",
+   "chips de plantain"
+  ],
+  "region": "Africa",
+  "category": "Snack",
+  "nutrition_per100g": {
+   "calories": 519,
+   "protein_g": 2.3,
+   "fat_g": 29.6,
+   "carbs_g": 60.2,
+   "fiber_g": 3.5,
+   "sugar_g": 5,
+   "sodium_mg": 202,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 40,
+  "serving_label": "1 pack"
+ },
+ {
+  "id": "boiled_groundnuts",
+  "name": "Boiled groundnuts",
+  "aliases": [
+   "boiled peanuts"
+  ],
+  "region": "Africa",
+  "category": "Snack",
+  "nutrition_per100g": {
+   "calories": 318,
+   "protein_g": 13.5,
+   "fat_g": 22,
+   "carbs_g": 20.6,
+   "fiber_g": 8.8,
+   "sugar_g": 3.1,
+   "sodium_mg": 320,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 60,
+  "serving_label": "1 cup"
+ },
+ {
+  "id": "meat_pie",
+  "name": "Meat pie",
+  "aliases": [
+   "meat pie"
+  ],
+  "region": "Africa",
+  "category": "Snack",
+  "nutrition_per100g": {
+   "calories": 290,
+   "protein_g": 8.4,
+   "fat_g": 16.2,
+   "carbs_g": 27.8,
+   "fiber_g": 1.3,
+   "sugar_g": 3.2,
+   "sodium_mg": 420,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 120,
+  "serving_label": "1 pie"
+ },
+ {
+  "id": "fried_dough_stick_croquette",
+  "name": "Fried dough stick (croquette)",
+  "aliases": [
+   "croquette",
+   "gateau"
+  ],
+  "region": "Cameroon",
+  "category": "Snack",
+  "nutrition_per100g": {
+   "calories": 380,
+   "protein_g": 6.2,
+   "fat_g": 16.4,
+   "carbs_g": 52.1,
+   "fiber_g": 1.5,
+   "sugar_g": 13.8,
+   "sodium_mg": 240,
+   "micronutrients": {}
+  },
+  "typical_serving_g": 50,
+  "serving_label": "2 pieces"
+ }
+]
