@@ -106,5 +106,15 @@ payload — one format everywhere, no mapping layer to drift.
   day aggregation and streak semantics (unscheduled days skip, unfinished
   today doesn't break).
 - **Widget**: core design-system widgets and onboarding inputs.
+- **Golden**: design-system widgets (StatTile, ProgressRing, EmptyState) in
+  light and dark, with the brand fonts loaded via `flutter_test_config.dart`.
+  Regenerate with `flutter test --update-goldens`; CI pins Flutter 3.32.5 so
+  goldens don't drift across engine versions.
 - **CI**: migrations + seed applied to a real Postgres with Supabase shims;
   edge functions typechecked with Deno.
+
+The community RPCs (`supabase/migrations/...community_rpcs.sql`) were
+validated the same way — applied to a shimmed Postgres and exercised with
+three users to confirm friend requests, group membership, challenge
+leaderboards, and that display names and private-group challenges stay
+hidden from unconnected users.

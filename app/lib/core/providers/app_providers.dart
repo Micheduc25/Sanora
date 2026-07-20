@@ -5,6 +5,7 @@ import '../../data/activity/activity_service.dart';
 import '../../data/ai/ai_service.dart';
 import '../../data/notifications/notification_service.dart';
 import '../../data/repositories/chat_repository.dart';
+import '../../data/repositories/community_repository.dart';
 import '../../data/repositories/food_repository.dart';
 import '../../data/repositories/habits_repository.dart';
 import '../../data/repositories/insights_repository.dart';
@@ -63,6 +64,10 @@ final chatRepositoryProvider = Provider(
 );
 
 final insightsRepositoryProvider = Provider((ref) => InsightsRepository());
+
+final communityRepositoryProvider = Provider(
+  (ref) => CommunityRepository(ref.watch(supabaseServiceProvider)),
+);
 
 final foodRepositoryProvider = Provider((ref) => FoodRepository());
 

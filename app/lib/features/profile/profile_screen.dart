@@ -172,6 +172,14 @@ class ProfileScreen extends ConsumerWidget {
                 ),
                 const Divider(indent: 16, endIndent: 16),
                 ListTile(
+                  leading: const Icon(Icons.groups_rounded),
+                  title: const Text('Community'),
+                  subtitle: const Text('Friends, groups & challenges'),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onTap: () => context.push('/community'),
+                ),
+                const Divider(indent: 16, endIndent: 16),
+                ListTile(
                   leading: const Icon(Icons.notifications_rounded),
                   title: const Text('Reminders'),
                   trailing: const Icon(Icons.chevron_right_rounded),

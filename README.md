@@ -51,6 +51,11 @@ uses AI to remove effort instead of adding numbers.
 - **Smart reminders** — water, movement, meals, medication, sleep and
   custom reminders as weekly local notifications.
 - **Reports** — weekly report with charts and a shareable PDF export.
+- **Community** — add friends by email, create private or public groups, and
+  run step/workout/habit/water challenges with a live leaderboard. Friend
+  and group data is served through `SECURITY DEFINER` RPCs that only reveal a
+  member's display name to people they're actually connected to, so the
+  owner-only RLS on `profiles` is never widened.
 - **Premium & metering** — AI calls are metered server-side (free daily
   allowance, unlimited for premium subscribers).
 

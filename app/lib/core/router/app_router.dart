@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../features/auth/auth_screen.dart';
 import '../../features/coach/coach_screen.dart';
+import '../../features/community/community_screen.dart';
 import '../../features/dashboard/dashboard_screen.dart';
 import '../../features/habits/habits_screen.dart';
 import '../../features/health/health_screen.dart';
@@ -80,6 +81,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/reports',
         builder: (context, state) => const ReportsScreen(),
+      ),
+      GoRoute(
+        path: '/community',
+        builder: (context, state) => const CommunityScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => AppShell(shell: shell),
