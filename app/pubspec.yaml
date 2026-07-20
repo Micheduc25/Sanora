@@ -37,7 +37,6 @@ dependencies:
   flutter_secure_storage: ^9.2.4
 
   # UI
-  google_fonts: ^6.2.1
   fl_chart: ^0.71.0
   lottie: ^3.3.1
   shimmer: ^3.0.0
@@ -85,3 +84,18 @@ flutter:
     - assets/images/
     - assets/lottie/
     - assets/data/
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/Manrope-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Manrope-ExtraBold.ttf
+          weight: 800
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
