@@ -23,12 +23,12 @@ class OnboardingScreen extends HookConsumerWidget {
     final theme = Theme.of(context);
 
     bool canContinue() => switch (page.value) {
-          1 => draft.sex != null,
-          3 => draft.activityLevel != null,
-          4 => draft.stressLevel != null,
-          7 => draft.goals.isNotEmpty,
-          _ => true,
-        };
+      1 => draft.sex != null,
+      3 => draft.activityLevel != null,
+      4 => draft.stressLevel != null,
+      7 => draft.goals.isNotEmpty,
+      _ => true,
+    };
 
     Future<void> next() async {
       if (page.value == _stepCount - 1) {
@@ -105,11 +105,13 @@ class OnboardingScreen extends HookConsumerWidget {
         padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
         child: FilledButton(
           onPressed: canContinue() ? next : null,
-          child: Text(page.value == 0
-              ? 'Get started'
-              : page.value == _stepCount - 1
-                  ? 'Create my health profile'
-                  : 'Continue'),
+          child: Text(
+            page.value == 0
+                ? 'Get started'
+                : page.value == _stepCount - 1
+                ? 'Create my health profile'
+                : 'Continue',
+          ),
         ),
       ),
     );
@@ -143,8 +145,9 @@ class _WelcomeStep extends StatelessWidget {
             'Bodi turns a few details about you into a personal health plan — '
             'and an AI coach that helps you eat better, move more and live longer.\n\n'
             'No calorie obsession. No shame. Just steady progress.',
-            style: theme.textTheme.bodyLarge
-                ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 20),
           Text(
@@ -279,8 +282,7 @@ class _LifestyleStep extends StatelessWidget {
         const FieldLabel('Occupation'),
         TextFormField(
           initialValue: draft.occupation,
-          decoration:
-              const InputDecoration(hintText: 'e.g. Software engineer'),
+          decoration: const InputDecoration(hintText: 'e.g. Software engineer'),
           onChanged: (v) => controller.update((d) => d.occupation = v),
         ),
         const FieldLabel('Country'),
@@ -300,8 +302,9 @@ class _LifestyleStep extends StatelessWidget {
             'On my feet all day',
             'Student schedule',
           ],
-          onChanged: (v) => controller
-              .update((d) => d.workSchedule = v.isEmpty ? '' : v.last),
+          onChanged: (v) => controller.update(
+            (d) => d.workSchedule = v.isEmpty ? '' : v.last,
+          ),
           hint: 'Describe your schedule…',
         ),
         const FieldLabel('How active is a normal week?'),
@@ -387,8 +390,7 @@ class _HealthStep extends StatelessWidget {
             'Ulcer',
             'Sickle cell',
           ],
-          onChanged: (v) =>
-              controller.update((d) => d.medicalConditions = v),
+          onChanged: (v) => controller.update((d) => d.medicalConditions = v),
         ),
         const FieldLabel('Current medications', optional: true),
         TagEditor(
@@ -517,8 +519,8 @@ class _GoalsStep extends StatelessWidget {
             final now = DateTime.now();
             final picked = await showDatePicker(
               context: context,
-              initialDate: draft.targetDate ??
-                  now.add(const Duration(days: 90)),
+              initialDate:
+                  draft.targetDate ?? now.add(const Duration(days: 90)),
               firstDate: now.add(const Duration(days: 14)),
               lastDate: now.add(const Duration(days: 730)),
             );

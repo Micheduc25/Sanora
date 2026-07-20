@@ -57,7 +57,9 @@ class CoachController extends Notifier<CoachState> {
       if (profile == null || health == null) {
         throw const ValidationFailure('Complete onboarding first.');
       }
-      final stream = ref.read(aiServiceProvider).coachReply(
+      final stream = ref
+          .read(aiServiceProvider)
+          .coachReply(
             messages: repo.recentForContext(),
             profile: profile,
             health: health,
@@ -66,7 +68,10 @@ class CoachController extends Notifier<CoachState> {
       await for (final delta in stream) {
         reply = reply.copyWith(content: reply.content + delta);
         state = state.copyWith(
-          messages: [...state.messages.sublist(0, state.messages.length - 1), reply],
+          messages: [
+            ...state.messages.sublist(0, state.messages.length - 1),
+            reply,
+          ],
         );
       }
       reply = reply.copyWith(pending: false);
@@ -81,7 +86,10 @@ class CoachController extends Notifier<CoachState> {
       );
     } finally {
       state = state.copyWith(
-        messages: [...state.messages.sublist(0, state.messages.length - 1), reply],
+        messages: [
+          ...state.messages.sublist(0, state.messages.length - 1),
+          reply,
+        ],
         streaming: false,
       );
     }
@@ -108,8 +116,7 @@ class CoachController extends Notifier<CoachState> {
           .toList(),
       'weight_kg': metrics.latest(MetricType.weight)?.value,
       'waist_cm': metrics.latest(MetricType.waist)?.value,
-      'habits_done':
-          due.where((h) => habits.isDoneForDay(h, today)).length,
+      'habits_done': due.where((h) => habits.isDoneForDay(h, today)).length,
       'habits_total': due.length,
     };
   }
@@ -120,8 +127,9 @@ class CoachController extends Notifier<CoachState> {
   }
 }
 
-final coachControllerProvider =
-    NotifierProvider<CoachController, CoachState>(CoachController.new);
+final coachControllerProvider = NotifierProvider<CoachController, CoachState>(
+  CoachController.new,
+);
 
 const coachSuggestions = [
   'Why am I gaining weight?',

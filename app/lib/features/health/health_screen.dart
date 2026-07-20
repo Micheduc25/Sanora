@@ -24,8 +24,7 @@ class HealthScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final today = DateTime.now();
 
-    Widget metricCard(MetricType type, Color color,
-        {bool additive = false}) {
+    Widget metricCard(MetricType type, Color color, {bool additive = false}) {
       final entries = metrics.byType(type).take(30).toList().reversed.toList();
       final latest = additive
           ? metrics.dayTotal(type, today)
@@ -51,8 +50,10 @@ class HealthScreen extends ConsumerWidget {
                   ? MetricSparkline(entries: entries, color: color)
                   : Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('Tap to log',
-                          style: theme.textTheme.labelSmall),
+                      child: Text(
+                        'Tap to log',
+                        style: theme.textTheme.labelSmall,
+                      ),
                     ),
             ),
           ],
@@ -99,8 +100,11 @@ class HealthScreen extends ConsumerWidget {
               metricCard(MetricType.energy, AppColors.calories),
             ],
           ),
-          SectionHeader('Habits',
-              action: 'Manage', onAction: () => context.push('/habits')),
+          SectionHeader(
+            'Habits',
+            action: 'Manage',
+            onAction: () => context.push('/habits'),
+          ),
           if (habits.isEmpty)
             BodiCard(
               onTap: () => context.push('/habits'),
@@ -109,8 +113,10 @@ class HealthScreen extends ConsumerWidget {
                   const Text('🌱', style: TextStyle(fontSize: 24)),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: Text('Start a habit — small beats perfect.',
-                        style: theme.textTheme.titleMedium),
+                    child: Text(
+                      'Start a habit — small beats perfect.',
+                      style: theme.textTheme.titleMedium,
+                    ),
                   ),
                   const Icon(Icons.chevron_right_rounded),
                 ],
@@ -160,8 +166,11 @@ class HealthScreen extends ConsumerWidget {
 }
 
 class MetricSparkline extends StatelessWidget {
-  const MetricSparkline(
-      {super.key, required this.entries, required this.color});
+  const MetricSparkline({
+    super.key,
+    required this.entries,
+    required this.color,
+  });
 
   final List<MetricEntry> entries;
   final Color color;

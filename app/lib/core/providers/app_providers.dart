@@ -18,10 +18,14 @@ import '../../data/sync/sync_service.dart';
 
 final supabaseServiceProvider = Provider((ref) => SupabaseService());
 
-final dioProvider = Provider((ref) => Dio(BaseOptions(
+final dioProvider = Provider(
+  (ref) => Dio(
+    BaseOptions(
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 60),
-    )));
+    ),
+  ),
+);
 
 final syncServiceProvider = Provider((ref) {
   final service = SyncService(ref.watch(supabaseServiceProvider));
@@ -33,30 +37,42 @@ final notificationServiceProvider = Provider((ref) => NotificationService());
 
 final activityServiceProvider = Provider((ref) => ActivityService());
 
-final aiServiceProvider = Provider((ref) =>
-    AiService(ref.watch(supabaseServiceProvider), ref.watch(dioProvider)));
+final aiServiceProvider = Provider(
+  (ref) =>
+      AiService(ref.watch(supabaseServiceProvider), ref.watch(dioProvider)),
+);
 
-final profileRepositoryProvider =
-    Provider((ref) => ProfileRepository(ref.watch(syncServiceProvider)));
+final profileRepositoryProvider = Provider(
+  (ref) => ProfileRepository(ref.watch(syncServiceProvider)),
+);
 
-final metricsRepositoryProvider =
-    Provider((ref) => MetricsRepository(ref.watch(syncServiceProvider)));
+final metricsRepositoryProvider = Provider(
+  (ref) => MetricsRepository(ref.watch(syncServiceProvider)),
+);
 
-final mealsRepositoryProvider =
-    Provider((ref) => MealsRepository(ref.watch(syncServiceProvider)));
+final mealsRepositoryProvider = Provider(
+  (ref) => MealsRepository(ref.watch(syncServiceProvider)),
+);
 
-final habitsRepositoryProvider =
-    Provider((ref) => HabitsRepository(ref.watch(syncServiceProvider)));
+final habitsRepositoryProvider = Provider(
+  (ref) => HabitsRepository(ref.watch(syncServiceProvider)),
+);
 
-final chatRepositoryProvider =
-    Provider((ref) => ChatRepository(ref.watch(syncServiceProvider)));
+final chatRepositoryProvider = Provider(
+  (ref) => ChatRepository(ref.watch(syncServiceProvider)),
+);
 
 final insightsRepositoryProvider = Provider((ref) => InsightsRepository());
 
 final foodRepositoryProvider = Provider((ref) => FoodRepository());
 
-final remindersRepositoryProvider = Provider((ref) => RemindersRepository(
-    ref.watch(syncServiceProvider), ref.watch(notificationServiceProvider)));
+final remindersRepositoryProvider = Provider(
+  (ref) => RemindersRepository(
+    ref.watch(syncServiceProvider),
+    ref.watch(notificationServiceProvider),
+  ),
+);
 
-final workoutsRepositoryProvider =
-    Provider((ref) => WorkoutsRepository(ref.watch(syncServiceProvider)));
+final workoutsRepositoryProvider = Provider(
+  (ref) => WorkoutsRepository(ref.watch(syncServiceProvider)),
+);

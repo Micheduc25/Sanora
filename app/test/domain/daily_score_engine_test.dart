@@ -9,33 +9,34 @@ DailyScoreInput input({
   double? sleepHours,
   int habitsCompleted = 0,
   int habitsTotal = 0,
-}) =>
-    DailyScoreInput(
-      steps: steps,
-      stepGoal: 10000,
-      waterMl: waterMl,
-      waterGoalMl: 2500,
-      proteinG: proteinG,
-      proteinGoalG: 120,
-      calories: calories,
-      calorieTarget: 2000,
-      sleepHours: sleepHours,
-      sleepGoalHours: 8,
-      habitsCompleted: habitsCompleted,
-      habitsTotal: habitsTotal,
-    );
+}) => DailyScoreInput(
+  steps: steps,
+  stepGoal: 10000,
+  waterMl: waterMl,
+  waterGoalMl: 2500,
+  proteinG: proteinG,
+  proteinGoalG: 120,
+  calories: calories,
+  calorieTarget: 2000,
+  sleepHours: sleepHours,
+  sleepGoalHours: 8,
+  habitsCompleted: habitsCompleted,
+  habitsTotal: habitsTotal,
+);
 
 void main() {
   test('a perfect day scores 100', () {
-    final score = DailyScoreEngine.compute(input(
-      steps: 10000,
-      waterMl: 2500,
-      proteinG: 120,
-      calories: 2000,
-      sleepHours: 8,
-      habitsCompleted: 3,
-      habitsTotal: 3,
-    ));
+    final score = DailyScoreEngine.compute(
+      input(
+        steps: 10000,
+        waterMl: 2500,
+        proteinG: 120,
+        calories: 2000,
+        sleepHours: 8,
+        habitsCompleted: 3,
+        habitsTotal: 3,
+      ),
+    );
     expect(score.total, 100);
   });
 
@@ -69,15 +70,17 @@ void main() {
   });
 
   test('total is always within 0–100', () {
-    final maxed = DailyScoreEngine.compute(input(
-      steps: 99999,
-      waterMl: 99999,
-      proteinG: 999,
-      calories: 2000,
-      sleepHours: 8,
-      habitsCompleted: 10,
-      habitsTotal: 3,
-    ));
+    final maxed = DailyScoreEngine.compute(
+      input(
+        steps: 99999,
+        waterMl: 99999,
+        proteinG: 999,
+        calories: 2000,
+        sleepHours: 8,
+        habitsCompleted: 10,
+        habitsTotal: 3,
+      ),
+    );
     expect(maxed.total, inInclusiveRange(0, 100));
   });
 }

@@ -33,8 +33,10 @@ abstract class Reminder with _$Reminder {
     required ReminderKind kind,
     required String title,
     @Default('') String body,
+
     /// "HH:mm" 24h local time.
     required String time,
+
     /// 1–7 = Mon–Sun. Empty means every day.
     @Default([]) List<int> weekdays,
     @Default(true) bool enabled,

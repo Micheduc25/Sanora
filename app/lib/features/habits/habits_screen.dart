@@ -38,7 +38,9 @@ class HabitsScreen extends ConsumerWidget {
                     padding: const EdgeInsets.only(bottom: 8),
                     child: BodiCard(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
                       onTap: () => ref
                           .read(habitsControllerProvider)
                           .create(name: name, emoji: emoji),
@@ -47,8 +49,11 @@ class HabitsScreen extends ConsumerWidget {
                           Text(emoji, style: const TextStyle(fontSize: 20)),
                           const SizedBox(width: 12),
                           Expanded(
-                              child: Text(name,
-                                  style: theme.textTheme.titleMedium)),
+                            child: Text(
+                              name,
+                              style: theme.textTheme.titleMedium,
+                            ),
+                          ),
                           const Icon(Icons.add_circle_outline_rounded),
                         ],
                       ),
@@ -64,7 +69,9 @@ class HabitsScreen extends ConsumerWidget {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: BodiCard(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 6),
+                        horizontal: 16,
+                        vertical: 6,
+                      ),
                       child: Dismissible(
                         key: ValueKey(habit.id),
                         direction: DismissDirection.endToStart,
@@ -72,8 +79,10 @@ class HabitsScreen extends ConsumerWidget {
                             ref.read(habitsControllerProvider).remove(habit),
                         background: Container(
                           alignment: Alignment.centerRight,
-                          child: Icon(Icons.delete_outline_rounded,
-                              color: theme.colorScheme.error),
+                          child: Icon(
+                            Icons.delete_outline_rounded,
+                            color: theme.colorScheme.error,
+                          ),
                         ),
                         child: HabitCheckRow(habit: habit),
                       ),
@@ -122,8 +131,9 @@ class _CreateHabitSheet extends HookConsumerWidget {
             controller: name,
             autofocus: true,
             textCapitalization: TextCapitalization.sentences,
-            decoration:
-                const InputDecoration(hintText: 'e.g. Walk after dinner'),
+            decoration: const InputDecoration(
+              hintText: 'e.g. Walk after dinner',
+            ),
           ),
           const SizedBox(height: 16),
           Wrap(
@@ -139,8 +149,7 @@ class _CreateHabitSheet extends HookConsumerWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Text('Days (empty = every day)',
-              style: theme.textTheme.labelMedium),
+          Text('Days (empty = every day)', style: theme.textTheme.labelMedium),
           const SizedBox(height: 8),
           Row(
             children: [
@@ -164,7 +173,9 @@ class _CreateHabitSheet extends HookConsumerWidget {
           FilledButton(
             onPressed: () async {
               if (name.text.trim().isEmpty) return;
-              await ref.read(habitsControllerProvider).create(
+              await ref
+                  .read(habitsControllerProvider)
+                  .create(
                     name: name.text.trim(),
                     emoji: emoji.value,
                     weekdays: weekdays.value..sort(),

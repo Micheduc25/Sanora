@@ -28,8 +28,7 @@ class ChatRepository {
     }
   }
 
-  Future<void> remove(String id) =>
-      LocalStore.delete(LocalStore.chatBox, id);
+  Future<void> remove(String id) => LocalStore.delete(LocalStore.chatBox, id);
 
   Future<void> clear() => LocalStore.box(LocalStore.chatBox).clear();
 }

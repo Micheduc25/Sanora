@@ -50,7 +50,9 @@ class DashboardData {
 /// Assembles everything the dashboard needs in one pass. Platform activity
 /// (steps, heart rate, sleep) merges with manual logs, taking the larger of
 /// the two step counts so users without a wearable still see progress.
-final dashboardProvider = FutureProvider.autoDispose<DashboardData?>((ref) async {
+final dashboardProvider = FutureProvider.autoDispose<DashboardData?>((
+  ref,
+) async {
   final health = ref.watch(healthProfileProvider);
   if (health == null) return null;
 
@@ -66,15 +68,15 @@ final dashboardProvider = FutureProvider.autoDispose<DashboardData?>((ref) async
   final steps = platformSteps > manualSteps ? platformSteps : manualSteps;
 
   final activeCalories = await activity.activeCaloriesToday();
-  final heartRate = await activity.latestHeartRate() ??
+  final heartRate =
+      await activity.latestHeartRate() ??
       metrics.latest(MetricType.heartRate)?.value;
 
   final sleepEntry = metrics
       .forDay(today)
       .where((m) => m.type == MetricType.sleep)
       .firstOrNull;
-  final sleepHours =
-      sleepEntry?.value ?? await activity.sleepHoursLastNight();
+  final sleepHours = sleepEntry?.value ?? await activity.sleepHoursLastNight();
 
   final todayNutrition = meals.dayNutrition(today);
   final waterMl = metrics.dayTotal(MetricType.water, today);
@@ -84,9 +86,11 @@ final dashboardProvider = FutureProvider.autoDispose<DashboardData?>((ref) async
   double? weightWeekDelta;
   if (weightNow != null) {
     final weekAgo = weights
-        .where((w) =>
-            today.difference(w.recordedAt).inDays >= 6 &&
-            today.difference(w.recordedAt).inDays <= 10)
+        .where(
+          (w) =>
+              today.difference(w.recordedAt).inDays >= 6 &&
+              today.difference(w.recordedAt).inDays <= 10,
+        )
         .firstOrNull;
     if (weekAgo != null) weightWeekDelta = weightNow - weekAgo.value;
   }
@@ -102,23 +106,26 @@ final dashboardProvider = FutureProvider.autoDispose<DashboardData?>((ref) async
   }
 
   final habitsDue = habits.activeForDay(today);
-  final habitsDone =
-      habitsDue.where((h) => habits.isDoneForDay(h, today)).length;
+  final habitsDone = habitsDue
+      .where((h) => habits.isDoneForDay(h, today))
+      .length;
 
-  final score = DailyScoreEngine.compute(DailyScoreInput(
-    steps: steps,
-    stepGoal: health.stepGoal,
-    waterMl: waterMl,
-    waterGoalMl: health.waterTargetMl,
-    proteinG: todayNutrition.proteinG,
-    proteinGoalG: health.proteinTargetG,
-    calories: todayNutrition.calories,
-    calorieTarget: health.calorieTarget,
-    sleepHours: sleepHours,
-    sleepGoalHours: health.sleepGoalHours,
-    habitsCompleted: habitsDone,
-    habitsTotal: habitsDue.length,
-  ));
+  final score = DailyScoreEngine.compute(
+    DailyScoreInput(
+      steps: steps,
+      stepGoal: health.stepGoal,
+      waterMl: waterMl,
+      waterGoalMl: health.waterTargetMl,
+      proteinG: todayNutrition.proteinG,
+      proteinGoalG: health.proteinTargetG,
+      calories: todayNutrition.calories,
+      calorieTarget: health.calorieTarget,
+      sleepHours: sleepHours,
+      sleepGoalHours: health.sleepGoalHours,
+      habitsCompleted: habitsDone,
+      habitsTotal: habitsDue.length,
+    ),
+  );
 
   final unread = insights.all().where((i) => !i.read).toList();
 
@@ -146,7 +153,7 @@ String greetingFor(DateTime now, String name) {
   final part = now.hour < 12
       ? 'Good morning'
       : now.hour < 18
-          ? 'Good afternoon'
-          : 'Good evening';
+      ? 'Good afternoon'
+      : 'Good evening';
   return name.isEmpty ? part : '$part, $name';
 }

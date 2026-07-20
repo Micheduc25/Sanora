@@ -30,14 +30,19 @@ class LogMealScreen extends HookConsumerWidget {
         }
       } on Failure catch (f) {
         if (context.mounted) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(f.message)));
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(f.message)));
         }
       } catch (_) {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
               content: Text(
-                  'Could not analyze that meal. Check your connection and try again.')));
+                'Could not analyze that meal. Check your connection and try again.',
+              ),
+            ),
+          );
         }
       } finally {
         analyzing.value = false;
@@ -55,17 +60,20 @@ class LogMealScreen extends HookConsumerWidget {
                 child: SegmentedButton<int>(
                   segments: const [
                     ButtonSegment(
-                        value: 0,
-                        icon: Icon(Icons.photo_camera_rounded),
-                        label: Text('Photo')),
+                      value: 0,
+                      icon: Icon(Icons.photo_camera_rounded),
+                      label: Text('Photo'),
+                    ),
                     ButtonSegment(
-                        value: 1,
-                        icon: Icon(Icons.edit_note_rounded),
-                        label: Text('Describe')),
+                      value: 1,
+                      icon: Icon(Icons.edit_note_rounded),
+                      label: Text('Describe'),
+                    ),
                     ButtonSegment(
-                        value: 2,
-                        icon: Icon(Icons.search_rounded),
-                        label: Text('Search')),
+                      value: 2,
+                      icon: Icon(Icons.search_rounded),
+                      label: Text('Search'),
+                    ),
                   ],
                   selected: {tab.value},
                   onSelectionChanged: (s) => tab.value = s.first,
@@ -74,13 +82,18 @@ class LogMealScreen extends HookConsumerWidget {
               Expanded(
                 child: switch (tab.value) {
                   0 => _PhotoTab(
-                      onPick: (file) => analyze(() => ref
-                          .read(mealsControllerProvider)
-                          .analyzePhoto(file))),
+                    onPick: (file) => analyze(
+                      () =>
+                          ref.read(mealsControllerProvider).analyzePhoto(file),
+                    ),
+                  ),
                   1 => _DescribeTab(
-                      onSubmit: (text) => analyze(() => ref
+                    onSubmit: (text) => analyze(
+                      () => ref
                           .read(mealsControllerProvider)
-                          .analyzeDescription(text))),
+                          .analyzeDescription(text),
+                    ),
+                  ),
                   _ => const _SearchTab(),
                 },
               ),
@@ -98,8 +111,10 @@ class LogMealScreen extends HookConsumerWidget {
                       children: [
                         const CircularProgressIndicator(),
                         const SizedBox(height: 18),
-                        Text('Reading your plate…',
-                            style: theme.textTheme.titleMedium),
+                        Text(
+                          'Reading your plate…',
+                          style: theme.textTheme.titleMedium,
+                        ),
                       ],
                     ),
                   ),
@@ -134,20 +149,23 @@ class _PhotoTab extends StatelessWidget {
       children: [
         Text(
           'Point your camera at the plate. Bodi recognizes African and international dishes and estimates portions.',
-          style: theme.textTheme.bodyLarge
-              ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+          style: theme.textTheme.bodyLarge?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
         ),
         const SizedBox(height: 20),
         BodiCard(
           onTap: () => _pick(ImageSource.camera),
           child: Row(
             children: [
-              Icon(Icons.photo_camera_rounded,
-                  color: theme.colorScheme.primary, size: 28),
+              Icon(
+                Icons.photo_camera_rounded,
+                color: theme.colorScheme.primary,
+                size: 28,
+              ),
               const SizedBox(width: 16),
               Expanded(
-                child: Text('Take a photo',
-                    style: theme.textTheme.titleMedium),
+                child: Text('Take a photo', style: theme.textTheme.titleMedium),
               ),
               const Icon(Icons.chevron_right_rounded),
             ],
@@ -158,12 +176,17 @@ class _PhotoTab extends StatelessWidget {
           onTap: () => _pick(ImageSource.gallery),
           child: Row(
             children: [
-              Icon(Icons.photo_library_rounded,
-                  color: theme.colorScheme.primary, size: 28),
+              Icon(
+                Icons.photo_library_rounded,
+                color: theme.colorScheme.primary,
+                size: 28,
+              ),
               const SizedBox(width: 16),
               Expanded(
-                child: Text('Choose from gallery',
-                    style: theme.textTheme.titleMedium),
+                child: Text(
+                  'Choose from gallery',
+                  style: theme.textTheme.titleMedium,
+                ),
               ),
               const Icon(Icons.chevron_right_rounded),
             ],
@@ -195,8 +218,11 @@ class _DescribeTab extends HookWidget {
       final available = await speech.initialize();
       if (!available) {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Voice input is not available on this device.')));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Voice input is not available on this device.'),
+            ),
+          );
         }
         return;
       }
@@ -214,8 +240,9 @@ class _DescribeTab extends HookWidget {
       children: [
         Text(
           'Say it like you would to a friend: "eru with water fufu and one roasted fish".',
-          style: theme.textTheme.bodyLarge
-              ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+          style: theme.textTheme.bodyLarge?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
         ),
         const SizedBox(height: 20),
         TextField(
@@ -306,8 +333,7 @@ class _FoodRow extends ConsumerWidget {
       ),
       trailing: const Icon(Icons.add_circle_outline_rounded),
       onTap: () {
-        final meal =
-            ref.read(mealsControllerProvider).draftFromFood(food);
+        final meal = ref.read(mealsControllerProvider).draftFromFood(food);
         showMealDetailSheet(context, meal, editable: true);
       },
     );

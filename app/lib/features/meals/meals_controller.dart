@@ -14,11 +14,13 @@ import '../dashboard/dashboard_controller.dart';
 import '../onboarding/onboarding_controller.dart';
 
 final mealsListProvider = Provider.autoDispose(
-    (ref) => ref.watch(mealsRepositoryProvider).all());
+  (ref) => ref.watch(mealsRepositoryProvider).all(),
+);
 
 final foodSearchProvider = FutureProvider.autoDispose
     .family<List<FoodItem>, String>(
-        (ref, query) => ref.watch(foodRepositoryProvider).search(query));
+      (ref, query) => ref.watch(foodRepositoryProvider).search(query),
+    );
 
 class MealsController {
   MealsController(this._ref);
@@ -51,15 +53,16 @@ class MealsController {
   /// [AiUnavailableFailure] otherwise so the UI can point to search instead.
   Future<Meal> analyzePhoto(File image) async {
     final profile = _ref.read(userProfileProvider);
-    if (profile == null) throw const ValidationFailure('Complete onboarding first.');
+    if (profile == null) {
+      throw const ValidationFailure('Complete onboarding first.');
+    }
     final bytes = await image.readAsBytes();
     if (bytes.length > 6 * 1024 * 1024) {
       throw const ValidationFailure('Photo is too large. Try again.');
     }
-    final meal = await _ref.read(aiServiceProvider).analyzeMeal(
-          imageBase64: base64Encode(bytes),
-          profile: profile,
-        );
+    final meal = await _ref
+        .read(aiServiceProvider)
+        .analyzeMeal(imageBase64: base64Encode(bytes), profile: profile);
     return meal.copyWith(
       id: const Uuid().v4(),
       source: MealSource.photo,
@@ -71,12 +74,13 @@ class MealsController {
   /// as the offline path.
   Future<Meal> analyzeDescription(String description) async {
     final profile = _ref.read(userProfileProvider);
-    if (profile == null) throw const ValidationFailure('Complete onboarding first.');
+    if (profile == null) {
+      throw const ValidationFailure('Complete onboarding first.');
+    }
     try {
-      final meal = await _ref.read(aiServiceProvider).analyzeMeal(
-            description: description,
-            profile: profile,
-          );
+      final meal = await _ref
+          .read(aiServiceProvider)
+          .analyzeMeal(description: description, profile: profile);
       return meal.copyWith(id: const Uuid().v4(), source: MealSource.text);
     } on AiUnavailableFailure {
       return _matchLocally(description);
@@ -95,18 +99,23 @@ class MealsController {
       final matches = await foods.search(word);
       if (matches.isEmpty) continue;
       final food = matches.first;
-      components.add(MealComponent(
-        name: food.name,
-        portionG: food.typicalServingG,
-        nutrition: food.nutritionPer100g.scale(food.typicalServingG / 100),
-      ));
+      components.add(
+        MealComponent(
+          name: food.name,
+          portionG: food.typicalServingG,
+          nutrition: food.nutritionPer100g.scale(food.typicalServingG / 100),
+        ),
+      );
     }
     if (components.isEmpty) {
       throw const ValidationFailure(
-          'Could not match that meal offline. Try the food search, or connect to use AI.');
+        'Could not match that meal offline. Try the food search, or connect to use AI.',
+      );
     }
-    final total =
-        components.fold(const Nutrition(), (sum, c) => sum + c.nutrition);
+    final total = components.fold(
+      const Nutrition(),
+      (sum, c) => sum + c.nutrition,
+    );
     return Meal(
       id: const Uuid().v4(),
       name: description.trim().capitalizeFirst(),

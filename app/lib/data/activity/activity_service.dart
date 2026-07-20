@@ -77,16 +77,21 @@ class ActivityService {
   Future<double?> sleepHoursLastNight() async {
     try {
       final now = DateTime.now();
-      final from = DateTime(now.year, now.month, now.day)
-          .subtract(const Duration(hours: 6));
+      final from = DateTime(
+        now.year,
+        now.month,
+        now.day,
+      ).subtract(const Duration(hours: 6));
       final points = await _health.getHealthDataFromTypes(
         types: [HealthDataType.SLEEP_ASLEEP],
         startTime: from,
         endTime: now,
       );
       if (points.isEmpty) return null;
-      final minutes = points.fold(0.0,
-          (sum, p) => sum + p.dateTo.difference(p.dateFrom).inMinutes);
+      final minutes = points.fold(
+        0.0,
+        (sum, p) => sum + p.dateTo.difference(p.dateFrom).inMinutes,
+      );
       return minutes / 60;
     } catch (_) {
       return null;

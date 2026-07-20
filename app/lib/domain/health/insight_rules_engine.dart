@@ -25,16 +25,22 @@ abstract final class InsightRulesEngine {
         .where((m) => today.difference(m.eatenAt.dateOnly).inDays < 7)
         .toList();
 
-    void add(String title, String body, InsightSeverity severity,
-        [String action = '']) {
-      insights.add(Insight(
-        id: const Uuid().v4(),
-        title: title,
-        body: body,
-        severity: severity,
-        action: action,
-        createdAt: now ?? DateTime.now(),
-      ));
+    void add(
+      String title,
+      String body,
+      InsightSeverity severity, [
+      String action = '',
+    ]) {
+      insights.add(
+        Insight(
+          id: const Uuid().v4(),
+          title: title,
+          body: body,
+          severity: severity,
+          action: action,
+          createdAt: now ?? DateTime.now(),
+        ),
+      );
     }
 
     _weightTrend(metrics, today, add);
@@ -49,14 +55,20 @@ abstract final class InsightRulesEngine {
     return insights;
   }
 
-  static void _weightTrend(List<MetricEntry> metrics, DateTime today,
-      void Function(String, String, InsightSeverity, [String]) add) {
-    final weights = metrics
-        .where((m) =>
-            m.type == MetricType.weight &&
-            today.difference(m.recordedAt.dateOnly).inDays <= 14)
-        .toList()
-      ..sort((a, b) => a.recordedAt.compareTo(b.recordedAt));
+  static void _weightTrend(
+    List<MetricEntry> metrics,
+    DateTime today,
+    void Function(String, String, InsightSeverity, [String]) add,
+  ) {
+    final weights =
+        metrics
+            .where(
+              (m) =>
+                  m.type == MetricType.weight &&
+                  today.difference(m.recordedAt.dateOnly).inDays <= 14,
+            )
+            .toList()
+          ..sort((a, b) => a.recordedAt.compareTo(b.recordedAt));
     if (weights.length < 3) return;
     final delta = weights.last.value - weights.first.value;
     final days = weights.last.recordedAt
@@ -80,8 +92,10 @@ abstract final class InsightRulesEngine {
     }
   }
 
-  static void _lateNightEating(List<Meal> weekMeals,
-      void Function(String, String, InsightSeverity, [String]) add) {
+  static void _lateNightEating(
+    List<Meal> weekMeals,
+    void Function(String, String, InsightSeverity, [String]) add,
+  ) {
     final late = weekMeals.where((m) => m.eatenAt.hour >= 22).length;
     if (late >= 3) {
       add(
@@ -93,8 +107,11 @@ abstract final class InsightRulesEngine {
     }
   }
 
-  static void _proteinGap(List<Meal> weekMeals, HealthProfile health,
-      void Function(String, String, InsightSeverity, [String]) add) {
+  static void _proteinGap(
+    List<Meal> weekMeals,
+    HealthProfile health,
+    void Function(String, String, InsightSeverity, [String]) add,
+  ) {
     if (weekMeals.isEmpty) return;
     final days = weekMeals.map((m) => m.eatenAt.dayKey).toSet().length;
     final avgProtein =
@@ -109,8 +126,10 @@ abstract final class InsightRulesEngine {
     }
   }
 
-  static void _sodiumLoad(List<Meal> weekMeals,
-      void Function(String, String, InsightSeverity, [String]) add) {
+  static void _sodiumLoad(
+    List<Meal> weekMeals,
+    void Function(String, String, InsightSeverity, [String]) add,
+  ) {
     if (weekMeals.isEmpty) return;
     final days = weekMeals.map((m) => m.eatenAt.dayKey).toSet().length;
     final avgSodium =
@@ -124,8 +143,10 @@ abstract final class InsightRulesEngine {
     }
   }
 
-  static void _sugarLoad(List<Meal> weekMeals,
-      void Function(String, String, InsightSeverity, [String]) add) {
+  static void _sugarLoad(
+    List<Meal> weekMeals,
+    void Function(String, String, InsightSeverity, [String]) add,
+  ) {
     if (weekMeals.isEmpty) return;
     final days = weekMeals.map((m) => m.eatenAt.dayKey).toSet().length;
     final avgSugar =
@@ -139,8 +160,11 @@ abstract final class InsightRulesEngine {
     }
   }
 
-  static void _weekendPattern(List<Meal> meals, DateTime today,
-      void Function(String, String, InsightSeverity, [String]) add) {
+  static void _weekendPattern(
+    List<Meal> meals,
+    DateTime today,
+    void Function(String, String, InsightSeverity, [String]) add,
+  ) {
     final recent = meals
         .where((m) => today.difference(m.eatenAt.dateOnly).inDays < 28)
         .toList();
@@ -169,12 +193,17 @@ abstract final class InsightRulesEngine {
     }
   }
 
-  static void _sleepPattern(List<MetricEntry> metrics, DateTime today,
-      void Function(String, String, InsightSeverity, [String]) add) {
+  static void _sleepPattern(
+    List<MetricEntry> metrics,
+    DateTime today,
+    void Function(String, String, InsightSeverity, [String]) add,
+  ) {
     final sleep = metrics
-        .where((m) =>
-            m.type == MetricType.sleep &&
-            today.difference(m.recordedAt.dateOnly).inDays < 7)
+        .where(
+          (m) =>
+              m.type == MetricType.sleep &&
+              today.difference(m.recordedAt.dateOnly).inDays < 7,
+        )
         .toList();
     if (sleep.length < 3) return;
     final avg = sleep.fold(0.0, (s, m) => s + m.value) / sleep.length;
@@ -194,13 +223,18 @@ abstract final class InsightRulesEngine {
     }
   }
 
-  static void _hydration(List<MetricEntry> metrics, HealthProfile health,
-      DateTime today,
-      void Function(String, String, InsightSeverity, [String]) add) {
+  static void _hydration(
+    List<MetricEntry> metrics,
+    HealthProfile health,
+    DateTime today,
+    void Function(String, String, InsightSeverity, [String]) add,
+  ) {
     final water = metrics
-        .where((m) =>
-            m.type == MetricType.water &&
-            today.difference(m.recordedAt.dateOnly).inDays < 7)
+        .where(
+          (m) =>
+              m.type == MetricType.water &&
+              today.difference(m.recordedAt.dateOnly).inDays < 7,
+        )
         .toList();
     if (water.isEmpty) return;
     final byDay = <String, double>{};

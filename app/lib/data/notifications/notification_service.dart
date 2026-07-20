@@ -18,11 +18,13 @@ class NotificationService {
     );
     await _plugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin
+        >()
         ?.requestNotificationsPermission();
     await _plugin
         .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
+          IOSFlutterLocalNotificationsPlugin
+        >()
         ?.requestPermissions(alert: true, badge: true, sound: true);
     _initialized = true;
   }
@@ -73,15 +75,15 @@ class NotificationService {
   }
 
   static String _defaultBody(ReminderKind kind) => switch (kind) {
-        ReminderKind.water => 'A glass now keeps energy up all afternoon.',
-        ReminderKind.stand => 'Two minutes of movement resets your body.',
-        ReminderKind.meal => 'Log it in seconds with a photo.',
-        ReminderKind.exercise => 'Your future self says thank you.',
-        ReminderKind.medication => 'Time for your medication.',
-        ReminderKind.sleep => 'Winding down now protects tomorrow.',
-        ReminderKind.walk => 'A short walk counts. Every step does.',
-        ReminderKind.custom => '',
-      };
+    ReminderKind.water => 'A glass now keeps energy up all afternoon.',
+    ReminderKind.stand => 'Two minutes of movement resets your body.',
+    ReminderKind.meal => 'Log it in seconds with a photo.',
+    ReminderKind.exercise => 'Your future self says thank you.',
+    ReminderKind.medication => 'Time for your medication.',
+    ReminderKind.sleep => 'Winding down now protects tomorrow.',
+    ReminderKind.walk => 'A short walk counts. Every step does.',
+    ReminderKind.custom => '',
+  };
 
   static int _notificationId(String reminderId, int weekday) =>
       (reminderId.hashCode & 0x7ffffff) * 10 + weekday;
@@ -89,7 +91,13 @@ class NotificationService {
   static tz.TZDateTime _nextInstanceOf(int weekday, int hour, int minute) {
     var scheduled = tz.TZDateTime.now(tz.local);
     scheduled = tz.TZDateTime(
-        tz.local, scheduled.year, scheduled.month, scheduled.day, hour, minute);
+      tz.local,
+      scheduled.year,
+      scheduled.month,
+      scheduled.day,
+      hour,
+      minute,
+    );
     while (scheduled.weekday != weekday ||
         scheduled.isBefore(tz.TZDateTime.now(tz.local))) {
       scheduled = scheduled.add(const Duration(days: 1));

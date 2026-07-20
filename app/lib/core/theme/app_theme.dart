@@ -36,8 +36,9 @@ abstract final class AppTheme {
       onError: Colors.white,
       surface: surface,
       onSurface: ink,
-      surfaceContainerHighest:
-          isDark ? AppColors.surfaceDarkRaised : AppColors.canvas,
+      surfaceContainerHighest: isDark
+          ? AppColors.surfaceDarkRaised
+          : AppColors.canvas,
       onSurfaceVariant: inkMuted,
       outline: line,
       outlineVariant: line,
@@ -62,8 +63,9 @@ abstract final class AppTheme {
         scrolledUnderElevation: 0,
         centerTitle: false,
         titleTextStyle: textTheme.headlineSmall,
-        systemOverlayStyle:
-            isDark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
+        systemOverlayStyle: isDark
+            ? SystemUiOverlayStyle.light
+            : SystemUiOverlayStyle.dark,
       ),
       cardTheme: CardThemeData(
         color: surface,
@@ -104,8 +106,10 @@ abstract final class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: surface,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 18,
+          vertical: 16,
+        ),
         hintStyle: textTheme.bodyLarge?.copyWith(color: inkMuted),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radiusM),
@@ -170,9 +174,8 @@ abstract final class AppTheme {
       switchTheme: SwitchThemeData(
         thumbColor: const WidgetStatePropertyAll(Colors.white),
         trackColor: WidgetStateProperty.resolveWith(
-          (states) => states.contains(WidgetState.selected)
-              ? AppColors.vital
-              : line,
+          (states) =>
+              states.contains(WidgetState.selected) ? AppColors.vital : line,
         ),
         trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
       ),

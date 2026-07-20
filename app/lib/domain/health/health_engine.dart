@@ -93,9 +93,11 @@ abstract final class HealthEngine {
   /// Sustainable deficit/surplus: −20% capped at −500 kcal for fat loss
   /// (never below a safe floor), +10% capped at +300 kcal for muscle gain.
   static double calorieTarget(UserProfile u, double tdee) {
-    final losing = u.goals.contains(GoalType.loseFat) ||
+    final losing =
+        u.goals.contains(GoalType.loseFat) ||
         (u.targetWeightKg != null && u.targetWeightKg! < u.weightKg - 1);
-    final gaining = !losing &&
+    final gaining =
+        !losing &&
         (u.goals.contains(GoalType.buildMuscle) ||
             (u.targetWeightKg != null && u.targetWeightKg! > u.weightKg + 1));
     if (losing) {
@@ -112,7 +114,8 @@ abstract final class HealthEngine {
   static double proteinTarget(UserProfile u) {
     final healthyMax = 24.9 * _heightM2(u.heightCm);
     final referenceKg = math.min(u.weightKg, healthyMax);
-    final recomposing = u.goals.contains(GoalType.loseFat) ||
+    final recomposing =
+        u.goals.contains(GoalType.loseFat) ||
         u.goals.contains(GoalType.buildMuscle);
     return referenceKg * (recomposing ? 1.8 : 1.2);
   }
@@ -198,8 +201,9 @@ abstract final class HealthEngine {
       'fatty liver',
     ];
     final diagnosed = u.medicalConditions
-        .where((c) =>
-            metabolicConditions.any((m) => c.toLowerCase().contains(m)))
+        .where(
+          (c) => metabolicConditions.any((m) => c.toLowerCase().contains(m)),
+        )
         .length;
     score -= math.min(diagnosed * 8, 20);
 

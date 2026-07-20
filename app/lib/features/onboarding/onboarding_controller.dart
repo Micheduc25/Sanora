@@ -111,8 +111,9 @@ class OnboardingController extends Notifier<OnboardingDraft> {
   /// Persists the profile and returns the freshly computed health profile.
   Future<HealthProfile> complete() async {
     final profile = state.toProfile();
-    final health =
-        await ref.read(profileRepositoryProvider).saveProfile(profile);
+    final health = await ref
+        .read(profileRepositoryProvider)
+        .saveProfile(profile);
     ref.invalidate(userProfileProvider);
     ref.invalidate(healthProfileProvider);
     return health;
@@ -121,10 +122,13 @@ class OnboardingController extends Notifier<OnboardingDraft> {
 
 final onboardingControllerProvider =
     NotifierProvider<OnboardingController, OnboardingDraft>(
-        OnboardingController.new);
+      OnboardingController.new,
+    );
 
 final userProfileProvider = Provider<UserProfile?>(
-    (ref) => ref.watch(profileRepositoryProvider).getProfile());
+  (ref) => ref.watch(profileRepositoryProvider).getProfile(),
+);
 
 final healthProfileProvider = Provider<HealthProfile?>(
-    (ref) => ref.watch(profileRepositoryProvider).getHealthProfile());
+  (ref) => ref.watch(profileRepositoryProvider).getHealthProfile(),
+);

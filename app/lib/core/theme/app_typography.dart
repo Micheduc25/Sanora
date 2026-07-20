@@ -54,8 +54,16 @@ abstract final class AppTypography {
         fontWeight: FontWeight.w600,
         color: ink,
       ),
-      bodyLarge: body.bodyLarge!.copyWith(fontSize: 16, height: 1.5, color: ink),
-      bodyMedium: body.bodyMedium!.copyWith(fontSize: 14, height: 1.5, color: ink),
+      bodyLarge: body.bodyLarge!.copyWith(
+        fontSize: 16,
+        height: 1.5,
+        color: ink,
+      ),
+      bodyMedium: body.bodyMedium!.copyWith(
+        fontSize: 14,
+        height: 1.5,
+        color: ink,
+      ),
       bodySmall: body.bodySmall!.copyWith(
         fontSize: 12,
         height: 1.4,

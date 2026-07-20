@@ -9,7 +9,8 @@ import '../../core/widgets/empty_state.dart';
 import '../../domain/models/reminder.dart';
 
 final remindersListProvider = Provider.autoDispose(
-    (ref) => ref.watch(remindersRepositoryProvider).all());
+  (ref) => ref.watch(remindersRepositoryProvider).all(),
+);
 
 class RemindersScreen extends ConsumerWidget {
   const RemindersScreen({super.key});
@@ -45,19 +46,24 @@ class RemindersScreen extends ConsumerWidget {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: BodiCard(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8),
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
                       child: Row(
                         children: [
-                          Text(reminder.kind.emoji,
-                              style: const TextStyle(fontSize: 22)),
+                          Text(
+                            reminder.kind.emoji,
+                            style: const TextStyle(fontSize: 22),
+                          ),
                           const SizedBox(width: 14),
                           Expanded(
                             child: Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(reminder.title,
-                                    style: theme.textTheme.titleMedium),
+                                Text(
+                                  reminder.title,
+                                  style: theme.textTheme.titleMedium,
+                                ),
                                 Text(
                                   '${reminder.time} · ${_daysLabel(reminder.weekdays)}',
                                   style: theme.textTheme.bodySmall,
@@ -70,15 +76,15 @@ class RemindersScreen extends ConsumerWidget {
                             onChanged: (enabled) async {
                               await ref
                                   .read(remindersRepositoryProvider)
-                                  .save(reminder.copyWith(
-                                      enabled: enabled));
+                                  .save(reminder.copyWith(enabled: enabled));
                               ref.invalidate(remindersListProvider);
                             },
                           ),
                           IconButton(
                             icon: const Icon(
-                                Icons.delete_outline_rounded,
-                                size: 20),
+                              Icons.delete_outline_rounded,
+                              size: 20,
+                            ),
                             onPressed: () async {
                               await ref
                                   .read(remindersRepositoryProvider)
@@ -142,8 +148,7 @@ class _CreateReminderSheet extends HookConsumerWidget {
           if (kind.value == ReminderKind.custom)
             TextField(
               controller: title,
-              decoration:
-                  const InputDecoration(hintText: 'Reminder title'),
+              decoration: const InputDecoration(hintText: 'Reminder title'),
             ),
           const SizedBox(height: 8),
           OutlinedButton.icon(
@@ -151,7 +156,9 @@ class _CreateReminderSheet extends HookConsumerWidget {
             label: Text(time.value.format(context)),
             onPressed: () async {
               final picked = await showTimePicker(
-                  context: context, initialTime: time.value);
+                context: context,
+                initialTime: time.value,
+              );
               if (picked != null) time.value = picked;
             },
           ),
@@ -161,7 +168,8 @@ class _CreateReminderSheet extends HookConsumerWidget {
               final reminder = Reminder(
                 id: const Uuid().v4(),
                 kind: kind.value,
-                title: kind.value == ReminderKind.custom &&
+                title:
+                    kind.value == ReminderKind.custom &&
                         title.text.trim().isNotEmpty
                     ? title.text.trim()
                     : kind.value.defaultTitle,

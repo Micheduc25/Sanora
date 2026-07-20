@@ -107,8 +107,7 @@ class DashboardScreen extends ConsumerWidget {
                       StatTile(
                         icon: Icons.water_drop_rounded,
                         color: AppColors.water,
-                        value:
-                            '${(d.waterMl / 1000).trimZeros()} L',
+                        value: '${(d.waterMl / 1000).trimZeros()} L',
                         label:
                             'of ${(d.health.waterTargetMl / 1000).trimZeros()} L water',
                         progress: d.waterMl / d.health.waterTargetMl,
@@ -160,8 +159,8 @@ class _ScoreCard extends StatelessWidget {
     final message = score.total >= 80
         ? 'Excellent day — keep it rolling.'
         : score.total >= 55
-            ? 'Solid progress. Small steps add up.'
-            : 'Every log makes today better. Start small.';
+        ? 'Solid progress. Small steps add up.'
+        : 'Every log makes today better. Start small.';
     return BodiCard(
       child: Row(
         children: [
@@ -182,17 +181,25 @@ class _ScoreCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Daily health score',
-                    style: theme.textTheme.titleLarge),
+                Text('Daily health score', style: theme.textTheme.titleLarge),
                 const SizedBox(height: 6),
                 Text(message, style: theme.textTheme.bodyMedium),
                 const SizedBox(height: 12),
-                _ScoreBar(label: 'Move', value: score.movement,
-                    color: AppColors.steps),
-                _ScoreBar(label: 'Eat', value: score.nutrition,
-                    color: AppColors.calories),
-                _ScoreBar(label: 'Sleep', value: score.sleep,
-                    color: AppColors.sleep),
+                _ScoreBar(
+                  label: 'Move',
+                  value: score.movement,
+                  color: AppColors.steps,
+                ),
+                _ScoreBar(
+                  label: 'Eat',
+                  value: score.nutrition,
+                  color: AppColors.calories,
+                ),
+                _ScoreBar(
+                  label: 'Sleep',
+                  value: score.sleep,
+                  color: AppColors.sleep,
+                ),
               ],
             ),
           ),
@@ -203,8 +210,11 @@ class _ScoreCard extends StatelessWidget {
 }
 
 class _ScoreBar extends StatelessWidget {
-  const _ScoreBar(
-      {required this.label, required this.value, required this.color});
+  const _ScoreBar({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
 
   final String label;
   final double value;
@@ -218,8 +228,9 @@ class _ScoreBar extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-              width: 44,
-              child: Text(label, style: theme.textTheme.labelSmall)),
+            width: 44,
+            child: Text(label, style: theme.textTheme.labelSmall),
+          ),
           Expanded(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(3),
@@ -247,8 +258,13 @@ class _BodyTrendCard extends StatelessWidget {
     final theme = Theme.of(context);
     final d = data;
 
-    Widget trend(String label, double? value, String unit, double? delta,
-        {bool downIsGood = true}) {
+    Widget trend(
+      String label,
+      double? value,
+      String unit,
+      double? delta, {
+      bool downIsGood = true,
+    }) {
       final deltaText = delta == null
           ? null
           : '${delta > 0 ? '+' : ''}${delta.trimZeros()} $unit';
@@ -259,13 +275,16 @@ class _BodyTrendCard extends StatelessWidget {
           children: [
             Text(label, style: theme.textTheme.labelMedium),
             const SizedBox(height: 4),
-            Text(value == null ? '—' : '${value.trimZeros()} $unit',
-                style: theme.textTheme.headlineSmall),
+            Text(
+              value == null ? '—' : '${value.trimZeros()} $unit',
+              style: theme.textTheme.headlineSmall,
+            ),
             if (deltaText != null)
               Text(
                 deltaText,
                 style: theme.textTheme.labelMedium?.copyWith(
-                    color: good ? AppColors.success : AppColors.warning),
+                  color: good ? AppColors.success : AppColors.warning,
+                ),
               ),
           ],
         ),
@@ -313,10 +332,12 @@ class _InsightCard extends StatelessWidget {
               children: [
                 Text(insight.title, style: theme.textTheme.titleMedium),
                 const SizedBox(height: 4),
-                Text(insight.body,
-                    style: theme.textTheme.bodyMedium,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis),
+                Text(
+                  insight.body,
+                  style: theme.textTheme.bodyMedium,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ],
             ),
           ),
@@ -342,8 +363,10 @@ class _HabitsCard extends ConsumerWidget {
             const Text('🌱', style: TextStyle(fontSize: 26)),
             const SizedBox(width: 14),
             Expanded(
-              child: Text('Build your first habit — small and repeatable.',
-                  style: theme.textTheme.titleMedium),
+              child: Text(
+                'Build your first habit — small and repeatable.',
+                style: theme.textTheme.titleMedium,
+              ),
             ),
             const Icon(Icons.chevron_right_rounded),
           ],
@@ -358,8 +381,10 @@ class _HabitsCard extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Habits', style: theme.textTheme.titleLarge),
-              Text('${data.habitsDone}/${data.habitsDue.length} done',
-                  style: theme.textTheme.labelMedium),
+              Text(
+                '${data.habitsDone}/${data.habitsDue.length} done',
+                style: theme.textTheme.labelMedium,
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -389,9 +414,11 @@ class _QuickActions extends StatelessWidget {
               children: [
                 Icon(icon, color: color),
                 const SizedBox(height: 8),
-                Text(label,
-                    style: theme.textTheme.labelMedium,
-                    textAlign: TextAlign.center),
+                Text(
+                  label,
+                  style: theme.textTheme.labelMedium,
+                  textAlign: TextAlign.center,
+                ),
               ],
             ),
           ),
@@ -399,17 +426,33 @@ class _QuickActions extends StatelessWidget {
 
     return Row(
       children: [
-        action(Icons.photo_camera_rounded, 'Log meal', '/meals/log',
-            AppColors.calories),
+        action(
+          Icons.photo_camera_rounded,
+          'Log meal',
+          '/meals/log',
+          AppColors.calories,
+        ),
         const SizedBox(width: 10),
-        action(Icons.fitness_center_rounded, 'Workout', '/workouts',
-            AppColors.vital),
+        action(
+          Icons.fitness_center_rounded,
+          'Workout',
+          '/workouts',
+          AppColors.vital,
+        ),
         const SizedBox(width: 10),
-        action(Icons.monitor_weight_rounded, 'Weigh in', '/health/log',
-            AppColors.ocean),
+        action(
+          Icons.monitor_weight_rounded,
+          'Weigh in',
+          '/health/log',
+          AppColors.ocean,
+        ),
         const SizedBox(width: 10),
-        action(Icons.description_rounded, 'Report', '/reports',
-            AppColors.lavender),
+        action(
+          Icons.description_rounded,
+          'Report',
+          '/reports',
+          AppColors.lavender,
+        ),
       ],
     );
   }

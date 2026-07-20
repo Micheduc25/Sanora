@@ -29,10 +29,14 @@ class AuthScreen extends HookConsumerWidget {
       try {
         if (isSignUp.value) {
           await client.auth.signUp(
-              email: email.text.trim(), password: password.text);
+            email: email.text.trim(),
+            password: password.text,
+          );
         } else {
           await client.auth.signInWithPassword(
-              email: email.text.trim(), password: password.text);
+            email: email.text.trim(),
+            password: password.text,
+          );
         }
         await ref.read(syncServiceProvider).flush();
         if (context.mounted) context.go('/');
@@ -57,8 +61,9 @@ class AuthScreen extends HookConsumerWidget {
           const SizedBox(height: 8),
           Text(
             'An account keeps your data safe across devices and unlocks the AI coach, meal recognition and insights.',
-            style: theme.textTheme.bodyLarge
-                ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 28),
           if (!AppConfig.hasSupabase)
@@ -93,9 +98,12 @@ class AuthScreen extends HookConsumerWidget {
             ),
             if (error.value != null) ...[
               const SizedBox(height: 12),
-              Text(error.value!,
-                  style: theme.textTheme.bodyMedium
-                      ?.copyWith(color: theme.colorScheme.error)),
+              Text(
+                error.value!,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.error,
+                ),
+              ),
             ],
             const SizedBox(height: 20),
             FilledButton(
@@ -105,14 +113,19 @@ class AuthScreen extends HookConsumerWidget {
                       width: 22,
                       height: 22,
                       child: CircularProgressIndicator(
-                          strokeWidth: 2.5, color: Colors.white))
+                        strokeWidth: 2.5,
+                        color: Colors.white,
+                      ),
+                    )
                   : Text(isSignUp.value ? 'Sign up' : 'Sign in'),
             ),
             TextButton(
               onPressed: () => isSignUp.value = !isSignUp.value,
-              child: Text(isSignUp.value
-                  ? 'I already have an account'
-                  : 'New here? Create an account'),
+              child: Text(
+                isSignUp.value
+                    ? 'I already have an account'
+                    : 'New here? Create an account',
+              ),
             ),
           ],
           const SizedBox(height: 8),

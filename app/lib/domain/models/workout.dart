@@ -34,5 +34,6 @@ abstract class Workout with _$Workout {
     required DateTime createdAt,
   }) = _Workout;
 
-  factory Workout.fromJson(Map<String, dynamic> json) => _$WorkoutFromJson(json);
+  factory Workout.fromJson(Map<String, dynamic> json) =>
+      _$WorkoutFromJson(json);
 }

@@ -11,19 +11,25 @@ import '../onboarding/onboarding_controller.dart';
 import 'workout_detail_screen.dart';
 
 final workoutsListProvider = Provider.autoDispose(
-    (ref) => ref.watch(workoutsRepositoryProvider).all());
+  (ref) => ref.watch(workoutsRepositoryProvider).all(),
+);
 
 class WorkoutsScreen extends ConsumerWidget {
   const WorkoutsScreen({super.key});
 
   Future<void> _generate(
-      BuildContext context, WidgetRef ref, WorkoutCategory category) async {
+    BuildContext context,
+    WidgetRef ref,
+    WorkoutCategory category,
+  ) async {
     final messenger = ScaffoldMessenger.of(context);
     final profile = ref.read(userProfileProvider);
     final health = ref.read(healthProfileProvider);
     if (profile == null || health == null) return;
     try {
-      final workout = await ref.read(aiServiceProvider).generateWorkout(
+      final workout = await ref
+          .read(aiServiceProvider)
+          .generateWorkout(
             category: category,
             durationMinutes: 20,
             profile: profile,
@@ -35,13 +41,19 @@ class WorkoutsScreen extends ConsumerWidget {
       final template = WorkoutsRepositoryTemplates.closest(category);
       await ref.read(workoutsRepositoryProvider).save(template);
       ref.invalidate(workoutsListProvider);
-      messenger.showSnackBar(const SnackBar(
+      messenger.showSnackBar(
+        const SnackBar(
           content: Text(
-              'Offline — added a coach-curated workout instead. Connect for a personalized one.')));
+            'Offline — added a coach-curated workout instead. Connect for a personalized one.',
+          ),
+        ),
+      );
     } catch (_) {
-      messenger.showSnackBar(const SnackBar(
-          content:
-              Text('Could not generate a workout. Please try again.')));
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text('Could not generate a workout. Please try again.'),
+        ),
+      );
     }
   }
 
@@ -67,16 +79,22 @@ class WorkoutsScreen extends ConsumerWidget {
                     padding: const EdgeInsets.only(right: 10),
                     child: BodiCard(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 18, vertical: 12),
+                        horizontal: 18,
+                        vertical: 12,
+                      ),
                       onTap: () => _generate(context, ref, category),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(category.emoji,
-                              style: const TextStyle(fontSize: 24)),
+                          Text(
+                            category.emoji,
+                            style: const TextStyle(fontSize: 24),
+                          ),
                           const SizedBox(height: 6),
-                          Text(category.label,
-                              style: theme.textTheme.labelMedium),
+                          Text(
+                            category.label,
+                            style: theme.textTheme.labelMedium,
+                          ),
                         ],
                       ),
                     ),
@@ -103,9 +121,10 @@ abstract final class WorkoutsRepositoryTemplates {
 
   static List<Workout> all() => _cache ??= WorkoutsRepository.templates();
 
-  static Workout closest(WorkoutCategory category) =>
-      all().firstWhere((w) => w.category == category,
-          orElse: () => all().first);
+  static Workout closest(WorkoutCategory category) => all().firstWhere(
+    (w) => w.category == category,
+    orElse: () => all().first,
+  );
 }
 
 class _WorkoutCard extends ConsumerWidget {
@@ -120,12 +139,14 @@ class _WorkoutCard extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: BodiCard(
-        onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => WorkoutDetailScreen(workout: workout))),
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => WorkoutDetailScreen(workout: workout),
+          ),
+        ),
         child: Row(
           children: [
-            Text(workout.category.emoji,
-                style: const TextStyle(fontSize: 28)),
+            Text(workout.category.emoji, style: const TextStyle(fontSize: 28)),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -140,8 +161,7 @@ class _WorkoutCard extends ConsumerWidget {
               ),
             ),
             if (workout.completed)
-              Icon(Icons.check_circle_rounded,
-                  color: theme.colorScheme.primary)
+              Icon(Icons.check_circle_rounded, color: theme.colorScheme.primary)
             else
               const Icon(Icons.chevron_right_rounded),
           ],

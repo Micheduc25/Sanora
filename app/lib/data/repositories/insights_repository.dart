@@ -16,6 +16,5 @@ class InsightsRepository {
     }
   }
 
-  Future<void> markRead(Insight insight) =>
-      save(insight.copyWith(read: true));
+  Future<void> markRead(Insight insight) => save(insight.copyWith(read: true));
 }

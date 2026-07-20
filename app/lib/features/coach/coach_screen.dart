@@ -71,7 +71,8 @@ class CoachScreen extends HookConsumerWidget {
                       maxLines: 4,
                       textCapitalization: TextCapitalization.sentences,
                       decoration: const InputDecoration(
-                          hintText: 'Ask your coach anything…'),
+                        hintText: 'Ask your coach anything…',
+                      ),
                       onSubmitted: (_) => send(),
                     ),
                   ),
@@ -108,13 +109,16 @@ class _EmptyCoach extends StatelessWidget {
         const SizedBox(height: 24),
         Text('🧠', style: theme.textTheme.displayMedium),
         const SizedBox(height: 16),
-        Text('Your coach knows your goals,\nmeals, sleep and progress.',
-            style: theme.textTheme.headlineSmall),
+        Text(
+          'Your coach knows your goals,\nmeals, sleep and progress.',
+          style: theme.textTheme.headlineSmall,
+        ),
         const SizedBox(height: 8),
         Text(
           'Ask anything about your body, your food, or your plan. Answers are personal — built from your own data.',
-          style: theme.textTheme.bodyMedium
-              ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
         ),
         const SizedBox(height: 24),
         Wrap(
@@ -148,27 +152,27 @@ class _Bubble extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width * 0.78),
+          maxWidth: MediaQuery.of(context).size.width * 0.78,
+        ),
         decoration: BoxDecoration(
-          color: isUser
-              ? theme.colorScheme.primary
-              : theme.colorScheme.surface,
+          color: isUser ? theme.colorScheme.primary : theme.colorScheme.surface,
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(AppTheme.radiusM),
             topRight: const Radius.circular(AppTheme.radiusM),
             bottomLeft: Radius.circular(isUser ? AppTheme.radiusM : 4),
             bottomRight: Radius.circular(isUser ? 4 : AppTheme.radiusM),
           ),
-          border: isUser
-              ? null
-              : Border.all(color: theme.colorScheme.outline),
+          border: isUser ? null : Border.all(color: theme.colorScheme.outline),
         ),
         child: message.pending && message.content.isEmpty
             ? SizedBox(
                 width: 36,
-                child: Text('…',
-                    style: theme.textTheme.titleLarge
-                        ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+                child: Text(
+                  '…',
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
               )
             : SelectableText(
                 message.content,

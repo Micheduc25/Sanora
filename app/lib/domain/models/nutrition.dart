@@ -22,28 +22,28 @@ abstract class Nutrition with _$Nutrition {
       _$NutritionFromJson(json);
 
   Nutrition operator +(Nutrition other) => Nutrition(
-        calories: calories + other.calories,
-        proteinG: proteinG + other.proteinG,
-        fatG: fatG + other.fatG,
-        carbsG: carbsG + other.carbsG,
-        fiberG: fiberG + other.fiberG,
-        sugarG: sugarG + other.sugarG,
-        sodiumMg: sodiumMg + other.sodiumMg,
-        micronutrients: {
-          ...micronutrients,
-          for (final e in other.micronutrients.entries)
-            e.key: (micronutrients[e.key] ?? 0) + e.value,
-        },
-      );
+    calories: calories + other.calories,
+    proteinG: proteinG + other.proteinG,
+    fatG: fatG + other.fatG,
+    carbsG: carbsG + other.carbsG,
+    fiberG: fiberG + other.fiberG,
+    sugarG: sugarG + other.sugarG,
+    sodiumMg: sodiumMg + other.sodiumMg,
+    micronutrients: {
+      ...micronutrients,
+      for (final e in other.micronutrients.entries)
+        e.key: (micronutrients[e.key] ?? 0) + e.value,
+    },
+  );
 
   Nutrition scale(double factor) => Nutrition(
-        calories: calories * factor,
-        proteinG: proteinG * factor,
-        fatG: fatG * factor,
-        carbsG: carbsG * factor,
-        fiberG: fiberG * factor,
-        sugarG: sugarG * factor,
-        sodiumMg: sodiumMg * factor,
-        micronutrients: micronutrients.map((k, v) => MapEntry(k, v * factor)),
-      );
+    calories: calories * factor,
+    proteinG: proteinG * factor,
+    fatG: fatG * factor,
+    carbsG: carbsG * factor,
+    fiberG: fiberG * factor,
+    sugarG: sugarG * factor,
+    sodiumMg: sodiumMg * factor,
+    micronutrients: micronutrients.map((k, v) => MapEntry(k, v * factor)),
+  );
 }

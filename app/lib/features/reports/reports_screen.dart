@@ -55,30 +55,34 @@ class ReportsScreen extends ConsumerWidget {
           Row(
             children: [
               _SummaryTile(
-                  label: 'Avg calories',
-                  value: '${report.avgCalories.round()}',
-                  unit: 'kcal/day'),
+                label: 'Avg calories',
+                value: '${report.avgCalories.round()}',
+                unit: 'kcal/day',
+              ),
               const SizedBox(width: 10),
               _SummaryTile(
-                  label: 'Avg protein',
-                  value: '${report.avgProtein.round()}',
-                  unit: 'g/day'),
+                label: 'Avg protein',
+                value: '${report.avgProtein.round()}',
+                unit: 'g/day',
+              ),
             ],
           ),
           const SizedBox(height: 10),
           Row(
             children: [
               _SummaryTile(
-                  label: 'Habits kept',
-                  value: '${report.habitsCompletionPct}',
-                  unit: '%'),
+                label: 'Habits kept',
+                value: '${report.habitsCompletionPct}',
+                unit: '%',
+              ),
               const SizedBox(width: 10),
               _SummaryTile(
-                  label: 'Weight change',
-                  value: report.weightDelta == null
-                      ? '—'
-                      : '${report.weightDelta! >= 0 ? '+' : ''}${report.weightDelta!.toStringAsFixed(1)}',
-                  unit: 'kg'),
+                label: 'Weight change',
+                value: report.weightDelta == null
+                    ? '—'
+                    : '${report.weightDelta! >= 0 ? '+' : ''}${report.weightDelta!.toStringAsFixed(1)}',
+                unit: 'kg',
+              ),
             ],
           ),
           SectionHeader('Calories eaten'),
@@ -104,8 +108,7 @@ class ReportsScreen extends ConsumerWidget {
                           return Padding(
                             padding: const EdgeInsets.only(top: 6),
                             child: Text(
-                              DateFormat('E')
-                                  .format(report.days[index].day)[0],
+                              DateFormat('E').format(report.days[index].day)[0],
                               style: theme.textTheme.labelSmall,
                             ),
                           );
@@ -116,23 +119,28 @@ class ReportsScreen extends ConsumerWidget {
                   barTouchData: BarTouchData(enabled: false),
                   barGroups: [
                     for (var i = 0; i < report.days.length; i++)
-                      BarChartGroupData(x: i, barRods: [
-                        BarChartRodData(
-                          toY: report.days[i].calories,
-                          width: 18,
-                          borderRadius: BorderRadius.circular(6),
-                          color: AppColors.calories,
-                        ),
-                      ]),
+                      BarChartGroupData(
+                        x: i,
+                        barRods: [
+                          BarChartRodData(
+                            toY: report.days[i].calories,
+                            width: 18,
+                            borderRadius: BorderRadius.circular(6),
+                            color: AppColors.calories,
+                          ),
+                        ],
+                      ),
                   ],
-                  extraLinesData: ExtraLinesData(horizontalLines: [
-                    HorizontalLine(
-                      y: report.health.calorieTarget,
-                      color: theme.colorScheme.onSurfaceVariant,
-                      strokeWidth: 1,
-                      dashArray: [6, 4],
-                    ),
-                  ]),
+                  extraLinesData: ExtraLinesData(
+                    horizontalLines: [
+                      HorizontalLine(
+                        y: report.health.calorieTarget,
+                        color: theme.colorScheme.onSurfaceVariant,
+                        strokeWidth: 1,
+                        dashArray: [6, 4],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -149,14 +157,17 @@ class ReportsScreen extends ConsumerWidget {
                   barTouchData: BarTouchData(enabled: false),
                   barGroups: [
                     for (var i = 0; i < report.days.length; i++)
-                      BarChartGroupData(x: i, barRods: [
-                        BarChartRodData(
-                          toY: report.days[i].steps.toDouble(),
-                          width: 18,
-                          borderRadius: BorderRadius.circular(6),
-                          color: AppColors.steps,
-                        ),
-                      ]),
+                      BarChartGroupData(
+                        x: i,
+                        barRods: [
+                          BarChartRodData(
+                            toY: report.days[i].steps.toDouble(),
+                            width: 18,
+                            borderRadius: BorderRadius.circular(6),
+                            color: AppColors.steps,
+                          ),
+                        ],
+                      ),
                   ],
                 ),
               ),
@@ -167,19 +178,23 @@ class ReportsScreen extends ConsumerWidget {
             child: Column(
               children: [
                 _GlanceRow(
-                    label: 'Meals logged', value: '${report.mealsLogged}'),
+                  label: 'Meals logged',
+                  value: '${report.mealsLogged}',
+                ),
                 _GlanceRow(
-                    label: 'Workouts completed',
-                    value: '${report.workoutsCompleted}'),
+                  label: 'Workouts completed',
+                  value: '${report.workoutsCompleted}',
+                ),
                 _GlanceRow(
-                    label: 'Avg water',
-                    value:
-                        '${(report.avgWater / 1000).trimZeros()} L / day'),
+                  label: 'Avg water',
+                  value: '${(report.avgWater / 1000).trimZeros()} L / day',
+                ),
                 _GlanceRow(
-                    label: 'Avg sleep',
-                    value: report.avgSleep == null
-                        ? '—'
-                        : '${report.avgSleep!.toStringAsFixed(1)} h'),
+                  label: 'Avg sleep',
+                  value: report.avgSleep == null
+                      ? '—'
+                      : '${report.avgSleep!.toStringAsFixed(1)} h',
+                ),
               ],
             ),
           ),
@@ -190,8 +205,11 @@ class ReportsScreen extends ConsumerWidget {
 }
 
 class _SummaryTile extends StatelessWidget {
-  const _SummaryTile(
-      {required this.label, required this.value, required this.unit});
+  const _SummaryTile({
+    required this.label,
+    required this.value,
+    required this.unit,
+  });
 
   final String label;
   final String value;

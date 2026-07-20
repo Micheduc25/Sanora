@@ -9,16 +9,18 @@ class MealsRepository {
 
   final SyncService _sync;
 
-  List<Meal> all() => LocalStore.readAll(LocalStore.mealsBox, Meal.fromJson)
-    ..sort((a, b) => b.eatenAt.compareTo(a.eatenAt));
+  List<Meal> all() =>
+      LocalStore.readAll(LocalStore.mealsBox, Meal.fromJson)
+        ..sort((a, b) => b.eatenAt.compareTo(a.eatenAt));
 
   List<Meal> forDay(DateTime day) =>
       all().where((m) => m.eatenAt.isSameDay(day)).toList();
 
   List<Meal> favorites() => all().where((m) => m.isFavorite).toList();
 
-  Nutrition dayNutrition(DateTime day) => forDay(day)
-      .fold(const Nutrition(), (total, meal) => total + meal.nutrition);
+  Nutrition dayNutrition(DateTime day) => forDay(
+    day,
+  ).fold(const Nutrition(), (total, meal) => total + meal.nutrition);
 
   Future<void> save(Meal meal) async {
     await LocalStore.put(LocalStore.mealsBox, meal.id, meal.toJson());

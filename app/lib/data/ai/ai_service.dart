@@ -61,7 +61,9 @@ class AiService {
     if (stream == null) throw const ServerFailure();
 
     var buffer = '';
-    await for (final chunk in stream.stream.cast<List<int>>().transform(utf8.decoder)) {
+    await for (final chunk in stream.stream.cast<List<int>>().transform(
+      utf8.decoder,
+    )) {
       buffer += chunk;
       while (true) {
         final split = buffer.indexOf('\n\n');
@@ -112,9 +114,9 @@ class AiService {
         .toList();
     final nutrition = components.isEmpty
         ? Nutrition.fromJson(
-            (data['nutrition'] as Map<String, dynamic>?) ?? const {})
-        : components.fold(
-            const Nutrition(), (total, c) => total + c.nutrition);
+            (data['nutrition'] as Map<String, dynamic>?) ?? const {},
+          )
+        : components.fold(const Nutrition(), (total, c) => total + c.nutrition);
     return Meal(
       id: data['id'] as String? ?? '',
       name: data['name'] as String? ?? 'Meal',
@@ -176,7 +178,7 @@ class AiService {
 
 extension MealTypeParsing on MealType {
   static MealType parse(String? value) => MealType.values.firstWhere(
-        (t) => t.name == value,
-        orElse: () => MealType.forTime(DateTime.now()),
-      );
+    (t) => t.name == value,
+    orElse: () => MealType.forTime(DateTime.now()),
+  );
 }

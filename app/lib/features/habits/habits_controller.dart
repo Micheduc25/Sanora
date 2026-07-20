@@ -7,7 +7,8 @@ import '../../domain/models/habit.dart';
 import '../dashboard/dashboard_controller.dart';
 
 final habitsListProvider = Provider.autoDispose<List<Habit>>(
-    (ref) => ref.watch(habitsRepositoryProvider).all());
+  (ref) => ref.watch(habitsRepositoryProvider).all(),
+);
 
 class HabitsController {
   HabitsController(this._ref);
@@ -37,14 +38,16 @@ class HabitsController {
     String? reminderTime,
   }) async {
     final repo = _ref.read(habitsRepositoryProvider);
-    await repo.save(Habit(
-      id: const Uuid().v4(),
-      name: name,
-      emoji: emoji,
-      scheduledWeekdays: weekdays,
-      reminderTime: reminderTime,
-      createdAt: DateTime.now(),
-    ));
+    await repo.save(
+      Habit(
+        id: const Uuid().v4(),
+        name: name,
+        emoji: emoji,
+        scheduledWeekdays: weekdays,
+        reminderTime: reminderTime,
+        createdAt: DateTime.now(),
+      ),
+    );
     _refresh();
   }
 
@@ -85,8 +88,7 @@ class HabitCheckRow extends ConsumerWidget {
 
     return InkWell(
       borderRadius: BorderRadius.circular(12),
-      onTap: () =>
-          ref.read(habitsControllerProvider).toggleToday(habit),
+      onTap: () => ref.read(habitsControllerProvider).toggleToday(habit),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
@@ -112,9 +114,7 @@ class HabitCheckRow extends ConsumerWidget {
               height: 26,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: done
-                    ? theme.colorScheme.primary
-                    : Colors.transparent,
+                color: done ? theme.colorScheme.primary : Colors.transparent,
                 border: Border.all(
                   color: done
                       ? theme.colorScheme.primary
@@ -123,8 +123,11 @@ class HabitCheckRow extends ConsumerWidget {
                 ),
               ),
               child: done
-                  ? const Icon(Icons.check_rounded,
-                      size: 16, color: Colors.white)
+                  ? const Icon(
+                      Icons.check_rounded,
+                      size: 16,
+                      color: Colors.white,
+                    )
                   : null,
             ),
           ],

@@ -1,0 +1,36 @@
+project_id = "bodi"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 15
+
+[auth]
+enabled = true
+site_url = "bodi://auth-callback"
+enable_signup = true
+
+[auth.email]
+enable_signup = true
+enable_confirmations = false
+
+[storage]
+enabled = true
+file_size_limit = "10MiB"
+
+[functions.ai-coach]
+verify_jwt = true
+
+[functions.meal-analyze]
+verify_jwt = true
+
+[functions.generate-workout]
+verify_jwt = true
+
+[functions.generate-insights]
+verify_jwt = true

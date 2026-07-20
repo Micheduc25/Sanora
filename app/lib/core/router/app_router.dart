@@ -48,8 +48,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(path: '/auth', builder: (context, state) => const AuthScreen()),
       GoRoute(
-          path: '/meals/log',
-          builder: (context, state) => const LogMealScreen()),
+        path: '/meals/log',
+        builder: (context, state) => const LogMealScreen(),
+      ),
       GoRoute(
         path: '/health/log',
         builder: (context, state) {
@@ -61,48 +62,68 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
-          path: '/habits',
-          builder: (context, state) => const HabitsScreen()),
+        path: '/habits',
+        builder: (context, state) => const HabitsScreen(),
+      ),
       GoRoute(
-          path: '/insights',
-          builder: (context, state) => const InsightsScreen()),
+        path: '/insights',
+        builder: (context, state) => const InsightsScreen(),
+      ),
       GoRoute(
-          path: '/workouts',
-          builder: (context, state) => const WorkoutsScreen()),
+        path: '/workouts',
+        builder: (context, state) => const WorkoutsScreen(),
+      ),
       GoRoute(
-          path: '/reminders',
-          builder: (context, state) => const RemindersScreen()),
+        path: '/reminders',
+        builder: (context, state) => const RemindersScreen(),
+      ),
       GoRoute(
-          path: '/reports',
-          builder: (context, state) => const ReportsScreen()),
+        path: '/reports',
+        builder: (context, state) => const ReportsScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => AppShell(shell: shell),
         branches: [
-          StatefulShellBranch(routes: [
-            GoRoute(
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
                 path: '/',
-                builder: (context, state) => const DashboardScreen()),
-          ]),
-          StatefulShellBranch(routes: [
-            GoRoute(
+                builder: (context, state) => const DashboardScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
                 path: '/meals',
-                builder: (context, state) => const MealsScreen()),
-          ]),
-          StatefulShellBranch(routes: [
-            GoRoute(
+                builder: (context, state) => const MealsScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
                 path: '/coach',
-                builder: (context, state) => const CoachScreen()),
-          ]),
-          StatefulShellBranch(routes: [
-            GoRoute(
+                builder: (context, state) => const CoachScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
                 path: '/health',
-                builder: (context, state) => const HealthScreen()),
-          ]),
-          StatefulShellBranch(routes: [
-            GoRoute(
+                builder: (context, state) => const HealthScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
                 path: '/you',
-                builder: (context, state) => const ProfileScreen()),
-          ]),
+                builder: (context, state) => const ProfileScreen(),
+              ),
+            ],
+          ),
         ],
       ),
     ],
@@ -120,10 +141,8 @@ class AppShell extends StatelessWidget {
       body: shell,
       bottomNavigationBar: NavigationBar(
         selectedIndex: shell.currentIndex,
-        onDestinationSelected: (index) => shell.goBranch(
-          index,
-          initialLocation: index == shell.currentIndex,
-        ),
+        onDestinationSelected: (index) =>
+            shell.goBranch(index, initialLocation: index == shell.currentIndex),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.space_dashboard_outlined),

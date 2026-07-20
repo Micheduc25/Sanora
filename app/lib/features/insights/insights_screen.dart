@@ -11,7 +11,8 @@ import '../dashboard/dashboard_controller.dart';
 import '../onboarding/onboarding_controller.dart';
 
 final insightsListProvider = Provider.autoDispose(
-    (ref) => ref.watch(insightsRepositoryProvider).all());
+  (ref) => ref.watch(insightsRepositoryProvider).all(),
+);
 
 class InsightsScreen extends ConsumerWidget {
   const InsightsScreen({super.key});
@@ -63,29 +64,27 @@ class InsightsScreen extends ConsumerWidget {
                 final insight = insights[index];
                 final (color, icon) = switch (insight.severity) {
                   InsightSeverity.celebrate => (
-                      AppColors.success,
-                      Icons.celebration_rounded
-                    ),
+                    AppColors.success,
+                    Icons.celebration_rounded,
+                  ),
                   InsightSeverity.info => (
-                      AppColors.ocean,
-                      Icons.lightbulb_rounded
-                    ),
+                    AppColors.ocean,
+                    Icons.lightbulb_rounded,
+                  ),
                   InsightSeverity.nudge => (
-                      AppColors.sun,
-                      Icons.tips_and_updates_rounded
-                    ),
+                    AppColors.sun,
+                    Icons.tips_and_updates_rounded,
+                  ),
                   InsightSeverity.warning => (
-                      AppColors.coral,
-                      Icons.priority_high_rounded
-                    ),
+                    AppColors.coral,
+                    Icons.priority_high_rounded,
+                  ),
                 };
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: BodiCard(
                     onTap: () {
-                      ref
-                          .read(insightsRepositoryProvider)
-                          .markRead(insight);
+                      ref.read(insightsRepositoryProvider).markRead(insight);
                       ref.invalidate(insightsListProvider);
                     },
                     child: Row(
@@ -104,16 +103,23 @@ class InsightsScreen extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(insight.title,
-                                  style: theme.textTheme.titleMedium),
+                              Text(
+                                insight.title,
+                                style: theme.textTheme.titleMedium,
+                              ),
                               const SizedBox(height: 4),
-                              Text(insight.body,
-                                  style: theme.textTheme.bodyMedium),
+                              Text(
+                                insight.body,
+                                style: theme.textTheme.bodyMedium,
+                              ),
                               if (insight.action.isNotEmpty) ...[
                                 const SizedBox(height: 8),
-                                Text(insight.action,
-                                    style: theme.textTheme.labelLarge
-                                        ?.copyWith(color: color)),
+                                Text(
+                                  insight.action,
+                                  style: theme.textTheme.labelLarge?.copyWith(
+                                    color: color,
+                                  ),
+                                ),
                               ],
                             ],
                           ),

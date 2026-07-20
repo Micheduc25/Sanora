@@ -73,11 +73,10 @@ abstract final class DailyScoreEngine {
         ? 0.7
         : _closeness(i.sleepHours!, i.sleepGoalHours, tolerance: 0.2);
 
-    final habits = i.habitsTotal == 0
-        ? 0.7
-        : i.habitsCompleted / i.habitsTotal;
+    final habits = i.habitsTotal == 0 ? 0.7 : i.habitsCompleted / i.habitsTotal;
 
-    final total = movement * movementWeight +
+    final total =
+        movement * movementWeight +
         nutrition * nutritionWeight +
         hydration * hydrationWeight +
         sleep * sleepWeight +
@@ -98,8 +97,11 @@ abstract final class DailyScoreEngine {
 
   /// 1.0 at target, linearly fading to 0 once |value − target| exceeds
   /// tolerance × target on either side.
-  static double _closeness(double value, double target,
-      {required double tolerance}) {
+  static double _closeness(
+    double value,
+    double target, {
+    required double tolerance,
+  }) {
     if (target <= 0) return 0;
     final deviation = (value - target).abs() / target;
     return (1 - deviation / tolerance).clamp(0.0, 1.0);

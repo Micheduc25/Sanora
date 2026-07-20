@@ -52,9 +52,10 @@ class WorkoutDetailScreen extends ConsumerWidget {
                   ref.invalidate(workoutsListProvider);
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content:
-                                Text('Great work — workout logged. 💪')));
+                      const SnackBar(
+                        content: Text('Great work — workout logged. 💪'),
+                      ),
+                    );
                     Navigator.pop(context);
                   }
                 },
@@ -101,14 +102,16 @@ class _ExerciseCard extends StatelessWidget {
               CircleAvatar(
                 radius: 14,
                 backgroundColor: theme.colorScheme.primaryContainer,
-                child: Text('$index',
-                    style: theme.textTheme.labelMedium?.copyWith(
-                        color: theme.colorScheme.onPrimaryContainer)),
+                child: Text(
+                  '$index',
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: theme.colorScheme.onPrimaryContainer,
+                  ),
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child:
-                    Text(exercise.name, style: theme.textTheme.titleMedium),
+                child: Text(exercise.name, style: theme.textTheme.titleMedium),
               ),
             ],
           ),
@@ -118,8 +121,9 @@ class _ExerciseCard extends StatelessWidget {
           Text(
             '${exercise.sets} × ${exercise.repsOrDuration}'
             '${exercise.restSeconds > 0 ? ' · rest ${exercise.restSeconds}s' : ''}',
-            style: theme.textTheme.labelMedium
-                ?.copyWith(color: theme.colorScheme.primary),
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: theme.colorScheme.primary,
+            ),
           ),
         ],
       ),

@@ -10,6 +10,7 @@ abstract class Habit with _$Habit {
     required String name,
     @Default('✅') String emoji,
     @Default('') String description,
+
     /// 1–7 = Mon–Sun. Empty means every day.
     @Default([]) List<int> scheduledWeekdays,
     @Default(1) int dailyTarget,

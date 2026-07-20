@@ -15,7 +15,10 @@ class RemindersRepository {
 
   Future<void> save(Reminder reminder) async {
     await LocalStore.put(
-        LocalStore.remindersBox, reminder.id, reminder.toJson());
+      LocalStore.remindersBox,
+      reminder.id,
+      reminder.toJson(),
+    );
     await _notifications.schedule(reminder);
     await _sync.enqueue('reminders', 'upsert', reminder.toJson());
   }

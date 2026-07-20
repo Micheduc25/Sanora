@@ -38,8 +38,9 @@ class _GeneratingScreenState extends ConsumerState<GeneratingScreen> {
       if (!mounted) return;
       if (_stage < _stages.length - 1) setState(() => _stage++);
     });
-    final controllerFuture =
-        ref.read(onboardingControllerProvider.notifier).complete();
+    final controllerFuture = ref
+        .read(onboardingControllerProvider.notifier)
+        .complete();
     await Future.wait([
       controllerFuture,
       Future.delayed(const Duration(milliseconds: 3600)),
@@ -74,17 +75,20 @@ class _GeneratingScreenState extends ConsumerState<GeneratingScreen> {
                 ),
               ),
               const SizedBox(height: 36),
-              Text('Building your health profile',
-                  style: theme.textTheme.headlineSmall,
-                  textAlign: TextAlign.center),
+              Text(
+                'Building your health profile',
+                style: theme.textTheme.headlineSmall,
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 12),
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 child: Text(
                   _stages[_stage],
                   key: ValueKey(_stage),
-                  style: theme.textTheme.bodyLarge
-                      ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),

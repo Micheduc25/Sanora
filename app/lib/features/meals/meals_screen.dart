@@ -23,7 +23,9 @@ class MealsScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final todayMeals = meals.where((m) => m.eatenAt.isToday).toList();
     final todayTotal = todayMeals.fold(
-        const Nutrition(), (Nutrition sum, m) => sum + m.nutrition);
+      const Nutrition(),
+      (Nutrition sum, m) => sum + m.nutrition,
+    );
 
     final byDay = <String, List<Meal>>{};
     for (final meal in meals) {
@@ -67,23 +69,26 @@ class MealsScreen extends ConsumerWidget {
                         ),
                         const SizedBox(height: 14),
                         _MacroBar(
-                            label: 'Protein',
-                            value: todayTotal.proteinG,
-                            goal: health.proteinTargetG,
-                            unit: 'g',
-                            color: AppColors.protein),
+                          label: 'Protein',
+                          value: todayTotal.proteinG,
+                          goal: health.proteinTargetG,
+                          unit: 'g',
+                          color: AppColors.protein,
+                        ),
                         _MacroBar(
-                            label: 'Carbs',
-                            value: todayTotal.carbsG,
-                            goal: health.calorieTarget * 0.5 / 4,
-                            unit: 'g',
-                            color: AppColors.carbs),
+                          label: 'Carbs',
+                          value: todayTotal.carbsG,
+                          goal: health.calorieTarget * 0.5 / 4,
+                          unit: 'g',
+                          color: AppColors.carbs,
+                        ),
                         _MacroBar(
-                            label: 'Fat',
-                            value: todayTotal.fatG,
-                            goal: health.calorieTarget * 0.3 / 9,
-                            unit: 'g',
-                            color: AppColors.fat),
+                          label: 'Fat',
+                          value: todayTotal.fatG,
+                          goal: health.calorieTarget * 0.3 / 9,
+                          unit: 'g',
+                          color: AppColors.fat,
+                        ),
                       ],
                     ),
                   ),
@@ -121,8 +126,9 @@ class _MacroBar extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-              width: 60,
-              child: Text(label, style: theme.textTheme.labelMedium)),
+            width: 60,
+            child: Text(label, style: theme.textTheme.labelMedium),
+          ),
           Expanded(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(4),
@@ -135,8 +141,10 @@ class _MacroBar extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Text('${value.round()}/${goal.round()} $unit',
-              style: theme.textTheme.labelSmall),
+          Text(
+            '${value.round()}/${goal.round()} $unit',
+            style: theme.textTheme.labelSmall,
+          ),
         ],
       ),
     );
@@ -179,10 +187,12 @@ class _MealRow extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(meal.name,
-                      style: theme.textTheme.titleMedium,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis),
+                  Text(
+                    meal.name,
+                    style: theme.textTheme.titleMedium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   Text(
                     '${meal.type.label} · ${meal.eatenAt.timeLabel} · ${meal.nutrition.proteinG.round()}g protein',
                     style: theme.textTheme.bodySmall,
@@ -193,8 +203,10 @@ class _MealRow extends ConsumerWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text('${meal.nutrition.calories.round()}',
-                    style: theme.textTheme.titleMedium),
+                Text(
+                  '${meal.nutrition.calories.round()}',
+                  style: theme.textTheme.titleMedium,
+                ),
                 Text('kcal', style: theme.textTheme.labelSmall),
               ],
             ),

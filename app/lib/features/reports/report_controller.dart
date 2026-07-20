@@ -87,15 +87,17 @@ final weeklyReportProvider = Provider.autoDispose<WeeklyReport?>((ref) {
         .where((m) => m.type == MetricType.weight)
         .firstOrNull
         ?.value;
-    days.add(ReportDay(
-      day: day,
-      calories: nutrition.calories,
-      proteinG: nutrition.proteinG,
-      waterMl: metrics.dayTotal(MetricType.water, day),
-      steps: metrics.dayTotal(MetricType.steps, day).round(),
-      sleepHours: sleep,
-      weightKg: weight,
-    ));
+    days.add(
+      ReportDay(
+        day: day,
+        calories: nutrition.calories,
+        proteinG: nutrition.proteinG,
+        waterMl: metrics.dayTotal(MetricType.water, day),
+        steps: metrics.dayTotal(MetricType.steps, day).round(),
+        sleepHours: sleep,
+        weightKg: weight,
+      ),
+    );
   }
 
   var habitsDue = 0;
@@ -103,8 +105,7 @@ final weeklyReportProvider = Provider.autoDispose<WeeklyReport?>((ref) {
   for (final day in days) {
     final due = habits.activeForDay(day.day);
     habitsDue += due.length;
-    habitsDone +=
-        due.where((h) => habits.isDoneForDay(h, day.day)).length;
+    habitsDone += due.where((h) => habits.isDoneForDay(h, day.day)).length;
   }
 
   final weights = days.map((d) => d.weightKg).whereType<double>().toList();
@@ -114,14 +115,13 @@ final weeklyReportProvider = Provider.autoDispose<WeeklyReport?>((ref) {
     profile: profile,
     health: health,
     days: days,
-    habitsCompletionPct:
-        habitsDue == 0 ? 0 : (habitsDone / habitsDue * 100).round(),
+    habitsCompletionPct: habitsDue == 0
+        ? 0
+        : (habitsDone / habitsDue * 100).round(),
     workoutsCompleted: workouts
-        .completedBetween(
-            weekAgoStart, today.add(const Duration(days: 1)))
+        .completedBetween(weekAgoStart, today.add(const Duration(days: 1)))
         .length,
     weightDelta: weights.length >= 2 ? weights.last - weights.first : null,
-    mealsLogged:
-        days.fold(0, (sum, d) => sum + meals.forDay(d.day).length),
+    mealsLogged: days.fold(0, (sum, d) => sum + meals.forDay(d.day).length),
   );
 });

@@ -25,12 +25,10 @@ class LogMetricScreen extends HookConsumerWidget {
     final theme = Theme.of(context);
 
     final defaults = {
-      MetricType.weight:
-          ref.read(userProfileProvider)?.weightKg ?? 75.0,
+      MetricType.weight: ref.read(userProfileProvider)?.weightKg ?? 75.0,
       MetricType.waist: ref.read(userProfileProvider)?.waistCm ?? 85.0,
       MetricType.hip: ref.read(userProfileProvider)?.hipCm ?? 95.0,
-      MetricType.bodyFat:
-          ref.read(userProfileProvider)?.bodyFatPct ?? 25.0,
+      MetricType.bodyFat: ref.read(userProfileProvider)?.bodyFatPct ?? 25.0,
       MetricType.water: 250.0,
       MetricType.sleep: 7.0,
       MetricType.heartRate: 70.0,
@@ -63,8 +61,7 @@ class LogMetricScreen extends HookConsumerWidget {
       MetricType.bloodSugar => (40.0, 400.0, 1.0),
       MetricType.mood ||
       MetricType.stress ||
-      MetricType.energy =>
-        (1.0, 5.0, 1.0),
+      MetricType.energy => (1.0, 5.0, 1.0),
       MetricType.steps => (0.0, 40000.0, 500.0),
       _ => (0.0, 100.0, 1.0),
     };
@@ -82,12 +79,10 @@ class LogMetricScreen extends HookConsumerWidget {
       final profile = ref.read(userProfileProvider);
       if (profile != null) {
         final updated = switch (type.value) {
-          MetricType.weight =>
-            profile.copyWith(weightKg: value.value),
+          MetricType.weight => profile.copyWith(weightKg: value.value),
           MetricType.waist => profile.copyWith(waistCm: value.value),
           MetricType.hip => profile.copyWith(hipCm: value.value),
-          MetricType.bodyFat =>
-            profile.copyWith(bodyFatPct: value.value),
+          MetricType.bodyFat => profile.copyWith(bodyFatPct: value.value),
           _ => null,
         };
         if (updated != null) {
@@ -105,8 +100,7 @@ class LogMetricScreen extends HookConsumerWidget {
     }
 
     final loggable = MetricType.values
-        .where((t) =>
-            t != MetricType.symptom && t != MetricType.medication)
+        .where((t) => t != MetricType.symptom && t != MetricType.medication)
         .toList();
 
     return Scaffold(
@@ -136,12 +130,12 @@ class LogMetricScreen extends HookConsumerWidget {
               children: [
                 Text(
                   value.value.trimZeros(step < 1 ? 1 : 0),
-                  style: theme.textTheme.displayLarge
-                      ?.copyWith(color: theme.colorScheme.primary),
+                  style: theme.textTheme.displayLarge?.copyWith(
+                    color: theme.colorScheme.primary,
+                  ),
                 ),
                 const SizedBox(width: 8),
-                Text(type.value.unit,
-                    style: theme.textTheme.headlineSmall),
+                Text(type.value.unit, style: theme.textTheme.headlineSmall),
               ],
             ),
           ),
@@ -155,8 +149,9 @@ class LogMetricScreen extends HookConsumerWidget {
           const SizedBox(height: 12),
           TextField(
             controller: note,
-            decoration:
-                const InputDecoration(hintText: 'Add a note (optional)'),
+            decoration: const InputDecoration(
+              hintText: 'Add a note (optional)',
+            ),
           ),
           const SizedBox(height: 24),
           FilledButton(onPressed: save, child: const Text('Save')),

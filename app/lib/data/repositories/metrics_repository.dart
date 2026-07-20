@@ -25,9 +25,9 @@ class MetricsRepository {
       all().where((e) => e.recordedAt.isSameDay(day)).toList();
 
   /// Total for additive metrics (water, steps) on a given day.
-  double dayTotal(MetricType type, DateTime day) => forDay(day)
-      .where((e) => e.type == type)
-      .fold(0.0, (sum, e) => sum + e.value);
+  double dayTotal(MetricType type, DateTime day) => forDay(
+    day,
+  ).where((e) => e.type == type).fold(0.0, (sum, e) => sum + e.value);
 
   Future<void> add(MetricEntry entry) async {
     await LocalStore.put(LocalStore.metricsBox, entry.id, entry.toJson());

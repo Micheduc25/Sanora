@@ -10,14 +10,17 @@ class HabitsRepository {
 
   final SyncService _sync;
 
-  List<Habit> all() => LocalStore.readAll(LocalStore.habitsBox, Habit.fromJson)
-    ..sort((a, b) => a.createdAt.compareTo(b.createdAt));
+  List<Habit> all() =>
+      LocalStore.readAll(LocalStore.habitsBox, Habit.fromJson)
+        ..sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
   List<Habit> activeForDay(DateTime day) => all()
-      .where((h) =>
-          h.active &&
-          (h.scheduledWeekdays.isEmpty ||
-              h.scheduledWeekdays.contains(day.weekday)))
+      .where(
+        (h) =>
+            h.active &&
+            (h.scheduledWeekdays.isEmpty ||
+                h.scheduledWeekdays.contains(day.weekday)),
+      )
       .toList();
 
   List<HabitLog> logs() =>
@@ -38,7 +41,8 @@ class HabitsRepository {
     var count = 0;
     var first = true;
     while (true) {
-      final scheduled = habit.scheduledWeekdays.isEmpty ||
+      final scheduled =
+          habit.scheduledWeekdays.isEmpty ||
           habit.scheduledWeekdays.contains(day.weekday);
       if (scheduled) {
         if (isDoneForDay(habit, day)) {
@@ -79,10 +83,11 @@ class HabitsRepository {
   }
 
   Future<void> undoLog(Habit habit, DateTime day) async {
-    final dayLogs = logs()
-        .where((l) => l.habitId == habit.id && l.dayKey == day.dayKey)
-        .toList()
-      ..sort((a, b) => b.loggedAt.compareTo(a.loggedAt));
+    final dayLogs =
+        logs()
+            .where((l) => l.habitId == habit.id && l.dayKey == day.dayKey)
+            .toList()
+          ..sort((a, b) => b.loggedAt.compareTo(a.loggedAt));
     if (dayLogs.isEmpty) return;
     final last = dayLogs.first;
     await LocalStore.delete(LocalStore.habitLogsBox, last.id);

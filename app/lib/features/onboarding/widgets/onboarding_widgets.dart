@@ -24,8 +24,9 @@ class StepScaffold extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           subtitle,
-          style: theme.textTheme.bodyLarge
-              ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+          style: theme.textTheme.bodyLarge?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
         ),
         const SizedBox(height: 28),
         ...children,
@@ -50,9 +51,12 @@ class FieldLabel extends StatelessWidget {
           Text(text, style: theme.textTheme.titleSmall),
           if (optional) ...[
             const SizedBox(width: 6),
-            Text('optional',
-                style: theme.textTheme.labelSmall
-                    ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+            Text(
+              'optional',
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
           ],
         ],
       ),
@@ -85,8 +89,7 @@ class ValueSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final divisions =
-        step == null ? null : ((max - min) / step!).round();
+    final divisions = step == null ? null : ((max - min) / step!).round();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -94,9 +97,12 @@ class ValueSlider extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
           children: [
-            Text(value.toStringAsFixed(decimals),
-                style: theme.textTheme.displayMedium
-                    ?.copyWith(color: theme.colorScheme.primary)),
+            Text(
+              value.toStringAsFixed(decimals),
+              style: theme.textTheme.displayMedium?.copyWith(
+                color: theme.colorScheme.primary,
+              ),
+            ),
             const SizedBox(width: 6),
             Text(unit, style: theme.textTheme.titleMedium),
           ],
@@ -150,7 +156,9 @@ class ChoiceCardGroup<T> extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 14),
+                    horizontal: 16,
+                    vertical: 14,
+                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(AppTheme.radiusM),
                     border: Border.all(
@@ -163,25 +171,33 @@ class ChoiceCardGroup<T> extends StatelessWidget {
                   child: Row(
                     children: [
                       if (emojiOf != null) ...[
-                        Text(emojiOf!(option),
-                            style: const TextStyle(fontSize: 22)),
+                        Text(
+                          emojiOf!(option),
+                          style: const TextStyle(fontSize: 22),
+                        ),
                         const SizedBox(width: 12),
                       ],
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(titleOf(option),
-                                style: theme.textTheme.titleMedium),
+                            Text(
+                              titleOf(option),
+                              style: theme.textTheme.titleMedium,
+                            ),
                             if (subtitleOf != null)
-                              Text(subtitleOf!(option),
-                                  style: theme.textTheme.bodySmall),
+                              Text(
+                                subtitleOf!(option),
+                                style: theme.textTheme.bodySmall,
+                              ),
                           ],
                         ),
                       ),
                       if (option == selected)
-                        Icon(Icons.check_circle_rounded,
-                            color: theme.colorScheme.primary),
+                        Icon(
+                          Icons.check_circle_rounded,
+                          color: theme.colorScheme.primary,
+                        ),
                     ],
                   ),
                 ),

@@ -11,8 +11,11 @@ import 'meals_controller.dart';
 /// Shows an analyzed or logged meal. When [editable] the sheet acts as a
 /// confirmation step (Save / discard); otherwise it is a read-only detail
 /// view with delete.
-Future<void> showMealDetailSheet(BuildContext context, Meal meal,
-    {required bool editable}) {
+Future<void> showMealDetailSheet(
+  BuildContext context,
+  Meal meal, {
+  required bool editable,
+}) {
   return showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -58,27 +61,33 @@ class _MealDetailSheet extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 4),
-          Text('${meal.type.label} · estimated portion sizes',
-              style: theme.textTheme.bodySmall),
+          Text(
+            '${meal.type.label} · estimated portion sizes',
+            style: theme.textTheme.bodySmall,
+          ),
           const SizedBox(height: 20),
           Row(
             children: [
               _MacroChip(
-                  label: 'kcal',
-                  value: n.calories.round().toString(),
-                  color: AppColors.calories),
+                label: 'kcal',
+                value: n.calories.round().toString(),
+                color: AppColors.calories,
+              ),
               _MacroChip(
-                  label: 'protein',
-                  value: '${n.proteinG.round()}g',
-                  color: AppColors.protein),
+                label: 'protein',
+                value: '${n.proteinG.round()}g',
+                color: AppColors.protein,
+              ),
               _MacroChip(
-                  label: 'carbs',
-                  value: '${n.carbsG.round()}g',
-                  color: AppColors.carbs),
+                label: 'carbs',
+                value: '${n.carbsG.round()}g',
+                color: AppColors.carbs,
+              ),
               _MacroChip(
-                  label: 'fat',
-                  value: '${n.fatG.round()}g',
-                  color: AppColors.fat),
+                label: 'fat',
+                value: '${n.fatG.round()}g',
+                color: AppColors.fat,
+              ),
             ],
           ),
           const SizedBox(height: 10),
@@ -86,15 +95,23 @@ class _MealDetailSheet extends ConsumerWidget {
             spacing: 14,
             runSpacing: 4,
             children: [
-              Text('Fiber ${n.fiberG.round()}g',
-                  style: theme.textTheme.bodySmall),
-              Text('Sugar ${n.sugarG.round()}g',
-                  style: theme.textTheme.bodySmall),
-              Text('Sodium ${n.sodiumMg.round()}mg',
-                  style: theme.textTheme.bodySmall),
+              Text(
+                'Fiber ${n.fiberG.round()}g',
+                style: theme.textTheme.bodySmall,
+              ),
+              Text(
+                'Sugar ${n.sugarG.round()}g',
+                style: theme.textTheme.bodySmall,
+              ),
+              Text(
+                'Sodium ${n.sodiumMg.round()}mg',
+                style: theme.textTheme.bodySmall,
+              ),
               for (final micro in n.micronutrients.entries.take(4))
-                Text('${_microLabel(micro.key)} ${micro.value.round()}',
-                    style: theme.textTheme.bodySmall),
+                Text(
+                  '${_microLabel(micro.key)} ${micro.value.round()}',
+                  style: theme.textTheme.bodySmall,
+                ),
             ],
           ),
           if (meal.components.length > 1) ...[
@@ -108,8 +125,10 @@ class _MealDetailSheet extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Text(component.name,
-                          style: theme.textTheme.bodyMedium),
+                      child: Text(
+                        component.name,
+                        style: theme.textTheme.bodyMedium,
+                      ),
                     ),
                     Text(
                       '${component.portionG.round()}g · ${component.nutrition.calories.round()} kcal',
@@ -142,8 +161,8 @@ class _MealDetailSheet extends ConsumerWidget {
                   children: [
                     const Text('💡 '),
                     Expanded(
-                        child: Text(swap,
-                            style: theme.textTheme.bodyMedium)),
+                      child: Text(swap, style: theme.textTheme.bodyMedium),
+                    ),
                   ],
                 ),
               ),
@@ -163,10 +182,14 @@ class _MealDetailSheet extends ConsumerWidget {
             )
           else
             OutlinedButton.icon(
-              icon: Icon(Icons.delete_outline_rounded,
-                  color: theme.colorScheme.error),
-              label: Text('Delete',
-                  style: TextStyle(color: theme.colorScheme.error)),
+              icon: Icon(
+                Icons.delete_outline_rounded,
+                color: theme.colorScheme.error,
+              ),
+              label: Text(
+                'Delete',
+                style: TextStyle(color: theme.colorScheme.error),
+              ),
               onPressed: () async {
                 await ref.read(mealsControllerProvider).remove(meal.id);
                 if (context.mounted) Navigator.pop(context);
@@ -177,8 +200,10 @@ class _MealDetailSheet extends ConsumerWidget {
     );
   }
 
-  String _microLabel(String key) =>
-      key.replaceAll('_', ' ').replaceFirst('mg', '(mg)').replaceFirst('ug', '(µg)');
+  String _microLabel(String key) => key
+      .replaceAll('_', ' ')
+      .replaceFirst('mg', '(mg)')
+      .replaceFirst('ug', '(µg)');
 }
 
 class _ConfidencePill extends StatelessWidget {
@@ -193,23 +218,28 @@ class _ConfidencePill extends StatelessWidget {
     final color = confidence >= 0.8
         ? AppColors.success
         : confidence >= 0.6
-            ? AppColors.sun
-            : AppColors.coral;
+        ? AppColors.sun
+        : AppColors.coral;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Text('$pct% sure',
-          style: theme.textTheme.labelSmall?.copyWith(color: color)),
+      child: Text(
+        '$pct% sure',
+        style: theme.textTheme.labelSmall?.copyWith(color: color),
+      ),
     );
   }
 }
 
 class _MacroChip extends StatelessWidget {
-  const _MacroChip(
-      {required this.label, required this.value, required this.color});
+  const _MacroChip({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
 
   final String label;
   final String value;
@@ -228,8 +258,10 @@ class _MacroChip extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Text(value,
-                style: theme.textTheme.titleMedium?.copyWith(color: color)),
+            Text(
+              value,
+              style: theme.textTheme.titleMedium?.copyWith(color: color),
+            ),
             Text(label, style: theme.textTheme.labelSmall),
           ],
         ),

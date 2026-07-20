@@ -43,8 +43,10 @@ abstract final class LocalStore {
   static Box<String> box(String name) => Hive.box<String>(name);
 
   static Future<void> put(
-          String boxName, String key, Map<String, dynamic> json) =>
-      box(boxName).put(key, jsonEncode(json));
+    String boxName,
+    String key,
+    Map<String, dynamic> json,
+  ) => box(boxName).put(key, jsonEncode(json));
 
   static Map<String, dynamic>? get(String boxName, String key) {
     final raw = box(boxName).get(key);
@@ -54,11 +56,9 @@ abstract final class LocalStore {
   static List<T> readAll<T>(
     String boxName,
     T Function(Map<String, dynamic>) fromJson,
-  ) =>
-      box(boxName)
-          .values
-          .map((raw) => fromJson(jsonDecode(raw) as Map<String, dynamic>))
-          .toList();
+  ) => box(boxName).values
+      .map((raw) => fromJson(jsonDecode(raw) as Map<String, dynamic>))
+      .toList();
 
   static Future<void> delete(String boxName, String key) =>
       box(boxName).delete(key);
@@ -87,18 +87,18 @@ class SyncOp {
   final DateTime queuedAt;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'table': table,
-        'op': op,
-        'payload': payload,
-        'queued_at': queuedAt.toIso8601String(),
-      };
+    'id': id,
+    'table': table,
+    'op': op,
+    'payload': payload,
+    'queued_at': queuedAt.toIso8601String(),
+  };
 
   factory SyncOp.fromJson(Map<String, dynamic> json) => SyncOp(
-        id: json['id'] as String,
-        table: json['table'] as String,
-        op: json['op'] as String,
-        payload: Map<String, dynamic>.from(json['payload'] as Map),
-        queuedAt: DateTime.parse(json['queued_at'] as String),
-      );
+    id: json['id'] as String,
+    table: json['table'] as String,
+    op: json['op'] as String,
+    payload: Map<String, dynamic>.from(json['payload'] as Map),
+    queuedAt: DateTime.parse(json['queued_at'] as String),
+  );
 }

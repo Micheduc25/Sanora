@@ -13,9 +13,7 @@ import '../supabase_service.dart';
 class SyncService {
   SyncService(this._supabase) {
     if (_supabase.client != null) {
-      _subscription = Connectivity()
-          .onConnectivityChanged
-          .listen((results) {
+      _subscription = Connectivity().onConnectivityChanged.listen((results) {
         if (!results.contains(ConnectivityResult.none)) flush();
       });
     }

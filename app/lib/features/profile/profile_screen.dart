@@ -42,11 +42,10 @@ class ProfileScreen extends ConsumerWidget {
                   radius: 28,
                   backgroundColor: theme.colorScheme.primaryContainer,
                   child: Text(
-                    profile.name.isEmpty
-                        ? '🙂'
-                        : profile.name[0].toUpperCase(),
+                    profile.name.isEmpty ? '🙂' : profile.name[0].toUpperCase(),
                     style: theme.textTheme.headlineSmall?.copyWith(
-                        color: theme.colorScheme.onPrimaryContainer),
+                      color: theme.colorScheme.onPrimaryContainer,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -55,8 +54,9 @@ class ProfileScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                          profile.name.isEmpty ? 'Your profile' : profile.name,
-                          style: theme.textTheme.titleLarge),
+                        profile.name.isEmpty ? 'Your profile' : profile.name,
+                        style: theme.textTheme.titleLarge,
+                      ),
                       Text(
                         '${profile.age} · ${profile.sex.label} · ${profile.heightCm.round()} cm'
                         '${profile.country.isEmpty ? '' : ' · ${profile.country}'}',
@@ -72,37 +72,61 @@ class ProfileScreen extends ConsumerWidget {
           BodiCard(
             child: Column(
               children: [
-                _ProfileRow('BMI',
-                    '${health.bmi.trimZeros()} · ${health.bmiCategory.label}'),
-                _ProfileRow('Estimated body fat',
-                    '${health.estimatedBodyFatPct.trimZeros()} %'),
-                _ProfileRow('Basal metabolic rate',
-                    '${health.bmr.round()} kcal'),
                 _ProfileRow(
-                    'Daily energy needs', '${health.tdee.round()} kcal'),
-                _ProfileRow('Daily calorie target',
-                    '${health.calorieTarget.round()} kcal'),
-                _ProfileRow('Protein target',
-                    '${health.proteinTargetG.round()} g'),
-                _ProfileRow('Water target',
-                    '${(health.waterTargetMl / 1000).trimZeros()} L'),
+                  'BMI',
+                  '${health.bmi.trimZeros()} · ${health.bmiCategory.label}',
+                ),
+                _ProfileRow(
+                  'Estimated body fat',
+                  '${health.estimatedBodyFatPct.trimZeros()} %',
+                ),
+                _ProfileRow(
+                  'Basal metabolic rate',
+                  '${health.bmr.round()} kcal',
+                ),
+                _ProfileRow(
+                  'Daily energy needs',
+                  '${health.tdee.round()} kcal',
+                ),
+                _ProfileRow(
+                  'Daily calorie target',
+                  '${health.calorieTarget.round()} kcal',
+                ),
+                _ProfileRow(
+                  'Protein target',
+                  '${health.proteinTargetG.round()} g',
+                ),
+                _ProfileRow(
+                  'Water target',
+                  '${(health.waterTargetMl / 1000).trimZeros()} L',
+                ),
                 _ProfileRow('Step goal', '${health.stepGoal}'),
-                _ProfileRow('Sleep goal',
-                    '${health.sleepGoalHours.trimZeros()} h'),
+                _ProfileRow(
+                  'Sleep goal',
+                  '${health.sleepGoalHours.trimZeros()} h',
+                ),
                 _ProfileRow(
                   'Healthy weight range',
                   '${health.healthyWeightMinKg.round()}–${health.healthyWeightMaxKg.round()} kg',
                 ),
                 if (health.waistToHeightRatio != null)
-                  _ProfileRow('Waist-to-height ratio',
-                      '${health.waistToHeightRatio}'),
-                _ProfileRow('Visceral fat risk',
-                    health.visceralFatRisk.label,
-                    valueColor: riskColor),
-                _ProfileRow('Metabolic health score',
-                    '${health.metabolicHealthScore}/100'),
-                _ProfileRow('Lifestyle risk score',
-                    '${health.lifestyleRiskScore}/100'),
+                  _ProfileRow(
+                    'Waist-to-height ratio',
+                    '${health.waistToHeightRatio}',
+                  ),
+                _ProfileRow(
+                  'Visceral fat risk',
+                  health.visceralFatRisk.label,
+                  valueColor: riskColor,
+                ),
+                _ProfileRow(
+                  'Metabolic health score',
+                  '${health.metabolicHealthScore}/100',
+                ),
+                _ProfileRow(
+                  'Lifestyle risk score',
+                  '${health.lifestyleRiskScore}/100',
+                ),
               ],
             ),
           ),
@@ -119,12 +143,16 @@ class ProfileScreen extends ConsumerWidget {
               children: [
                 ListTile(
                   leading: const Icon(Icons.cloud_rounded),
-                  title: Text(supabase.isSignedIn
-                      ? 'Cloud sync is on'
-                      : 'Sign in to sync & unlock AI'),
-                  subtitle: Text(supabase.isSignedIn
-                      ? 'Your data backs up automatically.'
-                      : 'Your data currently lives only on this device.'),
+                  title: Text(
+                    supabase.isSignedIn
+                        ? 'Cloud sync is on'
+                        : 'Sign in to sync & unlock AI',
+                  ),
+                  subtitle: Text(
+                    supabase.isSignedIn
+                        ? 'Your data backs up automatically.'
+                        : 'Your data currently lives only on this device.',
+                  ),
                   trailing: const Icon(Icons.chevron_right_rounded),
                   onTap: () async {
                     if (supabase.isSignedIn) {
@@ -151,11 +179,14 @@ class ProfileScreen extends ConsumerWidget {
                 ),
                 const Divider(indent: 16, endIndent: 16),
                 ListTile(
-                  leading: Icon(Icons.delete_forever_rounded,
-                      color: theme.colorScheme.error),
-                  title: Text('Delete all my data',
-                      style:
-                          TextStyle(color: theme.colorScheme.error)),
+                  leading: Icon(
+                    Icons.delete_forever_rounded,
+                    color: theme.colorScheme.error,
+                  ),
+                  title: Text(
+                    'Delete all my data',
+                    style: TextStyle(color: theme.colorScheme.error),
+                  ),
                   onTap: () => _confirmWipe(context, ref),
                 ),
               ],
@@ -172,16 +203,19 @@ class ProfileScreen extends ConsumerWidget {
       builder: (context) => AlertDialog(
         title: const Text('Delete everything?'),
         content: const Text(
-            'This removes your profile, meals, measurements, habits and chat history from this device. This cannot be undone.'),
+          'This removes your profile, meals, measurements, habits and chat history from this device. This cannot be undone.',
+        ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text('Cancel')),
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: Text('Delete',
-                style:
-                    TextStyle(color: Theme.of(context).colorScheme.error)),
+            child: Text(
+              'Delete',
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
           ),
         ],
       ),
@@ -210,9 +244,10 @@ class _ProfileRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label, style: theme.textTheme.bodyMedium),
-          Text(value,
-              style: theme.textTheme.titleSmall
-                  ?.copyWith(color: valueColor)),
+          Text(
+            value,
+            style: theme.textTheme.titleSmall?.copyWith(color: valueColor),
+          ),
         ],
       ),
     );

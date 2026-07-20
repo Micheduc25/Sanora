@@ -68,8 +68,7 @@ void main() {
     });
 
     test('uses Katch-McArdle when body fat is known', () {
-      final bmr =
-          HealthEngine.computeBmr(profile(), bodyFatPct: 20);
+      final bmr = HealthEngine.computeBmr(profile(), bodyFatPct: 20);
       expect(bmr, closeTo(370 + 21.6 * 80 * 0.8, 0.01));
     });
   });
@@ -82,7 +81,8 @@ void main() {
 
     test('female RFM uses the 76 intercept', () {
       final bf = HealthEngine.estimateBodyFat(
-          profile(sex: Sex.female, waistCm: 80));
+        profile(sex: Sex.female, waistCm: 80),
+      );
       expect(bf, closeTo(76 - 20 * (175 / 80), 0.01));
     });
 
@@ -94,7 +94,8 @@ void main() {
 
     test('clamps to a physiological range', () {
       final bf = HealthEngine.estimateBodyFat(
-          profile(waistCm: 50, heightCm: 200));
+        profile(waistCm: 50, heightCm: 200),
+      );
       expect(bf, greaterThanOrEqualTo(3));
     });
   });
@@ -103,35 +104,49 @@ void main() {
     test('fat-loss deficit is 20% capped at 500 kcal', () {
       final tdee = 2500.0;
       final target = HealthEngine.calorieTarget(
-          profile(goals: [GoalType.loseFat]), tdee);
+        profile(goals: [GoalType.loseFat]),
+        tdee,
+      );
       expect(target, 2000);
 
       final bigTdee = 3000.0;
       final capped = HealthEngine.calorieTarget(
-          profile(goals: [GoalType.loseFat]), bigTdee);
+        profile(goals: [GoalType.loseFat]),
+        bigTdee,
+      );
       expect(capped, 2500);
     });
 
     test('never goes below the safety floor', () {
       final target = HealthEngine.calorieTarget(
-          profile(sex: Sex.female, goals: [GoalType.loseFat]), 1300);
+        profile(sex: Sex.female, goals: [GoalType.loseFat]),
+        1300,
+      );
       expect(target, 1200);
     });
 
     test('muscle gain adds 10% capped at 300', () {
       expect(
-          HealthEngine.calorieTarget(
-              profile(goals: [GoalType.buildMuscle]), 2000),
-          2200);
+        HealthEngine.calorieTarget(
+          profile(goals: [GoalType.buildMuscle]),
+          2000,
+        ),
+        2200,
+      );
       expect(
-          HealthEngine.calorieTarget(
-              profile(goals: [GoalType.buildMuscle]), 3500),
-          3800);
+        HealthEngine.calorieTarget(
+          profile(goals: [GoalType.buildMuscle]),
+          3500,
+        ),
+        3800,
+      );
     });
 
     test('a lower target weight implies a deficit even without the goal', () {
-      final target =
-          HealthEngine.calorieTarget(profile(targetWeightKg: 70), 2500);
+      final target = HealthEngine.calorieTarget(
+        profile(targetWeightKg: 70),
+        2500,
+      );
       expect(target, lessThan(2500));
     });
 
@@ -143,20 +158,24 @@ void main() {
   group('protein target', () {
     test('1.8 g/kg when recomposing', () {
       final target = HealthEngine.proteinTarget(
-          profile(weightKg: 70, goals: [GoalType.loseFat]));
+        profile(weightKg: 70, goals: [GoalType.loseFat]),
+      );
       expect(target, closeTo(70 * 1.8, 0.01));
     });
 
     test('caps reference weight at healthy-range max', () {
       final target = HealthEngine.proteinTarget(
-          profile(weightKg: 150, goals: [GoalType.loseFat]));
+        profile(weightKg: 150, goals: [GoalType.loseFat]),
+      );
       final healthyMax = 24.9 * 1.75 * 1.75;
       expect(target, closeTo(healthyMax * 1.8, 0.01));
     });
 
     test('1.2 g/kg of reference weight for maintenance', () {
-      expect(HealthEngine.proteinTarget(profile(weightKg: 70)),
-          closeTo(84, 0.01));
+      expect(
+        HealthEngine.proteinTarget(profile(weightKg: 70)),
+        closeTo(84, 0.01),
+      );
     });
   });
 
@@ -175,47 +194,58 @@ void main() {
     test('scales with activity and fat-loss goal, capped at 12k', () {
       expect(HealthEngine.stepGoal(profile()), 7000);
       expect(
-          HealthEngine.stepGoal(
-              profile(activityLevel: ActivityLevel.active)),
-          10000);
+        HealthEngine.stepGoal(profile(activityLevel: ActivityLevel.active)),
+        10000,
+      );
       expect(
-          HealthEngine.stepGoal(profile(
-              activityLevel: ActivityLevel.active,
-              goals: [GoalType.loseFat])),
-          12000);
+        HealthEngine.stepGoal(
+          profile(
+            activityLevel: ActivityLevel.active,
+            goals: [GoalType.loseFat],
+          ),
+        ),
+        12000,
+      );
     });
   });
 
   group('visceral risk', () {
     test('waist-to-height drives the band', () {
       expect(
-          HealthEngine.compute(profile(waistCm: 80)).visceralFatRisk,
-          RiskBand.low);
+        HealthEngine.compute(profile(waistCm: 80)).visceralFatRisk,
+        RiskBand.low,
+      );
       expect(
-          HealthEngine.compute(profile(waistCm: 90)).visceralFatRisk,
-          RiskBand.moderate);
+        HealthEngine.compute(profile(waistCm: 90)).visceralFatRisk,
+        RiskBand.moderate,
+      );
       expect(
-          HealthEngine.compute(profile(waistCm: 106)).visceralFatRisk,
-          RiskBand.high);
+        HealthEngine.compute(profile(waistCm: 106)).visceralFatRisk,
+        RiskBand.high,
+      );
     });
   });
 
   group('composite scores', () {
     test('healthy profile scores high, risky profile scores low', () {
-      final healthy = HealthEngine.compute(profile(
-        weightKg: 70,
-        waistCm: 78,
-        activityLevel: ActivityLevel.moderate,
-        sleepHours: 8,
-      ));
-      final risky = HealthEngine.compute(profile(
-        weightKg: 110,
-        waistCm: 112,
-        sleepHours: 5,
-        stressLevel: StressLevel.severe,
-        exerciseDaysPerWeek: 0,
-        medicalConditions: ['Hypertension', 'Diabetes'],
-      ));
+      final healthy = HealthEngine.compute(
+        profile(
+          weightKg: 70,
+          waistCm: 78,
+          activityLevel: ActivityLevel.moderate,
+          sleepHours: 8,
+        ),
+      );
+      final risky = HealthEngine.compute(
+        profile(
+          weightKg: 110,
+          waistCm: 112,
+          sleepHours: 5,
+          stressLevel: StressLevel.severe,
+          exerciseDaysPerWeek: 0,
+          medicalConditions: ['Hypertension', 'Diabetes'],
+        ),
+      );
       expect(healthy.metabolicHealthScore, greaterThanOrEqualTo(90));
       expect(risky.metabolicHealthScore, lessThan(50));
       expect(healthy.lifestyleRiskScore, lessThan(25));
@@ -223,20 +253,22 @@ void main() {
     });
 
     test('scores stay within 0–100', () {
-      final extreme = HealthEngine.compute(profile(
-        weightKg: 200,
-        heightCm: 150,
-        waistCm: 160,
-        sleepHours: 3,
-        stressLevel: StressLevel.severe,
-        exerciseDaysPerWeek: 0,
-        medicalConditions: [
-          'diabetes',
-          'hypertension',
-          'high cholesterol',
-          'heart disease'
-        ],
-      ));
+      final extreme = HealthEngine.compute(
+        profile(
+          weightKg: 200,
+          heightCm: 150,
+          waistCm: 160,
+          sleepHours: 3,
+          stressLevel: StressLevel.severe,
+          exerciseDaysPerWeek: 0,
+          medicalConditions: [
+            'diabetes',
+            'hypertension',
+            'high cholesterol',
+            'heart disease',
+          ],
+        ),
+      );
       expect(extreme.metabolicHealthScore, inInclusiveRange(0, 100));
       expect(extreme.lifestyleRiskScore, inInclusiveRange(0, 100));
     });
@@ -252,9 +284,9 @@ void main() {
     test('waist-to-hip ratio only when both present', () {
       expect(HealthEngine.compute(profile()).waistToHipRatio, isNull);
       expect(
-          HealthEngine.compute(profile(waistCm: 90, hipCm: 100))
-              .waistToHipRatio,
-          closeTo(0.9, 0.001));
+        HealthEngine.compute(profile(waistCm: 90, hipCm: 100)).waistToHipRatio,
+        closeTo(0.9, 0.001),
+      );
     });
   });
 }

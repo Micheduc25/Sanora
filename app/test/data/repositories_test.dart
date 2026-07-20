@@ -37,16 +37,22 @@ void main() {
   group('MetricsRepository', () {
     test('round-trips entries and sorts newest first', () async {
       final repo = MetricsRepository(sync);
-      await repo.add(MetricEntry(
+      await repo.add(
+        MetricEntry(
           id: 'a',
           type: MetricType.weight,
           value: 80,
-          recordedAt: DateTime(2026, 7, 18)));
-      await repo.add(MetricEntry(
+          recordedAt: DateTime(2026, 7, 18),
+        ),
+      );
+      await repo.add(
+        MetricEntry(
           id: 'b',
           type: MetricType.weight,
           value: 79.5,
-          recordedAt: DateTime(2026, 7, 20)));
+          recordedAt: DateTime(2026, 7, 20),
+        ),
+      );
 
       expect(repo.all().first.id, 'b');
       expect(repo.latest(MetricType.weight)!.value, 79.5);
@@ -55,32 +61,44 @@ void main() {
     test('dayTotal sums additive metrics for one day only', () async {
       final repo = MetricsRepository(sync);
       final day = DateTime(2026, 7, 20);
-      await repo.add(MetricEntry(
+      await repo.add(
+        MetricEntry(
           id: 'w1',
           type: MetricType.water,
           value: 250,
-          recordedAt: day.add(const Duration(hours: 9))));
-      await repo.add(MetricEntry(
+          recordedAt: day.add(const Duration(hours: 9)),
+        ),
+      );
+      await repo.add(
+        MetricEntry(
           id: 'w2',
           type: MetricType.water,
           value: 500,
-          recordedAt: day.add(const Duration(hours: 14))));
-      await repo.add(MetricEntry(
+          recordedAt: day.add(const Duration(hours: 14)),
+        ),
+      );
+      await repo.add(
+        MetricEntry(
           id: 'w3',
           type: MetricType.water,
           value: 1000,
-          recordedAt: day.subtract(const Duration(days: 1))));
+          recordedAt: day.subtract(const Duration(days: 1)),
+        ),
+      );
 
       expect(repo.dayTotal(MetricType.water, day), 750);
     });
 
     test('remove deletes the entry', () async {
       final repo = MetricsRepository(sync);
-      await repo.add(MetricEntry(
+      await repo.add(
+        MetricEntry(
           id: 'x',
           type: MetricType.weight,
           value: 80,
-          recordedAt: DateTime(2026, 7, 20)));
+          recordedAt: DateTime(2026, 7, 20),
+        ),
+      );
       await repo.remove('x');
       expect(repo.all(), isEmpty);
     });
@@ -88,20 +106,21 @@ void main() {
 
   group('MealsRepository', () {
     Meal meal(String id, DateTime eatenAt, {double calories = 500}) => Meal(
-          id: id,
-          name: 'Meal $id',
-          type: MealType.lunch,
-          source: MealSource.database,
-          nutrition: Nutrition(calories: calories, proteinG: 20),
-          eatenAt: eatenAt,
-        );
+      id: id,
+      name: 'Meal $id',
+      type: MealType.lunch,
+      source: MealSource.database,
+      nutrition: Nutrition(calories: calories, proteinG: 20),
+      eatenAt: eatenAt,
+    );
 
     test('aggregates a day of nutrition', () async {
       final repo = MealsRepository(sync);
       final day = DateTime(2026, 7, 20);
       await repo.save(meal('1', day.add(const Duration(hours: 8))));
       await repo.save(
-          meal('2', day.add(const Duration(hours: 13)), calories: 700));
+        meal('2', day.add(const Duration(hours: 13)), calories: 700),
+      );
       await repo.save(meal('3', day.subtract(const Duration(days: 1))));
 
       final total = repo.dayNutrition(day);
@@ -118,13 +137,15 @@ void main() {
         source: MealSource.text,
         components: const [
           MealComponent(
-              name: 'Eru',
-              portionG: 250,
-              nutrition: Nutrition(calories: 350, proteinG: 16)),
+            name: 'Eru',
+            portionG: 250,
+            nutrition: Nutrition(calories: 350, proteinG: 16),
+          ),
           MealComponent(
-              name: 'Water fufu',
-              portionG: 300,
-              nutrition: Nutrition(calories: 390, proteinG: 2.7)),
+            name: 'Water fufu',
+            portionG: 300,
+            nutrition: Nutrition(calories: 390, proteinG: 2.7),
+          ),
         ],
         nutrition: const Nutrition(calories: 740, proteinG: 18.7),
         eatenAt: DateTime(2026, 7, 20, 19),
@@ -150,11 +171,11 @@ void main() {
     final today = DateTime(2026, 7, 20);
 
     Habit habit({List<int> weekdays = const []}) => Habit(
-          id: 'h',
-          name: 'Walk',
-          scheduledWeekdays: weekdays,
-          createdAt: today.subtract(const Duration(days: 30)),
-        );
+      id: 'h',
+      name: 'Walk',
+      scheduledWeekdays: weekdays,
+      createdAt: today.subtract(const Duration(days: 30)),
+    );
 
     test('unbroken run of completed days counts', () async {
       final repo = HabitsRepository(sync);
