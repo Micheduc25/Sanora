@@ -10,6 +10,7 @@ import '../../domain/models/enums.dart';
 import '../../domain/models/food_item.dart';
 import '../../domain/models/meal.dart';
 import '../../domain/models/nutrition.dart';
+import '../../l10n/app_localizations.dart';
 import '../dashboard/dashboard_controller.dart';
 import '../onboarding/onboarding_controller.dart';
 
@@ -44,21 +45,27 @@ class MealsController {
         MealComponent(name: food.name, portionG: grams, nutrition: nutrition),
       ],
       nutrition: nutrition,
-      confidence: 0.95,
+      // Looked up, not estimated — the detail sheet labels database entries
+      // by source rather than quoting a confidence.
+      confidence: 1,
       eatenAt: DateTime.now(),
     );
   }
 
   /// AI photo analysis. Requires a signed-in session; throws
   /// [AiUnavailableFailure] otherwise so the UI can point to search instead.
-  Future<Meal> analyzePhoto(File image) async {
+  ///
+  /// [l] carries the caller's localizations: [Failure] is sealed in `core/` and
+  /// holds finished copy, so the message has to be resolved before it is
+  /// thrown rather than at the catch site.
+  Future<Meal> analyzePhoto(File image, L l) async {
     final profile = _ref.read(userProfileProvider);
     if (profile == null) {
-      throw const ValidationFailure('Complete onboarding first.');
+      throw ValidationFailure(l.mealsCompleteOnboardingFirst);
     }
     final bytes = await image.readAsBytes();
     if (bytes.length > 6 * 1024 * 1024) {
-      throw const ValidationFailure('Photo is too large. Try again.');
+      throw ValidationFailure(l.mealsPhotoTooLarge);
     }
     final meal = await _ref
         .read(aiServiceProvider)
@@ -72,23 +79,31 @@ class MealsController {
 
   /// Text/voice description → AI when online, local food-database matching
   /// as the offline path.
-  Future<Meal> analyzeDescription(String description) async {
+  Future<Meal> analyzeDescription(String description, L l) async {
     final profile = _ref.read(userProfileProvider);
     if (profile == null) {
-      throw const ValidationFailure('Complete onboarding first.');
+      throw ValidationFailure(l.mealsCompleteOnboardingFirst);
     }
     try {
       final meal = await _ref
           .read(aiServiceProvider)
           .analyzeMeal(description: description, profile: profile);
       return meal.copyWith(id: const Uuid().v4(), source: MealSource.text);
-    } on AiUnavailableFailure {
-      return _matchLocally(description);
+    } on Failure catch (f) {
+      // No connection, or no AI allowance left today — either way the bundled
+      // African-first food database can still log this meal.
+      if (f is AiUnavailableFailure || f is QuotaFailure) {
+        return _matchLocally(description, l);
+      }
+      rethrow;
     }
   }
 
-  Future<Meal> _matchLocally(String description) async {
+  Future<Meal> _matchLocally(String description, L l) async {
     final foods = _ref.read(foodRepositoryProvider);
+    // Splits what the user typed, not what the UI displays: people describe a
+    // plate in either language whatever the app locale is, so both separators
+    // stay regardless of the active translation.
     final words = description
         .toLowerCase()
         .split(RegExp(r'[,;+&]| with | and | et '))
@@ -108,9 +123,7 @@ class MealsController {
       );
     }
     if (components.isEmpty) {
-      throw const ValidationFailure(
-        'Could not match that meal offline. Try the food search, or connect to use AI.',
-      );
+      throw ValidationFailure(l.mealsOfflineNoMatch);
     }
     final total = components.fold(
       const Nutrition(),
@@ -124,7 +137,7 @@ class MealsController {
       components: components,
       nutrition: total,
       confidence: 0.6,
-      aiNotes: 'Estimated offline from the Bodi food database.',
+      aiNotes: l.mealsOfflineNotes,
       eatenAt: DateTime.now(),
     );
   }

@@ -2,10 +2,14 @@ import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart' as pdfcolors;
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../l10n/app_localizations.dart';
 import 'report_controller.dart';
 
 /// Renders the weekly report as a shareable PDF document.
-Future<List<int>> buildWeeklyReportPdf(WeeklyReport report) async {
+///
+/// The caller passes its `L` in: this runs outside the widget tree, and after
+/// the export button's first await there is no BuildContext left to read.
+Future<List<int>> buildWeeklyReportPdf(L l, WeeklyReport report) async {
   final doc = pw.Document();
   final green = pdfcolors.PdfColor.fromHex('#10A56D');
   final ink = pdfcolors.PdfColor.fromHex('#17211C');
@@ -59,7 +63,7 @@ Future<List<int>> buildWeeklyReportPdf(WeeklyReport report) async {
                   ),
                 ),
                 pw.Text(
-                  'Weekly Health Report',
+                  l.reportsPdfSubtitle,
                   style: pw.TextStyle(fontSize: 12, color: ink),
                 ),
               ],
@@ -70,25 +74,31 @@ Future<List<int>> buildWeeklyReportPdf(WeeklyReport report) async {
         pw.SizedBox(height: 16),
         pw.Row(
           children: [
-            stat('Avg calories / day', '${report.avgCalories.round()} kcal'),
-            stat('Avg protein / day', '${report.avgProtein.round()} g'),
-            stat('Avg steps / day', '${report.avgSteps.round()}'),
-            stat('Habit completion', '${report.habitsCompletionPct}%'),
+            stat(
+              l.reportsPdfAvgCaloriesPerDay,
+              '${report.avgCalories.round()} kcal',
+            ),
+            stat(
+              l.reportsPdfAvgProteinPerDay,
+              '${report.avgProtein.round()} g',
+            ),
+            stat(l.reportsPdfAvgStepsPerDay, '${report.avgSteps.round()}'),
+            stat(l.reportsPdfHabitCompletion, '${report.habitsCompletionPct}%'),
           ],
         ),
         pw.SizedBox(height: 8),
         pw.Row(
           children: [
-            stat('Meals logged', '${report.mealsLogged}'),
-            stat('Workouts completed', '${report.workoutsCompleted}'),
+            stat(l.reportsMealsLogged, '${report.mealsLogged}'),
+            stat(l.reportsWorkoutsCompleted, '${report.workoutsCompleted}'),
             stat(
-              'Weight change',
+              l.reportsWeightChange,
               report.weightDelta == null
                   ? '—'
                   : '${report.weightDelta! >= 0 ? '+' : ''}${report.weightDelta!.toStringAsFixed(1)} kg',
             ),
             stat(
-              'Avg sleep',
+              l.reportsAvgSleep,
               report.avgSleep == null
                   ? '—'
                   : '${report.avgSleep!.toStringAsFixed(1)} h',
@@ -97,7 +107,7 @@ Future<List<int>> buildWeeklyReportPdf(WeeklyReport report) async {
         ),
         pw.SizedBox(height: 20),
         pw.Text(
-          'Daily breakdown',
+          l.reportsPdfDailyBreakdown,
           style: pw.TextStyle(
             fontSize: 13,
             fontWeight: pw.FontWeight.bold,
@@ -115,13 +125,13 @@ Future<List<int>> buildWeeklyReportPdf(WeeklyReport report) async {
           cellStyle: pw.TextStyle(fontSize: 9, color: ink),
           cellAlignment: pw.Alignment.centerLeft,
           headers: [
-            'Day',
-            'Calories',
-            'Protein',
-            'Water',
-            'Steps',
-            'Sleep',
-            'Weight',
+            l.reportsPdfColDay,
+            l.reportsPdfColCalories,
+            l.reportsPdfColProtein,
+            l.metricWater,
+            l.metricSteps,
+            l.metricSleep,
+            l.metricWeight,
           ],
           data: [
             for (final day in report.days)
@@ -142,7 +152,7 @@ Future<List<int>> buildWeeklyReportPdf(WeeklyReport report) async {
         ),
         pw.SizedBox(height: 20),
         pw.Text(
-          'Your targets',
+          l.reportsPdfTargets,
           style: pw.TextStyle(
             fontSize: 13,
             fontWeight: pw.FontWeight.bold,
@@ -151,18 +161,24 @@ Future<List<int>> buildWeeklyReportPdf(WeeklyReport report) async {
         ),
         pw.SizedBox(height: 6),
         pw.Bullet(
-          text:
-              'Calories: ${report.health.calorieTarget.round()} kcal · Protein: ${report.health.proteinTargetG.round()} g · Water: ${(report.health.waterTargetMl / 1000).toStringAsFixed(1)} L',
+          text: l.reportsPdfTargetsIntake(
+            '${report.health.calorieTarget.round()}',
+            '${report.health.proteinTargetG.round()}',
+            (report.health.waterTargetMl / 1000).toStringAsFixed(1),
+          ),
           style: pw.TextStyle(fontSize: 10, color: ink),
         ),
         pw.Bullet(
-          text:
-              'Steps: ${report.health.stepGoal} · Sleep: ${report.health.sleepGoalHours} h · Exercise: ${report.health.exerciseMinutesPerWeek} min/week',
+          text: l.reportsPdfTargetsActivity(
+            '${report.health.stepGoal}',
+            '${report.health.sleepGoalHours}',
+            '${report.health.exerciseMinutesPerWeek}',
+          ),
           style: pw.TextStyle(fontSize: 10, color: ink),
         ),
         pw.SizedBox(height: 16),
         pw.Text(
-          'Generated by Bodi. This report is informational and not a substitute for professional medical advice.',
+          l.reportsPdfFooter,
           style: pw.TextStyle(fontSize: 8, color: muted),
         ),
       ],

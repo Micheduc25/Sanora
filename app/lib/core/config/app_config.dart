@@ -10,6 +10,17 @@ abstract final class AppConfig {
   static bool get hasSupabase =>
       supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty;
 
+  /// Absent in local and debug builds — crash reporting stays off rather than
+  /// failing to start.
+  static const sentryDsn = String.fromEnvironment('SENTRY_DSN');
+
+  static bool get hasCrashReporting => sentryDsn.isNotEmpty;
+
+  static const releaseChannel = String.fromEnvironment(
+    'RELEASE_CHANNEL',
+    defaultValue: 'development',
+  );
+
   static const aiCoachFunction = 'ai-coach';
   static const mealAnalyzeFunction = 'meal-analyze';
   static const insightsFunction = 'generate-insights';

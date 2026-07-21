@@ -1,0 +1,69 @@
+{
+  "dashboardGreetingMorning": "Good morning",
+  "dashboardGreetingAfternoon": "Good afternoon",
+  "dashboardGreetingEvening": "Good evening",
+
+  "dashboardGreetingMorningNamed": "Good morning, {name}",
+  "@dashboardGreetingMorningNamed": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "dashboardGreetingAfternoonNamed": "Good afternoon, {name}",
+  "@dashboardGreetingAfternoonNamed": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "dashboardGreetingEveningNamed": "Good evening, {name}",
+  "@dashboardGreetingEveningNamed": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+
+  "dashboardScoreTitle": "Daily health score",
+  "dashboardScoreRingLabel": "today",
+  "dashboardScoreMessageHigh": "Excellent day — keep it rolling.",
+  "dashboardScoreMessageMid": "Solid progress. Small steps add up.",
+  "dashboardScoreMessageLow": "Every log makes today better. Start small.",
+  "dashboardScoreMove": "Move",
+  "dashboardScoreEat": "Eat",
+  "dashboardScoreSleep": "Sleep",
+
+  "dashboardStepsOf": "of {goal} steps",
+  "@dashboardStepsOf": {
+    "placeholders": { "goal": { "type": "String" } }
+  },
+  "dashboardCaloriesOf": "of {target}",
+  "@dashboardCaloriesOf": {
+    "placeholders": { "target": { "type": "String" } }
+  },
+  "dashboardProteinOf": "of {target} g protein",
+  "@dashboardProteinOf": {
+    "placeholders": { "target": { "type": "String" } }
+  },
+  "dashboardWaterOf": "of {target} L water",
+  "@dashboardWaterOf": {
+    "placeholders": { "target": { "type": "String" } }
+  },
+  "dashboardSleepLastNight": "sleep last night",
+  "dashboardHeartRateLabel": "heart rate",
+
+  "dashboardHabitsTitle": "Habits",
+  "dashboardHabitsEmpty": "Build your first habit — small and repeatable.",
+  "dashboardHabitsDone": "{done}/{total} done",
+  "@dashboardHabitsDone": {
+    "placeholders": {
+      "done": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "dashboardHabitsAll": "All {count} habits",
+  "@dashboardHabitsAll": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+
+  "dashboardActionLogMeal": "Log meal",
+  "dashboardActionWorkout": "Workout",
+  "dashboardActionWeighIn": "Weigh in",
+  "dashboardActionReport": "Report",
+
+  "dashboardConnectAppleHealth": "Connect Apple Health",
+  "dashboardConnectHealthConnect": "Connect Health Connect",
+  "dashboardConnectBody": "Bodi will read your steps, heart rate and sleep so you do not have to log them by hand."
+}

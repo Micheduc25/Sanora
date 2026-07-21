@@ -1,0 +1,41 @@
+{
+  "healthTitle": "Health",
+  "healthLogMeasurement": "Log a measurement",
+  "healthAddNote": "Add a note (optional)",
+  "healthTapToLog": "Tap to log",
+
+  "workoutsTitle": "Workouts",
+  "workoutsGenerateForToday": "Generate for today",
+  "workoutsCoachPicks": "Coach picks",
+  "workoutsYourWorkouts": "Your workouts",
+  "workoutsMarkCompleted": "Mark as completed",
+  "workoutsLogged": "Great work — workout logged. 💪",
+  "workoutsGenerateFailed": "Could not generate a workout. Please try again.",
+  "workoutsOfflineTemplate": "Offline — added a coach-curated workout instead. Connect for a personalized one.",
+  "workoutsQuotaTemplate": "You have used today's AI calls — added a coach-curated workout instead.",
+  "workoutsDurationMinutes": "{minutes} min",
+  "@workoutsDurationMinutes": {
+    "placeholders": { "minutes": { "type": "int" } }
+  },
+
+  "remindersTitle": "Smart reminders",
+  "remindersEmptyTitle": "Nudges that fit your day",
+  "remindersEmptyBody": "Water, movement, meals, medication, sleep — gentle reminders exactly when you need them.",
+  "remindersNew": "New reminder",
+  "remindersCreate": "Create reminder",
+  "remindersTitleHint": "Reminder title",
+  "remindersBodyHint": "Message (optional)",
+  "remindersRepeat": "Repeat",
+  "remindersEveryDay": "Every day",
+  "remindersNewShort": "New",
+
+  "insightsTitle": "Insights",
+  "insightsEmptyTitle": "Your patterns, decoded",
+  "insightsEmptyBody": "Bodi studies your meals, sleep, weight and movement to find what is really driving your results.",
+  "insightsAnalyzeWeek": "Analyze my week",
+  "insightsPatternSpotted": "Pattern spotted",
+
+  "habitsTitleShort": "Habits",
+  "habitsManage": "Manage",
+  "habitsStartOne": "Start a habit — small beats perfect."
+}

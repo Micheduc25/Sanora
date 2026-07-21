@@ -7,6 +7,7 @@ import '../../domain/models/habit.dart';
 import '../../domain/models/health_profile.dart';
 import '../../domain/models/insight.dart';
 import '../../domain/models/nutrition.dart';
+import '../../l10n/app_localizations.dart';
 import '../onboarding/onboarding_controller.dart';
 
 class DashboardData {
@@ -46,6 +47,13 @@ class DashboardData {
   final Insight? topInsight;
   final int mealCount;
 }
+
+/// Whether Apple Health / Health Connect has granted the types Bodi reads.
+/// Drives the connect prompt — without it the platform tiles sit empty and
+/// the user is never told why.
+final activityConnectedProvider = FutureProvider<bool>(
+  (ref) => ref.watch(activityServiceProvider).isConnected(),
+);
 
 /// Assembles everything the dashboard needs in one pass. Platform activity
 /// (steps, heart rate, sleep) merges with manual logs, taking the larger of
@@ -149,11 +157,20 @@ final dashboardProvider = FutureProvider.autoDispose<DashboardData?>((
   );
 });
 
-String greetingFor(DateTime now, String name) {
-  final part = now.hour < 12
-      ? 'Good morning'
-      : now.hour < 18
-      ? 'Good afternoon'
-      : 'Good evening';
-  return name.isEmpty ? part : '$part, $name';
+/// Greetings are whole sentences per locale rather than a greeting glued to a
+/// name — French punctuates and orders the two differently.
+String greetingFor(L l, DateTime now, String name) {
+  if (now.hour < 12) {
+    return name.isEmpty
+        ? l.dashboardGreetingMorning
+        : l.dashboardGreetingMorningNamed(name);
+  }
+  if (now.hour < 18) {
+    return name.isEmpty
+        ? l.dashboardGreetingAfternoon
+        : l.dashboardGreetingAfternoonNamed(name);
+  }
+  return name.isEmpty
+      ? l.dashboardGreetingEvening
+      : l.dashboardGreetingEveningNamed(name);
 }

@@ -1,0 +1,31 @@
+{
+  "authTitle": "Your account",
+  "authCreateAccount": "Create your account",
+  "authWelcomeBack": "Welcome back",
+  "authIntro": "An account keeps your data safe across devices and unlocks the AI coach, meal recognition and insights.",
+  "authNoBackend": "This build has no backend configured. You can keep using Bodi fully offline — everything is stored on your device.",
+  "authEmailHint": "Email",
+  "authPasswordHint": "Password",
+  "authSignUp": "Sign up",
+  "authSignIn": "Sign in",
+  "authHaveAccount": "I already have an account",
+  "authNewHere": "New here? Create an account",
+  "authForgotPassword": "Forgot your password?",
+  "authContinueWithoutAccount": "Continue without an account",
+  "authConfirmationSent": "Check {email} for a confirmation link, then sign in.",
+  "@authConfirmationSent": {
+    "description": "Shown after sign-up when email confirmation is required.",
+    "placeholders": {
+      "email": { "type": "String" }
+    }
+  },
+  "authResetLinkSent": "If {email} has an account, a reset link is on its way.",
+  "@authResetLinkSent": {
+    "description": "Password reset confirmation. Deliberately does not confirm whether the address is registered.",
+    "placeholders": {
+      "email": { "type": "String" }
+    }
+  },
+  "authEnterEmailFirst": "Enter your email address first.",
+  "authServerUnreachable": "Could not reach the server. Please try again."
+}

@@ -8,6 +8,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/widgets/bodi_card.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../domain/models/community.dart';
+import '../../l10n/app_localizations.dart';
 import 'community_controller.dart';
 import 'group_detail_screen.dart';
 
@@ -16,25 +17,26 @@ class CommunityScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l = L.of(context);
     final tab = useState(0);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Community'),
+        title: Text(l.communityTitle),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(52),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
             child: SegmentedButton<int>(
-              segments: const [
+              segments: [
                 ButtonSegment(
                   value: 0,
-                  icon: Icon(Icons.people_rounded),
-                  label: Text('Friends'),
+                  icon: const Icon(Icons.people_rounded),
+                  label: Text(l.communityTabFriends),
                 ),
                 ButtonSegment(
                   value: 1,
-                  icon: Icon(Icons.groups_rounded),
-                  label: Text('Groups'),
+                  icon: const Icon(Icons.groups_rounded),
+                  label: Text(l.communityTabGroups),
                 ),
               ],
               selected: {tab.value},
@@ -54,12 +56,12 @@ class _SignInGate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = L.of(context);
     return EmptyState(
       icon: Icons.lock_outline_rounded,
-      title: 'Join the community',
-      message:
-          'Sign in to add friends, join groups and take on challenges together. Accountability makes healthy habits stick.',
-      actionLabel: 'Sign in',
+      title: l.communitySignInTitle,
+      message: l.communitySignInMessage,
+      actionLabel: l.communitySignIn,
       onAction: () => context.push('/auth'),
     );
   }
@@ -71,8 +73,9 @@ Widget _whenCommunity<T>(
 }) {
   return value.when(
     loading: () => const Center(child: CircularProgressIndicator()),
-    error: (e, _) =>
-        e is AuthFailure ? const _SignInGate() : Center(child: Text('$e')),
+    error: (e, _) => e is AuthFailure
+        ? const _SignInGate()
+        : Center(child: Text(messageFor(e))),
     data: data,
   );
 }
@@ -82,13 +85,15 @@ class _FriendsTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l = L.of(context);
     final friends = ref.watch(friendsProvider);
 
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'fab-community-friends',
         onPressed: () => _showAddFriend(context, ref),
         icon: const Icon(Icons.person_add_rounded),
-        label: const Text('Add friend'),
+        label: Text(l.communityAddFriend),
       ),
       body: RefreshIndicator(
         onRefresh: () async => ref.refresh(friendsProvider.future),
@@ -103,26 +108,25 @@ class _FriendsTab extends ConsumerWidget {
                 .where((f) => f.status == FriendStatus.pending && !f.incoming)
                 .toList();
             if (list.isEmpty) {
-              return const _ScrollableEmpty(
+              return _ScrollableEmpty(
                 icon: Icons.people_outline_rounded,
-                title: 'No friends yet',
-                message:
-                    'Add a friend by email to keep each other accountable.',
+                title: l.communityNoFriendsTitle,
+                message: l.communityNoFriendsMessage,
               );
             }
             return ListView(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 96),
               children: [
                 if (incoming.isNotEmpty) ...[
-                  const SectionHeader('Requests'),
+                  SectionHeader(l.communityRequests),
                   for (final f in incoming) _RequestRow(friend: f),
                 ],
                 if (accepted.isNotEmpty) ...[
-                  SectionHeader('Friends · ${accepted.length}'),
+                  SectionHeader(l.communityFriendsWithCount(accepted.length)),
                   for (final f in accepted) _FriendRow(friend: f),
                 ],
                 if (outgoing.isNotEmpty) ...[
-                  const SectionHeader('Invited'),
+                  SectionHeader(l.communityInvitedSection),
                   for (final f in outgoing)
                     _FriendRow(friend: f, pending: true),
                 ],
@@ -161,7 +165,7 @@ class _RequestRow extends ConsumerWidget {
             const SizedBox(width: 12),
             Expanded(
               child: Text(
-                friend.name ?? 'Someone',
+                friend.name ?? L.of(context).communitySomeone,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
@@ -190,6 +194,7 @@ class _FriendRow extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l = L.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: BodiCard(
@@ -200,12 +205,12 @@ class _FriendRow extends ConsumerWidget {
             const SizedBox(width: 12),
             Expanded(
               child: Text(
-                friend.name ?? 'Bodi user',
+                friend.name ?? l.communityBodiUser,
                 style: theme.textTheme.titleMedium,
               ),
             ),
             if (pending)
-              Text('Invited', style: theme.textTheme.labelMedium)
+              Text(l.communityInvited, style: theme.textTheme.labelMedium)
             else
               IconButton(
                 icon: const Icon(Icons.more_horiz_rounded),
@@ -217,7 +222,7 @@ class _FriendRow extends ConsumerWidget {
                         Icons.person_remove_rounded,
                         color: theme.colorScheme.error,
                       ),
-                      title: const Text('Remove friend'),
+                      title: Text(l.communityRemoveFriend),
                       onTap: () {
                         ref
                             .read(communityControllerProvider)
@@ -243,6 +248,7 @@ class _AddFriendSheet extends HookConsumerWidget {
     final email = useTextEditingController();
     final busy = useState(false);
     final theme = Theme.of(context);
+    final l = L.of(context);
 
     Future<void> submit() async {
       final value = email.text.trim();
@@ -254,11 +260,11 @@ class _AddFriendSheet extends HookConsumerWidget {
             .requestFriend(value);
         if (!context.mounted) return;
         final message = switch (code) {
-          'ok' => 'Request sent to $value.',
-          'not_found' => 'No Bodi account found for that email.',
-          'self' => 'That is your own email 🙂',
-          'already_friends' => 'You are already friends.',
-          _ => 'Request sent.',
+          'ok' => l.communityRequestSentTo(value),
+          'not_found' => l.communityNoAccountForEmail,
+          'self' => l.communityOwnEmail,
+          'already_friends' => l.communityAlreadyFriends,
+          _ => l.communityRequestSent,
         };
         Navigator.pop(context);
         ScaffoldMessenger.of(
@@ -286,20 +292,17 @@ class _AddFriendSheet extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Add a friend', style: theme.textTheme.headlineSmall),
+          Text(l.communityAddFriendTitle, style: theme.textTheme.headlineSmall),
           const SizedBox(height: 8),
-          Text(
-            'Enter the email they signed up with.',
-            style: theme.textTheme.bodyMedium,
-          ),
+          Text(l.communityAddFriendHelp, style: theme.textTheme.bodyMedium),
           const SizedBox(height: 16),
           TextField(
             controller: email,
             autofocus: true,
             keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: 'friend@email.com',
-              prefixIcon: Icon(Icons.mail_outline_rounded),
+            decoration: InputDecoration(
+              hintText: l.communityEmailHint,
+              prefixIcon: const Icon(Icons.mail_outline_rounded),
             ),
             onSubmitted: (_) => submit(),
           ),
@@ -315,7 +318,7 @@ class _AddFriendSheet extends HookConsumerWidget {
                       color: Colors.white,
                     ),
                   )
-                : const Text('Send request'),
+                : Text(l.communitySendRequest),
           ),
         ],
       ),
@@ -328,18 +331,20 @@ class _GroupsTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l = L.of(context);
     final mine = ref.watch(myGroupsProvider);
     final discover = ref.watch(discoverGroupsProvider);
 
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'fab-community-groups',
         onPressed: () => showModalBottomSheet(
           context: context,
           isScrollControlled: true,
           builder: (_) => const _CreateGroupSheet(),
         ),
         icon: const Icon(Icons.add_rounded),
-        label: const Text('New group'),
+        label: Text(l.communityNewGroup),
       ),
       body: RefreshIndicator(
         onRefresh: () => Future.wait([
@@ -353,14 +358,13 @@ class _GroupsTab extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 96),
               children: [
                 if (myGroups.isEmpty)
-                  const _InlineEmpty(
+                  _InlineEmpty(
                     icon: Icons.groups_outlined,
-                    title: 'No groups yet',
-                    message:
-                        'Create a private group for your family or team, or join a public one below.',
+                    title: l.communityNoGroupsTitle,
+                    message: l.communityNoGroupsMessage,
                   )
                 else ...[
-                  const SectionHeader('Your groups'),
+                  SectionHeader(l.communityYourGroups),
                   for (final g in myGroups) _GroupRow(group: g, joined: true),
                 ],
                 discover.maybeWhen(
@@ -369,7 +373,7 @@ class _GroupsTab extends ConsumerWidget {
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SectionHeader('Discover'),
+                            SectionHeader(l.communityDiscover),
                             for (final g in groups)
                               _GroupRow(group: g, joined: false),
                           ],
@@ -394,6 +398,8 @@ class _GroupRow extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l = L.of(context);
+    final members = l.communityMemberCount(group.memberCount);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: BodiCard(
@@ -426,8 +432,9 @@ class _GroupRow extends ConsumerWidget {
                 children: [
                   Text(group.name, style: theme.textTheme.titleMedium),
                   Text(
-                    '${group.memberCount} member${group.memberCount == 1 ? '' : 's'}'
-                    '${group.description.isEmpty ? '' : ' · ${group.description}'}',
+                    group.description.isEmpty
+                        ? members
+                        : l.communityGroupSubtitle(members, group.description),
                     style: theme.textTheme.bodySmall,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -441,7 +448,7 @@ class _GroupRow extends ConsumerWidget {
               FilledButton.tonal(
                 onPressed: () =>
                     ref.read(communityControllerProvider).joinGroup(group.id),
-                child: const Text('Join'),
+                child: Text(l.communityJoin),
               ),
           ],
         ),
@@ -460,6 +467,7 @@ class _CreateGroupSheet extends HookConsumerWidget {
     final isPrivate = useState(true);
     final busy = useState(false);
     final theme = Theme.of(context);
+    final l = L.of(context);
 
     Future<void> submit() async {
       if (name.text.trim().isEmpty) return;
@@ -495,19 +503,19 @@ class _CreateGroupSheet extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('New group', style: theme.textTheme.headlineSmall),
+          Text(l.communityNewGroup, style: theme.textTheme.headlineSmall),
           const SizedBox(height: 16),
           TextField(
             controller: name,
             autofocus: true,
             textCapitalization: TextCapitalization.words,
-            decoration: const InputDecoration(hintText: 'Group name'),
+            decoration: InputDecoration(hintText: l.communityGroupNameHint),
           ),
           const SizedBox(height: 12),
           TextField(
             controller: description,
-            decoration: const InputDecoration(
-              hintText: 'Description (optional)',
+            decoration: InputDecoration(
+              hintText: l.communityGroupDescriptionHint,
             ),
           ),
           const SizedBox(height: 8),
@@ -515,18 +523,18 @@ class _CreateGroupSheet extends HookConsumerWidget {
             contentPadding: EdgeInsets.zero,
             value: isPrivate.value,
             onChanged: (v) => isPrivate.value = v,
-            title: const Text('Private group'),
+            title: Text(l.communityPrivateGroup),
             subtitle: Text(
               isPrivate.value
-                  ? 'Invite-only. Not shown in Discover.'
-                  : 'Anyone can find and join.',
+                  ? l.communityPrivateGroupOn
+                  : l.communityPrivateGroupOff,
               style: theme.textTheme.bodySmall,
             ),
           ),
           const SizedBox(height: 12),
           FilledButton(
             onPressed: busy.value ? null : submit,
-            child: const Text('Create group'),
+            child: Text(l.communityCreateGroup),
           ),
         ],
       ),

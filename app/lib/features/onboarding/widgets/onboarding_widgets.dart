@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class StepScaffold extends StatelessWidget {
   const StepScaffold({
@@ -52,7 +53,7 @@ class FieldLabel extends StatelessWidget {
           if (optional) ...[
             const SizedBox(width: 6),
             Text(
-              'optional',
+              L.of(context).onboardingOptional,
               style: theme.textTheme.labelSmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -217,13 +218,15 @@ class TagEditor extends StatefulWidget {
     required this.values,
     required this.onChanged,
     this.presets = const [],
-    this.hint = 'Add your own…',
+    this.hint,
   });
 
   final List<String> values;
   final ValueChanged<List<String>> onChanged;
   final List<String> presets;
-  final String hint;
+
+  /// Localized by the caller; null simply leaves the field without a hint.
+  final String? hint;
 
   @override
   State<TagEditor> createState() => _TagEditorState();
@@ -271,12 +274,13 @@ class _TagEditorState extends State<TagEditor> {
                 showCheckmark: false,
               ),
             for (final value in custom)
+              // No onPressed: a custom tag is already selected, so the only
+              // meaningful interaction is removing it via the delete icon.
               InputChip(
                 label: Text(value),
                 selected: true,
                 showCheckmark: false,
                 onDeleted: () => _toggle(value),
-                onPressed: () {},
               ),
           ],
         ),

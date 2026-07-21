@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../core/l10n/enum_labels.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
+import '../../domain/models/enums.dart';
 import '../../domain/models/meal.dart';
+import '../../l10n/app_localizations.dart';
 import 'meals_controller.dart';
 
 /// Shows an analyzed or logged meal. When [editable] the sheet acts as a
@@ -32,6 +35,7 @@ class _MealDetailSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l = L.of(context);
     final n = meal.nutrition;
 
     return DraggableScrollableSheet(
@@ -57,12 +61,12 @@ class _MealDetailSheet extends ConsumerWidget {
               Expanded(
                 child: Text(meal.name, style: theme.textTheme.headlineSmall),
               ),
-              _ConfidencePill(confidence: meal.confidence),
+              _ConfidencePill(meal: meal),
             ],
           ),
           const SizedBox(height: 4),
           Text(
-            '${meal.type.label} · estimated portion sizes',
+            l.mealsEstimatedPortions(meal.type.labelOf(context)),
             style: theme.textTheme.bodySmall,
           ),
           const SizedBox(height: 20),
@@ -74,17 +78,17 @@ class _MealDetailSheet extends ConsumerWidget {
                 color: AppColors.calories,
               ),
               _MacroChip(
-                label: 'protein',
+                label: l.mealsChipProtein,
                 value: '${n.proteinG.round()}g',
                 color: AppColors.protein,
               ),
               _MacroChip(
-                label: 'carbs',
+                label: l.mealsChipCarbs,
                 value: '${n.carbsG.round()}g',
                 color: AppColors.carbs,
               ),
               _MacroChip(
-                label: 'fat',
+                label: l.mealsChipFat,
                 value: '${n.fatG.round()}g',
                 color: AppColors.fat,
               ),
@@ -96,15 +100,15 @@ class _MealDetailSheet extends ConsumerWidget {
             runSpacing: 4,
             children: [
               Text(
-                'Fiber ${n.fiberG.round()}g',
+                l.mealsFiber(n.fiberG.round()),
                 style: theme.textTheme.bodySmall,
               ),
               Text(
-                'Sugar ${n.sugarG.round()}g',
+                l.mealsSugar(n.sugarG.round()),
                 style: theme.textTheme.bodySmall,
               ),
               Text(
-                'Sodium ${n.sodiumMg.round()}mg',
+                l.mealsSodium(n.sodiumMg.round()),
                 style: theme.textTheme.bodySmall,
               ),
               for (final micro in n.micronutrients.entries.take(4))
@@ -116,7 +120,7 @@ class _MealDetailSheet extends ConsumerWidget {
           ),
           if (meal.components.length > 1) ...[
             const SizedBox(height: 20),
-            Text('On the plate', style: theme.textTheme.titleMedium),
+            Text(l.mealsOnThePlate, style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             for (final component in meal.components)
               Padding(
@@ -131,7 +135,10 @@ class _MealDetailSheet extends ConsumerWidget {
                       ),
                     ),
                     Text(
-                      '${component.portionG.round()}g · ${component.nutrition.calories.round()} kcal',
+                      l.mealsComponentPortion(
+                        component.portionG.round(),
+                        component.nutrition.calories.round(),
+                      ),
                       style: theme.textTheme.bodySmall,
                     ),
                   ],
@@ -151,7 +158,7 @@ class _MealDetailSheet extends ConsumerWidget {
           ],
           if (meal.healthierSwaps.isNotEmpty) ...[
             const SizedBox(height: 16),
-            Text('Healthier swaps', style: theme.textTheme.titleMedium),
+            Text(l.mealsHealthierSwaps, style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             for (final swap in meal.healthierSwaps)
               Padding(
@@ -171,7 +178,7 @@ class _MealDetailSheet extends ConsumerWidget {
           if (editable)
             FilledButton.icon(
               icon: const Icon(Icons.check_rounded),
-              label: const Text('Save meal'),
+              label: Text(l.mealsSaveMeal),
               onPressed: () async {
                 await ref.read(mealsControllerProvider).save(meal);
                 if (context.mounted) {
@@ -187,7 +194,7 @@ class _MealDetailSheet extends ConsumerWidget {
                 color: theme.colorScheme.error,
               ),
               label: Text(
-                'Delete',
+                l.actionDelete,
                 style: TextStyle(color: theme.colorScheme.error),
               ),
               onPressed: () async {
@@ -207,17 +214,39 @@ class _MealDetailSheet extends ConsumerWidget {
 }
 
 class _ConfidencePill extends StatelessWidget {
-  const _ConfidencePill({required this.confidence});
+  const _ConfidencePill({required this.meal});
 
-  final double confidence;
+  final Meal meal;
+
+  /// A percentage only means something when something actually estimated the
+  /// meal. A database entry's nutrition is looked up, not guessed, so quoting
+  /// a number there would be decoration dressed as precision.
+  bool get _isEstimate =>
+      meal.source == MealSource.photo ||
+      meal.source == MealSource.text ||
+      meal.source == MealSource.voice;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final pct = (confidence * 100).round();
-    final color = confidence >= 0.8
+    if (!_isEstimate) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          color: AppColors.ocean.withValues(alpha: 0.15),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          L.of(context).mealsFromDatabase,
+          style: theme.textTheme.labelSmall?.copyWith(color: AppColors.ocean),
+        ),
+      );
+    }
+
+    final pct = (meal.confidence * 100).round();
+    final color = meal.confidence >= 0.8
         ? AppColors.success
-        : confidence >= 0.6
+        : meal.confidence >= 0.6
         ? AppColors.sun
         : AppColors.coral;
     return Container(
@@ -227,7 +256,7 @@ class _ConfidencePill extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
-        '$pct% sure',
+        L.of(context).mealsAiEstimate(pct),
         style: theme.textTheme.labelSmall?.copyWith(color: color),
       ),
     );

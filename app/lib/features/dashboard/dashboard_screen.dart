@@ -3,12 +3,15 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../../core/error/failures.dart';
+import '../../core/providers/app_providers.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/extensions.dart';
 import '../../core/widgets/bodi_card.dart';
 import '../../core/widgets/progress_ring.dart';
 import '../../core/widgets/stat_tile.dart';
 import '../../domain/models/insight.dart';
+import '../../l10n/app_localizations.dart';
 import '../habits/habits_controller.dart';
 import '../onboarding/onboarding_controller.dart';
 import 'dashboard_controller.dart';
@@ -21,6 +24,7 @@ class DashboardScreen extends ConsumerWidget {
     final profile = ref.watch(userProfileProvider);
     final data = ref.watch(dashboardProvider);
     final theme = Theme.of(context);
+    final l = L.of(context);
     final now = DateTime.now();
 
     return Scaffold(
@@ -29,7 +33,7 @@ class DashboardScreen extends ConsumerWidget {
           onRefresh: () async => ref.refresh(dashboardProvider.future),
           child: data.when(
             loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, _) => Center(child: Text('$e')),
+            error: (e, _) => Center(child: Text(messageFor(e))),
             data: (d) {
               if (d == null) return const SizedBox.shrink();
               return ListView(
@@ -42,7 +46,7 @@ class DashboardScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            greetingFor(now, profile?.name ?? ''),
+                            greetingFor(l, now, profile?.name ?? ''),
                             style: theme.textTheme.headlineMedium,
                           ),
                           Text(
@@ -67,21 +71,29 @@ class DashboardScreen extends ConsumerWidget {
                     _InsightCard(insight: d.topInsight!),
                     const SizedBox(height: 12),
                   ],
+                  const _ConnectHealthCard(),
                   _BodyTrendCard(data: d),
                   const SizedBox(height: 12),
-                  GridView.count(
-                    crossAxisCount: 2,
+                  GridView(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    childAspectRatio: 1.35,
+                    gridDelegate:
+                        SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 12,
+                          crossAxisSpacing: 12,
+                          mainAxisExtent:
+                              StatTile.preferredExtent *
+                              MediaQuery.textScalerOf(
+                                context,
+                              ).scale(1).clamp(1, 1.6),
+                        ),
                     children: [
                       StatTile(
                         icon: Icons.directions_walk_rounded,
                         color: AppColors.steps,
                         value: d.steps.compact,
-                        label: 'of ${d.health.stepGoal.compact} steps',
+                        label: l.dashboardStepsOf(d.health.stepGoal.compact),
                         progress: d.steps / d.health.stepGoal,
                         onTap: () => context.push('/health'),
                       ),
@@ -89,7 +101,9 @@ class DashboardScreen extends ConsumerWidget {
                         icon: Icons.local_fire_department_rounded,
                         color: AppColors.calories,
                         value: d.todayNutrition.calories.toKcal(),
-                        label: 'of ${d.health.calorieTarget.toKcal()}',
+                        label: l.dashboardCaloriesOf(
+                          d.health.calorieTarget.toKcal(),
+                        ),
                         progress:
                             d.todayNutrition.calories / d.health.calorieTarget,
                         onTap: () => context.push('/meals'),
@@ -98,8 +112,9 @@ class DashboardScreen extends ConsumerWidget {
                         icon: Icons.egg_alt_rounded,
                         color: AppColors.protein,
                         value: '${d.todayNutrition.proteinG.round()} g',
-                        label:
-                            'of ${d.health.proteinTargetG.round()} g protein',
+                        label: l.dashboardProteinOf(
+                          '${d.health.proteinTargetG.round()}',
+                        ),
                         progress:
                             d.todayNutrition.proteinG / d.health.proteinTargetG,
                         onTap: () => context.push('/meals'),
@@ -108,8 +123,9 @@ class DashboardScreen extends ConsumerWidget {
                         icon: Icons.water_drop_rounded,
                         color: AppColors.water,
                         value: '${(d.waterMl / 1000).trimZeros()} L',
-                        label:
-                            'of ${(d.health.waterTargetMl / 1000).trimZeros()} L water',
+                        label: l.dashboardWaterOf(
+                          (d.health.waterTargetMl / 1000).trimZeros(),
+                        ),
                         progress: d.waterMl / d.health.waterTargetMl,
                         onTap: () => context.push('/health'),
                       ),
@@ -119,7 +135,7 @@ class DashboardScreen extends ConsumerWidget {
                         value: d.sleepHours == null
                             ? '—'
                             : '${d.sleepHours!.trimZeros()} h',
-                        label: 'sleep last night',
+                        label: l.dashboardSleepLastNight,
                         onTap: () => context.push('/health'),
                       ),
                       StatTile(
@@ -128,7 +144,7 @@ class DashboardScreen extends ConsumerWidget {
                         value: d.heartRate == null
                             ? '—'
                             : '${d.heartRate!.round()} bpm',
-                        label: 'heart rate',
+                        label: l.dashboardHeartRateLabel,
                         onTap: () => context.push('/health'),
                       ),
                     ],
@@ -155,12 +171,13 @@ class _ScoreCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = L.of(context);
     final score = data.score;
     final message = score.total >= 80
-        ? 'Excellent day — keep it rolling.'
+        ? l.dashboardScoreMessageHigh
         : score.total >= 55
-        ? 'Solid progress. Small steps add up.'
-        : 'Every log makes today better. Start small.';
+        ? l.dashboardScoreMessageMid
+        : l.dashboardScoreMessageLow;
     return BodiCard(
       child: Row(
         children: [
@@ -172,7 +189,10 @@ class _ScoreCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text('${score.total}', style: theme.textTheme.displaySmall),
-                Text('today', style: theme.textTheme.labelSmall),
+                Text(
+                  l.dashboardScoreRingLabel,
+                  style: theme.textTheme.labelSmall,
+                ),
               ],
             ),
           ),
@@ -181,22 +201,22 @@ class _ScoreCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Daily health score', style: theme.textTheme.titleLarge),
+                Text(l.dashboardScoreTitle, style: theme.textTheme.titleLarge),
                 const SizedBox(height: 6),
                 Text(message, style: theme.textTheme.bodyMedium),
                 const SizedBox(height: 12),
                 _ScoreBar(
-                  label: 'Move',
+                  label: l.dashboardScoreMove,
                   value: score.movement,
                   color: AppColors.steps,
                 ),
                 _ScoreBar(
-                  label: 'Eat',
+                  label: l.dashboardScoreEat,
                   value: score.nutrition,
                   color: AppColors.calories,
                 ),
                 _ScoreBar(
-                  label: 'Sleep',
+                  label: l.dashboardScoreSleep,
                   value: score.sleep,
                   color: AppColors.sleep,
                 ),
@@ -256,6 +276,7 @@ class _BodyTrendCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = L.of(context);
     final d = data;
 
     Widget trend(
@@ -292,12 +313,12 @@ class _BodyTrendCard extends StatelessWidget {
     }
 
     return BodiCard(
-      onTap: () {},
+      onTap: () => context.push('/health'),
       child: Row(
         children: [
-          trend('Weight', d.weightNow, 'kg', d.weightWeekDelta),
-          trend('Waist', d.waistNow, 'cm', d.waistMonthDelta),
-          trend('Body fat', d.health.estimatedBodyFatPct, '%', null),
+          trend(l.metricWeight, d.weightNow, 'kg', d.weightWeekDelta),
+          trend(l.metricWaist, d.waistNow, 'cm', d.waistMonthDelta),
+          trend(l.metricBodyFat, d.health.estimatedBodyFatPct, '%', null),
         ],
       ),
     );
@@ -355,6 +376,7 @@ class _HabitsCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l = L.of(context);
     if (data.habitsDue.isEmpty) {
       return BodiCard(
         onTap: () => context.push('/habits'),
@@ -364,7 +386,7 @@ class _HabitsCard extends ConsumerWidget {
             const SizedBox(width: 14),
             Expanded(
               child: Text(
-                'Build your first habit — small and repeatable.',
+                l.dashboardHabitsEmpty,
                 style: theme.textTheme.titleMedium,
               ),
             ),
@@ -380,9 +402,9 @@ class _HabitsCard extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Habits', style: theme.textTheme.titleLarge),
+              Text(l.dashboardHabitsTitle, style: theme.textTheme.titleLarge),
               Text(
-                '${data.habitsDone}/${data.habitsDue.length} done',
+                l.dashboardHabitsDone(data.habitsDone, data.habitsDue.length),
                 style: theme.textTheme.labelMedium,
               ),
             ],
@@ -393,7 +415,7 @@ class _HabitsCard extends ConsumerWidget {
           if (data.habitsDue.length > 4)
             TextButton(
               onPressed: () => context.push('/habits'),
-              child: Text('All ${data.habitsDue.length} habits'),
+              child: Text(l.dashboardHabitsAll(data.habitsDue.length)),
             ),
         ],
       ),
@@ -405,6 +427,7 @@ class _QuickActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = L.of(context);
     Widget action(IconData icon, String label, String route, Color color) =>
         Expanded(
           child: BodiCard(
@@ -428,32 +451,89 @@ class _QuickActions extends StatelessWidget {
       children: [
         action(
           Icons.photo_camera_rounded,
-          'Log meal',
+          l.dashboardActionLogMeal,
           '/meals/log',
           AppColors.calories,
         ),
         const SizedBox(width: 10),
         action(
           Icons.fitness_center_rounded,
-          'Workout',
+          l.dashboardActionWorkout,
           '/workouts',
           AppColors.vital,
         ),
         const SizedBox(width: 10),
         action(
           Icons.monitor_weight_rounded,
-          'Weigh in',
+          l.dashboardActionWeighIn,
           '/health/log',
           AppColors.ocean,
         ),
         const SizedBox(width: 10),
         action(
           Icons.description_rounded,
-          'Report',
+          l.dashboardActionReport,
           '/reports',
           AppColors.lavender,
         ),
       ],
+    );
+  }
+}
+
+/// Steps, heart rate and sleep stay blank until the platform store is linked,
+/// and nothing else in the app ever asks for that permission.
+class _ConnectHealthCard extends ConsumerWidget {
+  const _ConnectHealthCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final connected = ref.watch(activityConnectedProvider);
+    // Say nothing while checking, and nothing once linked.
+    if (connected.valueOrNull ?? true) return const SizedBox.shrink();
+
+    final theme = Theme.of(context);
+    final l = L.of(context);
+    // The button sits below the copy rather than beside it: the app theme
+    // gives filled buttons `Size.fromHeight(56)`, i.e. an infinite minimum
+    // width, so one inside a Row fails layout and the whole card vanishes.
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: BodiCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.favorite_border_rounded,
+                  color: theme.colorScheme.primary,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    theme.platform == TargetPlatform.iOS
+                        ? l.dashboardConnectAppleHealth
+                        : l.dashboardConnectHealthConnect,
+                    style: theme.textTheme.titleMedium,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(l.dashboardConnectBody, style: theme.textTheme.bodySmall),
+            const SizedBox(height: 12),
+            FilledButton.tonal(
+              onPressed: () async {
+                await ref.read(activityServiceProvider).requestPermissions();
+                ref.invalidate(activityConnectedProvider);
+                ref.invalidate(dashboardProvider);
+              },
+              child: Text(l.actionConnect),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

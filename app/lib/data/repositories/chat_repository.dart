@@ -13,7 +13,13 @@ class ChatRepository {
 
   /// The AI context window: last [limit] finalized messages.
   List<Map<String, String>> recentForContext({int limit = 20}) {
-    final messages = history().where((m) => !m.pending).toList();
+    // An empty turn reaches the model as `parts: [{text: ""}]`, which it can
+    // answer with an empty candidate — so one blank reply is enough to keep
+    // every later request blank. Failed turns carry app copy, not the coach's
+    // words, and belong in the transcript rather than the conversation.
+    final messages = history()
+        .where((m) => !m.pending && !m.failed && m.content.trim().isNotEmpty)
+        .toList();
     final start = messages.length <= limit ? 0 : messages.length - limit;
     return messages
         .sublist(start)

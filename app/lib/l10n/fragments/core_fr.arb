@@ -1,0 +1,41 @@
+{
+  "healthTitle": "Santé",
+  "healthLogMeasurement": "Enregistrer une mesure",
+  "healthAddNote": "Ajouter une note (facultatif)",
+  "healthTapToLog": "Appuyez pour enregistrer",
+
+  "workoutsTitle": "Séances",
+  "workoutsGenerateForToday": "Générer pour aujourd'hui",
+  "workoutsCoachPicks": "Sélection du coach",
+  "workoutsYourWorkouts": "Vos séances",
+  "workoutsMarkCompleted": "Marquer comme terminée",
+  "workoutsLogged": "Bravo — séance enregistrée. 💪",
+  "workoutsGenerateFailed": "Impossible de générer une séance. Veuillez réessayer.",
+  "workoutsOfflineTemplate": "Hors ligne — une séance préparée par un coach a été ajoutée. Connectez-vous pour une séance personnalisée.",
+  "workoutsQuotaTemplate": "Vous avez utilisé vos appels IA du jour — une séance préparée par un coach a été ajoutée.",
+  "workoutsDurationMinutes": "{minutes} min",
+  "@workoutsDurationMinutes": {
+    "placeholders": { "minutes": { "type": "int" } }
+  },
+
+  "remindersTitle": "Rappels intelligents",
+  "remindersEmptyTitle": "Des rappels adaptés à votre journée",
+  "remindersEmptyBody": "Eau, mouvement, repas, médicaments, sommeil — des rappels bienveillants au bon moment.",
+  "remindersNew": "Nouveau rappel",
+  "remindersCreate": "Créer le rappel",
+  "remindersTitleHint": "Titre du rappel",
+  "remindersBodyHint": "Message (facultatif)",
+  "remindersRepeat": "Répéter",
+  "remindersEveryDay": "Tous les jours",
+  "remindersNewShort": "Nouveau",
+
+  "insightsTitle": "Analyses",
+  "insightsEmptyTitle": "Vos habitudes, décryptées",
+  "insightsEmptyBody": "Bodi étudie vos repas, votre sommeil, votre poids et votre activité pour comprendre ce qui influence vraiment vos résultats.",
+  "insightsAnalyzeWeek": "Analyser ma semaine",
+  "insightsPatternSpotted": "Tendance repérée",
+
+  "habitsTitleShort": "Habitudes",
+  "habitsManage": "Gérer",
+  "habitsStartOne": "Commencez une habitude — petit vaut mieux que parfait."
+}

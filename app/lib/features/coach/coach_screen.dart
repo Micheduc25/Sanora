@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../core/theme/app_theme.dart';
 import '../../domain/models/chat_message.dart';
+import '../../l10n/app_localizations.dart';
 import 'coach_controller.dart';
 
 class CoachScreen extends HookConsumerWidget {
@@ -15,6 +17,7 @@ class CoachScreen extends HookConsumerWidget {
     final input = useTextEditingController();
     final scrollController = useScrollController();
     final theme = Theme.of(context);
+    final l = L.of(context);
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -29,17 +32,17 @@ class CoachScreen extends HookConsumerWidget {
       final text = preset ?? input.text;
       if (text.trim().isEmpty) return;
       input.clear();
-      ref.read(coachControllerProvider.notifier).send(text);
+      ref.read(coachControllerProvider.notifier).send(text, l);
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Coach'),
+        title: Text(l.navCoach),
         actions: [
           if (state.messages.isNotEmpty)
             IconButton(
               icon: const Icon(Icons.delete_sweep_rounded),
-              tooltip: 'Clear conversation',
+              tooltip: l.coachClearConversation,
               onPressed: () =>
                   ref.read(coachControllerProvider.notifier).clearHistory(),
             ),
@@ -58,6 +61,26 @@ class CoachScreen extends HookConsumerWidget {
                         _Bubble(message: state.messages[index]),
                   ),
           ),
+          // Only shown when the server actually refused on allowance grounds,
+          // so the upgrade offer never appears as a nag.
+          if (state.quotaReached)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              child: FilledButton.tonalIcon(
+                onPressed: () => context.push('/premium'),
+                icon: const Icon(Icons.auto_awesome_rounded, size: 18),
+                label: Text(l.coachPremiumCta),
+              ),
+            ),
+          if (state.signInRequired)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              child: FilledButton.tonalIcon(
+                onPressed: () => context.push('/auth'),
+                icon: const Icon(Icons.login_rounded, size: 18),
+                label: Text(l.coachSignInCta),
+              ),
+            ),
           SafeArea(
             top: false,
             child: Padding(
@@ -70,9 +93,7 @@ class CoachScreen extends HookConsumerWidget {
                       minLines: 1,
                       maxLines: 4,
                       textCapitalization: TextCapitalization.sentences,
-                      decoration: const InputDecoration(
-                        hintText: 'Ask your coach anything…',
-                      ),
+                      decoration: InputDecoration(hintText: l.coachInputHint),
                       onSubmitted: (_) => send(),
                     ),
                   ),
@@ -103,19 +124,17 @@ class _EmptyCoach extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = L.of(context);
     return ListView(
       padding: const EdgeInsets.all(24),
       children: [
         const SizedBox(height: 24),
         Text('🧠', style: theme.textTheme.displayMedium),
         const SizedBox(height: 16),
-        Text(
-          'Your coach knows your goals,\nmeals, sleep and progress.',
-          style: theme.textTheme.headlineSmall,
-        ),
+        Text(l.coachEmptyTitle, style: theme.textTheme.headlineSmall),
         const SizedBox(height: 8),
         Text(
-          'Ask anything about your body, your food, or your plan. Answers are personal — built from your own data.',
+          l.coachEmptyBody,
           style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
@@ -125,7 +144,7 @@ class _EmptyCoach extends StatelessWidget {
           spacing: 8,
           runSpacing: 8,
           children: [
-            for (final suggestion in coachSuggestions)
+            for (final suggestion in coachSuggestions(l))
               ActionChip(
                 label: Text(suggestion),
                 onPressed: () => onSuggestion(suggestion),

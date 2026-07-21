@@ -1,0 +1,20 @@
+{
+  "coachClearConversation": "Clear conversation",
+  "coachPremiumCta": "Get unlimited coaching with Premium",
+  "coachInputHint": "Ask your coach anything…",
+  "coachEmptyTitle": "Your coach knows your goals,\nmeals, sleep and progress.",
+  "coachEmptyBody": "Ask anything about your body, your food, or your plan. Answers are personal — built from your own data.",
+
+  "coachSuggestionWeightGain": "Why am I gaining weight?",
+  "coachSuggestionFufu": "Can I eat fufu tonight?",
+  "coachSuggestionBellyFat": "How do I lose belly fat?",
+  "coachSuggestionDinnerHealthy": "Is my dinner healthy?",
+  "coachSuggestionProtein": "How much protein do I need?",
+  "coachSuggestionPlanMeals": "Plan my meals for tomorrow",
+
+  "coachCompleteOnboardingFirst": "Complete onboarding first.",
+  "coachUnreachable": "I could not reach the coach service just now. Your message is saved — try again in a moment.",
+
+  "coachSignInRequired": "Sign in to talk to your coach. Everything you have logged stays on this device either way.",
+  "coachSignInCta": "Sign in"
+}

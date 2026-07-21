@@ -3,7 +3,7 @@
     "short_name": "Bodi",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0E1512",
+    "background_color": "#10A56D",
     "theme_color": "#10A56D",
     "description": "Bodi — Know Your Body. Your AI-powered personal health companion.",
     "orientation": "portrait-primary",

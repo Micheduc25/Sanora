@@ -1,0 +1,130 @@
+{
+  "communityTitle": "Community",
+  "communityTabFriends": "Friends",
+  "communityTabGroups": "Groups",
+
+  "communitySignInTitle": "Join the community",
+  "communitySignInMessage": "Sign in to add friends, join groups and take on challenges together. Accountability makes healthy habits stick.",
+  "communitySignIn": "Sign in",
+
+  "communityAddFriend": "Add friend",
+  "communityNoFriendsTitle": "No friends yet",
+  "communityNoFriendsMessage": "Add a friend by email to keep each other accountable.",
+  "communityRequests": "Requests",
+  "communityFriendsWithCount": "Friends · {count}",
+  "@communityFriendsWithCount": {
+    "description": "Section header above the accepted friends list.",
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "communityInvitedSection": "Invited",
+  "@communityInvitedSection": {
+    "description": "Section header above friend requests this user sent."
+  },
+  "communityInvited": "Invited",
+  "@communityInvited": {
+    "description": "Badge on a person who has not answered the request yet."
+  },
+  "communitySomeone": "Someone",
+  "@communitySomeone": {
+    "description": "Stands in for a friend request whose sender has no name."
+  },
+  "communityBodiUser": "Bodi user",
+  "@communityBodiUser": {
+    "description": "Stands in for a friend who has no name set."
+  },
+  "communityRemoveFriend": "Remove friend",
+
+  "communityAddFriendTitle": "Add a friend",
+  "communityAddFriendHelp": "Enter the email they signed up with.",
+  "communityEmailHint": "friend@email.com",
+  "communitySendRequest": "Send request",
+  "communityRequestSentTo": "Request sent to {email}.",
+  "@communityRequestSentTo": {
+    "placeholders": { "email": { "type": "String" } }
+  },
+  "communityRequestSent": "Request sent.",
+  "communityNoAccountForEmail": "No Bodi account found for that email.",
+  "communityOwnEmail": "That is your own email 🙂",
+  "communityAlreadyFriends": "You are already friends.",
+
+  "communityNewGroup": "New group",
+  "communityNoGroupsTitle": "No groups yet",
+  "communityNoGroupsMessage": "Create a private group for your family or team, or join a public one below.",
+  "communityYourGroups": "Your groups",
+  "communityDiscover": "Discover",
+  "communityJoin": "Join",
+  "communityMemberCount": "{count, plural, =0{No members} =1{1 member} other{{count} members}}",
+  "@communityMemberCount": {
+    "placeholders": { "count": { "type": "num" } }
+  },
+  "communityGroupSubtitle": "{members} · {description}",
+  "@communityGroupSubtitle": {
+    "description": "One-line group summary: the member count, then the group's own description.",
+    "placeholders": {
+      "members": { "type": "String" },
+      "description": { "type": "String" }
+    }
+  },
+  "communityGroupNameHint": "Group name",
+  "communityGroupDescriptionHint": "Description (optional)",
+  "communityPrivateGroup": "Private group",
+  "communityPrivateGroupOn": "Invite-only. Not shown in Discover.",
+  "communityPrivateGroupOff": "Anyone can find and join.",
+  "communityCreateGroup": "Create group",
+  "communityLeaveGroup": "Leave group",
+
+  "communityNewChallenge": "New challenge",
+  "communityNoChallengesTitle": "No challenges yet",
+  "communityNoChallengesMessage": "Start a step or workout challenge and rally the group.",
+  "communityChallengeSummary": "{target} {metric} · {start}–{end}",
+  "@communityChallengeSummary": {
+    "description": "Challenge subtitle: the target, its unit, and the date range.",
+    "placeholders": {
+      "target": { "type": "String" },
+      "metric": { "type": "String" },
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "communityUpdateProgress": "Update my progress",
+  "communityJoinChallenge": "Join challenge",
+  "communityLeaderboard": "Leaderboard",
+  "communityLeaderboardError": "Could not load leaderboard.",
+  "communityLeaderboardEmpty": "No entries yet.",
+  "communityYourMetric": "Your {metric}",
+  "@communityYourMetric": {
+    "description": "Dialog title when logging progress, e.g. \"Your steps\".",
+    "placeholders": { "metric": { "type": "String" } }
+  },
+  "communityTotalMetric": "Total {metric}",
+  "@communityTotalMetric": {
+    "description": "Hint in the progress field, e.g. \"Total steps\".",
+    "placeholders": { "metric": { "type": "String" } }
+  },
+
+  "communityUnitSteps": "steps",
+  "communityUnitWorkouts": "workouts",
+  "communityUnitHabitDays": "habit days",
+  "communityUnitWater": "ml of water",
+  "@communityUnitWater": {
+    "description": "Unit used inline after a number, e.g. \"3K ml of water\"."
+  },
+
+  "communityMetric": "Metric",
+  "communityMetricSteps": "Steps",
+  "communityMetricWorkouts": "Workouts",
+  "communityMetricHabitDays": "Habit days",
+  "communityMetricWater": "Water (ml)",
+
+  "communityChallengeNameHint": "e.g. August step-off",
+  "communityChallengeTargetHint": "Target (per member)",
+  "communityChallengeLength": "{days, plural, =1{Length: 1 day} other{Length: {days} days}}",
+  "@communityChallengeLength": {
+    "placeholders": { "days": { "type": "num" } }
+  },
+  "communityDayCount": "{days, plural, =1{1 day} other{{days} days}}",
+  "@communityDayCount": {
+    "placeholders": { "days": { "type": "num" } }
+  },
+  "communityCreateChallenge": "Create challenge"
+}

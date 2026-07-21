@@ -1,11 +1,11 @@
 import {
-  callOpenAi,
+  callGemini,
   consumeAiAllowance,
   corsHeaders,
+  geminiSchema,
   handleError,
   HttpError,
   json,
-  openAiModel,
   outputText,
   requireUser,
 } from "../_shared/mod.ts";
@@ -110,28 +110,21 @@ ${body.allergies?.length ? `The user is allergic to: ${body.allergies.join(", ")
 ${body.preferences?.length ? `Dietary preferences: ${body.preferences.join(", ")}.` : ""}
 Swaps must respect the food culture — adjust portions or sides rather than replacing the dish.`;
 
-    const userContent: Array<Record<string, unknown>> = [];
-    if (body.description) {
-      userContent.push({ type: "input_text", text: body.description });
-    }
+    const parts: Array<Record<string, unknown>> = [];
+    if (body.description) parts.push({ text: body.description });
     if (body.image_base64) {
-      userContent.push({
-        type: "input_image",
-        image_url: `data:image/jpeg;base64,${body.image_base64}`,
+      // Gemini takes raw base64 plus a mime type, not a data: URL.
+      parts.push({
+        inline_data: { mime_type: "image/jpeg", data: body.image_base64 },
       });
     }
 
-    const upstream = await callOpenAi({
-      model: openAiModel(),
-      instructions,
-      input: [{ role: "user", content: userContent }],
-      text: {
-        format: {
-          type: "json_schema",
-          name: "meal_analysis",
-          strict: true,
-          schema: mealSchema,
-        },
+    const upstream = await callGemini({
+      systemInstruction: { parts: [{ text: instructions }] },
+      contents: [{ role: "user", parts }],
+      generationConfig: {
+        responseMimeType: "application/json",
+        responseSchema: geminiSchema(mealSchema),
       },
     });
 

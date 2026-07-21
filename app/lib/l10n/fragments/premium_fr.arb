@@ -1,0 +1,60 @@
+{
+  "premiumTitle": "Bodi Premium",
+  "premiumHeroTitle": "Coaching IA sans limite",
+  "premiumHeroBody": "Premium lève la limite quotidienne sur les quatre fonctionnalités qui font appel à l'IA. C'est toute la différence — tout le reste de Bodi est gratuit, et le restera.",
+
+  "premiumUnlocksSection": "Ce que Premium débloque",
+  "premiumFeatureCoachTitle": "Conversations illimitées avec le coach",
+  "premiumFeatureCoachBody": "Posez autant de questions que vous voulez, quand vous voulez.",
+  "premiumFeatureMealsTitle": "Analyse illimitée des photos de repas",
+  "premiumFeatureMealsBody": "Photographiez chaque repas au lieu de choisir lesquels.",
+  "premiumFeatureWorkoutsTitle": "Séances générées sans limite",
+  "premiumFeatureWorkoutsBody": "Une nouvelle séance pensée pour votre corps, quand vous le souhaitez.",
+  "premiumFeatureInsightsTitle": "Analyses IA illimitées",
+  "premiumFeatureInsightsBody": "Réanalysez votre semaine aussi souvent qu'elle évolue.",
+
+  "premiumFreeForeverSection": "Gratuit pour toujours",
+  "premiumFreeForeverBody": "Sans rien payer, vous gardez le suivi des repas et des mesures, les graphiques et les tendances, les habitudes, les rappels, la base alimentaire hors ligne, les séances, les rapports, la communauté et les analyses fondées sur des règles, qui n'ont besoin d'aucune IA.",
+  "premiumFreeAllowance": "Les comptes gratuits reçoivent aussi {count} requêtes IA par jour, partagées entre le coach, les photos de repas, les séances et les analyses. Le compteur repart à zéro chaque jour.",
+
+  "premiumChoosePlanSection": "Choisir une formule",
+  "premiumSignInTitle": "Connectez-vous d'abord",
+  "premiumSignInBody": "Premium est rattaché à votre compte Bodi : il vous suit donc sur un nouveau téléphone. Connectez-vous, puis revenez ici.",
+  "premiumSignIn": "Se connecter",
+
+  "premiumActiveTitle": "Premium est actif",
+  "premiumActiveBody": "Vos fonctionnalités IA sont illimitées.",
+  "premiumActiveUntil": "Vos fonctionnalités IA sont illimitées jusqu'au {date}. Le store renouvelle l'abonnement automatiquement, sauf si vous l'annulez.",
+
+  "premiumUnavailableTitle": "Premium n'est pas encore disponible sur cet appareil",
+  "premiumUnavailableUnsupportedPlatform": "Bodi Premium est vendu via l'App Store et Google Play : il ne peut donc être acheté que depuis l'application iPhone ou Android.",
+  "premiumUnavailableStore": "Le store n'est pas disponible sur cet appareil pour le moment. Vérifiez que vous êtes connecté à l'App Store ou à Google Play, puis réessayez.",
+  "premiumUnavailableQueryFailed": "Le store n'a pas pu afficher les formules Bodi : {error}",
+  "premiumUnavailableNoPlans": "Premium n'est pas encore disponible sur cet appareil — le store n'a aucune formule Bodi à proposer. Rien ne vous a été facturé.",
+
+  "premiumPlanMonthly": "Mensuel",
+  "premiumPlanYearly": "Annuel",
+  "premiumPerMonth": "par mois",
+  "premiumPerYear": "par an",
+  "premiumPricePerPeriod": "{price} {period}",
+  "premiumSave": "Économisez {percent} %",
+
+  "premiumRestore": "Restaurer mes achats",
+  "premiumBillingNotice": "Le paiement est débité sur votre compte App Store ou Google Play. Les abonnements se renouvellent automatiquement jusqu'à ce que vous les annuliez dans les paramètres de votre compte du store — Bodi ne peut ni les annuler ni les rembourser à votre place. Les prix sont fixés par le store pour votre pays.",
+  "premiumTerms": "Conditions",
+  "premiumPrivacy": "Confidentialité",
+
+  "premiumNoticePurchaseNotStarted": "Le store n'a pas pu lancer cet achat.",
+  "premiumNoticePurchaseNotStartedDetail": "Le store n'a pas pu lancer cet achat : {error}",
+  "premiumNoticeLookingForPurchases": "Recherche de vos achats précédents…",
+  "premiumNoticeRestoreUnreachable": "Impossible de joindre le store pour restaurer vos achats.",
+  "premiumNoticeNoSubscription": "Aucun abonnement Bodi actif sur ce compte du store.",
+  "premiumNoticeAwaitingPayment": "En attente de la confirmation de votre paiement par le store…",
+  "premiumNoticeCheckingPurchase": "Vérification de votre achat auprès du store…",
+  "premiumNoticePurchaseNotCompleted": "Le store n'a pas pu finaliser cet achat.",
+  "premiumNoticePurchaseNotConfirmed": "Le store n'a pas pu confirmer cet achat.",
+  "premiumNoticeSignInRequired": "Connectez-vous d'abord — Premium est rattaché à votre compte Bodi, pas à cet appareil.",
+  "premiumNoticeNoReceipt": "Le store n'a pas fourni de reçu pour cet achat. Essayez « Restaurer mes achats ».",
+  "premiumNoticeVerificationOffline": "Impossible de joindre Bodi pour confirmer cet achat. Il est en sécurité auprès du store — revenez sur cet écran dès que vous avez une connexion.",
+  "premiumNoticeSessionExpired": "Veuillez vous reconnecter."
+}

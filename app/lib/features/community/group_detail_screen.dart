@@ -8,7 +8,23 @@ import '../../core/theme/app_colors.dart';
 import '../../core/widgets/bodi_card.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../domain/models/community.dart';
+import '../../l10n/app_localizations.dart';
 import 'community_controller.dart';
+
+/// The unit a challenge counts in, in the reader's language.
+///
+/// `ChallengeSummary.metricLabel` stays English because `domain/` is pure Dart;
+/// the raw metric key is what reaches the UI and gets translated here.
+String _metricUnit(BuildContext context, String metric) {
+  final l = L.of(context);
+  return switch (metric) {
+    'steps' => l.communityUnitSteps,
+    'workouts' => l.communityUnitWorkouts,
+    'habit_completion' => l.communityUnitHabitDays,
+    'water' => l.communityUnitWater,
+    _ => metric,
+  };
+}
 
 class GroupDetailScreen extends ConsumerWidget {
   const GroupDetailScreen({super.key, required this.group});
@@ -19,6 +35,7 @@ class GroupDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final challenges = ref.watch(groupChallengesProvider(group.id));
     final theme = Theme.of(context);
+    final l = L.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +44,7 @@ class GroupDetailScreen extends ConsumerWidget {
           if (!group.isOwner)
             IconButton(
               icon: const Icon(Icons.logout_rounded),
-              tooltip: 'Leave group',
+              tooltip: l.communityLeaveGroup,
               onPressed: () async {
                 await ref
                     .read(communityControllerProvider)
@@ -38,30 +55,30 @@ class GroupDetailScreen extends ConsumerWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'fab-group-detail',
         onPressed: () => showModalBottomSheet(
           context: context,
           isScrollControlled: true,
           builder: (_) => _CreateChallengeSheet(groupId: group.id),
         ),
         icon: const Icon(Icons.emoji_events_rounded),
-        label: const Text('New challenge'),
+        label: Text(l.communityNewChallenge),
       ),
       body: RefreshIndicator(
         onRefresh: () async =>
             ref.refresh(groupChallengesProvider(group.id).future),
         child: challenges.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (e, _) => Center(child: Text(e is Failure ? e.message : '$e')),
+          error: (e, _) => Center(child: Text(messageFor(e))),
           data: (list) => list.isEmpty
               ? ListView(
                   children: [
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.7,
-                      child: const EmptyState(
+                      child: EmptyState(
                         icon: Icons.emoji_events_outlined,
-                        title: 'No challenges yet',
-                        message:
-                            'Start a step or workout challenge and rally the group.',
+                        title: l.communityNoChallengesTitle,
+                        message: l.communityNoChallengesMessage,
                       ),
                     ),
                   ],
@@ -70,7 +87,7 @@ class GroupDetailScreen extends ConsumerWidget {
                   padding: const EdgeInsets.fromLTRB(20, 12, 20, 96),
                   children: [
                     Text(
-                      '${group.memberCount} members',
+                      l.communityMemberCount(group.memberCount),
                       style: theme.textTheme.bodySmall,
                     ),
                     const SizedBox(height: 8),
@@ -93,6 +110,7 @@ class _ChallengeCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l = L.of(context);
     final leaderboard = ref.watch(leaderboardProvider(challenge.id));
     final dateFmt = DateFormat('d MMM');
     final controller = ref.read(communityControllerProvider);
@@ -113,8 +131,12 @@ class _ChallengeCard extends ConsumerWidget {
                     children: [
                       Text(challenge.name, style: theme.textTheme.titleMedium),
                       Text(
-                        '${_fmt(challenge.target)} ${challenge.metricLabel} · '
-                        '${dateFmt.format(DateTime.parse(challenge.startsOn))}–${dateFmt.format(DateTime.parse(challenge.endsOn))}',
+                        l.communityChallengeSummary(
+                          _fmt(challenge.target),
+                          _metricUnit(context, challenge.metric),
+                          dateFmt.format(DateTime.parse(challenge.startsOn)),
+                          dateFmt.format(DateTime.parse(challenge.endsOn)),
+                        ),
                         style: theme.textTheme.bodySmall,
                       ),
                     ],
@@ -151,7 +173,7 @@ class _ChallengeCard extends ConsumerWidget {
                 alignment: Alignment.centerRight,
                 child: TextButton.icon(
                   icon: const Icon(Icons.edit_rounded, size: 18),
-                  label: const Text('Update my progress'),
+                  label: Text(l.communityUpdateProgress),
                   onPressed: () => _updateProgress(context, ref),
                 ),
               ),
@@ -159,10 +181,10 @@ class _ChallengeCard extends ConsumerWidget {
               FilledButton.tonal(
                 onPressed: () =>
                     controller.joinChallenge(groupId, challenge.id),
-                child: const Text('Join challenge'),
+                child: Text(l.communityJoinChallenge),
               ),
             const Divider(height: 24),
-            Text('Leaderboard', style: theme.textTheme.titleSmall),
+            Text(l.communityLeaderboard, style: theme.textTheme.titleSmall),
             const SizedBox(height: 8),
             leaderboard.when(
               loading: () => const Padding(
@@ -170,11 +192,14 @@ class _ChallengeCard extends ConsumerWidget {
                 child: LinearProgressIndicator(),
               ),
               error: (e, _) => Text(
-                'Could not load leaderboard.',
+                l.communityLeaderboardError,
                 style: theme.textTheme.bodySmall,
               ),
               data: (entries) => entries.isEmpty
-                  ? Text('No entries yet.', style: theme.textTheme.bodySmall)
+                  ? Text(
+                      l.communityLeaderboardEmpty,
+                      style: theme.textTheme.bodySmall,
+                    )
                   : Column(
                       children: [
                         for (final entry in entries)
@@ -189,6 +214,8 @@ class _ChallengeCard extends ConsumerWidget {
   }
 
   Future<void> _updateProgress(BuildContext context, WidgetRef ref) async {
+    final l = L.of(context);
+    final unit = _metricUnit(context, challenge.metric);
     final controller = TextEditingController(
       text: challenge.myProgress == 0
           ? ''
@@ -197,24 +224,22 @@ class _ChallengeCard extends ConsumerWidget {
     final value = await showDialog<double>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Your ${challenge.metricLabel}'),
+        title: Text(l.communityYourMetric(unit)),
         content: TextField(
           controller: controller,
           keyboardType: TextInputType.number,
           autofocus: true,
-          decoration: InputDecoration(
-            hintText: 'Total ${challenge.metricLabel}',
-          ),
+          decoration: InputDecoration(hintText: l.communityTotalMetric(unit)),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(l.actionCancel),
           ),
           FilledButton(
             onPressed: () =>
                 Navigator.pop(context, double.tryParse(controller.text.trim())),
-            child: const Text('Save'),
+            child: Text(l.actionSave),
           ),
         ],
       ),
@@ -295,11 +320,22 @@ class _CreateChallengeSheet extends HookConsumerWidget {
   final String groupId;
 
   static const _metrics = [
-    ('steps', 'Steps', '👟'),
-    ('workouts', 'Workouts', '💪'),
-    ('habit_completion', 'Habit days', '✅'),
-    ('water', 'Water (ml)', '💧'),
+    ('steps', '👟'),
+    ('workouts', '💪'),
+    ('habit_completion', '✅'),
+    ('water', '💧'),
   ];
+
+  static String _metricChipLabel(BuildContext context, String metric) {
+    final l = L.of(context);
+    return switch (metric) {
+      'steps' => l.communityMetricSteps,
+      'workouts' => l.communityMetricWorkouts,
+      'habit_completion' => l.communityMetricHabitDays,
+      'water' => l.communityMetricWater,
+      _ => metric,
+    };
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -309,6 +345,7 @@ class _CreateChallengeSheet extends HookConsumerWidget {
     final days = useState(7);
     final busy = useState(false);
     final theme = Theme.of(context);
+    final l = L.of(context);
 
     Future<void> submit() async {
       final targetValue = double.tryParse(target.text.trim());
@@ -349,23 +386,23 @@ class _CreateChallengeSheet extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('New challenge', style: theme.textTheme.headlineSmall),
+          Text(l.communityNewChallenge, style: theme.textTheme.headlineSmall),
           const SizedBox(height: 16),
           TextField(
             controller: name,
             autofocus: true,
             textCapitalization: TextCapitalization.sentences,
-            decoration: const InputDecoration(hintText: 'e.g. August step-off'),
+            decoration: InputDecoration(hintText: l.communityChallengeNameHint),
           ),
           const SizedBox(height: 16),
-          Text('Metric', style: theme.textTheme.labelMedium),
+          Text(l.communityMetric, style: theme.textTheme.labelMedium),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
             children: [
-              for (final (value, label, emoji) in _metrics)
+              for (final (value, emoji) in _metrics)
                 ChoiceChip(
-                  label: Text('$emoji $label'),
+                  label: Text('$emoji ${_metricChipLabel(context, value)}'),
                   selected: metric.value == value,
                   showCheckmark: false,
                   onSelected: (_) => metric.value = value,
@@ -376,14 +413,14 @@ class _CreateChallengeSheet extends HookConsumerWidget {
           TextField(
             controller: target,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              hintText: 'Target (per member)',
-              prefixIcon: Icon(Icons.flag_rounded),
+            decoration: InputDecoration(
+              hintText: l.communityChallengeTargetHint,
+              prefixIcon: const Icon(Icons.flag_rounded),
             ),
           ),
           const SizedBox(height: 16),
           Text(
-            'Length: ${days.value} days',
+            l.communityChallengeLength(days.value),
             style: theme.textTheme.labelMedium,
           ),
           Slider(
@@ -391,13 +428,13 @@ class _CreateChallengeSheet extends HookConsumerWidget {
             min: 3,
             max: 60,
             divisions: 57,
-            label: '${days.value} days',
+            label: l.communityDayCount(days.value),
             onChanged: (v) => days.value = v.round(),
           ),
           const SizedBox(height: 8),
           FilledButton(
             onPressed: busy.value ? null : submit,
-            child: const Text('Create challenge'),
+            child: Text(l.communityCreateChallenge),
           ),
         ],
       ),

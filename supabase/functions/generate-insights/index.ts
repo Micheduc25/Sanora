@@ -1,10 +1,10 @@
 import {
-  callOpenAi,
+  callGemini,
   consumeAiAllowance,
   corsHeaders,
+  geminiSchema,
   handleError,
   json,
-  openAiModel,
   outputText,
   requireUser,
 } from "../_shared/mod.ts";
@@ -47,24 +47,20 @@ Deno.serve(async (req) => {
     await consumeAiAllowance(admin, userId);
     const { context } = await req.json();
 
-    const upstream = await callOpenAi({
-      model: openAiModel(),
-      instructions:
-        `You analyze a user's week of health data and surface at most 4 genuinely useful patterns (weight trends vs meals, late eating, low protein, sodium, sleep, movement, weekend effects). Be specific with their numbers, kind in tone, and always give one doable next step. Celebrate real wins. Never shame.`,
-      input: [{
-        role: "user",
-        content: [{
-          type: "input_text",
-          text: `Week of data (JSON): ${JSON.stringify(context)}`,
+    const upstream = await callGemini({
+      systemInstruction: {
+        parts: [{
+          text:
+            `You analyze a user's week of health data and surface at most 4 genuinely useful patterns (weight trends vs meals, late eating, low protein, sodium, sleep, movement, weekend effects). Be specific with their numbers, kind in tone, and always give one doable next step. Celebrate real wins. Never shame.`,
         }],
+      },
+      contents: [{
+        role: "user",
+        parts: [{ text: `Week of data (JSON): ${JSON.stringify(context)}` }],
       }],
-      text: {
-        format: {
-          type: "json_schema",
-          name: "weekly_insights",
-          strict: true,
-          schema: insightsSchema,
-        },
+      generationConfig: {
+        responseMimeType: "application/json",
+        responseSchema: geminiSchema(insightsSchema),
       },
     });
 

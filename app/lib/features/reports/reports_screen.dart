@@ -10,6 +10,7 @@ import '../../core/theme/app_colors.dart';
 import '../../core/utils/extensions.dart';
 import '../../core/widgets/bodi_card.dart';
 import '../../core/widgets/empty_state.dart';
+import '../../l10n/app_localizations.dart';
 import 'report_controller.dart';
 import 'report_pdf.dart';
 
@@ -18,34 +19,44 @@ class ReportsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final report = ref.watch(weeklyReportProvider);
-    final theme = Theme.of(context);
+    final l = L.of(context);
+    return ref
+        .watch(weeklyReportProvider)
+        .when(
+          loading: () => const _ReportShell(
+            child: Center(child: CircularProgressIndicator()),
+          ),
+          error: (e, _) => _ReportShell(
+            child: EmptyState(
+              icon: Icons.description_rounded,
+              title: l.reportsErrorTitle,
+              message: l.reportsErrorMessage,
+            ),
+          ),
+          data: (report) => report == null
+              ? _ReportShell(
+                  child: EmptyState(
+                    icon: Icons.description_rounded,
+                    title: l.reportsEmptyTitle,
+                    message: l.reportsEmptyMessage,
+                  ),
+                )
+              : _buildReport(context, report),
+        );
+  }
 
-    if (report == null) {
-      return Scaffold(
-        appBar: AppBar(title: const Text('Weekly report')),
-        body: const EmptyState(
-          icon: Icons.description_rounded,
-          title: 'No report yet',
-          message: 'Complete onboarding to start generating weekly reports.',
-        ),
-      );
-    }
+  Widget _buildReport(BuildContext context, WeeklyReport report) {
+    final theme = Theme.of(context);
+    final l = L.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Weekly report'),
+        title: Text(l.reportsTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.ios_share_rounded),
-            tooltip: 'Export PDF',
-            onPressed: () async {
-              final bytes = await buildWeeklyReportPdf(report);
-              await Printing.sharePdf(
-                bytes: Uint8List.fromList(bytes),
-                filename: 'bodi-weekly-report.pdf',
-              );
-            },
+            tooltip: l.reportsExportTooltip,
+            onPressed: () => _exportPdf(context, report),
           ),
         ],
       ),
@@ -55,15 +66,15 @@ class ReportsScreen extends ConsumerWidget {
           Row(
             children: [
               _SummaryTile(
-                label: 'Avg calories',
+                label: l.reportsAvgCalories,
                 value: '${report.avgCalories.round()}',
-                unit: 'kcal/day',
+                unit: l.reportsUnitKcalPerDay,
               ),
               const SizedBox(width: 10),
               _SummaryTile(
-                label: 'Avg protein',
+                label: l.reportsAvgProtein,
                 value: '${report.avgProtein.round()}',
-                unit: 'g/day',
+                unit: l.reportsUnitGramsPerDay,
               ),
             ],
           ),
@@ -71,13 +82,13 @@ class ReportsScreen extends ConsumerWidget {
           Row(
             children: [
               _SummaryTile(
-                label: 'Habits kept',
+                label: l.reportsHabitsKept,
                 value: '${report.habitsCompletionPct}',
                 unit: '%',
               ),
               const SizedBox(width: 10),
               _SummaryTile(
-                label: 'Weight change',
+                label: l.reportsWeightChange,
                 value: report.weightDelta == null
                     ? '—'
                     : '${report.weightDelta! >= 0 ? '+' : ''}${report.weightDelta!.toStringAsFixed(1)}',
@@ -85,7 +96,7 @@ class ReportsScreen extends ConsumerWidget {
               ),
             ],
           ),
-          SectionHeader('Calories eaten'),
+          SectionHeader(l.reportsCaloriesEaten),
           BodiCard(
             child: SizedBox(
               height: 180,
@@ -145,7 +156,7 @@ class ReportsScreen extends ConsumerWidget {
               ),
             ),
           ),
-          SectionHeader('Steps'),
+          SectionHeader(l.metricSteps),
           BodiCard(
             child: SizedBox(
               height: 160,
@@ -173,27 +184,29 @@ class ReportsScreen extends ConsumerWidget {
               ),
             ),
           ),
-          SectionHeader('Week at a glance'),
+          SectionHeader(l.reportsWeekAtAGlance),
           BodiCard(
             child: Column(
               children: [
                 _GlanceRow(
-                  label: 'Meals logged',
+                  label: l.reportsMealsLogged,
                   value: '${report.mealsLogged}',
                 ),
                 _GlanceRow(
-                  label: 'Workouts completed',
+                  label: l.reportsWorkoutsCompleted,
                   value: '${report.workoutsCompleted}',
                 ),
                 _GlanceRow(
-                  label: 'Avg water',
-                  value: '${(report.avgWater / 1000).trimZeros()} L / day',
+                  label: l.reportsAvgWater,
+                  value: l.reportsLitresPerDay(
+                    (report.avgWater / 1000).trimZeros(),
+                  ),
                 ),
                 _GlanceRow(
-                  label: 'Avg sleep',
+                  label: l.reportsAvgSleep,
                   value: report.avgSleep == null
                       ? '—'
-                      : '${report.avgSleep!.toStringAsFixed(1)} h',
+                      : l.reportsHours(report.avgSleep!.toStringAsFixed(1)),
                 ),
               ],
             ),
@@ -202,6 +215,37 @@ class ReportsScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
+/// Sharing can fail for reasons the user can act on (no share targets, a
+/// cancelled sheet, a full disk), and silently swallowing that looks like the
+/// export button is broken.
+Future<void> _exportPdf(BuildContext context, WeeklyReport report) async {
+  // Read the strings before the first await: the PDF builder has no
+  // BuildContext of its own, and after an await this one may be gone.
+  final l = L.of(context);
+  final messenger = ScaffoldMessenger.of(context);
+  try {
+    final bytes = await buildWeeklyReportPdf(l, report);
+    await Printing.sharePdf(
+      bytes: Uint8List.fromList(bytes),
+      filename: 'bodi-weekly-report.pdf',
+    );
+  } catch (_) {
+    messenger.showSnackBar(SnackBar(content: Text(l.reportsExportError)));
+  }
+}
+
+class _ReportShell extends StatelessWidget {
+  const _ReportShell({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: Text(L.of(context).reportsTitle)),
+    body: child,
+  );
 }
 
 class _SummaryTile extends StatelessWidget {

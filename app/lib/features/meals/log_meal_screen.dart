@@ -9,6 +9,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 import '../../core/error/failures.dart';
 import '../../core/widgets/bodi_card.dart';
 import '../../domain/models/food_item.dart';
+import '../../l10n/app_localizations.dart';
 import 'meal_detail_sheet.dart';
 import 'meals_controller.dart';
 
@@ -20,6 +21,7 @@ class LogMealScreen extends HookConsumerWidget {
     final tab = useState(0);
     final analyzing = useState(false);
     final theme = Theme.of(context);
+    final l = L.of(context);
 
     Future<void> analyze(Future<dynamic> Function() run) async {
       analyzing.value = true;
@@ -36,13 +38,9 @@ class LogMealScreen extends HookConsumerWidget {
         }
       } catch (_) {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Could not analyze that meal. Check your connection and try again.',
-              ),
-            ),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(l.mealsAnalyzeError)));
         }
       } finally {
         analyzing.value = false;
@@ -50,7 +48,7 @@ class LogMealScreen extends HookConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Log a meal')),
+      appBar: AppBar(title: Text(l.mealsLogTitle)),
       body: Stack(
         children: [
           Column(
@@ -58,21 +56,21 @@ class LogMealScreen extends HookConsumerWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
                 child: SegmentedButton<int>(
-                  segments: const [
+                  segments: [
                     ButtonSegment(
                       value: 0,
-                      icon: Icon(Icons.photo_camera_rounded),
-                      label: Text('Photo'),
+                      icon: const Icon(Icons.photo_camera_rounded),
+                      label: Text(l.mealsTabPhoto),
                     ),
                     ButtonSegment(
                       value: 1,
-                      icon: Icon(Icons.edit_note_rounded),
-                      label: Text('Describe'),
+                      icon: const Icon(Icons.edit_note_rounded),
+                      label: Text(l.mealsTabDescribe),
                     ),
                     ButtonSegment(
                       value: 2,
-                      icon: Icon(Icons.search_rounded),
-                      label: Text('Search'),
+                      icon: const Icon(Icons.search_rounded),
+                      label: Text(l.mealsTabSearch),
                     ),
                   ],
                   selected: {tab.value},
@@ -83,15 +81,16 @@ class LogMealScreen extends HookConsumerWidget {
                 child: switch (tab.value) {
                   0 => _PhotoTab(
                     onPick: (file) => analyze(
-                      () =>
-                          ref.read(mealsControllerProvider).analyzePhoto(file),
+                      () => ref
+                          .read(mealsControllerProvider)
+                          .analyzePhoto(file, l),
                     ),
                   ),
                   1 => _DescribeTab(
                     onSubmit: (text) => analyze(
                       () => ref
                           .read(mealsControllerProvider)
-                          .analyzeDescription(text),
+                          .analyzeDescription(text, l),
                     ),
                   ),
                   _ => const _SearchTab(),
@@ -112,7 +111,7 @@ class LogMealScreen extends HookConsumerWidget {
                         const CircularProgressIndicator(),
                         const SizedBox(height: 18),
                         Text(
-                          'Reading your plate…',
+                          l.mealsAnalyzing,
                           style: theme.textTheme.titleMedium,
                         ),
                       ],
@@ -144,11 +143,12 @@ class _PhotoTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = L.of(context);
     return ListView(
       padding: const EdgeInsets.all(20),
       children: [
         Text(
-          'Point your camera at the plate. Bodi recognizes African and international dishes and estimates portions.',
+          l.mealsPhotoIntro,
           style: theme.textTheme.bodyLarge?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
@@ -165,7 +165,10 @@ class _PhotoTab extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               Expanded(
-                child: Text('Take a photo', style: theme.textTheme.titleMedium),
+                child: Text(
+                  l.mealsTakePhoto,
+                  style: theme.textTheme.titleMedium,
+                ),
               ),
               const Icon(Icons.chevron_right_rounded),
             ],
@@ -184,7 +187,7 @@ class _PhotoTab extends StatelessWidget {
               const SizedBox(width: 16),
               Expanded(
                 child: Text(
-                  'Choose from gallery',
+                  l.mealsChooseFromGallery,
                   style: theme.textTheme.titleMedium,
                 ),
               ),
@@ -208,6 +211,7 @@ class _DescribeTab extends HookWidget {
     final speech = useMemoized(SpeechToText.new);
     final listening = useState(false);
     final theme = Theme.of(context);
+    final l = L.of(context);
 
     Future<void> toggleListening() async {
       if (listening.value) {
@@ -218,11 +222,9 @@ class _DescribeTab extends HookWidget {
       final available = await speech.initialize();
       if (!available) {
         if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Voice input is not available on this device.'),
-            ),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(l.mealsVoiceUnavailable)));
         }
         return;
       }
@@ -239,7 +241,7 @@ class _DescribeTab extends HookWidget {
       padding: const EdgeInsets.all(20),
       children: [
         Text(
-          'Say it like you would to a friend: "eru with water fufu and one roasted fish".',
+          l.mealsDescribeIntro,
           style: theme.textTheme.bodyLarge?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
@@ -251,7 +253,7 @@ class _DescribeTab extends HookWidget {
           maxLines: 6,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
-            hintText: 'What did you eat?',
+            hintText: l.mealsDescribeHint,
             suffixIcon: IconButton(
               icon: Icon(
                 listening.value ? Icons.stop_rounded : Icons.mic_rounded,
@@ -264,7 +266,7 @@ class _DescribeTab extends HookWidget {
         const SizedBox(height: 16),
         FilledButton.icon(
           icon: const Icon(Icons.auto_awesome_rounded),
-          label: const Text('Estimate nutrition'),
+          label: Text(l.mealsEstimateNutrition),
           onPressed: () {
             final text = controller.text.trim();
             if (text.isNotEmpty) onSubmit(text);
@@ -288,9 +290,9 @@ class _SearchTab extends HookConsumerWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
           child: TextField(
-            decoration: const InputDecoration(
-              hintText: 'Search eru, jollof, ugali, beans…',
-              prefixIcon: Icon(Icons.search_rounded),
+            decoration: InputDecoration(
+              hintText: L.of(context).mealsSearchHint,
+              prefixIcon: const Icon(Icons.search_rounded),
             ),
             onChanged: (v) => query.value = v,
           ),
@@ -298,7 +300,7 @@ class _SearchTab extends HookConsumerWidget {
         Expanded(
           child: results.when(
             loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, _) => Center(child: Text('$e')),
+            error: (e, _) => Center(child: Text(messageFor(e))),
             data: (foods) => ListView.builder(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
               itemCount: foods.length,
@@ -328,7 +330,15 @@ class _FoodRow extends ConsumerWidget {
       contentPadding: EdgeInsets.zero,
       title: Text(food.name),
       subtitle: Text(
-        '${food.region} · ${food.servingLabel.isEmpty ? '${food.typicalServingG.round()}g' : food.servingLabel} · ${servingKcal.round()} kcal',
+        L
+            .of(context)
+            .mealsFoodSubtitle(
+              food.region,
+              food.servingLabel.isEmpty
+                  ? '${food.typicalServingG.round()}g'
+                  : food.servingLabel,
+              servingKcal.round(),
+            ),
         style: theme.textTheme.bodySmall,
       ),
       trailing: const Icon(Icons.add_circle_outline_rounded),

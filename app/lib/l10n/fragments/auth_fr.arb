@@ -1,0 +1,19 @@
+{
+  "authTitle": "Votre compte",
+  "authCreateAccount": "Créez votre compte",
+  "authWelcomeBack": "Content de vous revoir",
+  "authIntro": "Un compte protège vos données sur tous vos appareils et débloque le coach IA, la reconnaissance des repas et les analyses.",
+  "authNoBackend": "Cette version n'a pas de serveur configuré. Vous pouvez continuer à utiliser Bodi entièrement hors connexion — tout reste enregistré sur votre appareil.",
+  "authEmailHint": "E-mail",
+  "authPasswordHint": "Mot de passe",
+  "authSignUp": "S'inscrire",
+  "authSignIn": "Se connecter",
+  "authHaveAccount": "J'ai déjà un compte",
+  "authNewHere": "Nouveau ici ? Créez un compte",
+  "authForgotPassword": "Mot de passe oublié ?",
+  "authContinueWithoutAccount": "Continuer sans compte",
+  "authConfirmationSent": "Un lien de confirmation vous attend à l'adresse {email}. Connectez-vous ensuite.",
+  "authResetLinkSent": "Si un compte est associé à {email}, un lien de réinitialisation est en route.",
+  "authEnterEmailFirst": "Saisissez d'abord votre adresse e-mail.",
+  "authServerUnreachable": "Impossible de joindre le serveur. Veuillez réessayer."
+}

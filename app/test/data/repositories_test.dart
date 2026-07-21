@@ -4,6 +4,7 @@ import 'package:bodi/core/storage/local_store.dart';
 import 'package:bodi/data/repositories/habits_repository.dart';
 import 'package:bodi/data/repositories/meals_repository.dart';
 import 'package:bodi/data/repositories/metrics_repository.dart';
+import 'package:bodi/data/notifications/notification_service.dart';
 import 'package:bodi/data/supabase_service.dart';
 import 'package:bodi/data/sync/sync_service.dart';
 import 'package:bodi/domain/models/enums.dart';
@@ -18,6 +19,7 @@ void main() {
   late Directory tempDir;
   // No Supabase configured in tests, so SyncService is inert.
   final sync = SyncService(SupabaseService());
+  final notifications = NotificationService();
 
   setUpAll(() async {
     tempDir = await Directory.systemTemp.createTemp('bodi_test');
@@ -178,7 +180,7 @@ void main() {
     );
 
     test('unbroken run of completed days counts', () async {
-      final repo = HabitsRepository(sync);
+      final repo = HabitsRepository(sync, notifications);
       final h = habit();
       await repo.save(h);
       for (var i = 0; i < 4; i++) {
@@ -188,7 +190,7 @@ void main() {
     });
 
     test('an incomplete today does not break the streak', () async {
-      final repo = HabitsRepository(sync);
+      final repo = HabitsRepository(sync, notifications);
       final h = habit();
       await repo.save(h);
       for (var i = 1; i <= 3; i++) {
@@ -198,7 +200,7 @@ void main() {
     });
 
     test('a gap breaks the streak', () async {
-      final repo = HabitsRepository(sync);
+      final repo = HabitsRepository(sync, notifications);
       final h = habit();
       await repo.save(h);
       await repo.log(h, today);
@@ -207,7 +209,7 @@ void main() {
     });
 
     test('unscheduled days are skipped, not broken', () async {
-      final repo = HabitsRepository(sync);
+      final repo = HabitsRepository(sync, notifications);
       // 2026-07-20 is a Monday; schedule Mon/Wed/Fri.
       final h = habit(weekdays: [1, 3, 5]);
       await repo.save(h);
@@ -218,7 +220,7 @@ void main() {
     });
 
     test('undoLog removes the most recent log for the day', () async {
-      final repo = HabitsRepository(sync);
+      final repo = HabitsRepository(sync, notifications);
       final h = habit();
       await repo.save(h);
       await repo.log(h, today);

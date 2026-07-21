@@ -1,0 +1,39 @@
+{
+  "dashboardGreetingMorning": "Bonjour",
+  "dashboardGreetingAfternoon": "Bon après-midi",
+  "dashboardGreetingEvening": "Bonsoir",
+
+  "dashboardGreetingMorningNamed": "Bonjour {name}",
+  "dashboardGreetingAfternoonNamed": "Bon après-midi {name}",
+  "dashboardGreetingEveningNamed": "Bonsoir {name}",
+
+  "dashboardScoreTitle": "Score santé du jour",
+  "dashboardScoreRingLabel": "aujourd'hui",
+  "dashboardScoreMessageHigh": "Excellente journée — continuez ainsi.",
+  "dashboardScoreMessageMid": "Beau progrès. Les petits pas comptent.",
+  "dashboardScoreMessageLow": "Chaque saisie améliore la journée. Commencez petit.",
+  "dashboardScoreMove": "Bouger",
+  "dashboardScoreEat": "Manger",
+  "dashboardScoreSleep": "Dormir",
+
+  "dashboardStepsOf": "sur {goal} pas",
+  "dashboardCaloriesOf": "sur {target}",
+  "dashboardProteinOf": "sur {target} g de protéines",
+  "dashboardWaterOf": "sur {target} L d'eau",
+  "dashboardSleepLastNight": "de sommeil cette nuit",
+  "dashboardHeartRateLabel": "fréquence cardiaque",
+
+  "dashboardHabitsTitle": "Habitudes",
+  "dashboardHabitsEmpty": "Créez votre première habitude — simple et répétable.",
+  "dashboardHabitsDone": "{done}/{total} faites",
+  "dashboardHabitsAll": "Les {count} habitudes",
+
+  "dashboardActionLogMeal": "Noter un repas",
+  "dashboardActionWorkout": "Séance",
+  "dashboardActionWeighIn": "Se peser",
+  "dashboardActionReport": "Rapport",
+
+  "dashboardConnectAppleHealth": "Connecter Apple Santé",
+  "dashboardConnectHealthConnect": "Connecter Health Connect",
+  "dashboardConnectBody": "Bodi lira vos pas, votre fréquence cardiaque et votre sommeil pour vous éviter de les saisir à la main."
+}

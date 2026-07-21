@@ -19,6 +19,7 @@ abstract final class LocalStore {
   static const remindersBox = 'reminders';
   static const workoutsBox = 'workouts';
   static const syncQueueBox = 'sync_queue';
+  static const syncDeadLetterBox = 'sync_dead_letter';
 
   static const _all = [
     settingsBox,
@@ -32,6 +33,7 @@ abstract final class LocalStore {
     remindersBox,
     workoutsBox,
     syncQueueBox,
+    syncDeadLetterBox,
   ];
 
   static Future<void> open() async {
@@ -78,6 +80,9 @@ class SyncOp {
     required this.op,
     required this.payload,
     required this.queuedAt,
+    this.conflictTarget,
+    this.attempts = 0,
+    this.lastError,
   });
 
   final String id;
@@ -86,12 +91,35 @@ class SyncOp {
   final Map<String, dynamic> payload;
   final DateTime queuedAt;
 
+  /// Column(s) the upsert should conflict on. Defaults to the primary key,
+  /// which is wrong for tables whose per-user natural key is `user_id`.
+  final String? conflictTarget;
+
+  /// Replay attempts so far. A row the server keeps rejecting is retired to
+  /// the dead-letter box rather than blocking everything queued behind it.
+  final int attempts;
+  final String? lastError;
+
+  SyncOp retry(String error) => SyncOp(
+    id: id,
+    table: table,
+    op: op,
+    payload: payload,
+    queuedAt: queuedAt,
+    conflictTarget: conflictTarget,
+    attempts: attempts + 1,
+    lastError: error,
+  );
+
   Map<String, dynamic> toJson() => {
     'id': id,
     'table': table,
     'op': op,
     'payload': payload,
     'queued_at': queuedAt.toIso8601String(),
+    if (conflictTarget != null) 'conflict_target': conflictTarget,
+    'attempts': attempts,
+    if (lastError != null) 'last_error': lastError,
   };
 
   factory SyncOp.fromJson(Map<String, dynamic> json) => SyncOp(
@@ -100,5 +128,8 @@ class SyncOp {
     op: json['op'] as String,
     payload: Map<String, dynamic>.from(json['payload'] as Map),
     queuedAt: DateTime.parse(json['queued_at'] as String),
+    conflictTarget: json['conflict_target'] as String?,
+    attempts: json['attempts'] as int? ?? 0,
+    lastError: json['last_error'] as String?,
   );
 }

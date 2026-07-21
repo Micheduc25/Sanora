@@ -289,4 +289,61 @@ void main() {
       );
     });
   });
+
+  group('exercise minutes', () {
+    test('scales with activity level instead of a fixed 150', () {
+      int minutes(ActivityLevel level) =>
+          HealthEngine.exerciseMinutes(profile(activityLevel: level));
+
+      expect(minutes(ActivityLevel.sedentary), 90);
+      expect(minutes(ActivityLevel.moderate), 210);
+      expect(minutes(ActivityLevel.athlete), 300);
+    });
+
+    test('fat loss adds 30 minutes, capped at the WHO upper bound', () {
+      expect(
+        HealthEngine.exerciseMinutes(
+          profile(
+            activityLevel: ActivityLevel.light,
+            goals: [GoalType.loseFat],
+          ),
+        ),
+        180,
+      );
+      expect(
+        HealthEngine.exerciseMinutes(
+          profile(
+            activityLevel: ActivityLevel.athlete,
+            goals: [GoalType.loseFat],
+          ),
+        ),
+        300,
+      );
+    });
+  });
+
+  group('macro split', () {
+    test('carbs and fat spend the calories protein leaves', () {
+      final health = HealthEngine.compute(profile());
+      final fromMacros =
+          health.proteinTargetG * 4 +
+          health.carbTargetG * 4 +
+          health.fatTargetG * 9;
+
+      // Each gram target is rounded independently, so reconstructing calories
+      // can drift by half a gram of each macro: 0.5*4 + 0.5*4 + 0.5*9 ≈ 9 kcal.
+      expect(fromMacros, closeTo(health.calorieTarget, 9));
+    });
+
+    test('never goes negative when protein alone exceeds the budget', () {
+      // A very short, heavy, muscle-building profile is where the protein
+      // target can crowd out the rest of the calorie budget.
+      final health = HealthEngine.compute(
+        profile(heightCm: 140, weightKg: 120, goals: [GoalType.buildMuscle]),
+      );
+
+      expect(health.carbTargetG, greaterThanOrEqualTo(0));
+      expect(health.fatTargetG, greaterThanOrEqualTo(0));
+    });
+  });
 }

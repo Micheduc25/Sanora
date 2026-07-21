@@ -1,0 +1,117 @@
+{
+  "mealsLogMeal": "Log meal",
+  "mealsEmptyTitle": "What did you eat today?",
+  "mealsEmptyMessage": "Snap a photo, describe it, or search the food database — Bodi estimates the nutrition for you.",
+  "mealsEmptyAction": "Log your first meal",
+  "mealsCalorieProgress": "{eaten} / {target} kcal",
+  "@mealsCalorieProgress": {
+    "description": "Calories eaten today against the daily target.",
+    "placeholders": {
+      "eaten": { "type": "int" },
+      "target": { "type": "int" }
+    }
+  },
+  "mealsMacroProtein": "Protein",
+  "mealsMacroCarbs": "Carbs",
+  "mealsMacroFat": "Fat",
+  "mealsMacroProgress": "{value}/{goal} {unit}",
+  "@mealsMacroProgress": {
+    "description": "Macro amount against its goal. Unit is a symbol such as g.",
+    "placeholders": {
+      "value": { "type": "int" },
+      "goal": { "type": "int" },
+      "unit": { "type": "String" }
+    }
+  },
+  "mealsFavourites": "Favourites",
+  "mealsLoggedAgain": "Logged {name} again.",
+  "@mealsLoggedAgain": {
+    "description": "Snackbar after re-logging a favourite meal.",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "mealsRowSubtitle": "{type} · {time} · {protein}g protein",
+  "@mealsRowSubtitle": {
+    "description": "Meal list row: meal type, time of day, protein in grams.",
+    "placeholders": {
+      "type": { "type": "String" },
+      "time": { "type": "String" },
+      "protein": { "type": "int" }
+    }
+  },
+
+  "mealsLogTitle": "Log a meal",
+  "mealsTabPhoto": "Photo",
+  "mealsTabDescribe": "Describe",
+  "mealsTabSearch": "Search",
+  "mealsAnalyzing": "Reading your plate…",
+  "mealsAnalyzeError": "Could not analyze that meal. Check your connection and try again.",
+  "mealsPhotoIntro": "Point your camera at the plate. Bodi recognizes African and international dishes and estimates portions.",
+  "mealsTakePhoto": "Take a photo",
+  "mealsChooseFromGallery": "Choose from gallery",
+  "mealsVoiceUnavailable": "Voice input is not available on this device.",
+  "mealsDescribeIntro": "Say it like you would to a friend: \"eru with water fufu and one roasted fish\".",
+  "mealsDescribeHint": "What did you eat?",
+  "mealsEstimateNutrition": "Estimate nutrition",
+  "mealsSearchHint": "Search eru, jollof, ugali, beans…",
+  "mealsFoodSubtitle": "{region} · {serving} · {kcal} kcal",
+  "@mealsFoodSubtitle": {
+    "description": "Food search result: region, serving size, calories per serving.",
+    "placeholders": {
+      "region": { "type": "String" },
+      "serving": { "type": "String" },
+      "kcal": { "type": "int" }
+    }
+  },
+
+  "mealsEstimatedPortions": "{type} · estimated portion sizes",
+  "@mealsEstimatedPortions": {
+    "description": "Subtitle under a meal name in the detail sheet.",
+    "placeholders": {
+      "type": { "type": "String" }
+    }
+  },
+  "mealsChipProtein": "protein",
+  "mealsChipCarbs": "carbs",
+  "mealsChipFat": "fat",
+  "mealsFiber": "Fiber {grams}g",
+  "@mealsFiber": {
+    "placeholders": { "grams": { "type": "int" } }
+  },
+  "mealsSugar": "Sugar {grams}g",
+  "@mealsSugar": {
+    "placeholders": { "grams": { "type": "int" } }
+  },
+  "mealsSodium": "Sodium {mg}mg",
+  "@mealsSodium": {
+    "placeholders": { "mg": { "type": "int" } }
+  },
+  "mealsOnThePlate": "On the plate",
+  "mealsComponentPortion": "{grams}g · {kcal} kcal",
+  "@mealsComponentPortion": {
+    "description": "One component of a multi-part meal: portion weight and calories.",
+    "placeholders": {
+      "grams": { "type": "int" },
+      "kcal": { "type": "int" }
+    }
+  },
+  "mealsHealthierSwaps": "Healthier swaps",
+  "mealsSaveMeal": "Save meal",
+  "mealsFromDatabase": "From food database",
+  "@mealsFromDatabase": {
+    "description": "Badge for a meal looked up in the bundled food database. Deliberately quotes no percentage — nothing estimated it."
+  },
+  "mealsAiEstimate": "AI estimate · {percent}% sure",
+  "@mealsAiEstimate": {
+    "description": "Badge for a meal the AI estimated, with its confidence. Must stay distinct from mealsFromDatabase.",
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+
+  "mealsCompleteOnboardingFirst": "Complete onboarding first.",
+  "mealsPhotoTooLarge": "Photo is too large. Try again.",
+  "mealsOfflineNoMatch": "Could not match that meal offline. Try the food search, or connect to use AI.",
+  "mealsOfflineNotes": "Estimated offline from the Bodi food database."
+}

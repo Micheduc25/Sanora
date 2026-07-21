@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../domain/models/habit.dart';
 import '../../domain/models/reminder.dart';
 
 class NotificationService {
@@ -11,6 +14,7 @@ class NotificationService {
   Future<void> init() async {
     if (_initialized) return;
     tzdata.initializeTimeZones();
+    await _useDeviceTimeZone();
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
     const ios = DarwinInitializationSettings();
     await _plugin.initialize(
@@ -27,6 +31,17 @@ class NotificationService {
         >()
         ?.requestPermissions(alert: true, badge: true, sound: true);
     _initialized = true;
+  }
+
+  /// Without this `tz.local` stays UTC and every reminder fires at the wrong
+  /// hour — an hour early across West Africa, further elsewhere.
+  Future<void> _useDeviceTimeZone() async {
+    try {
+      final zone = await FlutterTimezone.getLocalTimezone();
+      tz.setLocalLocation(tz.getLocation(zone.identifier));
+    } catch (e) {
+      debugPrint('notifications: falling back to UTC, no device zone: $e');
+    }
   }
 
   static const _channel = NotificationDetails(
@@ -71,6 +86,57 @@ class NotificationService {
     await init();
     for (var weekday = 1; weekday <= 7; weekday++) {
       await _plugin.cancel(_notificationId(reminder.id, weekday));
+    }
+  }
+
+  /// Habits carry their own optional nudge time, on the days they are actually
+  /// scheduled for.
+  ///
+  /// Failures are swallowed: the habit itself is already saved by the time
+  /// this runs, and losing a reminder is a far smaller problem than losing the
+  /// habit because the notification channel was unavailable.
+  Future<void> scheduleHabit(Habit habit) async {
+    try {
+      await init();
+      await cancelHabit(habit);
+      final at = habit.reminderTime;
+      if (!habit.active || at == null || at.isEmpty) return;
+
+      final parts = at.split(':');
+      if (parts.length != 2) return;
+      final hour = int.tryParse(parts[0]);
+      final minute = int.tryParse(parts[1]);
+      if (hour == null || minute == null) return;
+
+      final weekdays = habit.scheduledWeekdays.isEmpty
+          ? const [1, 2, 3, 4, 5, 6, 7]
+          : habit.scheduledWeekdays;
+      for (final weekday in weekdays) {
+        await _plugin.zonedSchedule(
+          _notificationId(habit.id, weekday),
+          '${habit.emoji} ${habit.name}',
+          habit.description.isEmpty
+              ? 'A small win is still a win.'
+              : habit.description,
+          _nextInstanceOf(weekday, hour, minute),
+          _channel,
+          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+          matchDateTimeComponents: DateTimeComponents.dayOfWeekAndTime,
+        );
+      }
+    } catch (e) {
+      debugPrint('notifications: could not schedule habit ${habit.id}: $e');
+    }
+  }
+
+  Future<void> cancelHabit(Habit habit) async {
+    try {
+      await init();
+      for (var weekday = 1; weekday <= 7; weekday++) {
+        await _plugin.cancel(_notificationId(habit.id, weekday));
+      }
+    } catch (e) {
+      debugPrint('notifications: could not cancel habit ${habit.id}: $e');
     }
   }
 

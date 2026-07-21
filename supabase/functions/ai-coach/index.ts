@@ -1,10 +1,13 @@
 import {
-  callOpenAi,
+  callGemini,
   consumeAiAllowance,
   corsHeaders,
   handleError,
-  openAiModel,
+  HttpError,
   requireUser,
+  SseDecoder,
+  streamedText,
+  streamStop,
 } from "../_shared/mod.ts";
 
 interface CoachRequest {
@@ -37,50 +40,72 @@ Deno.serve(async (req) => {
     await consumeAiAllowance(admin, userId);
     const body = (await req.json()) as CoachRequest;
 
-    const upstream = await callOpenAi({
-      model: openAiModel(),
-      stream: true,
-      input: [
-        { role: "system", content: systemPrompt(body) },
-        ...body.messages.slice(-20),
-      ],
-    });
+    // An empty turn reaches the model as `parts: [{text: ""}]`, which it can
+    // answer with an empty candidate — one blank reply would then keep every
+    // later reply blank. Older clients still send them, so drop them here as
+    // well as in the app. A conversation must also open on the user's turn.
+    const turns = body.messages
+      .filter((m) => m.content?.trim())
+      .slice(-20);
+    while (turns.length && turns[0].role === "assistant") turns.shift();
+    if (turns.length === 0) throw new HttpError(400, "Nothing to answer.");
+
+    const upstream = await callGemini({
+      systemInstruction: { parts: [{ text: systemPrompt(body) }] },
+      // Gemini names the assistant turn "model", and takes the system prompt
+      // out of band rather than as the first message.
+      contents: turns.map((m) => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.content }],
+      })),
+    }, { stream: true });
 
     // Re-emit only text deltas as a compact SSE stream for the app.
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
-    let buffer = "";
+    const sse = new SseDecoder();
+    let emitted = 0;
+    let stop: string | undefined;
     const stream = new ReadableStream({
       async start(controller) {
         const reader = upstream.body!.getReader();
+        const emit = (payloads: string[]) => {
+          for (const payload of payloads) {
+            stop = streamStop(payload) ?? stop;
+            const delta = streamedText(payload);
+            if (!delta) continue;
+            emitted++;
+            controller.enqueue(
+              encoder.encode(`data: ${JSON.stringify({ delta })}\n\n`),
+            );
+          }
+        };
+
         try {
           while (true) {
             const { done, value } = await reader.read();
             if (done) break;
-            buffer += decoder.decode(value, { stream: true });
-            let split;
-            while ((split = buffer.indexOf("\n\n")) !== -1) {
-              const event = buffer.slice(0, split);
-              buffer = buffer.slice(split + 2);
-              for (const line of event.split("\n")) {
-                if (!line.startsWith("data: ")) continue;
-                const payload = line.slice(6).trim();
-                if (payload === "[DONE]") continue;
-                try {
-                  const parsed = JSON.parse(payload);
-                  if (
-                    parsed.type === "response.output_text.delta" &&
-                    typeof parsed.delta === "string"
-                  ) {
-                    controller.enqueue(encoder.encode(
-                      `data: ${JSON.stringify({ delta: parsed.delta })}\n\n`,
-                    ));
-                  }
-                } catch {
-                  // ignore malformed keep-alive lines
-                }
-              }
-            }
+            emit(sse.push(decoder.decode(value, { stream: true })));
+          }
+          emit(sse.push(decoder.decode()));
+          emit(sse.flush());
+          // Reporting success with nothing to show leaves an empty bubble the
+          // user cannot act on — say the answer was lost instead.
+          if (emitted === 0) {
+            console.error("gemini stream produced no text", { stop });
+            controller.enqueue(encoder.encode(
+              `data: ${
+                JSON.stringify({
+                  error: stop === "SAFETY" || stop === "PROHIBITED_CONTENT"
+                    ? "The AI could not answer that one. Try rewording it."
+                    : stop === "MAX_TOKENS"
+                    ? "That answer got too long. Try a narrower question."
+                    : `The AI returned an empty response${
+                      stop ? ` (${stop})` : ""
+                    }. Please try again.`,
+                })
+              }\n\n`,
+            ));
           }
           controller.enqueue(encoder.encode("data: [DONE]\n\n"));
         } finally {

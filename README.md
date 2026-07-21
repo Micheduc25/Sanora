@@ -65,13 +65,13 @@ uses AI to remove effort instead of adding numbers.
 cd app
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
-flutter run \
-  --dart-define=SUPABASE_URL=https://<project>.supabase.co \
-  --dart-define=SUPABASE_ANON_KEY=<anon-key>
+flutter run --dart-define-from-file=dart_defines/dev.json
 ```
 
-Run without the `--dart-define`s for **local-only mode**: everything except
-the AI features works offline, storing data on-device in Hive.
+Run without the defines for **local-only mode**: everything except the AI
+features works offline, storing data on-device in Hive. A plain `flutter run`
+gets you local-only mode, so pass the file (or use the `Bodi (dev backend)`
+VS Code launch configuration) whenever you mean to exercise sync or AI.
 
 Run the tests:
 
@@ -90,7 +90,11 @@ together.
 
 - All personal tables are protected by Postgres Row Level Security —
   owner-only access, verified by an isolation test in CI's migration job.
-- OpenAI keys and prompts live exclusively in edge functions; the app only
+- Gemini keys and prompts live exclusively in edge functions; the app only
   ever talks to Supabase with the user's own JWT.
-- Meal photos stay on-device; only derived nutrition syncs.
+- Meal photo *files* stay on-device and are stripped from sync — only derived
+  nutrition is stored. Photo analysis does send the image to the
+  `meal-analyze` edge function, which forwards it to the Gemini API and
+  persists nothing; log by text or food search to keep images off the network
+  entirely.
 - Bodi presents estimates as guidance, never medical advice.

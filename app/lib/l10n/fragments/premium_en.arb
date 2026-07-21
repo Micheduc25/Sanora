@@ -1,0 +1,85 @@
+{
+  "premiumTitle": "Bodi Premium",
+  "premiumHeroTitle": "Unlimited AI coaching",
+  "premiumHeroBody": "Premium lifts the daily cap on the four features that call the AI. That is the whole difference — everything else in Bodi is free, and stays free.",
+
+  "premiumUnlocksSection": "What Premium unlocks",
+  "premiumFeatureCoachTitle": "Unlimited coach conversations",
+  "premiumFeatureCoachBody": "Ask as much as you like, whenever you like.",
+  "premiumFeatureMealsTitle": "Unlimited meal photo analysis",
+  "premiumFeatureMealsBody": "Photograph every meal instead of rationing the good ones.",
+  "premiumFeatureWorkoutsTitle": "Unlimited workout generation",
+  "premiumFeatureWorkoutsBody": "A fresh session built around your body, on demand.",
+  "premiumFeatureInsightsTitle": "Unlimited AI insights",
+  "premiumFeatureInsightsBody": "Re-analyse your week as often as it changes.",
+
+  "premiumFreeForeverSection": "Free forever",
+  "premiumFreeForeverBody": "Without paying anything you keep meal and metric logging, charts and trends, habits, reminders, the offline food database, workouts, reports, community, and the rules-based insights that need no AI at all.",
+  "premiumFreeAllowance": "Free accounts also get {count} AI requests a day, shared across the coach, meal photos, workouts and insights. The count resets every day.",
+  "@premiumFreeAllowance": {
+    "description": "Says out loud how much AI a free account gets. Must keep matching the server allowance.",
+    "placeholders": { "count": { "type": "int" } }
+  },
+
+  "premiumChoosePlanSection": "Choose a plan",
+  "premiumSignInTitle": "Sign in first",
+  "premiumSignInBody": "Premium is attached to your Bodi account so it follows you to a new phone. Sign in, then come back here.",
+  "premiumSignIn": "Sign in",
+
+  "premiumActiveTitle": "Premium is active",
+  "premiumActiveBody": "Your AI features are unlimited.",
+  "premiumActiveUntil": "Your AI features are unlimited until {date}. The store renews it automatically unless you cancel.",
+  "@premiumActiveUntil": {
+    "placeholders": { "date": { "type": "String" } }
+  },
+
+  "premiumUnavailableTitle": "Premium isn't available on this device yet",
+  "premiumUnavailableUnsupportedPlatform": "Bodi Premium is sold through the App Store and Google Play, so it can only be bought from the iPhone or Android app.",
+  "premiumUnavailableStore": "The store is not available on this device right now. Check that you are signed in to the App Store or Google Play and try again.",
+  "premiumUnavailableQueryFailed": "The store could not list the Bodi plans: {error}",
+  "@premiumUnavailableQueryFailed": {
+    "description": "The store's own error text is appended verbatim.",
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "premiumUnavailableNoPlans": "Premium is not available on this device yet — the store has no Bodi plans to sell. Nothing has been charged.",
+
+  "premiumPlanMonthly": "Monthly",
+  "premiumPlanYearly": "Yearly",
+  "premiumPerMonth": "per month",
+  "premiumPerYear": "per year",
+  "premiumPricePerPeriod": "{price} {period}",
+  "@premiumPricePerPeriod": {
+    "description": "Store-formatted price followed by its billing period.",
+    "placeholders": {
+      "price": { "type": "String" },
+      "period": { "type": "String" }
+    }
+  },
+  "premiumSave": "Save {percent}%",
+  "@premiumSave": {
+    "description": "Badge on the yearly plan when it really is cheaper than twelve monthly ones.",
+    "placeholders": { "percent": { "type": "int" } }
+  },
+
+  "premiumRestore": "Restore purchases",
+  "premiumBillingNotice": "Payment is charged to your App Store or Google Play account. Subscriptions renew automatically until you cancel them in your store account settings — Bodi cannot cancel or refund them for you. Prices are set by the store for your country.",
+  "premiumTerms": "Terms",
+  "premiumPrivacy": "Privacy",
+
+  "premiumNoticePurchaseNotStarted": "The store would not start that purchase.",
+  "premiumNoticePurchaseNotStartedDetail": "The store would not start that purchase: {error}",
+  "@premiumNoticePurchaseNotStartedDetail": {
+    "placeholders": { "error": { "type": "String" } }
+  },
+  "premiumNoticeLookingForPurchases": "Looking for previous purchases…",
+  "premiumNoticeRestoreUnreachable": "Could not reach the store to restore purchases.",
+  "premiumNoticeNoSubscription": "No active Bodi subscription on this store account.",
+  "premiumNoticeAwaitingPayment": "Waiting for the store to confirm your payment…",
+  "premiumNoticeCheckingPurchase": "Checking your purchase with the store…",
+  "premiumNoticePurchaseNotCompleted": "The store could not complete that purchase.",
+  "premiumNoticePurchaseNotConfirmed": "The store could not confirm that purchase.",
+  "premiumNoticeSignInRequired": "Sign in first — Premium is attached to your Bodi account, not to this device.",
+  "premiumNoticeNoReceipt": "The store did not return a receipt for that purchase. Try \"Restore purchases\".",
+  "premiumNoticeVerificationOffline": "Could not reach Bodi to confirm that purchase. It is safe with the store — open this screen again when you have a connection.",
+  "premiumNoticeSessionExpired": "Please sign in again."
+}

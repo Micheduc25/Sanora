@@ -44,72 +44,189 @@ const FREE_DAILY_AI_CALLS = 20;
 /**
  * Meters AI usage: premium subscribers are unlimited, free tier gets a
  * daily allowance. Throws 429 when exhausted.
+ *
+ * The check and the increment happen in one statement inside
+ * `consume_ai_call` — doing them as separate reads and writes here let two
+ * concurrent requests both observe the same count and both be admitted.
  */
 export async function consumeAiAllowance(
   admin: SupabaseClient,
   userId: string,
 ): Promise<void> {
-  const { data: sub } = await admin
-    .from("subscriptions")
-    .select("tier, valid_until")
-    .eq("user_id", userId)
-    .maybeSingle();
-  const premium = sub?.tier === "premium" &&
-    (!sub.valid_until || new Date(sub.valid_until) > new Date());
-  if (premium) return;
-
-  const day = new Date().toISOString().slice(0, 10);
-  const { data: usage } = await admin
-    .from("ai_usage")
-    .select("calls")
-    .eq("user_id", userId)
-    .eq("day", day)
-    .maybeSingle();
-  const calls = usage?.calls ?? 0;
-  if (calls >= FREE_DAILY_AI_CALLS) {
+  const { data: allowed, error } = await admin.rpc("consume_ai_call", {
+    p_user_id: userId,
+    p_limit: FREE_DAILY_AI_CALLS,
+  });
+  if (error) {
+    console.error("metering failed", error);
+    throw new HttpError(500, "Could not check your AI allowance.");
+  }
+  if (allowed !== true) {
     throw new HttpError(
       429,
       "Daily AI limit reached. Upgrade to Premium for unlimited coaching.",
     );
   }
-  await admin
-    .from("ai_usage")
-    .upsert({ user_id: userId, day, calls: calls + 1 });
 }
 
-const OPENAI_URL = "https://api.openai.com/v1/responses";
+const GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta/models";
 
-export function openAiModel(): string {
-  return Deno.env.get("OPENAI_MODEL") ?? "gpt-5-mini";
+export function geminiModel(): string {
+  return Deno.env.get("GEMINI_MODEL") ?? "gemini-3.5-flash";
 }
 
-export async function callOpenAi(body: Record<string, unknown>): Promise<Response> {
-  const key = Deno.env.get("OPENAI_API_KEY");
+/**
+ * Calls the Gemini generateContent API. Set `stream` for the coach, which uses
+ * `streamGenerateContent?alt=sse` and yields partial candidates.
+ *
+ * The key travels as a header rather than the `?key=` query parameter Google
+ * also accepts, so it cannot end up in a proxy or access log.
+ */
+export async function callGemini(
+  body: Record<string, unknown>,
+  { stream = false }: { stream?: boolean } = {},
+): Promise<Response> {
+  const key = Deno.env.get("GEMINI_API_KEY");
   if (!key) throw new HttpError(500, "AI is not configured on this project.");
-  const response = await fetch(OPENAI_URL, {
+  const method = stream ? "streamGenerateContent?alt=sse" : "generateContent";
+  const response = await fetch(`${GEMINI_BASE}/${geminiModel()}:${method}`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${key}`,
+      "x-goog-api-key": key,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
   });
   if (!response.ok) {
     const detail = await response.text();
-    console.error("openai error", response.status, detail);
+    console.error("gemini error", response.status, detail);
     throw new HttpError(502, "The AI service is unavailable right now.");
   }
   return response;
 }
 
-/** Extracts the aggregated text output from a non-streaming Responses API reply. */
-export function outputText(response: Record<string, unknown>): string {
-  const output = response.output as Array<Record<string, unknown>> ?? [];
-  for (const item of output) {
-    if (item.type !== "message") continue;
-    for (const part of (item.content as Array<Record<string, unknown>>) ?? []) {
-      if (part.type === "output_text") return part.text as string;
+/**
+ * Gemini's `responseSchema` takes an OpenAPI subset that rejects
+ * `additionalProperties` outright, so the schema literals — which are written
+ * the way JSON Schema wants — are sanitised on the way out rather than being
+ * duplicated in two dialects.
+ */
+export function geminiSchema(schema: unknown): unknown {
+  if (Array.isArray(schema)) return schema.map(geminiSchema);
+  if (schema === null || typeof schema !== "object") return schema;
+  const out: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(schema as Record<string, unknown>)) {
+    if (k === "additionalProperties" || k === "strict") continue;
+    out[k] = geminiSchema(v);
+  }
+  return out;
+}
+
+/**
+ * Incremental SSE reader for Gemini's `alt=sse` stream.
+ *
+ * The SSE grammar terminates lines with CRLF, LF *or* CR, and Google sends
+ * CRLF — a reader that splits on "\n\n" alone matches nothing, holds every
+ * event in its buffer and hands the caller a stream that ends having said
+ * nothing. Kept as a class so the framing has one implementation and one test
+ * rather than a copy per function.
+ */
+export class SseDecoder {
+  private buffer = "";
+  private static readonly separator = /\r\n\r\n|\n\n|\r\r/;
+
+  /** Whole `data:` payloads available so far. */
+  push(chunk: string): string[] {
+    this.buffer += chunk;
+    const payloads: string[] = [];
+    while (true) {
+      const match = SseDecoder.separator.exec(this.buffer);
+      if (!match) break;
+      const event = this.buffer.slice(0, match.index);
+      this.buffer = this.buffer.slice(match.index + match[0].length);
+      payloads.push(...SseDecoder.payloadsIn(event));
     }
+    return payloads;
+  }
+
+  /** Whatever is left when the upstream ends without a final blank line. */
+  flush(): string[] {
+    const rest = this.buffer;
+    this.buffer = "";
+    return rest.trim() ? SseDecoder.payloadsIn(rest) : [];
+  }
+
+  private static payloadsIn(event: string): string[] {
+    const out: string[] = [];
+    for (const line of event.split(/\r\n|\n|\r/)) {
+      if (!line.startsWith("data:")) continue;
+      const payload = line.slice(5).trim();
+      if (payload) out.push(payload);
+    }
+    return out;
+  }
+}
+
+/**
+ * The answer text in one streamed `GenerateContentResponse`.
+ *
+ * Thinking models stream their reasoning as parts flagged `thought`; that is
+ * not the answer and must never reach the user.
+ */
+export function streamedText(payload: string): string {
+  try {
+    const parsed = JSON.parse(payload);
+    const parts = parsed?.candidates?.[0]?.content?.parts as
+      | Array<{ text?: string; thought?: boolean }>
+      | undefined;
+    return (parts ?? [])
+      .filter((p) => !p.thought)
+      .map((p) => p.text)
+      .filter((t): t is string => typeof t === "string")
+      .join("");
+  } catch {
+    return ""; // keep-alive or a partial line
+  }
+}
+
+/**
+ * Why a streamed response carried no text, when it carried none.
+ *
+ * A prompt blocked by a safety filter, or a candidate cut short by the token
+ * limit, still arrives as a 200 with a well-formed stream — the reason is
+ * inside the payload. Without it "empty response" is unactionable.
+ */
+export function streamStop(payload: string): string | undefined {
+  try {
+    const parsed = JSON.parse(payload);
+    return parsed?.promptFeedback?.blockReason ??
+      parsed?.candidates?.[0]?.finishReason ?? undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+/** Joins the text parts of the first candidate in a generateContent reply. */
+export function outputText(response: Record<string, unknown>): string {
+  const candidates = (response.candidates as Array<Record<string, unknown>>) ??
+    [];
+  const content = candidates[0]?.content as Record<string, unknown> | undefined;
+  const parts = (content?.parts as Array<Record<string, unknown>>) ?? [];
+  const text = parts
+    .map((p) => p.text)
+    .filter((t): t is string => typeof t === "string")
+    .join("");
+  if (text) return text;
+
+  // An empty candidate list usually means a safety filter fired; say so rather
+  // than reporting a generic outage the user cannot act on.
+  const feedback = response.promptFeedback as Record<string, unknown> | undefined;
+  if (feedback?.blockReason) {
+    console.error("gemini blocked", feedback);
+    throw new HttpError(
+      422,
+      "The AI could not answer that one. Try rewording it.",
+    );
   }
   throw new HttpError(502, "The AI returned an empty response.");
 }

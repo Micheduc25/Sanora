@@ -22,6 +22,10 @@ abstract class Insight with _$Insight {
     required String body,
     @Default(InsightSeverity.info) InsightSeverity severity,
     @Default('') String action,
+
+    /// Where [action] takes the user. Empty means the insight is informational
+    /// and the label should not be rendered as something tappable.
+    @Default('') String actionRoute,
     @Default(false) bool read,
     required DateTime createdAt,
   }) = _Insight;

@@ -1,14 +1,25 @@
 default_platform(:ios)
 
+# Signing is Xcode-automatic: DEVELOPMENT_TEAM lives in the Xcode project and
+# Xcode mints the profiles from the developer's Apple ID session. A CI runner
+# has no such session, so there `match` hands it certificates instead —
+# calling match unconditionally would fail every local run for want of a
+# certificate repository that does not exist yet.
 platform :ios do
   desc "Build and upload to TestFlight"
   lane :beta do
-    setup_ci if ENV["CI"]
-    match(type: "appstore", readonly: true)
+    if ENV["CI"]
+      setup_ci
+      match(type: "appstore", readonly: true)
+    end
+
     build_app(
       workspace: "Runner.xcworkspace",
       scheme: "Runner",
-      export_method: "app-store"
+      export_method: "app-store",
+      export_options: {
+        signingStyle: ENV["CI"] ? "manual" : "automatic",
+      },
     )
     upload_to_testflight(skip_waiting_for_build_processing: true)
   end

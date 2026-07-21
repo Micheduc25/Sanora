@@ -5,22 +5,32 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../core/l10n/enum_labels.dart';
 import '../../domain/models/enums.dart';
+import '../../l10n/app_localizations.dart';
 import 'onboarding_controller.dart';
 import 'widgets/onboarding_widgets.dart';
 
 class OnboardingScreen extends HookConsumerWidget {
-  const OnboardingScreen({super.key});
+  const OnboardingScreen({super.key, this.editing = false});
+
+  /// Reopened from the profile screen to change answers. Skips the welcome
+  /// step, saves in place rather than routing to the first-run generating
+  /// screen, and keeps the existing profile's identity.
+  final bool editing;
 
   static const _stepCount = 8;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final page = useState(0);
-    final pageController = usePageController();
-    final draft = ref.watch(onboardingControllerProvider);
-    final controller = ref.read(onboardingControllerProvider.notifier);
+    final firstStep = editing ? 1 : 0;
+    final page = useState(firstStep);
+    final pageController = usePageController(initialPage: firstStep);
+    // Seeded from the saved profile when editing — see OnboardingController.
+    final draft = ref.watch(onboardingControllerProvider(editing));
+    final controller = ref.read(onboardingControllerProvider(editing).notifier);
     final theme = Theme.of(context);
+    final l = L.of(context);
 
     bool canContinue() => switch (page.value) {
       1 => draft.sex != null,
@@ -32,7 +42,12 @@ class OnboardingScreen extends HookConsumerWidget {
 
     Future<void> next() async {
       if (page.value == _stepCount - 1) {
-        context.go('/onboarding/generating');
+        if (editing) {
+          await controller.complete();
+          if (context.mounted) context.pop();
+        } else {
+          context.go('/onboarding/generating');
+        }
         return;
       }
       await pageController.nextPage(
@@ -42,7 +57,7 @@ class OnboardingScreen extends HookConsumerWidget {
     }
 
     Future<void> back() async {
-      if (page.value == 0) return;
+      if (page.value == firstStep) return;
       await pageController.previousPage(
         duration: const Duration(milliseconds: 350),
         curve: Curves.easeOutCubic,
@@ -58,11 +73,19 @@ class OnboardingScreen extends HookConsumerWidget {
               child: Row(
                 children: [
                   AnimatedOpacity(
-                    opacity: page.value == 0 ? 0 : 1,
+                    opacity: page.value == firstStep ? (editing ? 1 : 0) : 1,
                     duration: const Duration(milliseconds: 200),
                     child: IconButton(
-                      onPressed: back,
-                      icon: const Icon(Icons.arrow_back_rounded),
+                      // On the first editable step there is nowhere back to
+                      // go inside the wizard, so leave editing entirely.
+                      onPressed: editing && page.value == firstStep
+                          ? context.pop
+                          : back,
+                      icon: Icon(
+                        editing && page.value == firstStep
+                            ? Icons.close_rounded
+                            : Icons.arrow_back_rounded,
+                      ),
                     ),
                   ),
                   const Spacer(),
@@ -107,10 +130,12 @@ class OnboardingScreen extends HookConsumerWidget {
           onPressed: canContinue() ? next : null,
           child: Text(
             page.value == 0
-                ? 'Get started'
+                ? l.onboardingGetStarted
                 : page.value == _stepCount - 1
-                ? 'Create my health profile'
-                : 'Continue',
+                ? (editing
+                      ? l.onboardingSaveChanges
+                      : l.onboardingCreateProfile)
+                : l.actionContinue,
           ),
         ),
       ),
@@ -124,6 +149,7 @@ class _WelcomeStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = L.of(context);
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -139,21 +165,16 @@ class _WelcomeStep extends StatelessWidget {
             child: Text('🌱', style: theme.textTheme.displayMedium),
           ),
           const SizedBox(height: 28),
-          Text('Know your body.', style: theme.textTheme.displayMedium),
+          Text(l.onboardingWelcomeTitle, style: theme.textTheme.displayMedium),
           const SizedBox(height: 12),
           Text(
-            'Bodi turns a few details about you into a personal health plan — '
-            'and an AI coach that helps you eat better, move more and live longer.\n\n'
-            'No calorie obsession. No shame. Just steady progress.',
+            l.onboardingWelcomeBody,
             style: theme.textTheme.bodyLarge?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
           const SizedBox(height: 20),
-          Text(
-            'Takes about 2 minutes · your data stays private',
-            style: theme.textTheme.labelMedium,
-          ),
+          Text(l.onboardingWelcomeFootnote, style: theme.textTheme.labelMedium),
         ],
       ),
     );
@@ -168,32 +189,33 @@ class _AboutStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = L.of(context);
     return StepScaffold(
-      title: 'About you',
-      subtitle: 'This shapes every calculation Bodi makes for you.',
+      title: l.onboardingAboutTitle,
+      subtitle: l.onboardingAboutSubtitle,
       children: [
-        const FieldLabel('What should we call you?'),
+        FieldLabel(l.onboardingFieldName),
         TextFormField(
           initialValue: draft.name,
-          decoration: const InputDecoration(hintText: 'Your first name'),
+          decoration: InputDecoration(hintText: l.onboardingHintFirstName),
           textCapitalization: TextCapitalization.words,
           onChanged: (v) => controller.update((d) => d.name = v),
         ),
-        const FieldLabel('Age'),
+        FieldLabel(l.onboardingFieldAge),
         ValueSlider(
           value: draft.age.toDouble(),
           min: 13,
           max: 90,
           step: 1,
-          unit: 'years',
+          unit: l.onboardingUnitYears,
           onChanged: (v) => controller.update((d) => d.age = v.round()),
         ),
-        const FieldLabel('Sex'),
+        FieldLabel(l.onboardingFieldSex),
         ChoiceCardGroup<Sex>(
           options: Sex.values,
           selected: draft.sex,
           onSelected: (v) => controller.update((d) => d.sex = v),
-          titleOf: (s) => s.label,
+          titleOf: (s) => s.labelOf(context),
         ),
       ],
     );
@@ -208,58 +230,58 @@ class _BodyStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = L.of(context);
     return StepScaffold(
-      title: 'Your body today',
-      subtitle:
-          'A tape measure around your waist tells us more than a scale ever will.',
+      title: l.onboardingBodyTitle,
+      subtitle: l.onboardingBodySubtitle,
       children: [
-        const FieldLabel('Height'),
+        FieldLabel(l.onboardingFieldHeight),
         ValueSlider(
           value: draft.heightCm,
           min: 120,
           max: 220,
           step: 1,
-          unit: 'cm',
+          unit: l.onboardingUnitCm,
           onChanged: (v) => controller.update((d) => d.heightCm = v),
         ),
-        const FieldLabel('Weight'),
+        FieldLabel(l.metricWeight),
         ValueSlider(
           value: draft.weightKg,
           min: 35,
           max: 200,
           step: 0.5,
           decimals: 1,
-          unit: 'kg',
+          unit: l.onboardingUnitKg,
           onChanged: (v) => controller.update((d) => d.weightKg = v),
         ),
-        const FieldLabel('Waist', optional: true),
+        FieldLabel(l.metricWaist, optional: true),
         ValueSlider(
           value: draft.waistCm ?? 85,
           min: 50,
           max: 160,
           step: 0.5,
           decimals: 1,
-          unit: 'cm',
+          unit: l.onboardingUnitCm,
           onChanged: (v) => controller.update((d) => d.waistCm = v),
         ),
-        const FieldLabel('Hip', optional: true),
+        FieldLabel(l.metricHip, optional: true),
         ValueSlider(
           value: draft.hipCm ?? 95,
           min: 60,
           max: 170,
           step: 0.5,
           decimals: 1,
-          unit: 'cm',
+          unit: l.onboardingUnitCm,
           onChanged: (v) => controller.update((d) => d.hipCm = v),
         ),
-        const FieldLabel('Body fat', optional: true),
+        FieldLabel(l.metricBodyFat, optional: true),
         ValueSlider(
           value: draft.bodyFatPct ?? 25,
           min: 4,
           max: 60,
           step: 0.5,
           decimals: 1,
-          unit: '%',
+          unit: l.onboardingUnitPercent,
           onChanged: (v) => controller.update((d) => d.bodyFatPct = v),
         ),
       ],
@@ -275,45 +297,46 @@ class _LifestyleStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = L.of(context);
     return StepScaffold(
-      title: 'Your life',
-      subtitle: 'Health advice only works when it fits your real routine.',
+      title: l.onboardingLifeTitle,
+      subtitle: l.onboardingLifeSubtitle,
       children: [
-        const FieldLabel('Occupation'),
+        FieldLabel(l.onboardingFieldOccupation),
         TextFormField(
           initialValue: draft.occupation,
-          decoration: const InputDecoration(hintText: 'e.g. Software engineer'),
+          decoration: InputDecoration(hintText: l.onboardingHintOccupation),
           onChanged: (v) => controller.update((d) => d.occupation = v),
         ),
-        const FieldLabel('Country'),
+        FieldLabel(l.onboardingFieldCountry),
         TextFormField(
           initialValue: draft.country,
-          decoration: const InputDecoration(hintText: 'e.g. Cameroon'),
+          decoration: InputDecoration(hintText: l.onboardingHintCountry),
           textCapitalization: TextCapitalization.words,
           onChanged: (v) => controller.update((d) => d.country = v),
         ),
-        const FieldLabel('Typical work schedule'),
+        FieldLabel(l.onboardingFieldWorkSchedule),
         TagEditor(
           values: draft.workSchedule.isEmpty ? [] : [draft.workSchedule],
-          presets: const [
-            '9 to 5 desk job',
-            'Shift work',
-            'Remote, flexible',
-            'On my feet all day',
-            'Student schedule',
+          presets: [
+            l.onboardingScheduleDeskJob,
+            l.onboardingScheduleShiftWork,
+            l.onboardingScheduleRemote,
+            l.onboardingScheduleOnMyFeet,
+            l.onboardingScheduleStudent,
           ],
           onChanged: (v) => controller.update(
             (d) => d.workSchedule = v.isEmpty ? '' : v.last,
           ),
-          hint: 'Describe your schedule…',
+          hint: l.onboardingHintSchedule,
         ),
-        const FieldLabel('How active is a normal week?'),
+        FieldLabel(l.onboardingFieldActivity),
         ChoiceCardGroup<ActivityLevel>(
           options: ActivityLevel.values,
           selected: draft.activityLevel,
           onSelected: (v) => controller.update((d) => d.activityLevel = v),
-          titleOf: (a) => a.label,
-          subtitleOf: (a) => a.description,
+          titleOf: (a) => a.labelOf(context),
+          subtitleOf: (a) => a.descriptionOf(context),
         ),
       ],
     );
@@ -328,37 +351,38 @@ class _RhythmStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = L.of(context);
     return StepScaffold(
-      title: 'Your rhythm',
-      subtitle: 'Sleep and stress move the needle as much as food does.',
+      title: l.onboardingRhythmTitle,
+      subtitle: l.onboardingRhythmSubtitle,
       children: [
-        const FieldLabel('Workouts per week'),
+        FieldLabel(l.onboardingFieldWorkouts),
         ValueSlider(
           value: draft.exerciseDaysPerWeek.toDouble(),
           min: 0,
           max: 7,
           step: 1,
-          unit: 'days',
+          unit: l.onboardingUnitDays,
           onChanged: (v) =>
               controller.update((d) => d.exerciseDaysPerWeek = v.round()),
         ),
-        const FieldLabel('Usual sleep per night'),
+        FieldLabel(l.onboardingFieldSleep),
         ValueSlider(
           value: draft.sleepHours,
           min: 3,
           max: 12,
           step: 0.5,
           decimals: 1,
-          unit: 'hours',
+          unit: l.onboardingUnitHours,
           onChanged: (v) => controller.update((d) => d.sleepHours = v),
         ),
-        const FieldLabel('Stress level lately'),
+        FieldLabel(l.onboardingFieldStress),
         ChoiceCardGroup<StressLevel>(
           options: StressLevel.values,
           selected: draft.stressLevel,
           onSelected: (v) => controller.update((d) => d.stressLevel = v),
-          titleOf: (s) => s.label,
-          subtitleOf: (s) => s.description,
+          titleOf: (s) => s.labelOf(context),
+          subtitleOf: (s) => s.descriptionOf(context),
         ),
       ],
     );
@@ -373,37 +397,45 @@ class _HealthStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = L.of(context);
     return StepScaffold(
-      title: 'Health background',
-      subtitle:
-          'Bodi adapts its advice around conditions and medication. This never leaves your control.',
+      title: l.onboardingHealthTitle,
+      subtitle: l.onboardingHealthSubtitle,
       children: [
-        const FieldLabel('Medical conditions', optional: true),
+        FieldLabel(l.onboardingFieldConditions, optional: true),
         TagEditor(
           values: draft.medicalConditions,
-          presets: const [
-            'Hypertension',
-            'Diabetes',
-            'Prediabetes',
-            'High cholesterol',
-            'Asthma',
-            'Ulcer',
-            'Sickle cell',
+          presets: [
+            l.onboardingConditionHypertension,
+            l.onboardingConditionDiabetes,
+            l.onboardingConditionPrediabetes,
+            l.onboardingConditionHighCholesterol,
+            l.onboardingConditionAsthma,
+            l.onboardingConditionUlcer,
+            l.onboardingConditionSickleCell,
           ],
           onChanged: (v) => controller.update((d) => d.medicalConditions = v),
+          hint: l.onboardingTagAddYourOwn,
         ),
-        const FieldLabel('Current medications', optional: true),
+        FieldLabel(l.onboardingFieldMedications, optional: true),
         TagEditor(
           values: draft.medications,
           presets: const [],
           onChanged: (v) => controller.update((d) => d.medications = v),
-          hint: 'e.g. Amlodipine 5mg…',
+          hint: l.onboardingHintMedication,
         ),
-        const FieldLabel('Food allergies', optional: true),
+        FieldLabel(l.onboardingFieldAllergies, optional: true),
         TagEditor(
           values: draft.allergies,
-          presets: const ['Peanuts', 'Shellfish', 'Eggs', 'Milk', 'Gluten'],
+          presets: [
+            l.onboardingAllergyPeanuts,
+            l.onboardingAllergyShellfish,
+            l.onboardingAllergyEggs,
+            l.onboardingAllergyMilk,
+            l.onboardingAllergyGluten,
+          ],
           onChanged: (v) => controller.update((d) => d.allergies = v),
+          hint: l.onboardingTagAddYourOwn,
         ),
       ],
     );
@@ -418,38 +450,39 @@ class _FoodStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = L.of(context);
     return StepScaffold(
-      title: 'How you eat',
-      subtitle:
-          'Bodi works with your food culture — fufu and eru included — never against it.',
+      title: l.onboardingFoodTitle,
+      subtitle: l.onboardingFoodSubtitle,
       children: [
-        const FieldLabel('Preferences'),
+        FieldLabel(l.onboardingFieldPreferences),
         TagEditor(
           values: draft.foodPreferences,
-          presets: const [
-            'No preference',
-            'Vegetarian',
-            'Vegan',
-            'Halal',
-            'Low carb',
-            'Local dishes mostly',
+          presets: [
+            l.onboardingPreferenceNone,
+            l.onboardingPreferenceVegetarian,
+            l.onboardingPreferenceVegan,
+            l.onboardingPreferenceHalal,
+            l.onboardingPreferenceLowCarb,
+            l.onboardingPreferenceLocalDishes,
           ],
           onChanged: (v) => controller.update((d) => d.foodPreferences = v),
+          hint: l.onboardingTagAddYourOwn,
         ),
-        const FieldLabel('Favorite meals'),
+        FieldLabel(l.onboardingFieldFavoriteMeals),
         TagEditor(
           values: draft.favoriteFoods,
-          presets: const [
-            'Eru',
-            'Ndolé',
-            'Jollof rice',
-            'Achu',
-            'Roasted fish',
-            'Beans & plantains',
-            'Pepper soup',
+          presets: [
+            l.onboardingFoodEru,
+            l.onboardingFoodNdole,
+            l.onboardingFoodJollofRice,
+            l.onboardingFoodAchu,
+            l.onboardingFoodRoastedFish,
+            l.onboardingFoodBeansPlantains,
+            l.onboardingFoodPepperSoup,
           ],
           onChanged: (v) => controller.update((d) => d.favoriteFoods = v),
-          hint: 'Add a favorite meal…',
+          hint: l.onboardingHintFavoriteMeal,
         ),
       ],
     );
@@ -465,9 +498,10 @@ class _GoalsStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = L.of(context);
     return StepScaffold(
-      title: 'Where are we going?',
-      subtitle: 'Pick everything that matters to you. Bodi balances them.',
+      title: l.onboardingGoalsTitle,
+      subtitle: l.onboardingGoalsSubtitle,
       children: [
         Wrap(
           spacing: 8,
@@ -475,7 +509,9 @@ class _GoalsStep extends StatelessWidget {
           children: [
             for (final goal in GoalType.values)
               FilterChip(
-                label: Text('${goal.emoji} ${goal.label}'),
+                label: Text(
+                  l.onboardingGoalChip(goal.emoji, goal.labelOf(context)),
+                ),
                 selected: draft.goals.contains(goal),
                 showCheckmark: false,
                 onSelected: (_) => controller.update((d) {
@@ -486,33 +522,35 @@ class _GoalsStep extends StatelessWidget {
               ),
           ],
         ),
-        const FieldLabel('Target weight', optional: true),
+        FieldLabel(l.onboardingFieldTargetWeight, optional: true),
         ValueSlider(
           value: draft.targetWeightKg ?? draft.weightKg,
           min: 35,
           max: 200,
           step: 0.5,
           decimals: 1,
-          unit: 'kg',
+          unit: l.onboardingUnitKg,
           onChanged: (v) => controller.update((d) => d.targetWeightKg = v),
         ),
-        const FieldLabel('Target waist', optional: true),
+        FieldLabel(l.onboardingFieldTargetWaist, optional: true),
         ValueSlider(
           value: draft.targetWaistCm ?? draft.waistCm ?? 85,
           min: 50,
           max: 160,
           step: 0.5,
           decimals: 1,
-          unit: 'cm',
+          unit: l.onboardingUnitCm,
           onChanged: (v) => controller.update((d) => d.targetWaistCm = v),
         ),
-        const FieldLabel('When would you like to get there?', optional: true),
+        FieldLabel(l.onboardingFieldTargetDate, optional: true),
         OutlinedButton.icon(
           icon: const Icon(Icons.event_rounded),
           label: Text(
             draft.targetDate == null
-                ? 'Pick a date'
-                : DateFormat('d MMMM yyyy').format(draft.targetDate!),
+                ? l.onboardingPickDate
+                : DateFormat.yMMMMd(
+                    Localizations.localeOf(context).toLanguageTag(),
+                  ).format(draft.targetDate!),
             style: theme.textTheme.labelLarge,
           ),
           onPressed: () async {

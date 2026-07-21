@@ -62,7 +62,9 @@ class WeeklyReport {
   }
 }
 
-final weeklyReportProvider = Provider.autoDispose<WeeklyReport?>((ref) {
+final weeklyReportProvider = FutureProvider.autoDispose<WeeklyReport?>((
+  ref,
+) async {
   final profile = ref.watch(userProfileProvider);
   final health = ref.watch(healthProfileProvider);
   if (profile == null || health == null) return null;
@@ -71,6 +73,7 @@ final weeklyReportProvider = Provider.autoDispose<WeeklyReport?>((ref) {
   final meals = ref.watch(mealsRepositoryProvider);
   final habits = ref.watch(habitsRepositoryProvider);
   final workouts = ref.watch(workoutsRepositoryProvider);
+  final activity = ref.watch(activityServiceProvider);
 
   final today = DateTime.now().dateOnly;
   final days = <ReportDay>[];
@@ -87,13 +90,17 @@ final weeklyReportProvider = Provider.autoDispose<WeeklyReport?>((ref) {
         .where((m) => m.type == MetricType.weight)
         .firstOrNull
         ?.value;
+    // Same merge rule as the dashboard — take whichever source saw more —
+    // so the two screens can never quote different step counts.
+    final manualSteps = metrics.dayTotal(MetricType.steps, day).round();
+    final platformSteps = await activity.stepsForDay(day);
     days.add(
       ReportDay(
         day: day,
         calories: nutrition.calories,
         proteinG: nutrition.proteinG,
         waterMl: metrics.dayTotal(MetricType.water, day),
-        steps: metrics.dayTotal(MetricType.steps, day).round(),
+        steps: platformSteps > manualSteps ? platformSteps : manualSteps,
         sleepHours: sleep,
         weightKg: weight,
       ),

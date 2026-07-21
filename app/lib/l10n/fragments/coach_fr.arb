@@ -1,0 +1,20 @@
+{
+  "coachClearConversation": "Effacer la conversation",
+  "coachPremiumCta": "Coaching illimité avec Premium",
+  "coachInputHint": "Posez une question à votre coach…",
+  "coachEmptyTitle": "Votre coach connaît vos objectifs,\nvos repas, votre sommeil et vos progrès.",
+  "coachEmptyBody": "Posez toutes vos questions sur votre corps, votre alimentation ou votre programme. Les réponses sont personnelles — construites à partir de vos propres données.",
+
+  "coachSuggestionWeightGain": "Pourquoi est-ce que je prends du poids ?",
+  "coachSuggestionFufu": "Puis-je manger du fufu ce soir ?",
+  "coachSuggestionBellyFat": "Comment perdre du ventre ?",
+  "coachSuggestionDinnerHealthy": "Mon dîner est-il équilibré ?",
+  "coachSuggestionProtein": "De combien de protéines ai-je besoin ?",
+  "coachSuggestionPlanMeals": "Planifier mes repas de demain",
+
+  "coachCompleteOnboardingFirst": "Terminez d'abord votre profil.",
+  "coachUnreachable": "Je n'arrive pas à joindre le service de coaching pour le moment. Votre message est enregistré — réessayez dans un instant.",
+
+  "coachSignInRequired": "Connectez-vous pour parler à votre coach. Tout ce que vous avez enregistré reste sur cet appareil dans tous les cas.",
+  "coachSignInCta": "Se connecter"
+}

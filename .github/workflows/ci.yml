@@ -9,6 +9,24 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  # Must track the version developers run locally — golden tests are engine
+  # sensitive and drift the moment CI and local disagree.
+  FLUTTER_VERSION: 3.38.5
+  # Minimum line coverage, percent. Measured on 2026-07-21 at 61.05%
+  # (LH 793 / LF 1299) and rounded down to the nearest 5%.
+  #
+  # It was 65.35% earlier the same day. The drop is real and not a regression
+  # in tested code: the paywall, legal and profile-editing screens landed with
+  # no tests, and enough of them are reachable from already-loaded libraries to
+  # pull the ratio down. The floor is set to what the suite actually achieves
+  # rather than to an aspiration that red-walls every build.
+  #
+  # Caveat: `flutter test --coverage` only reports libraries the suite actually
+  # loads, so a brand new untested file does not move this number. Raise the
+  # floor deliberately as coverage grows; it will not rise on its own.
+  MIN_COVERAGE: 60
+
 jobs:
   flutter:
     name: Analyze & test (Flutter)
@@ -20,18 +38,70 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.32.5
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
           cache: true
       - run: flutter pub get
       - run: dart run build_runner build --delete-conflicting-outputs
-      - run: dart format --output=none --set-exit-if-changed lib test || true
+      # AppLocalizations is generated from lib/l10n/*.arb and gitignored,
+      # so analyze/test cannot resolve `L` without this.
+      - run: python3 tools/merge_arb.py
+      - run: flutter gen-l10n
+      - name: Check formatting
+        run: dart format --output=none --set-exit-if-changed lib test
       - run: flutter analyze --fatal-infos
       - run: flutter test --coverage
+      - name: Enforce minimum line coverage
+        run: |
+          test -s coverage/lcov.info || {
+            echo "::error::coverage/lcov.info is missing or empty"
+            exit 1
+          }
+          pct=$(awk -F: '
+            /^LF:/ { found += $2 }
+            /^LH:/ { hit   += $2 }
+            END { if (found == 0) exit 1; printf "%.2f", hit * 100 / found }
+          ' coverage/lcov.info)
+          echo "Line coverage: ${pct}% (minimum ${MIN_COVERAGE}%)"
+          echo "Line coverage: **${pct}%** (minimum ${MIN_COVERAGE}%)" >> "$GITHUB_STEP_SUMMARY"
+          awk -v p="$pct" -v m="$MIN_COVERAGE" 'BEGIN { exit !(p + 0 >= m + 0) }' || {
+            echo "::error::Line coverage ${pct}% is below the ${MIN_COVERAGE}% minimum"
+            exit 1
+          }
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: coverage
           path: app/coverage/lcov.info
+
+  build:
+    name: Build smoke test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: dart run build_runner build --delete-conflicting-outputs
+      # AppLocalizations is generated from lib/l10n/*.arb and gitignored,
+      # so analyze/test cannot resolve `L` without this.
+      - run: python3 tools/merge_arb.py
+      - run: flutter gen-l10n
+      # Debug builds only — this job exists to catch code that compiles under
+      # `flutter test` but not under a real Android/web toolchain. No secrets,
+      # no signing, nothing published.
+      - run: flutter build apk --debug
+      - run: flutter build web --release
 
   edge-functions:
     name: Typecheck edge functions
@@ -75,7 +145,16 @@ jobs:
           create role authenticated nologin;
           create role anon nologin;
           SQL
-          for f in supabase/migrations/*.sql supabase/seed.sql; do
+          shopt -s nullglob
+          # Glob, never a hand-maintained list: a new migration must be picked
+          # up by adding the file and nothing else.
+          migrations=(supabase/migrations/*.sql)
+          if [ ${#migrations[@]} -eq 0 ]; then
+            echo "::error::No migrations matched supabase/migrations/*.sql"
+            exit 1
+          fi
+          echo "found ${#migrations[@]} migration(s)"
+          for f in "${migrations[@]}" supabase/seed.sql; do
             echo "applying $f"
             psql -h localhost -U postgres -v ON_ERROR_STOP=1 -q -f "$f"
           done

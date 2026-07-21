@@ -14,8 +14,6 @@
 	<string>Bodi reads steps, heart rate and sleep from Apple Health to build your daily health score.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Bodi can save workouts you complete to Apple Health.</string>
-	<key>CFBundleDisplayName</key>
-	<string>Bodi</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -59,5 +57,7 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>

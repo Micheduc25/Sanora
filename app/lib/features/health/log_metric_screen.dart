@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import '../../core/providers/app_providers.dart';
 import '../../core/utils/extensions.dart';
 import '../../domain/models/enums.dart';
+import '../../l10n/app_localizations.dart';
 import '../../domain/models/metric_entry.dart';
 import '../dashboard/dashboard_controller.dart';
 import '../onboarding/onboarding_controller.dart';
@@ -104,7 +105,7 @@ class LogMetricScreen extends HookConsumerWidget {
         .toList();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Log a measurement')),
+      appBar: AppBar(title: Text(L.of(context).healthLogMeasurement)),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
@@ -149,9 +150,7 @@ class LogMetricScreen extends HookConsumerWidget {
           const SizedBox(height: 12),
           TextField(
             controller: note,
-            decoration: const InputDecoration(
-              hintText: 'Add a note (optional)',
-            ),
+            decoration: InputDecoration(hintText: L.of(context).healthAddNote),
           ),
           const SizedBox(height: 24),
           FilledButton(onPressed: save, child: const Text('Save')),

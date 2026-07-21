@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' show Session;
 
 import '../../data/activity/activity_service.dart';
 import '../../data/ai/ai_service.dart';
@@ -18,6 +19,24 @@ import '../../data/supabase_service.dart';
 import '../../data/sync/sync_service.dart';
 
 final supabaseServiceProvider = Provider((ref) => SupabaseService());
+
+/// Auth changes as a rebuild signal.
+///
+/// [SupabaseService] reads live state off the client, but nothing tells a
+/// widget to look again. A session that arrives after the first frame —
+/// restored from disk, refreshed, or signed in on another screen — has to
+/// reach every gate that asks "is this user signed in?", so those gates watch
+/// [isSignedInProvider] rather than reading the service directly.
+final authSessionProvider = StreamProvider<Session?>((ref) {
+  final changes = ref.watch(supabaseServiceProvider).authChanges;
+  if (changes == null) return const Stream<Session?>.empty();
+  return changes.map((state) => state.session);
+});
+
+final isSignedInProvider = Provider<bool>((ref) {
+  ref.watch(authSessionProvider);
+  return ref.watch(supabaseServiceProvider).isSignedIn;
+});
 
 final dioProvider = Provider(
   (ref) => Dio(
@@ -44,7 +63,10 @@ final aiServiceProvider = Provider(
 );
 
 final profileRepositoryProvider = Provider(
-  (ref) => ProfileRepository(ref.watch(syncServiceProvider)),
+  (ref) => ProfileRepository(
+    ref.watch(syncServiceProvider),
+    ref.watch(supabaseServiceProvider),
+  ),
 );
 
 final metricsRepositoryProvider = Provider(
@@ -56,7 +78,10 @@ final mealsRepositoryProvider = Provider(
 );
 
 final habitsRepositoryProvider = Provider(
-  (ref) => HabitsRepository(ref.watch(syncServiceProvider)),
+  (ref) => HabitsRepository(
+    ref.watch(syncServiceProvider),
+    ref.watch(notificationServiceProvider),
+  ),
 );
 
 final chatRepositoryProvider = Provider(

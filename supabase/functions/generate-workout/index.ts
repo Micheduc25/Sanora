@@ -1,10 +1,10 @@
 import {
-  callOpenAi,
+  callGemini,
   consumeAiAllowance,
   corsHeaders,
+  geminiSchema,
   handleError,
   json,
-  openAiModel,
   outputText,
   requireUser,
 } from "../_shared/mod.ts";
@@ -59,23 +59,22 @@ Deno.serve(async (req) => {
     await consumeAiAllowance(admin, userId);
     const body = (await req.json()) as WorkoutRequest;
 
-    const upstream = await callOpenAi({
-      model: openAiModel(),
-      instructions:
-        `You are a certified fitness coach. Design a safe, effective ${body.category} workout of about ${body.duration_minutes} minutes, personalized to the user's fitness level, goals, age and medical conditions. Favor progressions over impact for beginners; always include an implicit warm-up as the first exercise and a cool-down/stretch as the last. Estimate calories for the user's body weight.
+    const upstream = await callGemini({
+      systemInstruction: {
+        parts: [{
+          text:
+            `You are a certified fitness coach. Design a safe, effective ${body.category} workout of about ${body.duration_minutes} minutes, personalized to the user's fitness level, goals, age and medical conditions. Favor progressions over impact for beginners; always include an implicit warm-up as the first exercise and a cool-down/stretch as the last. Estimate calories for the user's body weight.
 User profile: ${JSON.stringify(body.profile)}
 Health profile: ${JSON.stringify(body.health)}`,
-      input: [{
+        }],
+      },
+      contents: [{
         role: "user",
-        content: [{ type: "input_text", text: "Generate today's workout." }],
+        parts: [{ text: "Generate today's workout." }],
       }],
-      text: {
-        format: {
-          type: "json_schema",
-          name: "workout",
-          strict: true,
-          schema: workoutSchema,
-        },
+      generationConfig: {
+        responseMimeType: "application/json",
+        responseSchema: geminiSchema(workoutSchema),
       },
     });
 

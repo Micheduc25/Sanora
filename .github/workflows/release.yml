@@ -4,6 +4,35 @@ on:
   push:
     tags: ['v*']
 
+# Store uploads are NOT wired up. app/android/fastlane and app/ios/fastlane
+# contain working lanes (android `internal`/`production`, ios `beta`), but none
+# of the credentials they need exist as repository secrets yet, and a job that
+# fails on every tag is worse than no job. To turn them on:
+#
+#   Android — `bundle exec fastlane android internal` from app/android
+#     GOOGLE_PLAY_JSON_KEY        Play Console service-account JSON (whole file,
+#                                 written to disk and pointed at by the
+#                                 GOOGLE_PLAY_JSON_KEY_FILE env var that
+#                                 android/fastlane/Appfile already reads)
+#     Play Console: the service account needs "Release to testing tracks", and
+#     the app must already have one manually uploaded AAB for package
+#     cm.betterme.bodi — the Play API rejects the very first upload.
+#     Also add a Gemfile / `bundle install` step; fastlane is not on the runner.
+#
+#   iOS — `bundle exec fastlane ios beta` from app/ios, on macos-latest
+#     MATCH_GIT_URL               private repo holding the match certificates
+#     MATCH_PASSWORD              match encryption passphrase
+#     MATCH_GIT_BASIC_AUTHORIZATION  deploy token for that repo
+#     FASTLANE_APPLE_ID           Apple ID used for App Store Connect
+#     FASTLANE_TEAM_ID            Apple Developer team id
+#     APP_STORE_CONNECT_KEY_ID / _ISSUER_ID / _KEY  App Store Connect API key
+#     ios/fastlane/Fastfile calls `match(type: "appstore", readonly: true)`, so
+#     the certificates must be generated and pushed to the match repo once, by
+#     hand, before CI can consume them.
+
+env:
+  FLUTTER_VERSION: 3.38.5
+
 jobs:
   android:
     name: Build Android release
@@ -13,42 +42,145 @@ jobs:
         working-directory: app
     steps:
       - uses: actions/checkout@v4
+
+      - name: Verify release secrets are present
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          missing=()
+          for name in SUPABASE_URL SUPABASE_ANON_KEY \
+                      ANDROID_KEYSTORE_BASE64 ANDROID_KEYSTORE_PASSWORD \
+                      ANDROID_KEY_ALIAS ANDROID_KEY_PASSWORD; do
+            [ -n "${!name}" ] || missing+=("$name")
+          done
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "::error::Missing required secrets: ${missing[*]}."
+            echo "::error::Without them this job would publish a debug-signed, local-only-mode build."
+            exit 1
+          fi
+
+      - name: Derive version from tag
+        id: version
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          name="${tag#v}"
+          if [[ "$name" == *+* ]]; then
+            build="${name#*+}"
+            name="${name%%+*}"
+          else
+            build="${GITHUB_RUN_NUMBER}"
+          fi
+          if [[ ! "$name" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Tag '$tag' does not look like vMAJOR.MINOR.PATCH[+BUILD]"
+            exit 1
+          fi
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "build=$build" >> "$GITHUB_OUTPUT"
+          echo "Building $name+$build from $tag"
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.32.5
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
           cache: true
       - run: flutter pub get
       - run: dart run build_runner build --delete-conflicting-outputs
+
+      # app/android/app/build.gradle.kts loads rootProject.file("key.properties")
+      # and reads storeFile / storePassword / keyAlias / keyPassword from it;
+      # when the file is absent it silently falls back to the debug signing
+      # config. storeFile is written absolute because build.gradle.kts resolves
+      # it with the :app module's Project.file().
+      - name: Write Android signing config
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          keystore="$(pwd)/android/app/upload-keystore.jks"
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$keystore"
+          test -s "$keystore" || {
+            echo "::error::ANDROID_KEYSTORE_BASE64 did not decode to a keystore"
+            exit 1
+          }
+          umask 077
+          {
+            printf 'storeFile=%s\n'     "$keystore"
+            printf 'storePassword=%s\n' "$ANDROID_KEYSTORE_PASSWORD"
+            printf 'keyAlias=%s\n'      "$ANDROID_KEY_ALIAS"
+            printf 'keyPassword=%s\n'   "$ANDROID_KEY_PASSWORD"
+          } > android/key.properties
+
       - name: Build AAB and APK
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          BUILD_NAME: ${{ steps.version.outputs.name }}
+          BUILD_NUMBER: ${{ steps.version.outputs.build }}
         run: |
           flutter build appbundle --release \
+            --build-name="$BUILD_NAME" --build-number="$BUILD_NUMBER" \
+            --obfuscate --split-debug-info=build/symbols/android \
             --dart-define=SUPABASE_URL="$SUPABASE_URL" \
             --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"
           flutter build apk --release \
+            --build-name="$BUILD_NAME" --build-number="$BUILD_NUMBER" \
+            --obfuscate --split-debug-info=build/symbols/android \
             --dart-define=SUPABASE_URL="$SUPABASE_URL" \
             --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"
+
+      - name: Assert the APK is not debug-signed
+        run: |
+          apksigner=$(find "${ANDROID_HOME:-$ANDROID_SDK_ROOT}/build-tools" \
+                        -name apksigner -type f 2>/dev/null | sort -V | tail -1)
+          if [ -z "$apksigner" ]; then
+            echo "::warning::apksigner not found; skipping signature check"
+            exit 0
+          fi
+          "$apksigner" verify --print-certs \
+            build/app/outputs/flutter-apk/app-release.apk > certs.txt
+          cat certs.txt
+          if grep -q 'CN=Android Debug' certs.txt; then
+            echo "::error::app-release.apk is debug-signed — key.properties was not picked up"
+            exit 1
+          fi
+
+      - name: Remove signing material
+        if: always()
+        run: rm -f android/key.properties android/app/upload-keystore.jks
+
       - uses: actions/upload-artifact@v4
         with:
           name: android-release
           path: |
             app/build/app/outputs/bundle/release/app-release.aab
             app/build/app/outputs/flutter-apk/app-release.apk
+
+      # Obfuscated releases produce unreadable stack traces without these.
+      # Keep them: `flutter symbolize` needs the symbols for the exact build.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-debug-symbols-${{ steps.version.outputs.name }}+${{ steps.version.outputs.build }}
+          path: app/build/symbols/android
+          if-no-files-found: error
+          retention-days: 90
+
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
           files: app/build/app/outputs/flutter-apk/app-release.apk
           generate_release_notes: true
 
-  # iOS store upload runs via Fastlane on a macOS runner once signing
-  # certificates are configured (see app/ios/fastlane/Fastfile).
   ios:
     name: Build iOS (no codesign)
     runs-on: macos-latest
@@ -57,11 +189,57 @@ jobs:
         working-directory: app
     steps:
       - uses: actions/checkout@v4
+
+      - name: Verify release secrets are present
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          missing=()
+          for name in SUPABASE_URL SUPABASE_ANON_KEY; do
+            [ -n "${!name}" ] || missing+=("$name")
+          done
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "::error::Missing required secrets: ${missing[*]}."
+            exit 1
+          fi
+
+      - name: Derive version from tag
+        id: version
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          name="${tag#v}"
+          if [[ "$name" == *+* ]]; then
+            build="${name#*+}"
+            name="${name%%+*}"
+          else
+            build="${GITHUB_RUN_NUMBER}"
+          fi
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "build=$build" >> "$GITHUB_OUTPUT"
+
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.32.5
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
           cache: true
       - run: flutter pub get
       - run: dart run build_runner build --delete-conflicting-outputs
-      - run: flutter build ios --release --no-codesign
+      - name: Build iOS
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          BUILD_NAME: ${{ steps.version.outputs.name }}
+          BUILD_NUMBER: ${{ steps.version.outputs.build }}
+        run: |
+          flutter build ios --release --no-codesign \
+            --build-name="$BUILD_NAME" --build-number="$BUILD_NUMBER" \
+            --obfuscate --split-debug-info=build/symbols/ios \
+            --dart-define=SUPABASE_URL="$SUPABASE_URL" \
+            --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ios-debug-symbols-${{ steps.version.outputs.name }}+${{ steps.version.outputs.build }}
+          path: app/build/symbols/ios
+          if-no-files-found: error
+          retention-days: 90

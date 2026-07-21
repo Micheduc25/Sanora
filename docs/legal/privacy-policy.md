@@ -1,0 +1,427 @@
+# Privacy Policy
+
+**Bodi — Know Your Body**, published by Innovation Cameroon.
+
+- Effective date: 21 July 2026
+- Applies to: Bodi mobile app version 1.0.0 and later
+
+This is a draft prepared for legal review. It has not been reviewed by a
+qualified lawyer and is not a substitute for one.
+
+## 1. In short
+
+Bodi is a personal health companion. It is built offline-first: you can use it
+without an account, and in that case nothing you enter ever leaves your phone.
+
+If you create an account, your health data is synchronised to our database so
+you can recover it on a new device. That database is hosted in France and every
+row is locked to you by row-level security — no other user, and no unauthorised
+service, can read it.
+
+Some features send data to Google's Gemini API so an AI model can answer you. We tell you
+exactly which ones below, in section 6.
+
+We do not sell your data. We do not use it for advertising. We do not build
+profiles for anyone other than you.
+
+## 2. Who is responsible for your data
+
+Innovation Cameroon is the data controller for the personal data described in
+this policy.
+
+- Legal entity: TODO: exact registered legal name and company registration number
+- Registered address: TODO: full registered address
+- Privacy contact: TODO: privacy contact email address
+- Data protection officer: TODO: name and contact of the DPO, or state that no DPO has been appointed
+
+## 3. Using Bodi without an account
+
+Bodi runs fully offline. Until you sign in:
+
+- Everything you record is stored only in a local database on your device.
+- No health data is transmitted anywhere.
+- AI features are unavailable, because they require a signed-in request to our
+  backend.
+
+If you never sign in, sections 5 to 8 of this policy do not apply to you. The
+only way to erase your data in that case is to use **Delete my data** in the app
+or to uninstall Bodi.
+
+## 4. What Bodi collects
+
+### 4.1 Account data
+
+- Email address and password. Your password is handled by Supabase Auth and
+  stored only as a hash; we never see it.
+- Account identifier, sign-up date and sign-in timestamps.
+- Email confirmation and password-reset messages sent to your address.
+
+### 4.2 Health and profile data you enter
+
+This is health data. Under the GDPR it is a special category of personal data
+and receives the extra protections described in section 9.
+
+Profile:
+
+- Name (optional), age, sex, height, weight
+- Waist and hip circumference, body fat percentage
+- Occupation, work schedule, country, language
+- Activity level, exercise days per week, typical sleep hours, stress level
+- Medical conditions, medications, allergies
+- Food preferences and favourite foods
+- Goals (for example fat loss, better sleep, disease prevention) and target
+  weight, waist, body fat and target date
+
+Measurements you log over time, each with a value, an optional note and a
+timestamp:
+
+- Weight, waist, hip, body fat percentage
+- Blood pressure (systolic and diastolic), blood sugar
+- Resting heart rate
+- Sleep duration
+- Mood, stress, energy
+- Water intake, steps
+- Symptoms and medication taken
+
+Meals:
+
+- Meal name, meal type, and how it was logged (photo, text, voice, food
+  database or a saved favourite)
+- Identified food components and quantities
+- Derived nutrition: calories, protein, fat, carbohydrate, fibre, sugar,
+  sodium and selected micronutrients
+- The AI's confidence score, its notes, and any suggested healthier swaps
+- Whether you marked the meal as a favourite, and when you ate it
+
+Habits, workouts and reminders:
+
+- Habit names, emoji, descriptions, schedules, daily targets, and each
+  completion you log
+- Workouts: name, category, difficulty, duration, estimated calories, the
+  exercise list, and whether you completed it
+- Reminders: kind, title, body text, time of day, days of the week, and whether
+  the reminder is enabled
+
+Coach conversations:
+
+- Every message you send to the AI coach and every reply it gives, with
+  timestamps.
+
+### 4.3 Data Bodi calculates about you
+
+Bodi derives a health profile from what you enter. These derived values are
+stored alongside your profile and are also health data:
+
+- Body mass index and BMI category
+- Estimated body fat percentage
+- Basal metabolic rate and total daily energy expenditure
+- Daily calorie, protein, carbohydrate, fat and water targets
+- Step goal, weekly exercise minutes, sleep goal
+- Healthy weight range
+- Waist-to-height and waist-to-hip ratios
+- Visceral fat risk band, metabolic health score and lifestyle risk score
+
+These are estimates from published formulas, not diagnoses. See the Health
+Disclaimer.
+
+### 4.4 Meal photos
+
+Meal photos are treated differently from everything else.
+
+- The photo file is saved **only on your device**. It is never uploaded to our
+  database or our file storage, and it is never included in a sync.
+- However, when you ask Bodi to analyse a meal from a photo, the image is
+  transmitted for that single request to our backend and on to Google, so the
+  model can identify the food. Along with the image we send your country, your
+  allergies and your food preferences, so the estimate fits what you actually
+  eat.
+- Neither we nor Google store the image after the request completes. What is
+  saved afterwards is only the derived nutrition described in section 4.2.
+
+If you would rather no image ever leave the device, describe the meal in text
+or pick it from the food database instead of using the camera.
+
+### 4.5 Data from Apple Health and Health Connect
+
+If you connect Bodi to Apple Health (iOS) or Health Connect (Android), Bodi
+reads:
+
+- Steps
+- Active energy burned
+- Heart rate
+- Sleep
+- Distance
+
+Bodi only reads from these stores; it does not write anything back to them.
+Connecting is optional and you can revoke it at any time in your platform's
+health settings — Bodi then falls back to what you log manually. Data read this
+way is used to fill in your dashboard and your weekly report.
+
+Health Connect and Apple Health data is never sent to advertisers or sold, and
+is used only to provide the features described in this policy.
+
+### 4.6 Community data
+
+If you use the community features, other users can see a limited amount of
+information:
+
+- Friend requests you send or accept, and the accounts involved
+- Groups you create or join, their name and description, and the member list
+- Challenges you create or join, and your progress figure in each challenge
+  you have joined
+
+Your measurements, meals, coach conversations and health profile are **never**
+shared with friends or groups.
+
+### 4.7 Technical and usage data
+
+- A daily counter of how many AI requests your account has made, used only to
+  enforce the free-tier allowance.
+- Your subscription tier and its expiry date.
+- Crash and error reports, if crash reporting is enabled in the build you
+  installed. See section 6.3.
+
+### 4.8 Device permissions Bodi may ask for
+
+- **Camera and photo library** — to photograph or pick a meal image.
+- **Microphone and speech recognition** — to describe a meal by voice. Speech is
+  transcribed by your operating system's speech recognition. Depending on your
+  device and platform settings, your OS may process that audio on its own
+  servers under Apple's or Google's privacy policy rather than ours.
+- **Notifications** — to deliver the reminders you create.
+- **Physical activity** — to read step data.
+
+Each of these is optional, requested only when you first use the feature, and
+revocable in your device settings.
+
+## 5. What Bodi does not collect
+
+- We do not collect your precise location, and Bodi requests no location
+  permission.
+- We do not use advertising identifiers, advertising SDKs or third-party
+  analytics or tracking SDKs.
+- We do not sell, rent or share personal data with data brokers.
+- We do not use your health data to train any AI model, and we do not permit
+  our AI provider to do so.
+
+## 6. Who your data is shared with
+
+We use a small number of processors. Each acts on our instructions only.
+
+### 6.1 Supabase — database, authentication, file storage and backend functions
+
+Your account and every synchronised row live in a Supabase-managed PostgreSQL
+database hosted in the **eu-west-3 (Paris, France)** region. Supabase also
+provides authentication and runs our backend functions.
+
+Every table containing personal data is protected by PostgreSQL row-level
+security policies that restrict access to the owning user, enforced by the
+database itself rather than by the app.
+
+### 6.2 Google (Gemini API) — AI features
+
+Four features call Google's Gemini API. The request is always made by our backend,
+never by the app: the app never holds a Gemini key, and Google never sees your
+email address, your account identifier or your name.
+
+What is sent, per feature:
+
+- **AI coach** — your profile, your calculated health profile, a summary of
+  today's activity, and up to the last 20 messages of the conversation.
+- **Meal analysis** — the meal photo and/or your text description, plus your
+  country, allergies and food preferences.
+- **Insight generation** — your recent metrics and logged activity.
+- **Workout generation** — your profile, your calculated health profile, and the
+  workout category and duration you chose.
+
+Google processes these requests as our processor via the Gemini API. Data
+sent through the paid Gemini API is not used to train Google's models.
+
+If you never use the coach, meal photo or text analysis, insights or workout
+generation, no data is sent to Google.
+
+### 6.3 Sentry — crash reporting (conditional)
+
+Crash reporting is a build-time option. It is active only in builds where a
+Sentry DSN was configured; in local, debug and unconfigured builds it is
+entirely off and no crash data is transmitted.
+
+Where it is active:
+
+- We explicitly disable the sending of personally identifiable information.
+- Crash reports contain the error, a stack trace, and device and app version
+  information — not request bodies, not your entries and not your
+  conversations.
+- Roughly one in five sessions is sampled for performance tracing.
+
+### 6.4 App stores and platform providers
+
+Apple and Google operate the app stores through which you install Bodi and
+handle any purchase you make. Their handling of that transaction is governed by
+their own privacy policies, not this one.
+
+### 6.5 Legal disclosure
+
+We may disclose data where we are legally required to do so by a valid order
+from a competent authority, or where it is necessary to establish, exercise or
+defend legal claims. We will not disclose more than the request requires.
+
+## 7. Why we process your data, and on what legal basis
+
+- **To provide the app's core features** — recording your data, computing your
+  targets, showing your dashboard, syncing across devices. Basis: performance of
+  our contract with you (GDPR Art. 6(1)(b)), and for health data your explicit
+  consent (Art. 9(2)(a)), given when you enter that data during onboarding.
+- **To run AI coaching, meal analysis, insights and workouts.** Basis: your
+  explicit consent (Art. 9(2)(a)) and performance of the contract. These
+  features are optional and only run when you invoke them.
+- **To manage your account, authenticate you and reset your password.** Basis:
+  performance of the contract.
+- **To enforce the free-tier AI allowance and manage subscriptions.** Basis:
+  performance of the contract and our legitimate interest in preventing abuse
+  and controlling cost (Art. 6(1)(f)).
+- **To keep the app working and diagnose crashes.** Basis: our legitimate
+  interest in a reliable, secure product (Art. 6(1)(f)).
+- **To provide community features you opt into.** Basis: your consent, given by
+  choosing to send a friend request, join a group or join a challenge.
+
+You can withdraw consent at any time by deleting your account (section 11), by
+disconnecting Apple Health or Health Connect, or by simply not using the
+optional features. Withdrawing consent does not affect processing that already
+happened.
+
+## 8. Where your data is processed
+
+- **On your device** — always. Bodi's local database is the primary copy.
+- **France (eu-west-3)** — Supabase database, authentication, storage and
+  backend functions.
+- **United States** — Google processes AI requests via the Gemini API. Sentry, where enabled, may
+  process crash data outside the EU.
+
+Transfers outside the European Economic Area rely on the European Commission's
+Standard Contractual Clauses in our agreements with those providers.
+
+If you are in Cameroon, note that your data is stored outside Cameroon, in
+France. TODO for counsel: confirm the applicable Cameroonian data protection
+statute, any registration or cross-border transfer authorisation required from
+the competent Cameroonian authority, and whether local-storage obligations
+apply.
+
+## 9. Special protection for health data
+
+Because Bodi handles health data, we apply the following in addition to
+everything above:
+
+- Row-level security on every personal table, verified by an isolation test
+  that runs in our continuous integration pipeline on every change to the
+  database schema.
+- All traffic between the app, our backend and our processors is encrypted in
+  transit with TLS.
+- Data at rest is encrypted by our hosting provider.
+- The Gemini API key exists only in the backend function environment. A copy of
+  the app, decompiled, contains no key and cannot call Google directly.
+- Crash reports are configured never to carry personal data.
+- Meal photographs are never persisted on our servers.
+
+## 10. How long we keep your data
+
+- **Your health, profile, meal, habit, workout, reminder and coach data**: kept
+  until you delete it, or until you delete your account. We do not apply an
+  automatic expiry, because your history is the point of a health app — a
+  two-year-old weight reading is what makes a trend meaningful.
+- **Account records**: kept for as long as the account exists.
+- **AI usage counters**: one row per account per day.
+- **Crash reports**: retained according to our crash reporting provider's
+  default retention period, typically 90 days.
+- **On-device data**: stays on your device until you delete your account, use
+  **Delete my data**, or uninstall the app.
+- **Backups**: our hosting provider takes routine encrypted backups. Deleted
+  data may persist in a backup for a short period before that backup rotates
+  out, but it is not restored to the live system.
+
+TODO for counsel: confirm whether any statutory retention period applies to
+billing records for paid subscriptions in the relevant jurisdiction.
+
+## 11. Your rights, and how to use them
+
+You have the right to access your data, to correct it, to erase it, to receive
+it in a portable format, to restrict or object to processing, and to withdraw
+consent. Some of these are built directly into the app.
+
+### Access and correction
+
+Everything Bodi holds about you is visible in the app: your profile, your
+measurement history, your meals, your habits, your workouts and your coach
+conversations. You can edit your profile and measurements at any time.
+
+### Export
+
+**Reports → share** generates a weekly health report as a PDF you can save or
+send anywhere.
+
+For a complete machine-readable export of everything in your account, contact
+us at the privacy address in section 2 and we will provide it. TODO: confirm the
+response time to commit to here; the GDPR default is one month.
+
+### Erasure
+
+Bodi has a real, in-app, self-service delete. Go to **You → Delete my data** and
+confirm.
+
+That runs, in this order:
+
+1. A `delete_account` function inside our database, which first deletes any file
+   stored under your account's folder in our meal photo storage bucket, then
+   deletes your authentication record. Every table holding your data references
+   that record with `on delete cascade`, so your profile, measurements, meals,
+   habits, habit logs, coach messages, reminders, workouts, AI usage counters,
+   subscription record, friendships, group memberships and challenge entries are
+   all removed by the database in the same transaction.
+2. Sign-out.
+3. A wipe of the local database on your device.
+
+The server side runs first on purpose: if it fails, you are told, and nothing is
+wiped locally, so you are never left with a wiped phone and a live account.
+
+This is irreversible. There is no recovery and no grace period. Export anything
+you want to keep first.
+
+### Complaints
+
+If you believe we have handled your data improperly, please contact us first —
+we would rather fix it. You also have the right to complain to a data protection
+supervisory authority. TODO for counsel: identify the competent supervisory
+authority or authorities to name here, given a Cameroonian controller and
+EU-hosted processing.
+
+## 12. Children
+
+Bodi is not intended for anyone under 16, and we do not knowingly collect data
+from children. Bodi's calculations — BMI categories, calorie targets, body fat
+estimates — are derived from formulas validated in adults and are not
+appropriate for children or adolescents.
+
+If you believe a child has created an account, contact us and we will delete it.
+
+## 13. Automated decision-making
+
+Bodi calculates scores and targets automatically, and the AI coach generates
+personalised suggestions. None of this produces a legal or similarly significant
+effect on you within the meaning of GDPR Art. 22: nothing here decides your
+access to credit, employment, insurance, care or any service. It is
+informational guidance you are free to ignore, and it is not medical advice.
+
+## 14. Changes to this policy
+
+If we change how we handle your data in a way that materially affects you, we
+will notify you in the app before the change takes effect and update the
+effective date above. Continuing to use Bodi after that means you accept the
+updated policy.
+
+## 15. Contact
+
+- Privacy enquiries and data requests: TODO: privacy contact email address
+- Postal address: TODO: full registered address
+- Online version of this policy: TODO: public URL where this policy is hosted
+  (needed for the App Store listing, the Google Play Data safety form, and the
+  Health Connect privacy policy link)

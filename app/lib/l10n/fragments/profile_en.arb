@@ -1,0 +1,85 @@
+{
+  "profileNameFallback": "Your profile",
+  "profileSummary": "{age} · {sex} · {height} cm",
+  "@profileSummary": {
+    "placeholders": {
+      "age": { "type": "String" },
+      "sex": { "type": "String" },
+      "height": { "type": "String" }
+    }
+  },
+  "profileSummaryWithCountry": "{age} · {sex} · {height} cm · {country}",
+  "@profileSummaryWithCountry": {
+    "placeholders": {
+      "age": { "type": "String" },
+      "sex": { "type": "String" },
+      "height": { "type": "String" },
+      "country": { "type": "String" }
+    }
+  },
+
+  "profileHealthSection": "Your health profile",
+  "profileBmi": "BMI",
+  "profileBmiValue": "{value} · {category}",
+  "@profileBmiValue": {
+    "placeholders": {
+      "value": { "type": "String" },
+      "category": { "type": "String" }
+    }
+  },
+  "profileBodyFat": "Estimated body fat",
+  "profileBmr": "Basal metabolic rate",
+  "profileTdee": "Daily energy needs",
+  "profileCalorieTarget": "Daily calorie target",
+  "profileProteinTarget": "Protein target",
+  "profileWaterTarget": "Water target",
+  "profileStepGoal": "Step goal",
+  "profileSleepGoal": "Sleep goal",
+  "profileHealthyWeightRange": "Healthy weight range",
+  "profileWaistToHeight": "Waist-to-height ratio",
+  "profileVisceralFatRisk": "Visceral fat risk",
+  "profileMetabolicScore": "Metabolic health score",
+  "profileLifestyleRiskScore": "Lifestyle risk score",
+  "profileScoreOutOf100": "{score}/100",
+  "@profileScoreOutOf100": {
+    "placeholders": { "score": { "type": "int" } }
+  },
+  "profileDisclaimer": "Recomputed automatically whenever your measurements change. Estimates are informational, not medical advice.",
+
+  "profileAccountSection": "Account & data",
+  "profileCloudSyncOn": "Cloud sync is on",
+  "profileSignInPrompt": "Sign in to sync & unlock AI",
+  "profileLocalOnly": "Your data currently lives only on this device.",
+
+  "profileSyncBackingUp": "Backing up…",
+  "profileSyncWaiting": "{count, plural, one{{count} change waiting for a connection.} other{{count} changes waiting for a connection.}}",
+  "@profileSyncWaiting": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "profileSyncFailed": "{count, plural, one{{count} change could not be saved to the cloud.} other{{count} changes could not be saved to the cloud.}}",
+  "@profileSyncFailed": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "profileSyncPending": "{count, plural, one{{count} change to upload.} other{{count} changes to upload.}}",
+  "@profileSyncPending": {
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "profileSyncIdle": "Your data backs up automatically.",
+
+  "profileEditTitle": "Edit your profile",
+  "profileEditSubtitle": "Age, goals, lifestyle, medical background",
+  "profileMeasurementsTitle": "Update measurements",
+  "profilePremiumTitle": "Bodi Premium",
+  "profilePremiumSubtitle": "Unlimited AI coaching",
+  "profileCommunityTitle": "Community",
+  "profileCommunitySubtitle": "Friends, groups & challenges",
+  "profileRemindersTitle": "Reminders",
+  "profileDeleteDataTitle": "Delete my data",
+
+  "profileWipeDialogTitle": "Delete your data?",
+  "profileWipeBodySignedIn": "Clearing this device leaves your account intact — signing in again restores everything.\n\nDeleting your account erases your profile, meals, measurements, habits, photos and chat history from Bodi's servers as well. That cannot be undone.",
+  "profileWipeBodyLocal": "This removes your profile, meals, measurements, habits and chat history from this device. This cannot be undone.",
+  "profileWipeClearDevice": "Clear this device",
+  "profileWipeDeleteAccount": "Delete account",
+  "profileWipeError": "Could not delete your account. Nothing was removed — please try again when you have a connection."
+}

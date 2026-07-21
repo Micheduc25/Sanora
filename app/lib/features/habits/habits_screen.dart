@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../core/widgets/bodi_card.dart';
 import '../../core/widgets/empty_state.dart';
+import '../../l10n/app_localizations.dart';
 import 'habits_controller.dart';
 
 class HabitsScreen extends ConsumerWidget {
@@ -13,27 +14,31 @@ class HabitsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final habits = ref.watch(habitsListProvider);
     final theme = Theme.of(context);
+    final l = L.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Habits')),
+      appBar: AppBar(title: Text(l.habitsTitle)),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'fab-habits',
         onPressed: () => _showCreateSheet(context, ref),
         icon: const Icon(Icons.add_rounded),
-        label: const Text('New habit'),
+        label: Text(l.habitsNewHabit),
       ),
       body: habits.isEmpty
           ? ListView(
               padding: const EdgeInsets.all(20),
               children: [
-                const EmptyState(
+                EmptyState(
                   icon: Icons.spa_rounded,
-                  title: 'Habits beat willpower',
-                  message:
-                      'Pick one tiny habit to start. Consistency, not intensity, is what changes your health.',
+                  title: l.habitsEmptyTitle,
+                  message: l.habitsEmptyMessage,
                 ),
-                Text('Popular starters', style: theme.textTheme.titleLarge),
+                Text(
+                  l.habitsPopularStarters,
+                  style: theme.textTheme.titleLarge,
+                ),
                 const SizedBox(height: 12),
-                for (final (emoji, name) in suggestedHabits)
+                for (final (emoji, name) in suggestedHabits(l))
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
                     child: BodiCard(
@@ -110,9 +115,20 @@ class _CreateHabitSheet extends HookConsumerWidget {
     final name = useTextEditingController();
     final emoji = useState('✅');
     final weekdays = useState<List<int>>([]);
+    final reminder = useState<TimeOfDay?>(null);
+    final dailyTarget = useState(1);
     final theme = Theme.of(context);
+    final l = L.of(context);
     const emojis = ['✅', '💧', '🚶', '🏋️', '🥬', '😴', '🧘', '📖', '☀️', '🚫'];
-    const dayLabels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+    final dayLabels = [
+      l.habitsDayMon,
+      l.habitsDayTue,
+      l.habitsDayWed,
+      l.habitsDayThu,
+      l.habitsDayFri,
+      l.habitsDaySat,
+      l.habitsDaySun,
+    ];
 
     return Padding(
       padding: EdgeInsets.only(
@@ -125,15 +141,13 @@ class _CreateHabitSheet extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('New habit', style: theme.textTheme.headlineSmall),
+          Text(l.habitsNewHabit, style: theme.textTheme.headlineSmall),
           const SizedBox(height: 16),
           TextField(
             controller: name,
             autofocus: true,
             textCapitalization: TextCapitalization.sentences,
-            decoration: const InputDecoration(
-              hintText: 'e.g. Walk after dinner',
-            ),
+            decoration: InputDecoration(hintText: l.habitsNameHint),
           ),
           const SizedBox(height: 16),
           Wrap(
@@ -149,7 +163,7 @@ class _CreateHabitSheet extends HookConsumerWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Text('Days (empty = every day)', style: theme.textTheme.labelMedium),
+          Text(l.habitsDaysLabel, style: theme.textTheme.labelMedium),
           const SizedBox(height: 8),
           Row(
             children: [
@@ -169,20 +183,82 @@ class _CreateHabitSheet extends HookConsumerWidget {
                 ),
             ],
           ),
+          const SizedBox(height: 16),
+          Text(l.habitsTimesPerDay, style: theme.textTheme.labelMedium),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              IconButton.outlined(
+                onPressed: dailyTarget.value > 1
+                    ? () => dailyTarget.value--
+                    : null,
+                icon: const Icon(Icons.remove_rounded),
+              ),
+              SizedBox(
+                width: 48,
+                child: Text(
+                  '${dailyTarget.value}',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.titleMedium,
+                ),
+              ),
+              IconButton.outlined(
+                onPressed: dailyTarget.value < 20
+                    ? () => dailyTarget.value++
+                    : null,
+                icon: const Icon(Icons.add_rounded),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(
+                  icon: const Icon(Icons.notifications_none_rounded),
+                  label: Text(
+                    reminder.value == null
+                        ? l.habitsRemindOptional
+                        : l.habitsRemindAt(reminder.value!.format(context)),
+                  ),
+                  onPressed: () async {
+                    final picked = await showTimePicker(
+                      context: context,
+                      initialTime:
+                          reminder.value ?? const TimeOfDay(hour: 8, minute: 0),
+                    );
+                    if (picked != null) reminder.value = picked;
+                  },
+                ),
+              ),
+              if (reminder.value != null)
+                IconButton(
+                  tooltip: l.habitsClearReminder,
+                  onPressed: () => reminder.value = null,
+                  icon: const Icon(Icons.close_rounded),
+                ),
+            ],
+          ),
           const SizedBox(height: 20),
           FilledButton(
             onPressed: () async {
               if (name.text.trim().isEmpty) return;
+              final at = reminder.value;
               await ref
                   .read(habitsControllerProvider)
                   .create(
                     name: name.text.trim(),
                     emoji: emoji.value,
                     weekdays: weekdays.value..sort(),
+                    dailyTarget: dailyTarget.value,
+                    reminderTime: at == null
+                        ? null
+                        : '${at.hour.toString().padLeft(2, '0')}:'
+                              '${at.minute.toString().padLeft(2, '0')}',
                   );
               if (context.mounted) Navigator.pop(context);
             },
-            child: const Text('Create habit'),
+            child: Text(l.habitsCreate),
           ),
         ],
       ),

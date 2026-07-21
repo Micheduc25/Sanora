@@ -4,6 +4,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../core/providers/app_providers.dart';
 import '../../domain/models/habit.dart';
+import '../../l10n/app_localizations.dart';
 import '../dashboard/dashboard_controller.dart';
 
 final habitsListProvider = Provider.autoDispose<List<Habit>>(
@@ -35,6 +36,7 @@ class HabitsController {
     required String name,
     required String emoji,
     List<int> weekdays = const [],
+    int dailyTarget = 1,
     String? reminderTime,
   }) async {
     final repo = _ref.read(habitsRepositoryProvider);
@@ -44,6 +46,7 @@ class HabitsController {
         name: name,
         emoji: emoji,
         scheduledWeekdays: weekdays,
+        dailyTarget: dailyTarget,
         reminderTime: reminderTime,
         createdAt: DateTime.now(),
       ),
@@ -59,18 +62,20 @@ class HabitsController {
 
 final habitsControllerProvider = Provider((ref) => HabitsController(ref));
 
-/// Starter habits offered on the empty state — one tap to adopt.
-const suggestedHabits = [
-  ('💧', 'Drink 2L of water'),
-  ('🚶', 'Walk after lunch'),
-  ('🏋️', 'Exercise 20 minutes'),
-  ('🥬', 'Vegetables with dinner'),
-  ('🚫', 'No sugary drinks'),
-  ('😴', 'In bed before 11 PM'),
-  ('☀️', 'Morning sunlight'),
-  ('🧘', 'Meditate 5 minutes'),
-  ('📖', 'Read 10 pages'),
-  ('🧎', 'Stretch before bed'),
+/// Starter habits offered on the empty state — one tap to adopt. The name is
+/// copied into the habit the user creates, so it is resolved in their language
+/// at the moment they tap rather than held as a constant.
+List<(String, String)> suggestedHabits(L l) => [
+  ('💧', l.habitsSuggestionWater),
+  ('🚶', l.habitsSuggestionWalk),
+  ('🏋️', l.habitsSuggestionExercise),
+  ('🥬', l.habitsSuggestionVegetables),
+  ('🚫', l.habitsSuggestionNoSugaryDrinks),
+  ('😴', l.habitsSuggestionEarlyBed),
+  ('☀️', l.habitsSuggestionSunlight),
+  ('🧘', l.habitsSuggestionMeditate),
+  ('📖', l.habitsSuggestionRead),
+  ('🧎', l.habitsSuggestionStretch),
 ];
 
 class HabitCheckRow extends ConsumerWidget {

@@ -7,6 +7,7 @@ import '../../core/providers/app_providers.dart';
 import '../../core/widgets/bodi_card.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../domain/models/reminder.dart';
+import '../../l10n/app_localizations.dart';
 
 final remindersListProvider = Provider.autoDispose(
   (ref) => ref.watch(remindersRepositoryProvider).all(),
@@ -19,24 +20,25 @@ class RemindersScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final reminders = ref.watch(remindersListProvider);
     final theme = Theme.of(context);
+    final l = L.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Smart reminders')),
+      appBar: AppBar(title: Text(l.remindersTitle)),
       floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'fab-reminders',
         onPressed: () => showModalBottomSheet(
           context: context,
           isScrollControlled: true,
           builder: (_) => const _CreateReminderSheet(),
         ),
         icon: const Icon(Icons.add_rounded),
-        label: const Text('New'),
+        label: Text(l.remindersNewShort),
       ),
       body: reminders.isEmpty
-          ? const EmptyState(
+          ? EmptyState(
               icon: Icons.notifications_active_rounded,
-              title: 'Nudges that fit your day',
-              message:
-                  'Water, movement, meals, medication, sleep — gentle reminders exactly when you need them.',
+              title: l.remindersEmptyTitle,
+              message: l.remindersEmptyBody,
             )
           : ListView(
               padding: const EdgeInsets.all(20),
@@ -101,7 +103,14 @@ class RemindersScreen extends ConsumerWidget {
     );
   }
 
-  static String _daysLabel(List<int> weekdays) {
+  static String _daysLabel(List<int> weekdays) =>
+      _RemindersScreenLabels.days(weekdays);
+}
+
+const _weekdayInitials = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+
+abstract final class _RemindersScreenLabels {
+  static String days(List<int> weekdays) {
     if (weekdays.isEmpty || weekdays.length == 7) return 'every day';
     const names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     return weekdays.map((d) => names[d - 1]).join(', ');
@@ -115,8 +124,12 @@ class _CreateReminderSheet extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final kind = useState(ReminderKind.water);
     final title = useTextEditingController();
+    final body = useTextEditingController();
     final time = useState(const TimeOfDay(hour: 9, minute: 0));
+    // Empty means every day, which is what the scheduler already assumes.
+    final weekdays = useState(<int>{});
     final theme = Theme.of(context);
+    final l = L.of(context);
 
     return Padding(
       padding: EdgeInsets.only(
@@ -129,7 +142,7 @@ class _CreateReminderSheet extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('New reminder', style: theme.textTheme.headlineSmall),
+          Text(l.remindersNew, style: theme.textTheme.headlineSmall),
           const SizedBox(height: 16),
           Wrap(
             spacing: 8,
@@ -148,9 +161,14 @@ class _CreateReminderSheet extends HookConsumerWidget {
           if (kind.value == ReminderKind.custom)
             TextField(
               controller: title,
-              decoration: const InputDecoration(hintText: 'Reminder title'),
+              decoration: InputDecoration(hintText: l.remindersTitleHint),
             ),
           const SizedBox(height: 8),
+          TextField(
+            controller: body,
+            decoration: InputDecoration(hintText: l.remindersBodyHint),
+          ),
+          const SizedBox(height: 12),
           OutlinedButton.icon(
             icon: const Icon(Icons.schedule_rounded),
             label: Text(time.value.format(context)),
@@ -161,6 +179,32 @@ class _CreateReminderSheet extends HookConsumerWidget {
               );
               if (picked != null) time.value = picked;
             },
+          ),
+          const SizedBox(height: 16),
+          Text(l.remindersRepeat, style: theme.textTheme.labelLarge),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 6,
+            children: [
+              for (var day = 1; day <= 7; day++)
+                FilterChip(
+                  label: Text(_weekdayInitials[day - 1]),
+                  selected: weekdays.value.contains(day),
+                  showCheckmark: false,
+                  onSelected: (selected) {
+                    final next = {...weekdays.value};
+                    selected ? next.add(day) : next.remove(day);
+                    weekdays.value = next;
+                  },
+                ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            weekdays.value.isEmpty
+                ? l.remindersEveryDay
+                : _RemindersScreenLabels.days(weekdays.value.toList()..sort()),
+            style: theme.textTheme.bodySmall,
           ),
           const SizedBox(height: 20),
           FilledButton(
@@ -173,6 +217,8 @@ class _CreateReminderSheet extends HookConsumerWidget {
                         title.text.trim().isNotEmpty
                     ? title.text.trim()
                     : kind.value.defaultTitle,
+                body: body.text.trim(),
+                weekdays: weekdays.value.toList()..sort(),
                 time:
                     '${time.value.hour.toString().padLeft(2, '0')}:${time.value.minute.toString().padLeft(2, '0')}',
                 createdAt: DateTime.now(),
@@ -181,7 +227,7 @@ class _CreateReminderSheet extends HookConsumerWidget {
               ref.invalidate(remindersListProvider);
               if (context.mounted) Navigator.pop(context);
             },
-            child: const Text('Create reminder'),
+            child: Text(l.remindersCreate),
           ),
         ],
       ),

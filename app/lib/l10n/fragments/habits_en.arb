@@ -1,0 +1,45 @@
+{
+  "habitsTitle": "Habits",
+  "habitsNewHabit": "New habit",
+  "habitsEmptyTitle": "Habits beat willpower",
+  "habitsEmptyMessage": "Pick one tiny habit to start. Consistency, not intensity, is what changes your health.",
+  "habitsPopularStarters": "Popular starters",
+  "habitsNameHint": "e.g. Walk after dinner",
+  "habitsDaysLabel": "Days (empty = every day)",
+  "habitsDayMon": "M",
+  "@habitsDayMon": { "description": "One-letter Monday initial in the weekday picker." },
+  "habitsDayTue": "T",
+  "@habitsDayTue": { "description": "One-letter Tuesday initial in the weekday picker." },
+  "habitsDayWed": "W",
+  "@habitsDayWed": { "description": "One-letter Wednesday initial in the weekday picker." },
+  "habitsDayThu": "T",
+  "@habitsDayThu": { "description": "One-letter Thursday initial in the weekday picker." },
+  "habitsDayFri": "F",
+  "@habitsDayFri": { "description": "One-letter Friday initial in the weekday picker." },
+  "habitsDaySat": "S",
+  "@habitsDaySat": { "description": "One-letter Saturday initial in the weekday picker." },
+  "habitsDaySun": "S",
+  "@habitsDaySun": { "description": "One-letter Sunday initial in the weekday picker." },
+  "habitsTimesPerDay": "Times per day",
+  "habitsRemindOptional": "Remind me (optional)",
+  "habitsRemindAt": "Remind at {time}",
+  "@habitsRemindAt": {
+    "description": "Button label once a reminder time is chosen.",
+    "placeholders": {
+      "time": { "type": "String" }
+    }
+  },
+  "habitsClearReminder": "Clear reminder",
+  "habitsCreate": "Create habit",
+
+  "habitsSuggestionWater": "Drink 2L of water",
+  "habitsSuggestionWalk": "Walk after lunch",
+  "habitsSuggestionExercise": "Exercise 20 minutes",
+  "habitsSuggestionVegetables": "Vegetables with dinner",
+  "habitsSuggestionNoSugaryDrinks": "No sugary drinks",
+  "habitsSuggestionEarlyBed": "In bed before 11 PM",
+  "habitsSuggestionSunlight": "Morning sunlight",
+  "habitsSuggestionMeditate": "Meditate 5 minutes",
+  "habitsSuggestionRead": "Read 10 pages",
+  "habitsSuggestionStretch": "Stretch before bed"
+}

@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../core/providers/app_providers.dart';
 import '../../core/widgets/bodi_card.dart';
 import '../../domain/models/workout.dart';
+import '../../l10n/app_localizations.dart';
 import 'workouts_screen.dart';
 
 class WorkoutDetailScreen extends ConsumerWidget {
@@ -25,7 +26,9 @@ class WorkoutDetailScreen extends ConsumerWidget {
               const SizedBox(width: 8),
               _Pill(workout.difficulty),
               const SizedBox(width: 8),
-              _Pill('${workout.durationMinutes} min'),
+              _Pill(
+                L.of(context).workoutsDurationMinutes(workout.durationMinutes),
+              ),
               const SizedBox(width: 8),
               _Pill('~${workout.estimatedCalories} kcal'),
             ],
@@ -44,7 +47,7 @@ class WorkoutDetailScreen extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
               child: FilledButton.icon(
                 icon: const Icon(Icons.check_rounded),
-                label: const Text('Mark as completed'),
+                label: Text(L.of(context).workoutsMarkCompleted),
                 onPressed: () async {
                   await ref
                       .read(workoutsRepositoryProvider)
@@ -52,9 +55,7 @@ class WorkoutDetailScreen extends ConsumerWidget {
                   ref.invalidate(workoutsListProvider);
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Great work — workout logged. 💪'),
-                      ),
+                      SnackBar(content: Text(L.of(context).workoutsLogged)),
                     );
                     Navigator.pop(context);
                   }

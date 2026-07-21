@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../l10n/app_localizations.dart';
 import 'onboarding_controller.dart';
 
 /// Runs the health engine over the completed draft with a short staged
@@ -16,12 +17,14 @@ class GeneratingScreen extends ConsumerStatefulWidget {
 }
 
 class _GeneratingScreenState extends ConsumerState<GeneratingScreen> {
-  static const _stages = [
-    'Reading your measurements…',
-    'Calculating your energy needs…',
-    'Setting protein and water targets…',
-    'Estimating health risks…',
-    'Building your daily plan…',
+  static const _stageCount = 5;
+
+  static List<String> _stages(L l) => [
+    l.onboardingGeneratingStageMeasurements,
+    l.onboardingGeneratingStageEnergy,
+    l.onboardingGeneratingStageTargets,
+    l.onboardingGeneratingStageRisks,
+    l.onboardingGeneratingStagePlan,
   ];
 
   int _stage = 0;
@@ -36,10 +39,11 @@ class _GeneratingScreenState extends ConsumerState<GeneratingScreen> {
   Future<void> _run() async {
     _timer = Timer.periodic(const Duration(milliseconds: 700), (t) {
       if (!mounted) return;
-      if (_stage < _stages.length - 1) setState(() => _stage++);
+      if (_stage < _stageCount - 1) setState(() => _stage++);
     });
+    // Only reached by first-run onboarding; editing saves in place instead.
     final controllerFuture = ref
-        .read(onboardingControllerProvider.notifier)
+        .read(onboardingControllerProvider(false).notifier)
         .complete();
     await Future.wait([
       controllerFuture,
@@ -58,6 +62,7 @@ class _GeneratingScreenState extends ConsumerState<GeneratingScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l = L.of(context);
     return Scaffold(
       body: Center(
         child: Padding(
@@ -76,7 +81,7 @@ class _GeneratingScreenState extends ConsumerState<GeneratingScreen> {
               ),
               const SizedBox(height: 36),
               Text(
-                'Building your health profile',
+                l.onboardingGeneratingTitle,
                 style: theme.textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
@@ -84,7 +89,7 @@ class _GeneratingScreenState extends ConsumerState<GeneratingScreen> {
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 child: Text(
-                  _stages[_stage],
+                  _stages(l)[_stage],
                   key: ValueKey(_stage),
                   style: theme.textTheme.bodyLarge?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,

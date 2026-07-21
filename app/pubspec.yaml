@@ -38,10 +38,11 @@ dependencies:
 
   # UI
   fl_chart: ^0.71.0
-  lottie: ^3.3.1
   shimmer: ^3.0.0
-  cached_network_image: ^3.4.1
   smooth_page_indicator: ^1.2.1
+
+  # Purchases (App Store / Play Billing)
+  in_app_purchase: ^3.3.0
 
   # Media & sensors
   image_picker: ^1.1.2
@@ -67,6 +68,8 @@ dependencies:
   # Health platform integration
   health: ^12.2.0
   permission_handler: ^12.0.0+1
+  sentry_flutter: ^8.14.2
+  flutter_timezone: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -77,12 +80,14 @@ dev_dependencies:
   json_serializable: ^6.9.5
   riverpod_generator: ^2.6.5
   mocktail: ^1.0.4
+  flutter_launcher_icons: ^0.14.3
+  flutter_native_splash: ^2.4.6
 
 flutter:
   uses-material-design: true
+  # Generates AppLocalizations from lib/l10n/*.arb per l10n.yaml.
+  generate: true
   assets:
-    - assets/images/
-    - assets/lottie/
     - assets/data/
   fonts:
     - family: Manrope
@@ -99,3 +104,36 @@ flutter:
           weight: 500
         - asset: assets/fonts/Inter-SemiBold.ttf
           weight: 600
+
+# Brand mark -> platform launcher icons. Regenerate: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  image_path: assets/icon/bodi_icon.png
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  min_sdk_android: 24
+  adaptive_icon_background: "#10A56D"
+  adaptive_icon_foreground: assets/icon/bodi_icon_foreground.png
+  adaptive_icon_monochrome: assets/icon/bodi_icon_foreground.png
+  web:
+    generate: true
+    image_path: assets/icon/bodi_icon.png
+    background_color: "#10A56D"
+    theme_color: "#10A56D"
+
+# Launch screen. Regenerate: dart run flutter_native_splash:create
+flutter_native_splash:
+  color: "#10A56D"
+  image: assets/icon/bodi_splash.png
+  color_dark: "#0E1512"
+  image_dark: assets/icon/bodi_splash.png
+  android: true
+  ios: true
+  web: false
+  android_12:
+    image: assets/icon/bodi_splash_android12.png
+    color: "#10A56D"
+    icon_background_color: "#10A56D"
+    image_dark: assets/icon/bodi_splash_android12.png
+    color_dark: "#0E1512"
+    icon_background_color_dark: "#0E1512"

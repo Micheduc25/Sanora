@@ -3,12 +3,14 @@ import 'package:uuid/uuid.dart';
 import '../../core/storage/local_store.dart';
 import '../../core/utils/extensions.dart';
 import '../../domain/models/habit.dart';
+import '../notifications/notification_service.dart';
 import '../sync/sync_service.dart';
 
 class HabitsRepository {
-  HabitsRepository(this._sync);
+  HabitsRepository(this._sync, this._notifications);
 
   final SyncService _sync;
+  final NotificationService _notifications;
 
   List<Habit> all() =>
       LocalStore.readAll(LocalStore.habitsBox, Habit.fromJson)
@@ -62,10 +64,13 @@ class HabitsRepository {
 
   Future<void> save(Habit habit) async {
     await LocalStore.put(LocalStore.habitsBox, habit.id, habit.toJson());
+    await _notifications.scheduleHabit(habit);
     await _sync.enqueue('habits', 'upsert', habit.toJson());
   }
 
   Future<void> remove(String id) async {
+    final habit = all().where((h) => h.id == id).firstOrNull;
+    if (habit != null) await _notifications.cancelHabit(habit);
     await LocalStore.delete(LocalStore.habitsBox, id);
     await _sync.enqueue('habits', 'delete', {'id': id});
   }

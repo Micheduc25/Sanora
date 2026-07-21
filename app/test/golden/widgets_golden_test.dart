@@ -27,20 +27,22 @@ void main() {
     ('dark', AppTheme.dark),
   ]) {
     testWidgets('StatTile golden ($label)', (tester) async {
-      await tester.pumpWidget(_frame(
-        const SizedBox(
-          width: 170,
-          height: 150,
-          child: StatTile(
-            icon: Icons.directions_walk_rounded,
-            color: AppColors.steps,
-            value: '7,500',
-            label: 'of 10K steps',
-            progress: 0.75,
+      await tester.pumpWidget(
+        _frame(
+          const SizedBox(
+            width: 170,
+            height: 150,
+            child: StatTile(
+              icon: Icons.directions_walk_rounded,
+              color: AppColors.steps,
+              value: '7,500',
+              label: 'of 10K steps',
+              progress: 0.75,
+            ),
           ),
+          theme,
         ),
-        theme,
-      ));
+      );
       await tester.pumpAndSettle();
       await expectLater(
         find.byType(StatTile),
@@ -49,15 +51,17 @@ void main() {
     });
 
     testWidgets('ProgressRing golden ($label)', (tester) async {
-      await tester.pumpWidget(_frame(
-        const ProgressRing(
-          progress: 0.72,
-          size: 120,
-          strokeWidth: 12,
-          child: Text('72'),
+      await tester.pumpWidget(
+        _frame(
+          const ProgressRing(
+            progress: 0.72,
+            size: 120,
+            strokeWidth: 12,
+            child: Text('72'),
+          ),
+          theme,
         ),
-        theme,
-      ));
+      );
       await tester.pumpAndSettle();
       await expectLater(
         find.byType(ProgressRing),
@@ -66,20 +70,22 @@ void main() {
     });
 
     testWidgets('EmptyState golden ($label)', (tester) async {
-      await tester.pumpWidget(_frame(
-        const SizedBox(
-          width: 360,
-          height: 420,
-          child: EmptyState(
-            icon: Icons.restaurant_rounded,
-            title: 'What did you eat today?',
-            message:
-                'Snap a photo, describe it, or search the food database.',
-            actionLabel: 'Log your first meal',
+      await tester.pumpWidget(
+        _frame(
+          const SizedBox(
+            width: 360,
+            height: 420,
+            child: EmptyState(
+              icon: Icons.restaurant_rounded,
+              title: 'What did you eat today?',
+              message:
+                  'Snap a photo, describe it, or search the food database.',
+              actionLabel: 'Log your first meal',
+            ),
           ),
+          theme,
         ),
-        theme,
-      ));
+      );
       await tester.pumpAndSettle();
       await expectLater(
         find.byType(EmptyState),

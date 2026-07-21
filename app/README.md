@@ -6,12 +6,13 @@ See the [repository README](../README.md) for the product overview and
 ```bash
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
-flutter run \
-  --dart-define=SUPABASE_URL=https://<project>.supabase.co \
-  --dart-define=SUPABASE_ANON_KEY=<anon-key>
+flutter run --dart-define-from-file=dart_defines/dev.json
 ```
 
-Omit the defines to run fully offline (no sync, no AI).
+Omit the defines to run fully offline (no sync, no AI) — but omit them by
+choice, not by accident: a build without them cannot reach the AI features at
+all, and the app says so only once you try to use one. The `Bodi (dev
+backend)` VS Code launch configuration passes the file for you.
 
 - `lib/core` — theme, router, storage, shared widgets, DI
 - `lib/domain` — Freezed models and the pure health engines

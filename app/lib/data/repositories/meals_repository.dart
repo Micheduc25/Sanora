@@ -1,5 +1,8 @@
+import 'package:uuid/uuid.dart';
+
 import '../../core/storage/local_store.dart';
 import '../../core/utils/extensions.dart';
+import '../../domain/models/enums.dart';
 import '../../domain/models/meal.dart';
 import '../../domain/models/nutrition.dart';
 import '../sync/sync_service.dart';
@@ -31,6 +34,19 @@ class MealsRepository {
 
   Future<void> toggleFavorite(Meal meal) =>
       save(meal.copyWith(isFavorite: !meal.isFavorite));
+
+  /// Logs a favourite again as a new meal now. The copy is not itself a
+  /// favourite, so re-logging never multiplies the favourites list.
+  Future<Meal> logAgain(Meal meal) async {
+    final copy = meal.copyWith(
+      id: const Uuid().v4(),
+      source: MealSource.favorite,
+      eatenAt: DateTime.now(),
+      isFavorite: false,
+    );
+    await save(copy);
+    return copy;
+  }
 
   Future<void> remove(String id) async {
     await LocalStore.delete(LocalStore.mealsBox, id);

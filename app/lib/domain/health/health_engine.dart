@@ -20,17 +20,22 @@ abstract final class HealthEngine {
         ? u.waistCm! / u.hipCm!
         : null;
 
+    final calories = calorieTarget(u, tdee);
+    final protein = proteinTarget(u);
+
     return HealthProfile(
       bmi: _round1(bmi),
       bmiCategory: bmiCategory(bmi),
       estimatedBodyFatPct: _round1(bodyFat),
       bmr: bmr.roundToDouble(),
       tdee: tdee.roundToDouble(),
-      calorieTarget: calorieTarget(u, tdee).roundToDouble(),
-      proteinTargetG: proteinTarget(u).roundToDouble(),
+      calorieTarget: calories.roundToDouble(),
+      proteinTargetG: protein.roundToDouble(),
+      carbTargetG: carbTarget(calories, protein).roundToDouble(),
+      fatTargetG: fatTarget(calories, protein).roundToDouble(),
       waterTargetMl: waterTarget(u.weightKg).roundToDouble(),
       stepGoal: stepGoal(u),
-      exerciseMinutesPerWeek: 150,
+      exerciseMinutesPerWeek: exerciseMinutes(u),
       sleepGoalHours: sleepGoal(u.age),
       healthyWeightMinKg: _round1(18.5 * _heightM2(u.heightCm)),
       healthyWeightMaxKg: _round1(24.9 * _heightM2(u.heightCm)),
@@ -133,6 +138,35 @@ abstract final class HealthEngine {
     };
     if (u.goals.contains(GoalType.loseFat)) goal += 2000;
     return math.min(goal, 12000);
+  }
+
+  /// WHO advises 150–300 min/week of moderate activity. Someone already
+  /// training most days is held at the upper end; a sedentary starter is
+  /// given a floor they can actually hit, and fat loss nudges it up.
+  static int exerciseMinutes(UserProfile u) {
+    var minutes = switch (u.activityLevel) {
+      ActivityLevel.sedentary => 90,
+      ActivityLevel.light => 150,
+      ActivityLevel.moderate => 210,
+      ActivityLevel.active => 270,
+      ActivityLevel.athlete => 300,
+    };
+    if (u.goals.contains(GoalType.loseFat)) minutes += 30;
+    return math.min(minutes, 300);
+  }
+
+  /// Carbohydrate and fat targets that fill whatever the calorie budget has
+  /// left once protein is paid for, at a conventional 55/45 split of the
+  /// remainder. Derived here rather than at the widget layer so every screen
+  /// and the PDF quote the same number.
+  static double carbTarget(double calorieTarget, double proteinG) {
+    final remaining = math.max(0.0, calorieTarget - proteinG * 4);
+    return remaining * 0.55 / 4;
+  }
+
+  static double fatTarget(double calorieTarget, double proteinG) {
+    final remaining = math.max(0.0, calorieTarget - proteinG * 4);
+    return remaining * 0.45 / 9;
   }
 
   static double sleepGoal(int age) => age >= 65 ? 7.5 : 8.0;

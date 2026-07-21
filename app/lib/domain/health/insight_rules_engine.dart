@@ -38,6 +38,7 @@ abstract final class InsightRulesEngine {
           body: body,
           severity: severity,
           action: action,
+          actionRoute: routeForAction(action),
           createdAt: now ?? DateTime.now(),
         ),
       );
@@ -54,6 +55,19 @@ abstract final class InsightRulesEngine {
 
     return insights;
   }
+
+  /// Maps a call-to-action label onto the screen that actually performs it.
+  /// Kept beside the rules so adding a new action without somewhere to send
+  /// the user is an obvious omission rather than a dead label.
+  static String routeForAction(String action) => switch (action) {
+    'Review recent meals' => '/meals',
+    'See high-protein foods' => '/meals/log',
+    'Set a dinner reminder' => '/reminders',
+    'Set a sleep reminder' => '/reminders',
+    'Enable water reminders' => '/reminders',
+    'Log your weight' => '/health/log?type=weight',
+    _ => '',
+  };
 
   static void _weightTrend(
     List<MetricEntry> metrics,

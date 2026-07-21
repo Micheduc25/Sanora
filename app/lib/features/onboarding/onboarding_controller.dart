@@ -63,10 +63,43 @@ class OnboardingDraft {
   double? targetBodyFatPct;
   DateTime? targetDate;
 
-  UserProfile toProfile() {
+  /// Seeds the wizard from a saved profile so the same steps can be reopened
+  /// to edit it.
+  factory OnboardingDraft.fromProfile(UserProfile p) => OnboardingDraft(
+    name: p.name,
+    age: p.age,
+    sex: p.sex,
+    heightCm: p.heightCm,
+    weightKg: p.weightKg,
+    waistCm: p.waistCm,
+    hipCm: p.hipCm,
+    bodyFatPct: p.bodyFatPct,
+    occupation: p.occupation,
+    country: p.country,
+    language: p.language,
+    activityLevel: p.activityLevel,
+    exerciseDaysPerWeek: p.exerciseDaysPerWeek,
+    sleepHours: p.sleepHours,
+    stressLevel: p.stressLevel,
+    medicalConditions: [...p.medicalConditions],
+    medications: [...p.medications],
+    allergies: [...p.allergies],
+    foodPreferences: [...p.foodPreferences],
+    favoriteFoods: [...p.favoriteFoods],
+    workSchedule: p.workSchedule,
+    goals: [...p.goals],
+    targetWeightKg: p.targetWeightKg,
+    targetWaistCm: p.targetWaistCm,
+    targetBodyFatPct: p.targetBodyFatPct,
+    targetDate: p.targetDate,
+  );
+
+  /// [existing] keeps the row's identity when editing — minting a new id would
+  /// orphan the profile already synced under the old one.
+  UserProfile toProfile({UserProfile? existing}) {
     final now = DateTime.now();
     return UserProfile(
-      id: const Uuid().v4(),
+      id: existing?.id ?? const Uuid().v4(),
       name: name.trim(),
       age: age,
       sex: sex ?? Sex.other,
@@ -93,15 +126,30 @@ class OnboardingDraft {
       targetWaistCm: targetWaistCm,
       targetBodyFatPct: targetBodyFatPct,
       targetDate: targetDate,
-      createdAt: now,
+      createdAt: existing?.createdAt ?? now,
       updatedAt: now,
     );
   }
 }
 
-class OnboardingController extends Notifier<OnboardingDraft> {
+class OnboardingController extends FamilyNotifier<OnboardingDraft, bool> {
+  /// [editing] seeds the draft from the saved profile.
+  ///
+  /// This is a provider argument rather than a `loadFrom` call from the
+  /// screen because Riverpod forbids modifying a provider during a widget
+  /// life-cycle — doing it from `useEffect` threw. Seeding here also means the
+  /// first frame already shows the user's answers instead of the defaults.
+  ///
+  /// `read`, not `watch`: the draft is mutable working state, so re-seeding it
+  /// when the saved profile changes would throw away edits in progress.
   @override
-  OnboardingDraft build() => OnboardingDraft();
+  OnboardingDraft build(bool editing) {
+    if (!editing) return OnboardingDraft();
+    final profile = ref.read(profileRepositoryProvider).getProfile();
+    return profile == null
+        ? OnboardingDraft()
+        : OnboardingDraft.fromProfile(profile);
+  }
 
   void update(void Function(OnboardingDraft) mutate) {
     mutate(state);
@@ -109,11 +157,11 @@ class OnboardingController extends Notifier<OnboardingDraft> {
   }
 
   /// Persists the profile and returns the freshly computed health profile.
+  /// Editing keeps the existing row's identity and creation date.
   Future<HealthProfile> complete() async {
-    final profile = state.toProfile();
-    final health = await ref
-        .read(profileRepositoryProvider)
-        .saveProfile(profile);
+    final repo = ref.read(profileRepositoryProvider);
+    final profile = state.toProfile(existing: repo.getProfile());
+    final health = await repo.saveProfile(profile);
     ref.invalidate(userProfileProvider);
     ref.invalidate(healthProfileProvider);
     return health;
@@ -121,7 +169,7 @@ class OnboardingController extends Notifier<OnboardingDraft> {
 }
 
 final onboardingControllerProvider =
-    NotifierProvider<OnboardingController, OnboardingDraft>(
+    NotifierProvider.family<OnboardingController, OnboardingDraft, bool>(
       OnboardingController.new,
     );
 

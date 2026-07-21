@@ -17,6 +17,8 @@ abstract class HealthProfile with _$HealthProfile {
     required double tdee,
     required double calorieTarget,
     required double proteinTargetG,
+    @Default(0) double carbTargetG,
+    @Default(0) double fatTargetG,
     required double waterTargetMl,
     required int stepGoal,
     required int exerciseMinutesPerWeek,
