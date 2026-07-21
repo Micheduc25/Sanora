@@ -9,9 +9,7 @@ import '../../core/utils/extensions.dart';
 import '../../domain/models/enums.dart';
 import '../../l10n/app_localizations.dart';
 import '../../domain/models/metric_entry.dart';
-import '../dashboard/dashboard_controller.dart';
 import '../onboarding/onboarding_controller.dart';
-import 'health_screen.dart';
 
 /// Logging any body metric. Weight/waist/hip/body-fat also update the
 /// profile so the health engine recomputes targets.
@@ -95,8 +93,6 @@ class LogMetricScreen extends HookConsumerWidget {
         }
       }
 
-      ref.read(metricsVersionProvider.notifier).state++;
-      ref.invalidate(dashboardProvider);
       if (context.mounted) context.pop();
     }
 

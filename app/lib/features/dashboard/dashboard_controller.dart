@@ -1,6 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../core/providers/app_providers.dart';
+import '../../core/storage/local_store.dart';
 import '../../domain/health/daily_score_engine.dart';
 import '../../domain/models/enums.dart';
 import '../../domain/models/habit.dart';
@@ -51,8 +52,22 @@ class DashboardData {
 /// Whether Apple Health / Health Connect has granted the types Sanora reads.
 /// Drives the connect prompt — without it the platform tiles sit empty and
 /// the user is never told why.
-final activityConnectedProvider = FutureProvider<bool>(
-  (ref) => ref.watch(activityServiceProvider).isConnected(),
+final activityConnectedProvider = FutureProvider<bool>((ref) {
+  // Permission is often granted in the system's own settings, so the answer
+  // can change while the app is away.
+  ref.watch(appResumeProvider);
+  return ref.watch(activityServiceProvider).isConnected();
+});
+
+/// Re-reads platform activity while the dashboard is on screen.
+///
+/// Neither HealthKit nor Health Connect gives the `health` package a change
+/// feed, so a watch that syncs a walk mid-session is invisible until someone
+/// asks again. Polling is that ask; [appLifecycleProvider] covers the larger
+/// jump, when the phone spent the walk in a pocket. Autodisposed, so it stops
+/// as soon as nothing is watching the dashboard.
+final activityTickProvider = StreamProvider.autoDispose<int>(
+  (ref) => Stream.periodic(const Duration(seconds: 45), (tick) => tick),
 );
 
 /// Assembles everything the dashboard needs in one pass. Platform activity
@@ -63,6 +78,20 @@ final dashboardProvider = FutureProvider.autoDispose<DashboardData?>((
 ) async {
   final health = ref.watch(healthProfileProvider);
   if (health == null) return null;
+
+  // Every box this pass reads, so a write from anywhere — another screen, the
+  // sync pull, a habit reminder — lands here without an explicit invalidate.
+  for (final box in const [
+    LocalStore.metricsBox,
+    LocalStore.mealsBox,
+    LocalStore.habitsBox,
+    LocalStore.habitLogsBox,
+    LocalStore.insightsBox,
+  ]) {
+    ref.watch(boxRevisionProvider(box));
+  }
+  ref.watch(activityTickProvider);
+  ref.watch(appResumeProvider);
 
   final today = DateTime.now();
   final metrics = ref.watch(metricsRepositoryProvider);

@@ -6,6 +6,9 @@
   "onboardingWelcomeTitle": "Apprenez à connaître votre corps.",
   "onboardingWelcomeBody": "À partir de quelques informations sur vous, Sanora crée un plan santé personnel — et un coach IA qui vous aide à mieux manger, à bouger davantage et à vivre plus longtemps.\n\nPas d'obsession des calories. Aucun jugement. Juste des progrès réguliers.",
   "onboardingWelcomeFootnote": "Environ 2 minutes · vos données restent privées",
+  "onboardingWelcomeRestore": "Vous avez déjà un compte ? Connectez-vous pour retrouver votre profil",
+  "onboardingProfileRestored": "Nous avons récupéré le profil enregistré sur votre compte.",
+  "onboardingUseSavedProfile": "L'utiliser",
 
   "onboardingAboutTitle": "À propos de vous",
   "onboardingAboutSubtitle": "Ces réponses servent de base à tous les calculs que Sanora fait pour vous.",

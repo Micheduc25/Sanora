@@ -7,6 +7,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../core/l10n/enum_labels.dart';
 import '../../domain/models/enums.dart';
+import '../../domain/models/user_profile.dart';
 import '../../l10n/app_localizations.dart';
 import 'onboarding_controller.dart';
 import 'widgets/onboarding_widgets.dart';
@@ -32,6 +33,35 @@ class OnboardingScreen extends HookConsumerWidget {
     final theme = Theme.of(context);
     final l = L.of(context);
 
+    // Set before leaving for the generating screen, which saves the profile —
+    // otherwise this screen, still mounted underneath it, would read its own
+    // write as a restore.
+    final submitted = useRef(false);
+
+    // A profile can land here at any moment: the startup pull finishing late,
+    // or the user signing in from the welcome step. Someone who has not
+    // answered anything yet just wants their data, so take them to it; someone
+    // mid-wizard has typed answers this would silently discard, so offer.
+    if (!editing) {
+      ref.listen<UserProfile?>(userProfileProvider, (previous, next) {
+        if (previous != null || next == null || submitted.value) return;
+        if (page.value == 0) {
+          context.go('/');
+          return;
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l.onboardingProfileRestored),
+            action: SnackBarAction(
+              label: l.onboardingUseSavedProfile,
+              onPressed: () => context.go('/'),
+            ),
+            duration: const Duration(seconds: 8),
+          ),
+        );
+      });
+    }
+
     bool canContinue() => switch (page.value) {
       1 => draft.sex != null,
       3 => draft.activityLevel != null,
@@ -46,6 +76,7 @@ class OnboardingScreen extends HookConsumerWidget {
           await controller.complete();
           if (context.mounted) context.pop();
         } else {
+          submitted.value = true;
           context.go('/onboarding/generating');
         }
         return;
@@ -175,6 +206,21 @@ class _WelcomeStep extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(l.onboardingWelcomeFootnote, style: theme.textTheme.labelMedium),
+          const SizedBox(height: 12),
+          // Someone who onboarded on another device should never have to
+          // answer all eight steps again — signing in pulls the profile back.
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton(
+              onPressed: () => context.push('/auth'),
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.zero,
+                minimumSize: Size.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              child: Text(l.onboardingWelcomeRestore),
+            ),
+          ),
         ],
       ),
     );

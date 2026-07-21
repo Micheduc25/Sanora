@@ -6,6 +6,9 @@
   "onboardingWelcomeTitle": "Know your body.",
   "onboardingWelcomeBody": "Sanora turns a few details about you into a personal health plan — and an AI coach that helps you eat better, move more and live longer.\n\nNo calorie obsession. No shame. Just steady progress.",
   "onboardingWelcomeFootnote": "Takes about 2 minutes · your data stays private",
+  "onboardingWelcomeRestore": "Already have an account? Sign in to restore your profile",
+  "onboardingProfileRestored": "We restored the profile saved on your account.",
+  "onboardingUseSavedProfile": "Use it",
 
   "onboardingAboutTitle": "About you",
   "onboardingAboutSubtitle": "This shapes every calculation Sanora makes for you.",

@@ -32,6 +32,10 @@ class DashboardScreen extends ConsumerWidget {
         child: RefreshIndicator(
           onRefresh: () async => ref.refresh(dashboardProvider.future),
           child: data.when(
+            // The poller and the box listeners rebuild this several times a
+            // minute; each one would otherwise blank the whole screen back to
+            // a spinner.
+            skipLoadingOnReload: true,
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (e, _) => Center(child: Text(messageFor(e))),
             data: (d) {
@@ -77,17 +81,16 @@ class DashboardScreen extends ConsumerWidget {
                   GridView(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 12,
-                          crossAxisSpacing: 12,
-                          mainAxisExtent:
-                              StatTile.preferredExtent *
-                              MediaQuery.textScalerOf(
-                                context,
-                              ).scale(1).clamp(1, 1.6),
-                        ),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 12,
+                      mainAxisExtent:
+                          StatTile.preferredExtent *
+                          MediaQuery.textScalerOf(
+                            context,
+                          ).scale(1).clamp(1, 1.6),
+                    ),
                     children: [
                       StatTile(
                         icon: Icons.directions_walk_rounded,

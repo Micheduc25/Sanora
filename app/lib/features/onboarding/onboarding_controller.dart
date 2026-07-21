@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../core/providers/app_providers.dart';
+import '../../core/storage/local_store.dart';
 import '../../domain/models/enums.dart';
 import '../../domain/models/health_profile.dart';
 import '../../domain/models/user_profile.dart';
@@ -173,10 +174,13 @@ final onboardingControllerProvider =
       OnboardingController.new,
     );
 
-final userProfileProvider = Provider<UserProfile?>(
-  (ref) => ref.watch(profileRepositoryProvider).getProfile(),
-);
+final userProfileProvider = Provider<UserProfile?>((ref) {
+  // A profile can also arrive from the sync pull, long after the first frame.
+  ref.watch(boxRevisionProvider(LocalStore.profileBox));
+  return ref.watch(profileRepositoryProvider).getProfile();
+});
 
-final healthProfileProvider = Provider<HealthProfile?>(
-  (ref) => ref.watch(profileRepositoryProvider).getHealthProfile(),
-);
+final healthProfileProvider = Provider<HealthProfile?>((ref) {
+  ref.watch(boxRevisionProvider(LocalStore.profileBox));
+  return ref.watch(profileRepositoryProvider).getHealthProfile();
+});

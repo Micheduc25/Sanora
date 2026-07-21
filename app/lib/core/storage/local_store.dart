@@ -62,6 +62,12 @@ abstract final class LocalStore {
       .map((raw) => fromJson(jsonDecode(raw) as Map<String, dynamic>))
       .toList();
 
+  /// Fires whenever [boxName] changes, whoever wrote it — the user, the sync
+  /// pull or the activity import. Providers that read a box once have no other
+  /// way to hear about the last two.
+  static Stream<void> watch(String boxName, {String? key}) =>
+      box(boxName).watch(key: key);
+
   static Future<void> delete(String boxName, String key) =>
       box(boxName).delete(key);
 

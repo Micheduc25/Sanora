@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../core/providers/app_providers.dart';
+import '../../core/storage/local_store.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/extensions.dart';
 import '../../core/widgets/sanora_card.dart';
@@ -12,14 +13,13 @@ import '../../l10n/app_localizations.dart';
 import '../../domain/models/metric_entry.dart';
 import '../habits/habits_controller.dart';
 
-final metricsVersionProvider = StateProvider((ref) => 0);
-
-/// Every stored entry grouped by type, newest first. Rebuilt whenever
-/// [metricsVersionProvider] is bumped so a single box read serves all cards.
+/// Every stored entry grouped by type, newest first. Rebuilt on any write to
+/// the metrics box — including the sync pull's — so a single box read serves
+/// all cards.
 final metricEntriesProvider = Provider<Map<MetricType, List<MetricEntry>>>((
   ref,
 ) {
-  ref.watch(metricsVersionProvider);
+  ref.watch(boxRevisionProvider(LocalStore.metricsBox));
   final grouped = <MetricType, List<MetricEntry>>{};
   for (final entry in ref.watch(metricsRepositoryProvider).all()) {
     grouped.putIfAbsent(entry.type, () => []).add(entry);

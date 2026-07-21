@@ -73,7 +73,24 @@ Future<void> _start() async {
   final container = ProviderContainer();
   // Replays anything queued offline and restores what this install is
   // missing. A no-op when signed out or running local-only.
-  unawaited(container.read(syncServiceProvider).synchronise());
+  final restore = container.read(syncServiceProvider).synchronise();
+  if (container.read(supabaseServiceProvider).isSignedIn &&
+      container.read(profileRepositoryProvider).getProfile() == null) {
+    // Signed in with nothing stored locally means a reinstall or a second
+    // device. The router decides on onboarding from the local profile alone,
+    // so hold the splash for the pull rather than making someone whose
+    // answers are one request away type them all in again.
+    try {
+      await restore.timeout(const Duration(seconds: 8));
+    } on TimeoutException {
+      // Offline or a slow server. Onboarding is still reachable, and signing
+      // in from its welcome step restores the profile once the network is back.
+    } catch (error, stack) {
+      _report(error, stack);
+    }
+  } else {
+    unawaited(restore);
+  }
 
   runApp(
     UncontrolledProviderScope(container: container, child: const SanoraApp()),

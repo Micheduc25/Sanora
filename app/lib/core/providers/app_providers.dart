@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' show Session;
 
@@ -17,6 +18,7 @@ import '../../data/repositories/reminders_repository.dart';
 import '../../data/repositories/workouts_repository.dart';
 import '../../data/supabase_service.dart';
 import '../../data/sync/sync_service.dart';
+import '../storage/local_store.dart';
 
 final supabaseServiceProvider = Provider((ref) => SupabaseService());
 
@@ -37,6 +39,43 @@ final isSignedInProvider = Provider<bool>((ref) {
   ref.watch(authSessionProvider);
   return ref.watch(supabaseServiceProvider).isSignedIn;
 });
+
+/// The signed-in user's id, or null. Community rows use it to tell the
+/// reader's own entry from everyone else's — you cannot report yourself.
+final currentUserIdProvider = Provider<String?>((ref) {
+  ref.watch(authSessionProvider);
+  return ref.watch(supabaseServiceProvider).userId;
+});
+
+/// Writes to one local box, as a rebuild signal.
+///
+/// The repositories read Hive synchronously, which is fine for a screen that
+/// only ever sees its own writes. It is not fine for boxes the app fills from
+/// behind the UI — the sync pull restoring a device, or the activity import
+/// bringing in steps from the watch — so anything derived from those watches
+/// this first.
+final boxRevisionProvider = StreamProvider.family<void, String>(
+  (ref, box) => LocalStore.watch(box),
+);
+
+/// Counts foreground returns.
+///
+/// The step count someone cares about most is the one from the walk they just
+/// took with the phone in a pocket — recorded while this app was suspended and
+/// nothing could poll for it. Anything reading the platform's activity data
+/// watches this so it re-reads on the way back in.
+final appResumeProvider = NotifierProvider<AppResumeNotifier, int>(
+  AppResumeNotifier.new,
+);
+
+class AppResumeNotifier extends Notifier<int> {
+  @override
+  int build() {
+    final listener = AppLifecycleListener(onResume: () => state++);
+    ref.onDispose(listener.dispose);
+    return 0;
+  }
+}
 
 final dioProvider = Provider(
   (ref) => Dio(
