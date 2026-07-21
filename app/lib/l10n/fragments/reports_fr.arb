@@ -35,5 +35,5 @@
   "reportsPdfTargets": "Vos objectifs",
   "reportsPdfTargetsIntake": "Calories : {calories} kcal · Protéines : {protein} g · Eau : {water} L",
   "reportsPdfTargetsActivity": "Pas : {steps} · Sommeil : {sleep} h · Exercice : {minutes} min/semaine",
-  "reportsPdfFooter": "Généré par Bodi. Ce rapport est informatif et ne remplace pas l'avis d'un professionnel de santé."
+  "reportsPdfFooter": "Généré par Sanora. Ce rapport est informatif et ne remplace pas l'avis d'un professionnel de santé."
 }

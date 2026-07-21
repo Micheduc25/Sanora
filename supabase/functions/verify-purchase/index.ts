@@ -1,5 +1,5 @@
 /**
- * Server-side receipt verification for Bodi Premium.
+ * Server-side receipt verification for Sanora Premium.
  *
  * The app never decides that someone is premium — it hands over whatever the
  * store gave it, this function asks Apple or Google whether that is real, and
@@ -13,7 +13,7 @@
  *
  * Apple (App Store Server API — StoreKit 2, which is what `in_app_purchase`
  * uses by default; the receipt the app sends is a signed transaction JWS):
- *   APPLE_BUNDLE_ID     e.g. com.bodi.app — must match the bundle Apple
+ *   APPLE_BUNDLE_ID     e.g. cm.sanora.app — must match the bundle Apple
  *                       reports for the transaction.
  *   APPLE_ISSUER_ID     App Store Connect → Users and Access → Integrations →
  *                       In-App Purchase → Issuer ID.
@@ -23,7 +23,7 @@
  *                       BEGIN/END lines.
  *
  * Google (Play Developer API; the receipt the app sends is a purchase token):
- *   GOOGLE_PLAY_PACKAGE_NAME      e.g. com.bodi.app
+ *   GOOGLE_PLAY_PACKAGE_NAME      e.g. cm.sanora.app
  *   GOOGLE_SERVICE_ACCOUNT_EMAIL  A service account granted "View financial
  *                                 data" on the app in Play Console, with the
  *                                 Android Publisher API enabled.
@@ -48,7 +48,7 @@ import {
 } from "../_shared/mod.ts";
 
 /** Must match `PremiumProducts` in app/lib/features/premium/premium_products.dart. */
-const PREMIUM_PRODUCT_IDS = ["bodi_premium_monthly", "bodi_premium_yearly"];
+const PREMIUM_PRODUCT_IDS = ["sanora_premium_monthly", "sanora_premium_yearly"];
 
 interface Entitlement {
   /** Stable across renewals, so a renewal updates the receipt row in place. */
@@ -63,7 +63,7 @@ function requireSecret(name: string): string {
     throw new HttpError(
       500,
       "Purchases are not configured on this project yet, so this one could " +
-        "not be confirmed. You have not been charged for anything Bodi can " +
+        "not be confirmed. You have not been charged for anything Sanora can " +
         "unlock.",
     );
   }
@@ -146,12 +146,12 @@ async function signJwt(
 function decodeJwsPayload(jws: string): Record<string, unknown> {
   const parts = jws.split(".");
   if (parts.length !== 3) {
-    throw new HttpError(400, "That receipt is not in a format Bodi can read.");
+    throw new HttpError(400, "That receipt is not in a format Sanora can read.");
   }
   try {
     return JSON.parse(base64UrlDecode(parts[1]));
   } catch {
-    throw new HttpError(400, "That receipt is not in a format Bodi can read.");
+    throw new HttpError(400, "That receipt is not in a format Sanora can read.");
   }
 }
 
@@ -229,7 +229,7 @@ async function verifyApple(
 
   if (body.bundleId !== bundleId) {
     console.error("apple bundle mismatch", body.bundleId);
-    throw new HttpError(402, "That purchase was not made in the Bodi app.");
+    throw new HttpError(402, "That purchase was not made in the Sanora app.");
   }
 
   const groups = (body.data ?? []) as Array<
@@ -259,7 +259,7 @@ async function verifyApple(
   if (!best) {
     throw new HttpError(
       402,
-      "There is no active Bodi Premium subscription on that App Store account.",
+      "There is no active Sanora Premium subscription on that App Store account.",
     );
   }
   return best;
@@ -351,7 +351,7 @@ async function verifyGoogle(
   if (!expiresAt) {
     throw new HttpError(
       402,
-      "That purchase is not a Bodi Premium subscription.",
+      "That purchase is not a Sanora Premium subscription.",
     );
   }
 
@@ -382,7 +382,7 @@ Deno.serve(async (req) => {
     if (
       typeof productId !== "string" || !PREMIUM_PRODUCT_IDS.includes(productId)
     ) {
-      throw new HttpError(400, "That product is not Bodi Premium.");
+      throw new HttpError(400, "That product is not Sanora Premium.");
     }
 
     const entitlement = platform === "ios"
@@ -408,7 +408,7 @@ Deno.serve(async (req) => {
     if (existing && existing.user_id !== userId) {
       throw new HttpError(
         409,
-        "That purchase is already linked to another Bodi account.",
+        "That purchase is already linked to another Sanora account.",
       );
     }
 

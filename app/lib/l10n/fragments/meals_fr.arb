@@ -1,7 +1,7 @@
 {
   "mealsLogMeal": "Ajouter un repas",
   "mealsEmptyTitle": "Qu'avez-vous mangé aujourd'hui ?",
-  "mealsEmptyMessage": "Prenez une photo, décrivez votre plat ou cherchez dans la base d'aliments — Bodi estime la nutrition pour vous.",
+  "mealsEmptyMessage": "Prenez une photo, décrivez votre plat ou cherchez dans la base d'aliments — Sanora estime la nutrition pour vous.",
   "mealsEmptyAction": "Enregistrer mon premier repas",
   "mealsCalorieProgress": "{eaten} / {target} kcal",
   "mealsMacroProtein": "Protéines",
@@ -18,7 +18,7 @@
   "mealsTabSearch": "Rechercher",
   "mealsAnalyzing": "Lecture de votre assiette…",
   "mealsAnalyzeError": "Impossible d'analyser ce repas. Vérifiez votre connexion et réessayez.",
-  "mealsPhotoIntro": "Dirigez votre appareil photo vers l'assiette. Bodi reconnaît les plats africains et internationaux et estime les portions.",
+  "mealsPhotoIntro": "Dirigez votre appareil photo vers l'assiette. Sanora reconnaît les plats africains et internationaux et estime les portions.",
   "mealsTakePhoto": "Prendre une photo",
   "mealsChooseFromGallery": "Choisir dans la galerie",
   "mealsVoiceUnavailable": "La saisie vocale n'est pas disponible sur cet appareil.",
@@ -45,5 +45,5 @@
   "mealsCompleteOnboardingFirst": "Terminez d'abord votre profil.",
   "mealsPhotoTooLarge": "Cette photo est trop lourde. Réessayez.",
   "mealsOfflineNoMatch": "Impossible de reconnaître ce repas hors connexion. Essayez la recherche d'aliments, ou connectez-vous pour utiliser l'IA.",
-  "mealsOfflineNotes": "Estimé hors connexion à partir de la base d'aliments Bodi."
+  "mealsOfflineNotes": "Estimé hors connexion à partir de la base d'aliments Sanora."
 }

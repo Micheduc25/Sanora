@@ -1,16 +1,16 @@
 # Privacy Policy
 
-**Bodi — Know Your Body**, published by Innovation Cameroon.
+**Sanora — Know Your Body**, published by Innovation Cameroon.
 
 - Effective date: 21 July 2026
-- Applies to: Bodi mobile app version 1.0.0 and later
+- Applies to: Sanora mobile app version 1.0.0 and later
 
 This is a draft prepared for legal review. It has not been reviewed by a
 qualified lawyer and is not a substitute for one.
 
 ## 1. In short
 
-Bodi is a personal health companion. It is built offline-first: you can use it
+Sanora is a personal health companion. It is built offline-first: you can use it
 without an account, and in that case nothing you enter ever leaves your phone.
 
 If you create an account, your health data is synchronised to our database so
@@ -34,9 +34,9 @@ this policy.
 - Privacy contact: TODO: privacy contact email address
 - Data protection officer: TODO: name and contact of the DPO, or state that no DPO has been appointed
 
-## 3. Using Bodi without an account
+## 3. Using Sanora without an account
 
-Bodi runs fully offline. Until you sign in:
+Sanora runs fully offline. Until you sign in:
 
 - Everything you record is stored only in a local database on your device.
 - No health data is transmitted anywhere.
@@ -45,9 +45,9 @@ Bodi runs fully offline. Until you sign in:
 
 If you never sign in, sections 5 to 8 of this policy do not apply to you. The
 only way to erase your data in that case is to use **Delete my data** in the app
-or to uninstall Bodi.
+or to uninstall Sanora.
 
-## 4. What Bodi collects
+## 4. What Sanora collects
 
 ### 4.1 Account data
 
@@ -107,9 +107,9 @@ Coach conversations:
 - Every message you send to the AI coach and every reply it gives, with
   timestamps.
 
-### 4.3 Data Bodi calculates about you
+### 4.3 Data Sanora calculates about you
 
-Bodi derives a health profile from what you enter. These derived values are
+Sanora derives a health profile from what you enter. These derived values are
 stored alongside your profile and are also health data:
 
 - Body mass index and BMI category
@@ -130,7 +130,7 @@ Meal photos are treated differently from everything else.
 
 - The photo file is saved **only on your device**. It is never uploaded to our
   database or our file storage, and it is never included in a sync.
-- However, when you ask Bodi to analyse a meal from a photo, the image is
+- However, when you ask Sanora to analyse a meal from a photo, the image is
   transmitted for that single request to our backend and on to Google, so the
   model can identify the food. Along with the image we send your country, your
   allergies and your food preferences, so the estimate fits what you actually
@@ -143,7 +143,7 @@ or pick it from the food database instead of using the camera.
 
 ### 4.5 Data from Apple Health and Health Connect
 
-If you connect Bodi to Apple Health (iOS) or Health Connect (Android), Bodi
+If you connect Sanora to Apple Health (iOS) or Health Connect (Android), Sanora
 reads:
 
 - Steps
@@ -152,9 +152,9 @@ reads:
 - Sleep
 - Distance
 
-Bodi only reads from these stores; it does not write anything back to them.
+Sanora only reads from these stores; it does not write anything back to them.
 Connecting is optional and you can revoke it at any time in your platform's
-health settings — Bodi then falls back to what you log manually. Data read this
+health settings — Sanora then falls back to what you log manually. Data read this
 way is used to fill in your dashboard and your weekly report.
 
 Health Connect and Apple Health data is never sent to advertisers or sold, and
@@ -181,7 +181,7 @@ shared with friends or groups.
 - Crash and error reports, if crash reporting is enabled in the build you
   installed. See section 6.3.
 
-### 4.8 Device permissions Bodi may ask for
+### 4.8 Device permissions Sanora may ask for
 
 - **Camera and photo library** — to photograph or pick a meal image.
 - **Microphone and speech recognition** — to describe a meal by voice. Speech is
@@ -194,9 +194,9 @@ shared with friends or groups.
 Each of these is optional, requested only when you first use the feature, and
 revocable in your device settings.
 
-## 5. What Bodi does not collect
+## 5. What Sanora does not collect
 
-- We do not collect your precise location, and Bodi requests no location
+- We do not collect your precise location, and Sanora requests no location
   permission.
 - We do not use advertising identifiers, advertising SDKs or third-party
   analytics or tracking SDKs.
@@ -256,7 +256,7 @@ Where it is active:
 
 ### 6.4 App stores and platform providers
 
-Apple and Google operate the app stores through which you install Bodi and
+Apple and Google operate the app stores through which you install Sanora and
 handle any purchase you make. Their handling of that transaction is governed by
 their own privacy policies, not this one.
 
@@ -292,7 +292,7 @@ happened.
 
 ## 8. Where your data is processed
 
-- **On your device** — always. Bodi's local database is the primary copy.
+- **On your device** — always. Sanora's local database is the primary copy.
 - **France (eu-west-3)** — Supabase database, authentication, storage and
   backend functions.
 - **United States** — Google processes AI requests via the Gemini API. Sentry, where enabled, may
@@ -309,7 +309,7 @@ apply.
 
 ## 9. Special protection for health data
 
-Because Bodi handles health data, we apply the following in addition to
+Because Sanora handles health data, we apply the following in addition to
 everything above:
 
 - Row-level security on every personal table, verified by an isolation test
@@ -350,7 +350,7 @@ consent. Some of these are built directly into the app.
 
 ### Access and correction
 
-Everything Bodi holds about you is visible in the app: your profile, your
+Everything Sanora holds about you is visible in the app: your profile, your
 measurement history, your meals, your habits, your workouts and your coach
 conversations. You can edit your profile and measurements at any time.
 
@@ -365,7 +365,7 @@ response time to commit to here; the GDPR default is one month.
 
 ### Erasure
 
-Bodi has a real, in-app, self-service delete. Go to **You → Delete my data** and
+Sanora has a real, in-app, self-service delete. Go to **You → Delete my data** and
 confirm.
 
 That runs, in this order:
@@ -396,8 +396,8 @@ EU-hosted processing.
 
 ## 12. Children
 
-Bodi is not intended for anyone under 16, and we do not knowingly collect data
-from children. Bodi's calculations — BMI categories, calorie targets, body fat
+Sanora is not intended for anyone under 16, and we do not knowingly collect data
+from children. Sanora's calculations — BMI categories, calorie targets, body fat
 estimates — are derived from formulas validated in adults and are not
 appropriate for children or adolescents.
 
@@ -405,7 +405,7 @@ If you believe a child has created an account, contact us and we will delete it.
 
 ## 13. Automated decision-making
 
-Bodi calculates scores and targets automatically, and the AI coach generates
+Sanora calculates scores and targets automatically, and the AI coach generates
 personalised suggestions. None of this produces a legal or similarly significant
 effect on you within the meaning of GDPR Art. 22: nothing here decides your
 access to credit, employment, insurance, care or any service. It is
@@ -415,7 +415,7 @@ informational guidance you are free to ignore, and it is not medical advice.
 
 If we change how we handle your data in a way that materially affects you, we
 will notify you in the app before the change takes effect and update the
-effective date above. Continuing to use Bodi after that means you accept the
+effective date above. Continuing to use Sanora after that means you accept the
 updated policy.
 
 ## 15. Contact

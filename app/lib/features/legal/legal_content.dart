@@ -21,17 +21,17 @@ abstract final class LegalContent {
   static const privacyPolicy = r'''
 # Privacy Policy
 
-**Bodi — Know Your Body**, published by Innovation Cameroon.
+**Sanora — Know Your Body**, published by Innovation Cameroon.
 
 - Effective date: 21 July 2026
-- Applies to: Bodi mobile app version 1.0.0 and later
+- Applies to: Sanora mobile app version 1.0.0 and later
 
 This is a draft prepared for legal review. It has not been reviewed by a
 qualified lawyer and is not a substitute for one.
 
 ## 1. In short
 
-Bodi is a personal health companion. It is built offline-first: you can use it
+Sanora is a personal health companion. It is built offline-first: you can use it
 without an account, and in that case nothing you enter ever leaves your phone.
 
 If you create an account, your health data is synchronised to our database so
@@ -55,9 +55,9 @@ this policy.
 - Privacy contact: TODO: privacy contact email address
 - Data protection officer: TODO: name and contact of the DPO, or state that no DPO has been appointed
 
-## 3. Using Bodi without an account
+## 3. Using Sanora without an account
 
-Bodi runs fully offline. Until you sign in:
+Sanora runs fully offline. Until you sign in:
 
 - Everything you record is stored only in a local database on your device.
 - No health data is transmitted anywhere.
@@ -66,9 +66,9 @@ Bodi runs fully offline. Until you sign in:
 
 If you never sign in, sections 5 to 8 of this policy do not apply to you. The
 only way to erase your data in that case is to use **Delete my data** in the app
-or to uninstall Bodi.
+or to uninstall Sanora.
 
-## 4. What Bodi collects
+## 4. What Sanora collects
 
 ### 4.1 Account data
 
@@ -128,9 +128,9 @@ Coach conversations:
 - Every message you send to the AI coach and every reply it gives, with
   timestamps.
 
-### 4.3 Data Bodi calculates about you
+### 4.3 Data Sanora calculates about you
 
-Bodi derives a health profile from what you enter. These derived values are
+Sanora derives a health profile from what you enter. These derived values are
 stored alongside your profile and are also health data:
 
 - Body mass index and BMI category
@@ -151,7 +151,7 @@ Meal photos are treated differently from everything else.
 
 - The photo file is saved **only on your device**. It is never uploaded to our
   database or our file storage, and it is never included in a sync.
-- However, when you ask Bodi to analyse a meal from a photo, the image is
+- However, when you ask Sanora to analyse a meal from a photo, the image is
   transmitted for that single request to our backend and on to Google, so the
   model can identify the food. Along with the image we send your country, your
   allergies and your food preferences, so the estimate fits what you actually
@@ -164,7 +164,7 @@ or pick it from the food database instead of using the camera.
 
 ### 4.5 Data from Apple Health and Health Connect
 
-If you connect Bodi to Apple Health (iOS) or Health Connect (Android), Bodi
+If you connect Sanora to Apple Health (iOS) or Health Connect (Android), Sanora
 reads:
 
 - Steps
@@ -173,9 +173,9 @@ reads:
 - Sleep
 - Distance
 
-Bodi only reads from these stores; it does not write anything back to them.
+Sanora only reads from these stores; it does not write anything back to them.
 Connecting is optional and you can revoke it at any time in your platform's
-health settings — Bodi then falls back to what you log manually. Data read this
+health settings — Sanora then falls back to what you log manually. Data read this
 way is used to fill in your dashboard and your weekly report.
 
 Health Connect and Apple Health data is never sent to advertisers or sold, and
@@ -202,7 +202,7 @@ shared with friends or groups.
 - Crash and error reports, if crash reporting is enabled in the build you
   installed. See section 6.3.
 
-### 4.8 Device permissions Bodi may ask for
+### 4.8 Device permissions Sanora may ask for
 
 - **Camera and photo library** — to photograph or pick a meal image.
 - **Microphone and speech recognition** — to describe a meal by voice. Speech is
@@ -215,9 +215,9 @@ shared with friends or groups.
 Each of these is optional, requested only when you first use the feature, and
 revocable in your device settings.
 
-## 5. What Bodi does not collect
+## 5. What Sanora does not collect
 
-- We do not collect your precise location, and Bodi requests no location
+- We do not collect your precise location, and Sanora requests no location
   permission.
 - We do not use advertising identifiers, advertising SDKs or third-party
   analytics or tracking SDKs.
@@ -277,7 +277,7 @@ Where it is active:
 
 ### 6.4 App stores and platform providers
 
-Apple and Google operate the app stores through which you install Bodi and
+Apple and Google operate the app stores through which you install Sanora and
 handle any purchase you make. Their handling of that transaction is governed by
 their own privacy policies, not this one.
 
@@ -313,7 +313,7 @@ happened.
 
 ## 8. Where your data is processed
 
-- **On your device** — always. Bodi's local database is the primary copy.
+- **On your device** — always. Sanora's local database is the primary copy.
 - **France (eu-west-3)** — Supabase database, authentication, storage and
   backend functions.
 - **United States** — Google processes AI requests via the Gemini API. Sentry, where enabled, may
@@ -330,7 +330,7 @@ apply.
 
 ## 9. Special protection for health data
 
-Because Bodi handles health data, we apply the following in addition to
+Because Sanora handles health data, we apply the following in addition to
 everything above:
 
 - Row-level security on every personal table, verified by an isolation test
@@ -371,7 +371,7 @@ consent. Some of these are built directly into the app.
 
 ### Access and correction
 
-Everything Bodi holds about you is visible in the app: your profile, your
+Everything Sanora holds about you is visible in the app: your profile, your
 measurement history, your meals, your habits, your workouts and your coach
 conversations. You can edit your profile and measurements at any time.
 
@@ -386,7 +386,7 @@ response time to commit to here; the GDPR default is one month.
 
 ### Erasure
 
-Bodi has a real, in-app, self-service delete. Go to **You → Delete my data** and
+Sanora has a real, in-app, self-service delete. Go to **You → Delete my data** and
 confirm.
 
 That runs, in this order:
@@ -417,8 +417,8 @@ EU-hosted processing.
 
 ## 12. Children
 
-Bodi is not intended for anyone under 16, and we do not knowingly collect data
-from children. Bodi's calculations — BMI categories, calorie targets, body fat
+Sanora is not intended for anyone under 16, and we do not knowingly collect data
+from children. Sanora's calculations — BMI categories, calorie targets, body fat
 estimates — are derived from formulas validated in adults and are not
 appropriate for children or adolescents.
 
@@ -426,7 +426,7 @@ If you believe a child has created an account, contact us and we will delete it.
 
 ## 13. Automated decision-making
 
-Bodi calculates scores and targets automatically, and the AI coach generates
+Sanora calculates scores and targets automatically, and the AI coach generates
 personalised suggestions. None of this produces a legal or similarly significant
 effect on you within the meaning of GDPR Art. 22: nothing here decides your
 access to credit, employment, insurance, care or any service. It is
@@ -436,7 +436,7 @@ informational guidance you are free to ignore, and it is not medical advice.
 
 If we change how we handle your data in a way that materially affects you, we
 will notify you in the app before the change takes effect and update the
-effective date above. Continuing to use Bodi after that means you accept the
+effective date above. Continuing to use Sanora after that means you accept the
 updated policy.
 
 ## 15. Contact
@@ -452,10 +452,10 @@ updated policy.
   static const termsOfService = r'''
 # Terms of Service
 
-**Bodi — Know Your Body**, published by Innovation Cameroon.
+**Sanora — Know Your Body**, published by Innovation Cameroon.
 
 - Effective date: 21 July 2026
-- Applies to: Bodi mobile app version 1.0.0 and later
+- Applies to: Sanora mobile app version 1.0.0 and later
 
 This is a draft prepared for legal review. It has not been reviewed by a
 qualified lawyer and is not a substitute for one.
@@ -463,8 +463,8 @@ qualified lawyer and is not a substitute for one.
 ## 1. Agreement
 
 These Terms are a contract between you and Innovation Cameroon ("we", "us")
-covering your use of the Bodi mobile application and its backend services (the
-"Service"). By installing or using Bodi you accept them. If you do not accept
+covering your use of the Sanora mobile application and its backend services (the
+"Service"). By installing or using Sanora you accept them. If you do not accept
 them, do not use the Service.
 
 - Legal entity: TODO: exact registered legal name and company registration number
@@ -472,29 +472,29 @@ them, do not use the Service.
 - Contact: TODO: support contact email address
 
 Our Privacy Policy and our Health Disclaimer form part of these Terms. Read
-them; the Health Disclaimer in particular sets out limits on what Bodi's
+them; the Health Disclaimer in particular sets out limits on what Sanora's
 numbers mean.
 
-## 2. What Bodi is, and what it is not
+## 2. What Sanora is, and what it is not
 
-Bodi is a personal health and wellness companion. It records what you tell it,
+Sanora is a personal health and wellness companion. It records what you tell it,
 estimates nutrition, computes targets and scores from published formulas, and
 generates AI coaching, insights and workout suggestions.
 
-Bodi is **not** a medical device, a diagnostic tool, a clinical decision support
+Sanora is **not** a medical device, a diagnostic tool, a clinical decision support
 system, or a substitute for a healthcare professional. It is not regulated as a
 medical device and makes no diagnostic claim. Nothing in the Service is medical
 advice. See the Health Disclaimer.
 
 ## 3. Eligibility
 
-You must be at least 16 years old to use Bodi, and legally capable of entering
-into this contract. If you use Bodi on behalf of an organisation, you confirm
+You must be at least 16 years old to use Sanora, and legally capable of entering
+into this contract. If you use Sanora on behalf of an organisation, you confirm
 you are authorised to bind it.
 
 ## 4. Your account
 
-- You may use Bodi entirely offline without an account. An account is required
+- You may use Sanora entirely offline without an account. An account is required
   for cloud sync, AI features and community features.
 - You are responsible for keeping your password secure and for everything done
   through your account.
@@ -506,7 +506,7 @@ you are authorised to bind it.
 
 ## 5. Your data
 
-You own the health data you put into Bodi. We do not claim any ownership of it.
+You own the health data you put into Sanora. We do not claim any ownership of it.
 
 You grant us only the licence we need to run the Service for you: to store your
 data, synchronise it to your devices, compute derived values from it, and
@@ -514,7 +514,7 @@ transmit the parts described in the Privacy Policy to our AI provider so the
 features you invoke can answer you. That licence ends when you delete your
 account.
 
-You are responsible for the accuracy of what you enter. Bodi's estimates are
+You are responsible for the accuracy of what you enter. Sanora's estimates are
 only as good as the height, weight, measurements and meal descriptions you give
 it.
 
@@ -522,9 +522,9 @@ it.
 
 You agree not to:
 
-- Use Bodi to diagnose, treat, cure or prevent any disease, or to make clinical
+- Use Sanora to diagnose, treat, cure or prevent any disease, or to make clinical
   decisions for yourself or anyone else.
-- Use Bodi to provide health, nutrition or fitness advice to third parties as if
+- Use Sanora to provide health, nutrition or fitness advice to third parties as if
   it were professional advice.
 - Enter another person's health data without their informed consent, or
   impersonate anyone.
@@ -556,12 +556,12 @@ breach is not serious and can be fixed, we will normally warn you first.
 - The AI coach is instructed to refer you to a healthcare professional for
   symptoms, medication changes and warning signs. Please follow that referral.
 - AI features depend on a third-party provider and an internet connection. They
-  may be unavailable, slow, or changed without notice. The rest of Bodi keeps
+  may be unavailable, slow, or changed without notice. The rest of Sanora keeps
   working offline.
 
 ## 8. Free tier, Premium and payment
 
-Bodi is free to install and use. Recording, calculations, targets, reminders,
+Sanora is free to install and use. Recording, calculations, targets, reminders,
 reports and offline use are free and remain free.
 
 AI features are metered:
@@ -586,7 +586,7 @@ Subscription terms:
 Where a purchase is made through the Apple App Store or Google Play, that
 store's terms govern the transaction, billing, renewal and refunds, and you
 manage or cancel the subscription in that store's account settings rather than
-in Bodi.
+in Sanora.
 
 If your subscription lapses, your account reverts to the free tier. Your data is
 not deleted and stays fully accessible; only the unlimited AI allowance stops.
@@ -597,7 +597,7 @@ We aim to keep the Service available but we do not guarantee uninterrupted
 service. We may modify, suspend or discontinue any feature. If we discontinue a
 paid feature you have paid for, we will refund the unused portion.
 
-Because Bodi is offline-first, an outage of our backend does not lock you out of
+Because Sanora is offline-first, an outage of our backend does not lock you out of
 your own data: recording, viewing and calculating all keep working on the
 device, and queued changes sync when connectivity returns.
 
@@ -608,7 +608,7 @@ To the maximum extent permitted by law:
 - The Service is provided "as is" and "as available", without warranties of any
   kind, express or implied, including merchantability, fitness for a particular
   purpose, accuracy and non-infringement.
-- We do not warrant that Bodi's estimates, scores, targets or AI output are
+- We do not warrant that Sanora's estimates, scores, targets or AI output are
   accurate, complete, current, or suitable for you personally.
 - We do not warrant that the Service will be uninterrupted, error-free, or free
   of data loss. Keep your own copy of anything you cannot afford to lose; the
@@ -632,7 +632,7 @@ To the maximum extent permitted by law:
   the event giving rise to the claim, or TODO: a fixed floor amount and currency,
   for example the equivalent of USD 50.
 - We are not liable for any decision you make about your diet, exercise,
-  medication or medical care based on Bodi's output. That is the substance of
+  medication or medical care based on Sanora's output. That is the substance of
   the Health Disclaimer and it is a condition of using the Service.
 
 Nothing in this section limits liability for death or personal injury caused by
@@ -646,11 +646,11 @@ jurisdiction and against consumers there, and adjust the cap accordingly.
 
 You agree to indemnify us against claims arising from your breach of these
 Terms, your misuse of the Service, your entry of another person's data without
-their consent, or your use of Bodi to advise third parties.
+their consent, or your use of Sanora to advise third parties.
 
 ## 13. Termination
 
-You may stop using Bodi at any time and delete your account from within the app.
+You may stop using Sanora at any time and delete your account from within the app.
 
 We may suspend or terminate your access if you materially breach these Terms, if
 required by law, or if we discontinue the Service. Except where a breach makes
@@ -662,7 +662,7 @@ Sections 5, 10, 11, 12 and 15 survive termination.
 ## 14. Changes to these Terms
 
 We may update these Terms. Material changes will be notified in the app before
-they take effect. Continuing to use Bodi after that means you accept them. If
+they take effect. Continuing to use Sanora after that means you accept them. If
 you do not, delete your account.
 
 ## 15. Governing law and disputes
@@ -697,41 +697,41 @@ arbitration or mandatory pre-litigation mediation step applies.
   static const healthDisclaimer = r'''
 # Health Disclaimer
 
-**Bodi — Know Your Body**, published by Innovation Cameroon.
+**Sanora — Know Your Body**, published by Innovation Cameroon.
 
 - Effective date: 21 July 2026
-- Applies to: Bodi mobile app version 1.0.0 and later
+- Applies to: Sanora mobile app version 1.0.0 and later
 
 This is a draft prepared for legal review. It has not been reviewed by a
 qualified lawyer or a clinician and is not a substitute for either.
 
 ## 1. Read this first
 
-Bodi is a wellness and self-tracking app. Everything it shows you — every score,
+Sanora is a wellness and self-tracking app. Everything it shows you — every score,
 target, category and coaching message — is **informational guidance, not medical
 advice**.
 
-Bodi does not diagnose. It does not treat. It does not prescribe. It cannot
+Sanora does not diagnose. It does not treat. It does not prescribe. It cannot
 examine you, it cannot order a blood test, and it does not know anything about
 you that you did not type in.
 
-**Bodi is not a medical device** and is not certified, cleared or approved as
+**Sanora is not a medical device** and is not certified, cleared or approved as
 one by any regulator. No output should be read as a diagnosis or a clinical
 finding.
 
 **Always consult a qualified healthcare professional** before starting or
 changing a diet, an exercise programme, a fasting regime, a supplement, or any
 medication. Never delay seeking medical advice, or disregard advice you have
-been given, because of something Bodi told you.
+been given, because of something Sanora told you.
 
 **If you have symptoms that worry you — chest pain, breathlessness, fainting,
 severe or persistent pain, confusion, or any sudden change in your condition —
-stop using the app for guidance and seek medical care immediately.** Bodi cannot
+stop using the app for guidance and seek medical care immediately.** Sanora cannot
 recognise an emergency and will not call anyone for you.
 
-## 2. What Bodi calculates, and what those numbers actually are
+## 2. What Sanora calculates, and what those numbers actually are
 
-Bodi computes the following from what you enter. Each is an estimate produced by
+Sanora computes the following from what you enter. Each is an estimate produced by
 a published population-level formula. Population formulas describe averages;
 they do not describe you.
 
@@ -760,7 +760,7 @@ not a measurement.
 300 kcal for muscle gain, maintenance otherwise. A floor is applied — 1200 kcal
 for women, 1500 kcal for men — so the app will not suggest a very-low-calorie
 intake. Very-low-calorie diets can be appropriate in some clinical situations,
-but only under medical supervision, and Bodi will not put you on one.
+but only under medical supervision, and Sanora will not put you on one.
 
 **Protein target.** 1.8 g per kg of reference body weight when you are losing
 fat or building muscle, 1.2 g/kg otherwise, using the top of your healthy weight
@@ -789,7 +789,7 @@ is a signal to discuss it with a clinician. It is not a diagnosis of visceral
 adiposity or of any disease.
 
 **Metabolic health score (0-100) and lifestyle risk score (0-100).** These are
-Bodi's own composite indicators. They start from a baseline and apply weighted
+Sanora's own composite indicators. They start from a baseline and apply weighted
 adjustments for your BMI band, central adiposity, activity level, sleep hours,
 stress level and any conditions you told us about. **They are not clinically
 validated risk instruments.** They are not equivalent to, and must not be used
@@ -817,13 +817,13 @@ Do not ask the coach to interpret test results, adjust a medication, or tell you
 whether a symptom is serious. It is not qualified to answer, and neither is the
 app.
 
-## 4. Speak to a clinician before using Bodi's targets if any of these apply
+## 4. Speak to a clinician before using Sanora's targets if any of these apply
 
 These are situations where a generic calorie, protein, water or exercise target
 can cause real harm. This list is not exhaustive.
 
 - **Pregnancy or breastfeeding.** Energy and nutrient requirements differ
-  substantially and BMI categories do not apply. Bodi's targets are not
+  substantially and BMI categories do not apply. Sanora's targets are not
   designed for pregnancy and should not be followed during it.
 - **An eating disorder, or any history of one.** Calorie targets, weight goals,
   body fat percentages and food logging can trigger or worsen anorexia, bulimia,
@@ -831,12 +831,12 @@ can cause real harm. This list is not exhaustive.
   stop, and please talk to someone. TODO: insert a local Cameroonian and regional
   crisis or mental health support contact here, verified before publication.
 - **Diabetes, prediabetes, or any use of insulin or glucose-lowering
-  medication.** Bodi's carbohydrate figures are estimates and are not safe for
+  medication.** Sanora's carbohydrate figures are estimates and are not safe for
   insulin dosing. Changing your intake or activity can change your glucose and
   your medication requirement.
 - **Hypertension or any cardiovascular or cardiac condition.** Exercise
   intensity and sodium intake need individual medical guidance. Blood pressure
-  values you log in Bodi are a record you keep, not a reading Bodi has verified
+  values you log in Sanora are a record you keep, not a reading Sanora has verified
   or interpreted.
 - **Kidney disease or reduced kidney function.** Protein and fluid targets can
   be actively harmful.
@@ -846,7 +846,7 @@ can cause real harm. This list is not exhaustive.
   exercise.**
 - **Any prescribed medication**, particularly where it interacts with food,
   fluid, weight or physical activity.
-- **Anyone under 18.** Bodi's formulas are validated in adults. Adult BMI
+- **Anyone under 18.** Sanora's formulas are validated in adults. Adult BMI
   categories, calorie targets and body fat equations are not appropriate for
   children or adolescents, who need growth-chart-based assessment by a
   paediatric clinician.
@@ -856,25 +856,25 @@ can cause real harm. This list is not exhaustive.
 ## 5. Data you record is a record, not a reading
 
 When you log blood pressure, blood sugar, heart rate, weight, sleep, mood or a
-symptom, Bodi stores what you typed. It does not measure it, verify it, or
+symptom, Sanora stores what you typed. It does not measure it, verify it, or
 interpret it clinically.
 
 Data read from Apple Health or Health Connect comes from your device and its
 sensors. Consumer wearables are not medical instruments; step counts, heart rate
 and sleep staging from them are approximations.
 
-Bodi does not monitor your data for danger. **It will not alert you, your
+Sanora does not monitor your data for danger. **It will not alert you, your
 family, or any medical service if a value you enter is dangerous.** Do not use
-Bodi as a safety net.
+Sanora as a safety net.
 
 ## 6. Your responsibility
 
-By using Bodi you acknowledge that:
+By using Sanora you acknowledge that:
 
 - You use its guidance at your own risk.
 - You are responsible for decisions you make about your diet, exercise,
   medication and medical care.
-- You will consult a qualified healthcare professional before acting on Bodi's
+- You will consult a qualified healthcare professional before acting on Sanora's
   output where your health or a medical condition is involved.
 - Innovation Cameroon is not liable for outcomes arising from your reliance on
   the app's estimates, scores or AI output, to the extent permitted by law and
@@ -882,7 +882,7 @@ By using Bodi you acknowledge that:
 
 ## 7. Questions
 
-If something in Bodi does not seem right for your situation, trust your
+If something in Sanora does not seem right for your situation, trust your
 clinician over the app.
 
 - Contact: TODO: support contact email address

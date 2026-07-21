@@ -1,9 +1,9 @@
 # Terms of Service
 
-**Bodi — Know Your Body**, published by Innovation Cameroon.
+**Sanora — Know Your Body**, published by Innovation Cameroon.
 
 - Effective date: 21 July 2026
-- Applies to: Bodi mobile app version 1.0.0 and later
+- Applies to: Sanora mobile app version 1.0.0 and later
 
 This is a draft prepared for legal review. It has not been reviewed by a
 qualified lawyer and is not a substitute for one.
@@ -11,8 +11,8 @@ qualified lawyer and is not a substitute for one.
 ## 1. Agreement
 
 These Terms are a contract between you and Innovation Cameroon ("we", "us")
-covering your use of the Bodi mobile application and its backend services (the
-"Service"). By installing or using Bodi you accept them. If you do not accept
+covering your use of the Sanora mobile application and its backend services (the
+"Service"). By installing or using Sanora you accept them. If you do not accept
 them, do not use the Service.
 
 - Legal entity: TODO: exact registered legal name and company registration number
@@ -20,29 +20,29 @@ them, do not use the Service.
 - Contact: TODO: support contact email address
 
 Our Privacy Policy and our Health Disclaimer form part of these Terms. Read
-them; the Health Disclaimer in particular sets out limits on what Bodi's
+them; the Health Disclaimer in particular sets out limits on what Sanora's
 numbers mean.
 
-## 2. What Bodi is, and what it is not
+## 2. What Sanora is, and what it is not
 
-Bodi is a personal health and wellness companion. It records what you tell it,
+Sanora is a personal health and wellness companion. It records what you tell it,
 estimates nutrition, computes targets and scores from published formulas, and
 generates AI coaching, insights and workout suggestions.
 
-Bodi is **not** a medical device, a diagnostic tool, a clinical decision support
+Sanora is **not** a medical device, a diagnostic tool, a clinical decision support
 system, or a substitute for a healthcare professional. It is not regulated as a
 medical device and makes no diagnostic claim. Nothing in the Service is medical
 advice. See the Health Disclaimer.
 
 ## 3. Eligibility
 
-You must be at least 16 years old to use Bodi, and legally capable of entering
-into this contract. If you use Bodi on behalf of an organisation, you confirm
+You must be at least 16 years old to use Sanora, and legally capable of entering
+into this contract. If you use Sanora on behalf of an organisation, you confirm
 you are authorised to bind it.
 
 ## 4. Your account
 
-- You may use Bodi entirely offline without an account. An account is required
+- You may use Sanora entirely offline without an account. An account is required
   for cloud sync, AI features and community features.
 - You are responsible for keeping your password secure and for everything done
   through your account.
@@ -54,7 +54,7 @@ you are authorised to bind it.
 
 ## 5. Your data
 
-You own the health data you put into Bodi. We do not claim any ownership of it.
+You own the health data you put into Sanora. We do not claim any ownership of it.
 
 You grant us only the licence we need to run the Service for you: to store your
 data, synchronise it to your devices, compute derived values from it, and
@@ -62,7 +62,7 @@ transmit the parts described in the Privacy Policy to our AI provider so the
 features you invoke can answer you. That licence ends when you delete your
 account.
 
-You are responsible for the accuracy of what you enter. Bodi's estimates are
+You are responsible for the accuracy of what you enter. Sanora's estimates are
 only as good as the height, weight, measurements and meal descriptions you give
 it.
 
@@ -70,9 +70,9 @@ it.
 
 You agree not to:
 
-- Use Bodi to diagnose, treat, cure or prevent any disease, or to make clinical
+- Use Sanora to diagnose, treat, cure or prevent any disease, or to make clinical
   decisions for yourself or anyone else.
-- Use Bodi to provide health, nutrition or fitness advice to third parties as if
+- Use Sanora to provide health, nutrition or fitness advice to third parties as if
   it were professional advice.
 - Enter another person's health data without their informed consent, or
   impersonate anyone.
@@ -104,12 +104,12 @@ breach is not serious and can be fixed, we will normally warn you first.
 - The AI coach is instructed to refer you to a healthcare professional for
   symptoms, medication changes and warning signs. Please follow that referral.
 - AI features depend on a third-party provider and an internet connection. They
-  may be unavailable, slow, or changed without notice. The rest of Bodi keeps
+  may be unavailable, slow, or changed without notice. The rest of Sanora keeps
   working offline.
 
 ## 8. Free tier, Premium and payment
 
-Bodi is free to install and use. Recording, calculations, targets, reminders,
+Sanora is free to install and use. Recording, calculations, targets, reminders,
 reports and offline use are free and remain free.
 
 AI features are metered:
@@ -134,7 +134,7 @@ Subscription terms:
 Where a purchase is made through the Apple App Store or Google Play, that
 store's terms govern the transaction, billing, renewal and refunds, and you
 manage or cancel the subscription in that store's account settings rather than
-in Bodi.
+in Sanora.
 
 If your subscription lapses, your account reverts to the free tier. Your data is
 not deleted and stays fully accessible; only the unlimited AI allowance stops.
@@ -145,7 +145,7 @@ We aim to keep the Service available but we do not guarantee uninterrupted
 service. We may modify, suspend or discontinue any feature. If we discontinue a
 paid feature you have paid for, we will refund the unused portion.
 
-Because Bodi is offline-first, an outage of our backend does not lock you out of
+Because Sanora is offline-first, an outage of our backend does not lock you out of
 your own data: recording, viewing and calculating all keep working on the
 device, and queued changes sync when connectivity returns.
 
@@ -156,7 +156,7 @@ To the maximum extent permitted by law:
 - The Service is provided "as is" and "as available", without warranties of any
   kind, express or implied, including merchantability, fitness for a particular
   purpose, accuracy and non-infringement.
-- We do not warrant that Bodi's estimates, scores, targets or AI output are
+- We do not warrant that Sanora's estimates, scores, targets or AI output are
   accurate, complete, current, or suitable for you personally.
 - We do not warrant that the Service will be uninterrupted, error-free, or free
   of data loss. Keep your own copy of anything you cannot afford to lose; the
@@ -180,7 +180,7 @@ To the maximum extent permitted by law:
   the event giving rise to the claim, or TODO: a fixed floor amount and currency,
   for example the equivalent of USD 50.
 - We are not liable for any decision you make about your diet, exercise,
-  medication or medical care based on Bodi's output. That is the substance of
+  medication or medical care based on Sanora's output. That is the substance of
   the Health Disclaimer and it is a condition of using the Service.
 
 Nothing in this section limits liability for death or personal injury caused by
@@ -194,11 +194,11 @@ jurisdiction and against consumers there, and adjust the cap accordingly.
 
 You agree to indemnify us against claims arising from your breach of these
 Terms, your misuse of the Service, your entry of another person's data without
-their consent, or your use of Bodi to advise third parties.
+their consent, or your use of Sanora to advise third parties.
 
 ## 13. Termination
 
-You may stop using Bodi at any time and delete your account from within the app.
+You may stop using Sanora at any time and delete your account from within the app.
 
 We may suspend or terminate your access if you materially breach these Terms, if
 required by law, or if we discontinue the Service. Except where a breach makes
@@ -210,7 +210,7 @@ Sections 5, 10, 11, 12 and 15 survive termination.
 ## 14. Changes to these Terms
 
 We may update these Terms. Material changes will be notified in the app before
-they take effect. Continuing to use Bodi after that means you accept them. If
+they take effect. Continuing to use Sanora after that means you accept them. If
 you do not, delete your account.
 
 ## 15. Governing law and disputes

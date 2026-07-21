@@ -36,7 +36,7 @@
   "profileEditTitle": "Modifier votre profil",
   "profileEditSubtitle": "Âge, objectifs, mode de vie, antécédents médicaux",
   "profileMeasurementsTitle": "Mettre à jour vos mesures",
-  "profilePremiumTitle": "Bodi Premium",
+  "profilePremiumTitle": "Sanora Premium",
   "profilePremiumSubtitle": "Coaching IA illimité",
   "profileCommunityTitle": "Communauté",
   "profileCommunitySubtitle": "Amis, groupes et défis",
@@ -44,7 +44,7 @@
   "profileDeleteDataTitle": "Supprimer mes données",
 
   "profileWipeDialogTitle": "Supprimer vos données ?",
-  "profileWipeBodySignedIn": "Effacer cet appareil laisse votre compte intact — il suffit de vous reconnecter pour tout retrouver.\n\nSupprimer votre compte efface aussi votre profil, vos repas, vos mesures, vos habitudes, vos photos et votre historique de discussion des serveurs de Bodi. Cette action est irréversible.",
+  "profileWipeBodySignedIn": "Effacer cet appareil laisse votre compte intact — il suffit de vous reconnecter pour tout retrouver.\n\nSupprimer votre compte efface aussi votre profil, vos repas, vos mesures, vos habitudes, vos photos et votre historique de discussion des serveurs de Sanora. Cette action est irréversible.",
   "profileWipeBodyLocal": "Cette action retire votre profil, vos repas, vos mesures, vos habitudes et votre historique de discussion de cet appareil. Elle est irréversible.",
   "profileWipeClearDevice": "Effacer cet appareil",
   "profileWipeDeleteAccount": "Supprimer le compte",

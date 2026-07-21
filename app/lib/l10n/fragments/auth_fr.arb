@@ -3,7 +3,7 @@
   "authCreateAccount": "Créez votre compte",
   "authWelcomeBack": "Content de vous revoir",
   "authIntro": "Un compte protège vos données sur tous vos appareils et débloque le coach IA, la reconnaissance des repas et les analyses.",
-  "authNoBackend": "Cette version n'a pas de serveur configuré. Vous pouvez continuer à utiliser Bodi entièrement hors connexion — tout reste enregistré sur votre appareil.",
+  "authNoBackend": "Cette version n'a pas de serveur configuré. Vous pouvez continuer à utiliser Sanora entièrement hors connexion — tout reste enregistré sur votre appareil.",
   "authEmailHint": "E-mail",
   "authPasswordHint": "Mot de passe",
   "authSignUp": "S'inscrire",

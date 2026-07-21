@@ -28,8 +28,8 @@
   "@communitySomeone": {
     "description": "Stands in for a friend request whose sender has no name."
   },
-  "communityBodiUser": "Bodi user",
-  "@communityBodiUser": {
+  "communitySanoraUser": "Sanora user",
+  "@communitySanoraUser": {
     "description": "Stands in for a friend who has no name set."
   },
   "communityRemoveFriend": "Remove friend",
@@ -43,7 +43,7 @@
     "placeholders": { "email": { "type": "String" } }
   },
   "communityRequestSent": "Request sent.",
-  "communityNoAccountForEmail": "No Bodi account found for that email.",
+  "communityNoAccountForEmail": "No Sanora account found for that email.",
   "communityOwnEmail": "That is your own email 🙂",
   "communityAlreadyFriends": "You are already friends.",
 

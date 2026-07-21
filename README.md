@@ -1,11 +1,11 @@
-# Bodi — Know Your Body
+# Sanora — Know Your Body
 
-Bodi is an AI-powered personal health companion. It turns a two-minute
+Sanora is an AI-powered personal health companion. It turns a two-minute
 onboarding into a personal health profile, then helps you eat better, move
 more, sleep better and build habits — with first-class support for African
 foods and food cultures.
 
-Bodi is **not** a calorie counter. It is offline-first, kind by design, and
+Sanora is **not** a calorie counter. It is offline-first, kind by design, and
 uses AI to remove effort instead of adding numbers.
 
 ## What's in this repository
@@ -70,7 +70,7 @@ flutter run --dart-define-from-file=dart_defines/dev.json
 
 Run without the defines for **local-only mode**: everything except the AI
 features works offline, storing data on-device in Hive. A plain `flutter run`
-gets you local-only mode, so pass the file (or use the `Bodi (dev backend)`
+gets you local-only mode, so pass the file (or use the `Sanora (dev backend)`
 VS Code launch configuration) whenever you mean to exercise sync or AI.
 
 Run the tests:
@@ -97,4 +97,4 @@ together.
   `meal-analyze` edge function, which forwards it to the Gemini API and
   persists nothing; log by text or food search to keep images off the network
   entirely.
-- Bodi presents estimates as guidance, never medical advice.
+- Sanora presents estimates as guidance, never medical advice.

@@ -4,11 +4,11 @@
   "onboardingCreateProfile": "Create my health profile",
 
   "onboardingWelcomeTitle": "Know your body.",
-  "onboardingWelcomeBody": "Bodi turns a few details about you into a personal health plan — and an AI coach that helps you eat better, move more and live longer.\n\nNo calorie obsession. No shame. Just steady progress.",
+  "onboardingWelcomeBody": "Sanora turns a few details about you into a personal health plan — and an AI coach that helps you eat better, move more and live longer.\n\nNo calorie obsession. No shame. Just steady progress.",
   "onboardingWelcomeFootnote": "Takes about 2 minutes · your data stays private",
 
   "onboardingAboutTitle": "About you",
-  "onboardingAboutSubtitle": "This shapes every calculation Bodi makes for you.",
+  "onboardingAboutSubtitle": "This shapes every calculation Sanora makes for you.",
   "onboardingFieldName": "What should we call you?",
   "onboardingHintFirstName": "Your first name",
   "onboardingFieldAge": "Age",
@@ -40,7 +40,7 @@
   "onboardingFieldStress": "Stress level lately",
 
   "onboardingHealthTitle": "Health background",
-  "onboardingHealthSubtitle": "Bodi adapts its advice around conditions and medication. This never leaves your control.",
+  "onboardingHealthSubtitle": "Sanora adapts its advice around conditions and medication. This never leaves your control.",
   "onboardingFieldConditions": "Medical conditions",
   "onboardingConditionHypertension": "Hypertension",
   "onboardingConditionDiabetes": "Diabetes",
@@ -59,7 +59,7 @@
   "onboardingAllergyGluten": "Gluten",
 
   "onboardingFoodTitle": "How you eat",
-  "onboardingFoodSubtitle": "Bodi works with your food culture — fufu and eru included — never against it.",
+  "onboardingFoodSubtitle": "Sanora works with your food culture — fufu and eru included — never against it.",
   "onboardingFieldPreferences": "Preferences",
   "onboardingPreferenceNone": "No preference",
   "onboardingPreferenceVegetarian": "Vegetarian",
@@ -78,7 +78,7 @@
   "onboardingHintFavoriteMeal": "Add a favorite meal…",
 
   "onboardingGoalsTitle": "Where are we going?",
-  "onboardingGoalsSubtitle": "Pick everything that matters to you. Bodi balances them.",
+  "onboardingGoalsSubtitle": "Pick everything that matters to you. Sanora balances them.",
   "onboardingGoalChip": "{emoji} {label}",
   "@onboardingGoalChip": {
     "description": "A selectable goal chip: emoji followed by the goal name.",

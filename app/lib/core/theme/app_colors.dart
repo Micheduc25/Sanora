@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Bodi palette — calm, organic, premium.
+/// Sanora palette — calm, organic, premium.
 abstract final class AppColors {
   // Brand
   static const vital = Color(0xFF10A56D);

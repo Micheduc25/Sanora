@@ -1,7 +1,7 @@
 {
-  "premiumTitle": "Bodi Premium",
+  "premiumTitle": "Sanora Premium",
   "premiumHeroTitle": "Unlimited AI coaching",
-  "premiumHeroBody": "Premium lifts the daily cap on the four features that call the AI. That is the whole difference — everything else in Bodi is free, and stays free.",
+  "premiumHeroBody": "Premium lifts the daily cap on the four features that call the AI. That is the whole difference — everything else in Sanora is free, and stays free.",
 
   "premiumUnlocksSection": "What Premium unlocks",
   "premiumFeatureCoachTitle": "Unlimited coach conversations",
@@ -23,7 +23,7 @@
 
   "premiumChoosePlanSection": "Choose a plan",
   "premiumSignInTitle": "Sign in first",
-  "premiumSignInBody": "Premium is attached to your Bodi account so it follows you to a new phone. Sign in, then come back here.",
+  "premiumSignInBody": "Premium is attached to your Sanora account so it follows you to a new phone. Sign in, then come back here.",
   "premiumSignIn": "Sign in",
 
   "premiumActiveTitle": "Premium is active",
@@ -34,14 +34,14 @@
   },
 
   "premiumUnavailableTitle": "Premium isn't available on this device yet",
-  "premiumUnavailableUnsupportedPlatform": "Bodi Premium is sold through the App Store and Google Play, so it can only be bought from the iPhone or Android app.",
+  "premiumUnavailableUnsupportedPlatform": "Sanora Premium is sold through the App Store and Google Play, so it can only be bought from the iPhone or Android app.",
   "premiumUnavailableStore": "The store is not available on this device right now. Check that you are signed in to the App Store or Google Play and try again.",
-  "premiumUnavailableQueryFailed": "The store could not list the Bodi plans: {error}",
+  "premiumUnavailableQueryFailed": "The store could not list the Sanora plans: {error}",
   "@premiumUnavailableQueryFailed": {
     "description": "The store's own error text is appended verbatim.",
     "placeholders": { "error": { "type": "String" } }
   },
-  "premiumUnavailableNoPlans": "Premium is not available on this device yet — the store has no Bodi plans to sell. Nothing has been charged.",
+  "premiumUnavailableNoPlans": "Premium is not available on this device yet — the store has no Sanora plans to sell. Nothing has been charged.",
 
   "premiumPlanMonthly": "Monthly",
   "premiumPlanYearly": "Yearly",
@@ -62,7 +62,7 @@
   },
 
   "premiumRestore": "Restore purchases",
-  "premiumBillingNotice": "Payment is charged to your App Store or Google Play account. Subscriptions renew automatically until you cancel them in your store account settings — Bodi cannot cancel or refund them for you. Prices are set by the store for your country.",
+  "premiumBillingNotice": "Payment is charged to your App Store or Google Play account. Subscriptions renew automatically until you cancel them in your store account settings — Sanora cannot cancel or refund them for you. Prices are set by the store for your country.",
   "premiumTerms": "Terms",
   "premiumPrivacy": "Privacy",
 
@@ -73,13 +73,13 @@
   },
   "premiumNoticeLookingForPurchases": "Looking for previous purchases…",
   "premiumNoticeRestoreUnreachable": "Could not reach the store to restore purchases.",
-  "premiumNoticeNoSubscription": "No active Bodi subscription on this store account.",
+  "premiumNoticeNoSubscription": "No active Sanora subscription on this store account.",
   "premiumNoticeAwaitingPayment": "Waiting for the store to confirm your payment…",
   "premiumNoticeCheckingPurchase": "Checking your purchase with the store…",
   "premiumNoticePurchaseNotCompleted": "The store could not complete that purchase.",
   "premiumNoticePurchaseNotConfirmed": "The store could not confirm that purchase.",
-  "premiumNoticeSignInRequired": "Sign in first — Premium is attached to your Bodi account, not to this device.",
+  "premiumNoticeSignInRequired": "Sign in first — Premium is attached to your Sanora account, not to this device.",
   "premiumNoticeNoReceipt": "The store did not return a receipt for that purchase. Try \"Restore purchases\".",
-  "premiumNoticeVerificationOffline": "Could not reach Bodi to confirm that purchase. It is safe with the store — open this screen again when you have a connection.",
+  "premiumNoticeVerificationOffline": "Could not reach Sanora to confirm that purchase. It is safe with the store — open this screen again when you have a connection.",
   "premiumNoticeSessionExpired": "Please sign in again."
 }

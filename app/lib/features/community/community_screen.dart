@@ -205,7 +205,7 @@ class _FriendRow extends ConsumerWidget {
             const SizedBox(width: 12),
             Expanded(
               child: Text(
-                friend.name ?? l.communityBodiUser,
+                friend.name ?? l.communitySanoraUser,
                 style: theme.textTheme.titleMedium,
               ),
             ),

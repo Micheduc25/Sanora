@@ -55,7 +55,7 @@ Future<List<int>> buildWeeklyReportPdf(L l, WeeklyReport report) async {
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
                 pw.Text(
-                  'Bodi',
+                  'Sanora',
                   style: pw.TextStyle(
                     fontSize: 24,
                     fontWeight: pw.FontWeight.bold,

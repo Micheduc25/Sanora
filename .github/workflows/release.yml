@@ -16,7 +16,7 @@ on:
 #                                 android/fastlane/Appfile already reads)
 #     Play Console: the service account needs "Release to testing tracks", and
 #     the app must already have one manually uploaded AAB for package
-#     cm.betterme.bodi — the Play API rejects the very first upload.
+#     cm.sanora.app — the Play API rejects the very first upload.
 #     Also add a Gemfile / `bundle install` step; fastlane is not on the runner.
 #
 #   iOS — `bundle exec fastlane ios beta` from app/ios, on macos-latest

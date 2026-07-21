@@ -8,7 +8,7 @@ import '../../core/config/app_config.dart';
 import '../../core/providers/app_providers.dart';
 import '../../l10n/app_localizations.dart';
 
-/// Email + password auth backed by Supabase. Fully skippable: Bodi is
+/// Email + password auth backed by Supabase. Fully skippable: Sanora is
 /// offline-first and an account only adds cloud sync and AI features.
 class AuthScreen extends HookConsumerWidget {
   const AuthScreen({super.key});

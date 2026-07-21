@@ -48,7 +48,7 @@ class DashboardData {
   final int mealCount;
 }
 
-/// Whether Apple Health / Health Connect has granted the types Bodi reads.
+/// Whether Apple Health / Health Connect has granted the types Sanora reads.
 /// Drives the connect prompt — without it the platform tiles sit empty and
 /// the user is never told why.
 final activityConnectedProvider = FutureProvider<bool>(

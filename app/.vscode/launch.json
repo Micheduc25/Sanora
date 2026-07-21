@@ -2,14 +2,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Bodi (dev backend)",
+      "name": "Sanora (dev backend)",
       "request": "launch",
       "type": "dart",
       "program": "lib/main.dart",
       "toolArgs": ["--dart-define-from-file=dart_defines/dev.json"]
     },
     {
-      "name": "Bodi (dev backend, profile)",
+      "name": "Sanora (dev backend, profile)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile",
@@ -17,7 +17,7 @@
       "toolArgs": ["--dart-define-from-file=dart_defines/dev.json"]
     },
     {
-      "name": "Bodi (local-only, no backend)",
+      "name": "Sanora (local-only, no backend)",
       "request": "launch",
       "type": "dart",
       "program": "lib/main.dart"

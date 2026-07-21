@@ -29,7 +29,7 @@ enum PurchaseErrorReason {
   /// The store handed over a purchase with no receipt to verify.
   noReceipt,
 
-  /// Bodi could not be reached; the purchase is still safe with the store.
+  /// Sanora could not be reached; the purchase is still safe with the store.
   network,
 
   /// The session expired mid-verification.
@@ -70,7 +70,7 @@ class PurchaseService {
   final SupabaseService _supabase;
 
   /// `in_app_purchase` only registers a platform implementation on iOS, macOS
-  /// and Android. Bodi also builds for web, where touching
+  /// and Android. Sanora also builds for web, where touching
   /// `InAppPurchase.instance` throws a `LateInitializationError` rather than
   /// returning something empty — so every entry point checks this first.
   static bool get isSupportedPlatform {

@@ -18,7 +18,7 @@ interface CoachRequest {
 }
 
 function systemPrompt(body: CoachRequest): string {
-  return `You are Bodi, a warm, evidence-based personal health coach.
+  return `You are Sanora, a warm, evidence-based personal health coach.
 
 Principles:
 - Be concrete and personal: use the user's own numbers and meals, never generic advice.

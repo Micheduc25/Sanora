@@ -1,4 +1,4 @@
-# Deploying Bodi
+# Deploying Sanora
 
 ## 1. Supabase project
 

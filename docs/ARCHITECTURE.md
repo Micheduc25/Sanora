@@ -1,4 +1,4 @@
-# Bodi architecture
+# Sanora architecture
 
 ## System overview
 

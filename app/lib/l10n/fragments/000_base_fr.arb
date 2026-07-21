@@ -1,7 +1,7 @@
 {
   "@@locale": "fr",
 
-  "appName": "Bodi",
+  "appName": "Sanora",
 
   "actionContinue": "Continuer",
   "actionCancel": "Annuler",
@@ -21,7 +21,7 @@
   "navYou": "Vous",
 
   "settingsLanguage": "Langue",
-  "settingsLanguageSubtitle": "Choisissez la langue de Bodi",
+  "settingsLanguageSubtitle": "Choisissez la langue de Sanora",
   "languageSystem": "Comme mon appareil",
   "languageEnglish": "English",
   "languageFrench": "Français",

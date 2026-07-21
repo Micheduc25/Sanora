@@ -3,7 +3,7 @@
   "authCreateAccount": "Create your account",
   "authWelcomeBack": "Welcome back",
   "authIntro": "An account keeps your data safe across devices and unlocks the AI coach, meal recognition and insights.",
-  "authNoBackend": "This build has no backend configured. You can keep using Bodi fully offline — everything is stored on your device.",
+  "authNoBackend": "This build has no backend configured. You can keep using Sanora fully offline — everything is stored on your device.",
   "authEmailHint": "Email",
   "authPasswordHint": "Password",
   "authSignUp": "Sign up",

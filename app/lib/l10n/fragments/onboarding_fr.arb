@@ -4,11 +4,11 @@
   "onboardingCreateProfile": "Créer mon profil santé",
 
   "onboardingWelcomeTitle": "Apprenez à connaître votre corps.",
-  "onboardingWelcomeBody": "À partir de quelques informations sur vous, Bodi crée un plan santé personnel — et un coach IA qui vous aide à mieux manger, à bouger davantage et à vivre plus longtemps.\n\nPas d'obsession des calories. Aucun jugement. Juste des progrès réguliers.",
+  "onboardingWelcomeBody": "À partir de quelques informations sur vous, Sanora crée un plan santé personnel — et un coach IA qui vous aide à mieux manger, à bouger davantage et à vivre plus longtemps.\n\nPas d'obsession des calories. Aucun jugement. Juste des progrès réguliers.",
   "onboardingWelcomeFootnote": "Environ 2 minutes · vos données restent privées",
 
   "onboardingAboutTitle": "À propos de vous",
-  "onboardingAboutSubtitle": "Ces réponses servent de base à tous les calculs que Bodi fait pour vous.",
+  "onboardingAboutSubtitle": "Ces réponses servent de base à tous les calculs que Sanora fait pour vous.",
   "onboardingFieldName": "Comment souhaitez-vous qu'on vous appelle ?",
   "onboardingHintFirstName": "Votre prénom",
   "onboardingFieldAge": "Âge",
@@ -40,7 +40,7 @@
   "onboardingFieldStress": "Niveau de stress ces derniers temps",
 
   "onboardingHealthTitle": "Antécédents de santé",
-  "onboardingHealthSubtitle": "Bodi adapte ses conseils à vos problèmes de santé et à vos traitements. Ces informations restent toujours sous votre contrôle.",
+  "onboardingHealthSubtitle": "Sanora adapte ses conseils à vos problèmes de santé et à vos traitements. Ces informations restent toujours sous votre contrôle.",
   "onboardingFieldConditions": "Problèmes de santé",
   "onboardingConditionHypertension": "Hypertension",
   "onboardingConditionDiabetes": "Diabète",
@@ -59,7 +59,7 @@
   "onboardingAllergyGluten": "Gluten",
 
   "onboardingFoodTitle": "Votre façon de manger",
-  "onboardingFoodSubtitle": "Bodi compose avec votre culture culinaire — fufu et eru compris — jamais contre elle.",
+  "onboardingFoodSubtitle": "Sanora compose avec votre culture culinaire — fufu et eru compris — jamais contre elle.",
   "onboardingFieldPreferences": "Préférences",
   "onboardingPreferenceNone": "Aucune préférence",
   "onboardingPreferenceVegetarian": "Végétarien",
@@ -78,7 +78,7 @@
   "onboardingHintFavoriteMeal": "Ajouter un plat préféré…",
 
   "onboardingGoalsTitle": "Où allons-nous ensemble ?",
-  "onboardingGoalsSubtitle": "Choisissez tout ce qui compte pour vous. Bodi se charge de trouver l'équilibre.",
+  "onboardingGoalsSubtitle": "Choisissez tout ce qui compte pour vous. Sanora se charge de trouver l'équilibre.",
   "onboardingGoalChip": "{emoji} {label}",
   "@onboardingGoalChip": {
     "placeholders": {

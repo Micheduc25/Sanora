@@ -1,4 +1,4 @@
--- Bodi initial schema.
+-- Sanora initial schema.
 -- Client apps are offline-first: rows are created on-device with client
 -- UUIDs and replayed here as idempotent upserts, so every user-owned table
 -- keys on a client-generated id plus an enforced user_id.

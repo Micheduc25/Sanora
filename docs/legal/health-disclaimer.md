@@ -1,40 +1,40 @@
 # Health Disclaimer
 
-**Bodi — Know Your Body**, published by Innovation Cameroon.
+**Sanora — Know Your Body**, published by Innovation Cameroon.
 
 - Effective date: 21 July 2026
-- Applies to: Bodi mobile app version 1.0.0 and later
+- Applies to: Sanora mobile app version 1.0.0 and later
 
 This is a draft prepared for legal review. It has not been reviewed by a
 qualified lawyer or a clinician and is not a substitute for either.
 
 ## 1. Read this first
 
-Bodi is a wellness and self-tracking app. Everything it shows you — every score,
+Sanora is a wellness and self-tracking app. Everything it shows you — every score,
 target, category and coaching message — is **informational guidance, not medical
 advice**.
 
-Bodi does not diagnose. It does not treat. It does not prescribe. It cannot
+Sanora does not diagnose. It does not treat. It does not prescribe. It cannot
 examine you, it cannot order a blood test, and it does not know anything about
 you that you did not type in.
 
-**Bodi is not a medical device** and is not certified, cleared or approved as
+**Sanora is not a medical device** and is not certified, cleared or approved as
 one by any regulator. No output should be read as a diagnosis or a clinical
 finding.
 
 **Always consult a qualified healthcare professional** before starting or
 changing a diet, an exercise programme, a fasting regime, a supplement, or any
 medication. Never delay seeking medical advice, or disregard advice you have
-been given, because of something Bodi told you.
+been given, because of something Sanora told you.
 
 **If you have symptoms that worry you — chest pain, breathlessness, fainting,
 severe or persistent pain, confusion, or any sudden change in your condition —
-stop using the app for guidance and seek medical care immediately.** Bodi cannot
+stop using the app for guidance and seek medical care immediately.** Sanora cannot
 recognise an emergency and will not call anyone for you.
 
-## 2. What Bodi calculates, and what those numbers actually are
+## 2. What Sanora calculates, and what those numbers actually are
 
-Bodi computes the following from what you enter. Each is an estimate produced by
+Sanora computes the following from what you enter. Each is an estimate produced by
 a published population-level formula. Population formulas describe averages;
 they do not describe you.
 
@@ -63,7 +63,7 @@ not a measurement.
 300 kcal for muscle gain, maintenance otherwise. A floor is applied — 1200 kcal
 for women, 1500 kcal for men — so the app will not suggest a very-low-calorie
 intake. Very-low-calorie diets can be appropriate in some clinical situations,
-but only under medical supervision, and Bodi will not put you on one.
+but only under medical supervision, and Sanora will not put you on one.
 
 **Protein target.** 1.8 g per kg of reference body weight when you are losing
 fat or building muscle, 1.2 g/kg otherwise, using the top of your healthy weight
@@ -92,7 +92,7 @@ is a signal to discuss it with a clinician. It is not a diagnosis of visceral
 adiposity or of any disease.
 
 **Metabolic health score (0-100) and lifestyle risk score (0-100).** These are
-Bodi's own composite indicators. They start from a baseline and apply weighted
+Sanora's own composite indicators. They start from a baseline and apply weighted
 adjustments for your BMI band, central adiposity, activity level, sleep hours,
 stress level and any conditions you told us about. **They are not clinically
 validated risk instruments.** They are not equivalent to, and must not be used
@@ -120,13 +120,13 @@ Do not ask the coach to interpret test results, adjust a medication, or tell you
 whether a symptom is serious. It is not qualified to answer, and neither is the
 app.
 
-## 4. Speak to a clinician before using Bodi's targets if any of these apply
+## 4. Speak to a clinician before using Sanora's targets if any of these apply
 
 These are situations where a generic calorie, protein, water or exercise target
 can cause real harm. This list is not exhaustive.
 
 - **Pregnancy or breastfeeding.** Energy and nutrient requirements differ
-  substantially and BMI categories do not apply. Bodi's targets are not
+  substantially and BMI categories do not apply. Sanora's targets are not
   designed for pregnancy and should not be followed during it.
 - **An eating disorder, or any history of one.** Calorie targets, weight goals,
   body fat percentages and food logging can trigger or worsen anorexia, bulimia,
@@ -134,12 +134,12 @@ can cause real harm. This list is not exhaustive.
   stop, and please talk to someone. TODO: insert a local Cameroonian and regional
   crisis or mental health support contact here, verified before publication.
 - **Diabetes, prediabetes, or any use of insulin or glucose-lowering
-  medication.** Bodi's carbohydrate figures are estimates and are not safe for
+  medication.** Sanora's carbohydrate figures are estimates and are not safe for
   insulin dosing. Changing your intake or activity can change your glucose and
   your medication requirement.
 - **Hypertension or any cardiovascular or cardiac condition.** Exercise
   intensity and sodium intake need individual medical guidance. Blood pressure
-  values you log in Bodi are a record you keep, not a reading Bodi has verified
+  values you log in Sanora are a record you keep, not a reading Sanora has verified
   or interpreted.
 - **Kidney disease or reduced kidney function.** Protein and fluid targets can
   be actively harmful.
@@ -149,7 +149,7 @@ can cause real harm. This list is not exhaustive.
   exercise.**
 - **Any prescribed medication**, particularly where it interacts with food,
   fluid, weight or physical activity.
-- **Anyone under 18.** Bodi's formulas are validated in adults. Adult BMI
+- **Anyone under 18.** Sanora's formulas are validated in adults. Adult BMI
   categories, calorie targets and body fat equations are not appropriate for
   children or adolescents, who need growth-chart-based assessment by a
   paediatric clinician.
@@ -159,25 +159,25 @@ can cause real harm. This list is not exhaustive.
 ## 5. Data you record is a record, not a reading
 
 When you log blood pressure, blood sugar, heart rate, weight, sleep, mood or a
-symptom, Bodi stores what you typed. It does not measure it, verify it, or
+symptom, Sanora stores what you typed. It does not measure it, verify it, or
 interpret it clinically.
 
 Data read from Apple Health or Health Connect comes from your device and its
 sensors. Consumer wearables are not medical instruments; step counts, heart rate
 and sleep staging from them are approximations.
 
-Bodi does not monitor your data for danger. **It will not alert you, your
+Sanora does not monitor your data for danger. **It will not alert you, your
 family, or any medical service if a value you enter is dangerous.** Do not use
-Bodi as a safety net.
+Sanora as a safety net.
 
 ## 6. Your responsibility
 
-By using Bodi you acknowledge that:
+By using Sanora you acknowledge that:
 
 - You use its guidance at your own risk.
 - You are responsible for decisions you make about your diet, exercise,
   medication and medical care.
-- You will consult a qualified healthcare professional before acting on Bodi's
+- You will consult a qualified healthcare professional before acting on Sanora's
   output where your health or a medical condition is involved.
 - Innovation Cameroon is not liable for outcomes arising from your reliance on
   the app's estimates, scores or AI output, to the extent permitted by law and
@@ -185,7 +185,7 @@ By using Bodi you acknowledge that:
 
 ## 7. Questions
 
-If something in Bodi does not seem right for your situation, trust your
+If something in Sanora does not seem right for your situation, trust your
 clinician over the app.
 
 - Contact: TODO: support contact email address

@@ -2,7 +2,7 @@ import '../../core/error/failures.dart';
 import '../../domain/models/community.dart';
 import '../supabase_service.dart';
 
-/// Community is inherently online and social, so — unlike the rest of Bodi —
+/// Community is inherently online and social, so — unlike the rest of Sanora —
 /// it reads and writes Supabase directly rather than the local store. Every
 /// call requires a signed-in session; otherwise it surfaces [AuthFailure] so
 /// the UI can show a sign-in gate.

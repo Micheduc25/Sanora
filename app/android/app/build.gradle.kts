@@ -18,7 +18,7 @@ if (hasReleaseKeystore) {
 }
 
 android {
-    namespace = "cm.betterme.bodi"
+    namespace = "cm.sanora.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -34,7 +34,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "cm.betterme.bodi"
+        applicationId = "cm.sanora.app"
         // minSdk 26 is the floor for the `health` 12.x package (Health Connect).
         minSdk = 26
         targetSdk = 35

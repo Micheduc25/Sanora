@@ -1,4 +1,4 @@
-# Bodi Flutter app
+# Sanora Flutter app
 
 See the [repository README](../README.md) for the product overview and
 [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md) for how this app is built.
@@ -11,7 +11,7 @@ flutter run --dart-define-from-file=dart_defines/dev.json
 
 Omit the defines to run fully offline (no sync, no AI) — but omit them by
 choice, not by accident: a build without them cannot reach the AI features at
-all, and the app says so only once you try to use one. The `Bodi (dev
+all, and the app says so only once you try to use one. The `Sanora (dev
 backend)` VS Code launch configuration passes the file for you.
 
 - `lib/core` — theme, router, storage, shared widgets, DI

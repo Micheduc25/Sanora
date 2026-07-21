@@ -15,7 +15,7 @@
   "communityInvitedSection": "Invitations envoyées",
   "communityInvited": "Invité",
   "communitySomeone": "Quelqu'un",
-  "communityBodiUser": "Utilisateur Bodi",
+  "communitySanoraUser": "Utilisateur Sanora",
   "communityRemoveFriend": "Retirer cet ami",
 
   "communityAddFriendTitle": "Ajouter un ami",
@@ -24,7 +24,7 @@
   "communitySendRequest": "Envoyer la demande",
   "communityRequestSentTo": "Demande envoyée à {email}.",
   "communityRequestSent": "Demande envoyée.",
-  "communityNoAccountForEmail": "Aucun compte Bodi ne correspond à cette adresse e-mail.",
+  "communityNoAccountForEmail": "Aucun compte Sanora ne correspond à cette adresse e-mail.",
   "communityOwnEmail": "C'est votre propre adresse e-mail 🙂",
   "communityAlreadyFriends": "Vous êtes déjà amis.",
 

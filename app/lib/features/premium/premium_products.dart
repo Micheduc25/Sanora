@@ -1,4 +1,4 @@
-/// The store product identifiers behind Bodi Premium.
+/// The store product identifiers behind Sanora Premium.
 ///
 /// Nothing in this repository creates these products. They have to exist,
 /// under exactly these ids, in both stores before the paywall can sell
@@ -17,8 +17,8 @@
 /// The same list is duplicated in `supabase/functions/verify-purchase/
 /// index.ts` — a receipt for anything else is not a Premium receipt.
 abstract final class PremiumProducts {
-  static const monthly = 'bodi_premium_monthly';
-  static const yearly = 'bodi_premium_yearly';
+  static const monthly = 'sanora_premium_monthly';
+  static const yearly = 'sanora_premium_yearly';
 
   static const ids = {monthly, yearly};
 

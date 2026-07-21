@@ -1,4 +1,4 @@
-package cm.betterme.bodi
+package cm.sanora.app
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

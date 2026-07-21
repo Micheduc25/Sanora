@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../storage/local_store.dart';
 
-/// Locales Bodi ships. English and French cover the app's target markets;
+/// Locales Sanora ships. English and French cover the app's target markets;
 /// French is not optional here — Cameroon is officially bilingual and the
 /// meal parser already accepts French input.
 const supportedLocales = [Locale('en'), Locale('fr')];

@@ -1,7 +1,7 @@
 {
   "mealsLogMeal": "Log meal",
   "mealsEmptyTitle": "What did you eat today?",
-  "mealsEmptyMessage": "Snap a photo, describe it, or search the food database — Bodi estimates the nutrition for you.",
+  "mealsEmptyMessage": "Snap a photo, describe it, or search the food database — Sanora estimates the nutrition for you.",
   "mealsEmptyAction": "Log your first meal",
   "mealsCalorieProgress": "{eaten} / {target} kcal",
   "@mealsCalorieProgress": {
@@ -47,7 +47,7 @@
   "mealsTabSearch": "Search",
   "mealsAnalyzing": "Reading your plate…",
   "mealsAnalyzeError": "Could not analyze that meal. Check your connection and try again.",
-  "mealsPhotoIntro": "Point your camera at the plate. Bodi recognizes African and international dishes and estimates portions.",
+  "mealsPhotoIntro": "Point your camera at the plate. Sanora recognizes African and international dishes and estimates portions.",
   "mealsTakePhoto": "Take a photo",
   "mealsChooseFromGallery": "Choose from gallery",
   "mealsVoiceUnavailable": "Voice input is not available on this device.",
@@ -113,5 +113,5 @@
   "mealsCompleteOnboardingFirst": "Complete onboarding first.",
   "mealsPhotoTooLarge": "Photo is too large. Try again.",
   "mealsOfflineNoMatch": "Could not match that meal offline. Try the food search, or connect to use AI.",
-  "mealsOfflineNotes": "Estimated offline from the Bodi food database."
+  "mealsOfflineNotes": "Estimated offline from the Sanora food database."
 }

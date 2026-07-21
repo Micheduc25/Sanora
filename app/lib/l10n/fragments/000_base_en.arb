@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
 
-  "appName": "Bodi",
+  "appName": "Sanora",
   "@appName": { "description": "Product name. Not translated." },
 
   "actionContinue": "Continue",
@@ -22,7 +22,7 @@
   "navYou": "You",
 
   "settingsLanguage": "Language",
-  "settingsLanguageSubtitle": "Choose how Bodi speaks to you",
+  "settingsLanguageSubtitle": "Choose how Sanora speaks to you",
   "languageSystem": "Match my device",
   "languageEnglish": "English",
   "languageFrench": "Français",

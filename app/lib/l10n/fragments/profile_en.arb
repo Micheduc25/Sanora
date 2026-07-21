@@ -69,7 +69,7 @@
   "profileEditTitle": "Edit your profile",
   "profileEditSubtitle": "Age, goals, lifestyle, medical background",
   "profileMeasurementsTitle": "Update measurements",
-  "profilePremiumTitle": "Bodi Premium",
+  "profilePremiumTitle": "Sanora Premium",
   "profilePremiumSubtitle": "Unlimited AI coaching",
   "profileCommunityTitle": "Community",
   "profileCommunitySubtitle": "Friends, groups & challenges",
@@ -77,7 +77,7 @@
   "profileDeleteDataTitle": "Delete my data",
 
   "profileWipeDialogTitle": "Delete your data?",
-  "profileWipeBodySignedIn": "Clearing this device leaves your account intact — signing in again restores everything.\n\nDeleting your account erases your profile, meals, measurements, habits, photos and chat history from Bodi's servers as well. That cannot be undone.",
+  "profileWipeBodySignedIn": "Clearing this device leaves your account intact — signing in again restores everything.\n\nDeleting your account erases your profile, meals, measurements, habits, photos and chat history from Sanora's servers as well. That cannot be undone.",
   "profileWipeBodyLocal": "This removes your profile, meals, measurements, habits and chat history from this device. This cannot be undone.",
   "profileWipeClearDevice": "Clear this device",
   "profileWipeDeleteAccount": "Delete account",

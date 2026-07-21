@@ -21,7 +21,7 @@ enum PremiumUnavailable {
   /// [PremiumState.unavailableDetail].
   planQueryFailed,
 
-  /// The store answered, but knows nothing about the Bodi plans.
+  /// The store answered, but knows nothing about the Sanora plans.
   noPlans,
 }
 
@@ -59,7 +59,7 @@ enum PremiumNotice {
   /// A purchase arrived without a receipt to verify.
   noReceipt,
 
-  /// The receipt could not reach Bodi. Nothing is lost.
+  /// The receipt could not reach Sanora. Nothing is lost.
   verificationOffline,
 
   /// The session expired mid-verification.

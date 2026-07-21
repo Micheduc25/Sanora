@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Bodi uses the camera to recognize your meals and estimate their nutrition.</string>
+	<string>Sanora uses the camera to recognize your meals and estimate their nutrition.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Bodi lets you pick meal photos from your library for nutrition analysis.</string>
+	<string>Sanora lets you pick meal photos from your library for nutrition analysis.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Bodi uses the microphone so you can log meals by voice.</string>
+	<string>Sanora uses the microphone so you can log meals by voice.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Bodi transcribes your voice to log meals hands-free.</string>
+	<string>Sanora transcribes your voice to log meals hands-free.</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Bodi reads steps, heart rate and sleep from Apple Health to build your daily health score.</string>
+	<string>Sanora reads steps, heart rate and sleep from Apple Health to build your daily health score.</string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>Bodi can save workouts you complete to Apple Health.</string>
+	<string>Sanora can save workouts you complete to Apple Health.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Bodi</string>
+	<string>Sanora</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
