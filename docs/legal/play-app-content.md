@@ -11,14 +11,22 @@ Read **§0 Blockers** first. Four of them stop the submission outright.
 
 ## 0. Blockers — resolve before filing
 
-| # | Blocker | Evidence |
+| # | Blocker | Status |
 |---|---|---|
-| 1 | **No publicly hosted privacy policy URL.** Play requires a live URL; Health Connect review requires one that explicitly covers Health Connect data. The policy exists as in-app text only. | `docs/legal/privacy-policy.md:425` (TODO), `app/lib/features/legal/legal_content.dart:446,448` |
-| 2 | **No web account-deletion URL.** Required for any app that allows account creation, in addition to the in-app path (which exists and works). | No such URL anywhere in repo |
-| 3 | **Privacy policy contradicts the code.** The policy states Google "never sees your email address, your account identifier or your name". The coach function sends the entire profile JSON — which contains `name` — straight to Gemini. Either strip identifiers server-side or correct the policy. | Policy: `app/lib/features/legal/legal_content.dart:245-246`. Code: `app/lib/data/ai/ai_service.dart:120` → `supabase/functions/ai-coach/index.ts:31` (`JSON.stringify(body.profile)`), name at `app/lib/domain/models/user_profile.dart:12` |
-| 4 | **Legal entity, address and contact emails are still `TODO`** in the policy and terms. | `docs/legal/privacy-policy.md:32-35`, `docs/legal/terms-of-service.md:18-20,239-240` |
-| 5 | No reviewer test account exists yet (needed for App access — see §2). | — |
-| 6 | **The `.aab`/`.ipa` built on 21 Jul have no Supabase credentials** — built without `--dart-define-from-file`, so `AppConfig.hasSupabase` is false and the build is offline-only: no account, no community, no AI. Rebuild before uploading. | `app/lib/core/config/app_config.dart:7-11`, `docs/DEPLOYMENT.md:100` |
+| 1 | Publicly hosted privacy policy URL | **Done** — https://micheduc25.github.io/Sanora/privacy/ . Section 4.5 covers Apple Health and Health Connect specifically, which is what Health Connect review checks for. |
+| 2 | Web account-deletion URL | **Done** — https://micheduc25.github.io/Sanora/delete-account/ |
+| 3 | Privacy policy contradicted the code on what Gemini receives | **Done** — the backend now strips `name`, `email`, `phone` and account identifiers from the profile before calling Gemini (`supabase/functions/_shared/mod.ts`, applied in `ai-coach` and `generate-workout`), and the policy describes exactly that. |
+| 4 | Legal entity, address and contact emails | **Done** — controller is Ndjock Michel Junior, individual developer, Cameroon; contact ndjockjunior@gmail.com; postal address on request. |
+| 5 | **No reviewer test account exists yet** (needed for App access — see §2). | Open |
+| 6 | **The `.aab`/`.ipa` built on 21 Jul have no Supabase credentials** — built without `--dart-define-from-file`, so `AppConfig.hasSupabase` is false and the build is offline-only: no account, no community, no AI. Rebuild before uploading. | Open — `app/lib/core/config/app_config.dart:7-11`, `docs/DEPLOYMENT.md:100` |
+| 7 | **Cameroonian cross-border transfer authorisation.** Article 32 of Law No. 2024/017 makes every transfer Sanora performs (Supabase in France, Gemini and Sentry in the US) subject to prior authorisation from the APDP; Article 60 prices an unauthorised transfer at XAF 10–50 m. The APDP is not yet constituted (Art. 53(2) leaves it to a presidential decree), so the application cannot be filed. Not a Play blocker; a Cameroonian compliance exposure to monitor. | Open — watch for the decree |
+
+**URLs to paste into the console**
+
+- Privacy policy: `https://micheduc25.github.io/Sanora/privacy/`
+- Account deletion: `https://micheduc25.github.io/Sanora/delete-account/`
+- Terms of service: `https://micheduc25.github.io/Sanora/terms/`
+- Health disclaimer: `https://micheduc25.github.io/Sanora/health-disclaimer/`
 
 Non-blocking but worth fixing: `flutter_secure_storage` is a declared dependency
 that is never used (`app/pubspec.yaml:37`); the Supabase session token lives in
