@@ -271,7 +271,7 @@ Confirmed absent from the merged release manifest and from every dependency.
 | Question | Answer |
 |---|---|
 | Is all user data encrypted in transit? | **Yes** — every network call goes to `https://` Supabase endpoints; no cleartext endpoint exists anywhere in the code |
-| Do you provide a way for users to request that their data be deleted? | **Yes** — in-app: Profile → Delete account (`app/lib/features/profile/profile_screen.dart:260-306` → `delete_account` RPC, `supabase/migrations/20260721000004_metering_and_account_deletion.sql:54-76`). **A web deletion URL is still required and does not exist — see §0.** |
+| Do you provide a way for users to request that their data be deleted? | **Yes** — in-app: Profile → Delete account (`app/lib/features/profile/profile_screen.dart:260-306` → `delete_account` RPC, `supabase/migrations/20260721000004_metering_and_account_deletion.sql:54-76`). Web deletion URL, which Play requires in addition: https://micheduc25.github.io/Sanora/delete-account/ |
 | Has your app been independently reviewed against a security standard? | No |
 | Committed to Play Families Policy | N/A (18+) |
 
@@ -298,7 +298,7 @@ be consistent with what the policy says.
 
 | Data type | Collected | Shared | Optional? | Purposes | Notes / evidence |
 |---|---|---|---|---|---|
-| **Name** | Yes | No | Optional | App functionality, Personalisation, Account management | `profiles.data`; also reaches Gemini — see §0 blocker 3 |
+| **Name** | Yes | No | Optional | App functionality, Personalisation, Account management | Stored in `profiles.data`. Stripped by the backend before any AI request, so it never reaches Gemini |
 | **Email address** | Yes | No | Optional | App functionality, Account management | Auth; also stored in `group_invites.invited_email` when a user invites someone |
 | **User IDs** | Yes | No | Optional | App functionality, Account management | Supabase `auth.users` id |
 | **Other personal info** | Yes | No | Optional | App functionality, Personalisation | Age and sex, collected in onboarding for BMR/TDEE (`onboarding_controller.dart:41`). Declaring these here is the conservative reading |
