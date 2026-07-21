@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Sanora</title>
+<meta name="description" content="How Sanora handles your health data: what is collected, who processes it, and how to delete it.">
+<link rel="canonical" href="https://micheduc25.github.io/Sanora/privacy/">
+<meta name="color-scheme" content="light dark">
+<style>
+:root {
+  --vital: #10a56d;
+  --canvas: #f7f8f6;
+  --surface: #ffffff;
+  --ink: #17211c;
+  --ink-muted: #5c6b63;
+  --line: #e6eae7;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --vital: #5cd6a6;
+    --canvas: #0e1512;
+    --surface: #151f1a;
+    --ink: #eef4f0;
+    --ink-muted: #9aab a2;
+    --ink-muted: #9aaba2;
+    --line: #24312b;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0 20px 80px;
+  background: var(--canvas);
+  color: var(--ink);
+  font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 46rem; margin: 0 auto; }
+header.site {
+  display: flex; align-items: center; gap: 12px;
+  padding: 28px 0 24px; border-bottom: 1px solid var(--line); margin-bottom: 36px;
+}
+header.site .mark {
+  width: 34px; height: 34px; border-radius: 11px; flex: none;
+  background: var(--vital); color: #fff; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+header.site a { color: inherit; text-decoration: none; font-weight: 600; }
+h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 8px; letter-spacing: -0.02em; }
+h2 {
+  font-size: 1.3rem; margin: 2.4em 0 0.6em; letter-spacing: -0.01em;
+  padding-top: 0.6em; border-top: 1px solid var(--line);
+}
+h3 { font-size: 1.05rem; margin: 1.8em 0 0.4em; }
+p, li { color: var(--ink); }
+ul { padding-left: 1.2em; }
+li { margin: 0.35em 0; }
+a { color: var(--vital); }
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 5px; padding: 0.1em 0.35em;
+}
+.meta {
+  color: var(--ink-muted); font-size: 0.92rem;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 14px; padding: 14px 18px; margin: 0 0 28px;
+}
+.meta ul { margin: 0; padding-left: 1.1em; }
+footer.site {
+  margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+  color: var(--ink-muted); font-size: 0.9rem;
+}
+footer.site a { margin-right: 14px; }
+.cards { display: grid; gap: 14px; margin: 28px 0; }
+.card {
+  display: block; padding: 18px 20px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 16px;
+  text-decoration: none; color: inherit;
+}
+.card:hover { border-color: var(--vital); }
+.card strong { display: block; font-size: 1.05rem; margin-bottom: 3px; }
+.card span { color: var(--ink-muted); font-size: 0.94rem; }
+.steps { counter-reset: step; list-style: none; padding: 0; }
+.steps li {
+  counter-increment: step; position: relative;
+  padding-left: 42px; margin: 0 0 18px;
+}
+.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: -1px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--vital); color: #fff; font-weight: 600; font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <div class="mark">S</div>
+  <a href="https://micheduc25.github.io/Sanora/">Sanora</a>
+</header>
+<h1>Privacy Policy</h1>
+<p><strong>Sanora — Know Your Body</strong>, published by Ndjock Michel Junior under the name Innovation Cameroon.</p>
+<div class="meta"><ul><li>Effective date: 21 July 2026</li><li>Applies to: Sanora mobile app version 1.0.0 and later</li></ul></div>
+<h2>1. In short</h2>
+<p>Sanora is a personal health companion. It is built offline-first: you can use it without an account, and in that case nothing you enter ever leaves your phone.</p>
+<p>If you create an account, your health data is synchronised to our database so you can recover it on a new device. That database is hosted in France and every row is locked to you by row-level security — no other user, and no unauthorised service, can read it.</p>
+<p>Some features send data to Google's Gemini API so an AI model can answer you. We tell you exactly which ones below, in section 6.</p>
+<p>We do not sell your data. We do not use it for advertising. We do not build profiles for anyone other than you.</p>
+<h2>2. Who is responsible for your data</h2>
+<p>Sanora is built and operated by <strong>Ndjock Michel Junior</strong>, an individual developer based in Cameroon, who is the data controller — the *responsable du traitement* — for the personal data described in this policy. Innovation Cameroon is the name Sanora is published under; it is not a separate legal entity.</p>
+<ul><li>Data controller: Ndjock Michel Junior, individual developer, Cameroon</li><li>Privacy contact and data requests: ndjockjunior@gmail.com</li><li>Data protection officer: none appointed. Sanora is run by one person, who handles every request to this address personally.</li></ul>
+<p>Cameroonian law applies to this processing: Law No. 2024/017 of 23 December 2024 on the protection of personal data covers, under its Article 2, any processing carried out by a controller established in Cameroon and any processing of the data of a person established, resident or in transit in Cameroon. Where you are in the European Economic Area or the United Kingdom, the GDPR applies to you in addition, and we honour it.</p>
+<p>If you write to the address above about your data, you will get an answer within 30 days.</p>
+<h2>3. Using Sanora without an account</h2>
+<p>Sanora runs fully offline. Until you sign in:</p>
+<ul><li>Everything you record is stored only in a local database on your device.</li><li>No health data is transmitted anywhere.</li><li>AI features are unavailable, because they require a signed-in request to our backend.</li></ul>
+<p>If you never sign in, sections 5 to 8 of this policy do not apply to you. The only way to erase your data in that case is to use <strong>Delete my data</strong> in the app or to uninstall Sanora.</p>
+<h2>4. What Sanora collects</h2>
+<h3>4.1 Account data</h3>
+<ul><li>Email address and password. Your password is handled by Supabase Auth and stored only as a hash; we never see it.</li><li>Account identifier, sign-up date and sign-in timestamps.</li><li>Email confirmation and password-reset messages sent to your address.</li></ul>
+<h3>4.2 Health and profile data you enter</h3>
+<p>This is health data. Under the GDPR it is a special category of personal data and receives the extra protections described in section 9.</p>
+<p>Profile:</p>
+<ul><li>Name (optional), age, sex, height, weight</li><li>Waist and hip circumference, body fat percentage</li><li>Occupation, work schedule, country, language</li><li>Activity level, exercise days per week, typical sleep hours, stress level</li><li>Medical conditions, medications, allergies</li><li>Food preferences and favourite foods</li><li>Goals (for example fat loss, better sleep, disease prevention) and target weight, waist, body fat and target date</li></ul>
+<p>Measurements you log over time, each with a value, an optional note and a timestamp:</p>
+<ul><li>Weight, waist, hip, body fat percentage</li><li>Blood pressure (systolic and diastolic), blood sugar</li><li>Resting heart rate</li><li>Sleep duration</li><li>Mood, stress, energy</li><li>Water intake, steps</li><li>Symptoms and medication taken</li></ul>
+<p>Meals:</p>
+<ul><li>Meal name, meal type, and how it was logged (photo, text, voice, food database or a saved favourite)</li><li>Identified food components and quantities</li><li>Derived nutrition: calories, protein, fat, carbohydrate, fibre, sugar, sodium and selected micronutrients</li><li>The AI's confidence score, its notes, and any suggested healthier swaps</li><li>Whether you marked the meal as a favourite, and when you ate it</li></ul>
+<p>Habits, workouts and reminders:</p>
+<ul><li>Habit names, emoji, descriptions, schedules, daily targets, and each completion you log</li><li>Workouts: name, category, difficulty, duration, estimated calories, the exercise list, and whether you completed it</li><li>Reminders: kind, title, body text, time of day, days of the week, and whether the reminder is enabled</li></ul>
+<p>Coach conversations:</p>
+<ul><li>Every message you send to the AI coach and every reply it gives, with timestamps.</li></ul>
+<h3>4.3 Data Sanora calculates about you</h3>
+<p>Sanora derives a health profile from what you enter. These derived values are stored alongside your profile and are also health data:</p>
+<ul><li>Body mass index and BMI category</li><li>Estimated body fat percentage</li><li>Basal metabolic rate and total daily energy expenditure</li><li>Daily calorie, protein, carbohydrate, fat and water targets</li><li>Step goal, weekly exercise minutes, sleep goal</li><li>Healthy weight range</li><li>Waist-to-height and waist-to-hip ratios</li><li>Visceral fat risk band, metabolic health score and lifestyle risk score</li></ul>
+<p>These are estimates from published formulas, not diagnoses. See the Health Disclaimer.</p>
+<h3>4.4 Meal photos</h3>
+<p>Meal photos are treated differently from everything else.</p>
+<ul><li>The photo file is saved <strong>only on your device</strong>. It is never uploaded to our database or our file storage, and it is never included in a sync.</li><li>However, when you ask Sanora to analyse a meal from a photo, the image is transmitted for that single request to our backend and on to Google, so the model can identify the food. Along with the image we send your country, your allergies and your food preferences, so the estimate fits what you actually eat.</li><li>Neither we nor Google store the image after the request completes. What is saved afterwards is only the derived nutrition described in section 4.2.</li></ul>
+<p>If you would rather no image ever leave the device, describe the meal in text or pick it from the food database instead of using the camera.</p>
+<h3>4.5 Data from Apple Health and Health Connect</h3>
+<p>If you connect Sanora to Apple Health (iOS) or Health Connect (Android), Sanora reads:</p>
+<ul><li>Steps</li><li>Active energy burned</li><li>Heart rate</li><li>Sleep</li><li>Distance</li></ul>
+<p>Sanora only reads from these stores; it does not write anything back to them. Connecting is optional and you can revoke it at any time in your platform's health settings — Sanora then falls back to what you log manually. Data read this way is used to fill in your dashboard and your weekly report.</p>
+<p>Health Connect and Apple Health data is never sent to advertisers or sold, and is used only to provide the features described in this policy.</p>
+<h3>4.6 Community data</h3>
+<p>If you use the community features, other users can see a limited amount of information:</p>
+<ul><li>Friend requests you send or accept, and the accounts involved</li><li>Groups you create or join, their name and description, and the member list</li><li>Challenges you create or join, and your progress figure in each challenge you have joined</li></ul>
+<p>Your measurements, meals, coach conversations and health profile are <strong>never</strong> shared with friends or groups.</p>
+<h3>4.7 Technical and usage data</h3>
+<ul><li>A daily counter of how many AI requests your account has made, used only to enforce the free-tier allowance.</li><li>Your subscription tier and its expiry date.</li><li>Crash and error reports, if crash reporting is enabled in the build you installed. See section 6.3.</li></ul>
+<h3>4.8 Device permissions Sanora may ask for</h3>
+<ul><li><strong>Camera and photo library</strong> — to photograph or pick a meal image.</li><li><strong>Microphone and speech recognition</strong> — to describe a meal by voice. Speech is transcribed by your operating system's speech recognition. Depending on your device and platform settings, your OS may process that audio on its own servers under Apple's or Google's privacy policy rather than ours.</li><li><strong>Notifications</strong> — to deliver the reminders you create.</li><li><strong>Physical activity</strong> — to read step data.</li></ul>
+<p>Each of these is optional, requested only when you first use the feature, and revocable in your device settings.</p>
+<h2>5. What Sanora does not collect</h2>
+<ul><li>We do not collect your precise location, and Sanora requests no location permission.</li><li>We do not use advertising identifiers, advertising SDKs or third-party analytics or tracking SDKs.</li><li>We do not sell, rent or share personal data with data brokers.</li><li>We do not use your health data to train any AI model, and we do not permit our AI provider to do so.</li></ul>
+<h2>6. Who your data is shared with</h2>
+<p>We use a small number of processors. Each acts on our instructions only.</p>
+<h3>6.1 Supabase — database, authentication, file storage and backend functions</h3>
+<p>Your account and every synchronised row live in a Supabase-managed PostgreSQL database hosted in the <strong>eu-west-3 (Paris, France)</strong> region. Supabase also provides authentication and runs our backend functions.</p>
+<p>Every table containing personal data is protected by PostgreSQL row-level security policies that restrict access to the owning user, enforced by the database itself rather than by the app.</p>
+<h3>6.2 Google (Gemini API) — AI features</h3>
+<p>Four features call Google's Gemini API. The request is always made by our backend, never by the app: the app never holds a Gemini key, and Google never sees your email address or your account identifier.</p>
+<p>Your <strong>name is removed from your profile by our backend before the request leaves it</strong>, along with any e-mail address, phone number or account identifier the profile might carry. The stripping happens on the server rather than on your phone, so it applies to every version of the app. What Google receives is a health profile without a person's name attached to it.</p>
+<p>What is sent, per feature:</p>
+<ul><li><strong>AI coach</strong> — your profile, your calculated health profile, a summary of today's activity, and up to the last 20 messages of the conversation.</li><li><strong>Meal analysis</strong> — the meal photo and/or your text description, plus your country, allergies and food preferences.</li><li><strong>Insight generation</strong> — your recent metrics and logged activity.</li><li><strong>Workout generation</strong> — your profile, your calculated health profile, and the workout category and duration you chose.</li></ul>
+<p>Google processes these requests as our processor via the Gemini API. Data sent through the paid Gemini API is not used to train Google's models.</p>
+<p>If you never use the coach, meal photo or text analysis, insights or workout generation, no data is sent to Google.</p>
+<h3>6.3 Sentry — crash reporting (conditional)</h3>
+<p>Crash reporting is a build-time option. It is active only in builds where a Sentry DSN was configured; in local, debug and unconfigured builds it is entirely off and no crash data is transmitted.</p>
+<p>Where it is active:</p>
+<ul><li>We explicitly disable the sending of personally identifiable information.</li><li>Crash reports contain the error, a stack trace, and device and app version information — not request bodies, not your entries and not your conversations.</li><li>Roughly one in five sessions is sampled for performance tracing.</li></ul>
+<h3>6.4 App stores and platform providers</h3>
+<p>Apple and Google operate the app stores through which you install Sanora and handle any purchase you make. Their handling of that transaction is governed by their own privacy policies, not this one.</p>
+<h3>6.5 Legal disclosure</h3>
+<p>We may disclose data where we are legally required to do so by a valid order from a competent authority, or where it is necessary to establish, exercise or defend legal claims. We will not disclose more than the request requires.</p>
+<h2>7. Why we process your data, and on what legal basis</h2>
+<ul><li><strong>To provide the app's core features</strong> — recording your data, computing your targets, showing your dashboard, syncing across devices. Basis: performance of our contract with you (GDPR Art. 6(1)(b)), and for health data your explicit consent (Art. 9(2)(a)), given when you enter that data during onboarding.</li><li><strong>To run AI coaching, meal analysis, insights and workouts.</strong> Basis: your explicit consent (Art. 9(2)(a)) and performance of the contract. These features are optional and only run when you invoke them.</li><li><strong>To manage your account, authenticate you and reset your password.</strong> Basis: performance of the contract.</li><li><strong>To enforce the free-tier AI allowance and manage subscriptions.</strong> Basis: performance of the contract and our legitimate interest in preventing abuse and controlling cost (Art. 6(1)(f)).</li><li><strong>To keep the app working and diagnose crashes.</strong> Basis: our legitimate interest in a reliable, secure product (Art. 6(1)(f)).</li><li><strong>To provide community features you opt into.</strong> Basis: your consent, given by choosing to send a friend request, join a group or join a challenge.</li></ul>
+<p>You can withdraw consent at any time by deleting your account (section 11), by disconnecting Apple Health or Health Connect, or by simply not using the optional features. Withdrawing consent does not affect processing that already happened.</p>
+<h2>8. Where your data is processed</h2>
+<ul><li><strong>On your device</strong> — always. Sanora's local database is the primary copy.</li><li><strong>France (eu-west-3)</strong> — Supabase database, authentication, storage and backend functions.</li><li><strong>United States</strong> — Google processes AI requests via the Gemini API. Sentry, where enabled, may process crash data outside the EU.</li></ul>
+<p>Transfers outside the European Economic Area rely on the European Commission's Standard Contractual Clauses in our agreements with those providers.</p>
+<p>If you are in Cameroon, note that your data is stored outside Cameroon, in France, and that AI requests and crash reports are processed in the United States.</p>
+<p>Cameroonian law treats that as an international transfer. Under Article 32 of Law No. 2024/017 of 23 December 2024, transferring personal data to a foreign State or an international organisation requires prior authorisation from the Autorité de protection des données à caractère personnel, which must satisfy itself that the destination offers sufficient protection and that the parties have signed the standard contractual clauses it issues.</p>
+<p>That Authority is created by Article 53 of the same law, and Article 53(2) leaves its creation, organisation and functioning to a decree of the President of the Republic. At the effective date of this policy that decree has not been published, so the Authority is not yet able to receive an application, publish its standard clauses or grant the authorisation. We will apply for it as soon as it can be applied for. Until then we rely on your consent, we transfer only what the features you use require, and our agreements with Supabase, Google and Sentry bind them to process the data solely on our instructions.</p>
+<p>We will tell you in the app if this position changes.</p>
+<h2>9. Special protection for health data</h2>
+<p>Because Sanora handles health data, we apply the following in addition to everything above:</p>
+<ul><li>Row-level security on every personal table, verified by an isolation test that runs in our continuous integration pipeline on every change to the database schema.</li><li>All traffic between the app, our backend and our processors is encrypted in transit with TLS.</li><li>Data at rest is encrypted by our hosting provider.</li><li>The Gemini API key exists only in the backend function environment. A copy of the app, decompiled, contains no key and cannot call Google directly.</li><li>Crash reports are configured never to carry personal data.</li><li>Meal photographs are never persisted on our servers.</li></ul>
+<h2>10. How long we keep your data</h2>
+<ul><li><strong>Your health, profile, meal, habit, workout, reminder and coach data</strong>: kept until you delete it, or until you delete your account. We do not apply an automatic expiry, because your history is the point of a health app — a two-year-old weight reading is what makes a trend meaningful.</li><li><strong>Account records</strong>: kept for as long as the account exists.</li><li><strong>AI usage counters</strong>: one row per account per day.</li><li><strong>Crash reports</strong>: retained according to our crash reporting provider's default retention period, typically 90 days.</li><li><strong>On-device data</strong>: stays on your device until you delete your account, use <strong>Delete my data</strong>, or uninstall the app.</li><li><strong>Backups</strong>: our hosting provider takes routine encrypted backups. Deleted data may persist in a backup for a short period before that backup rotates out, but it is not restored to the live system.</li></ul>
+<ul><li><strong>Subscription records</strong>: the store transaction identifier and expiry date we use to know whether your account is Premium, kept while the account exists. We hold no billing record beyond that — Apple and Google take the payment, issue the invoice and keep the accounting record, each under their own retention rules.</li></ul>
+<h2>11. Your rights, and how to use them</h2>
+<p>You have the right to access your data, to correct it, to erase it, to receive it in a portable format, to restrict or object to processing, and to withdraw consent. Some of these are built directly into the app.</p>
+<h3>Access and correction</h3>
+<p>Everything Sanora holds about you is visible in the app: your profile, your measurement history, your meals, your habits, your workouts and your coach conversations. You can edit your profile and measurements at any time.</p>
+<h3>Export</h3>
+<p><strong>Reports → share</strong> generates a weekly health report as a PDF you can save or send anywhere.</p>
+<p>For a complete machine-readable export of everything in your account, contact us at the privacy address in section 2. We will send it within 30 days, free of charge.</p>
+<h3>Erasure</h3>
+<p>Sanora has a real, in-app, self-service delete. Go to <strong>You → Delete my data</strong> and confirm.</p>
+<p>That runs, in this order:</p>
+<p>1. A <code>delete_account</code> function inside our database, which first deletes any file stored under your account's folder in our meal photo storage bucket, then deletes your authentication record. Every table holding your data references that record with <code>on delete cascade</code>, so your profile, measurements, meals, habits, habit logs, coach messages, reminders, workouts, AI usage counters, subscription record, friendships, group memberships and challenge entries are all removed by the database in the same transaction. 2. Sign-out. 3. A wipe of the local database on your device.</p>
+<p>The server side runs first on purpose: if it fails, you are told, and nothing is wiped locally, so you are never left with a wiped phone and a live account.</p>
+<p>This is irreversible. There is no recovery and no grace period. Export anything you want to keep first.</p>
+<h3>Complaints</h3>
+<p>If you believe we have handled your data improperly, please contact us first — we would rather fix it. You also have the right to complain to a supervisory authority, and contacting us first is not a precondition for doing so.</p>
+<ul><li><strong>In Cameroon</strong>, that is the Autorité de protection des données à caractère personnel, created by Article 53 of Law No. 2024/017 of 23 December 2024, which handles complaints from data subjects. As explained in section 8, the decree establishing it had not been published at this policy's effective date; Article 62 of the same law also lets you go directly to the competent court, including on an urgent basis, if your rights are seriously affected.</li><li><strong>In the EEA or the UK</strong>, the data protection authority of the country where you live or work.</li></ul>
+<h2>12. Children</h2>
+<p>Sanora is intended for adults. It is not for anyone under 18, it is listed for an adult audience in the app stores, and we do not knowingly collect data from children. Sanora's calculations — BMI categories, calorie targets, body fat estimates — are derived from formulas validated in adults and are not appropriate for children or adolescents.</p>
+<p>If you believe a child has created an account, contact us and we will delete it.</p>
+<h2>13. Automated decision-making</h2>
+<p>Sanora calculates scores and targets automatically, and the AI coach generates personalised suggestions. None of this produces a legal or similarly significant effect on you within the meaning of GDPR Art. 22: nothing here decides your access to credit, employment, insurance, care or any service. It is informational guidance you are free to ignore, and it is not medical advice.</p>
+<h2>14. Changes to this policy</h2>
+<p>If we change how we handle your data in a way that materially affects you, we will notify you in the app before the change takes effect and update the effective date above. Continuing to use Sanora after that means you accept the updated policy.</p>
+<h2>15. Contact</h2>
+<ul><li>Privacy enquiries and data requests: ndjockjunior@gmail.com</li><li>Postal address: available on request to the address above</li><li>Online version of this policy: <a href="https://micheduc25.github.io/Sanora/privacy/">https://micheduc25.github.io/Sanora/privacy/</a></li><li>Request account deletion: <a href="https://micheduc25.github.io/Sanora/delete-account/">https://micheduc25.github.io/Sanora/delete-account/</a></li></ul>
+<footer class="site">
+<a href="https://micheduc25.github.io/Sanora/privacy/">Privacy</a><a href="https://micheduc25.github.io/Sanora/terms/">Terms</a><a href="https://micheduc25.github.io/Sanora/health-disclaimer/">Health disclaimer</a><a href="https://micheduc25.github.io/Sanora/delete-account/">Delete your account</a>
+<p>Sanora is published by Ndjock Michel Junior (Innovation Cameroon).
+Contact: <a href="mailto:ndjockjunior@gmail.com">ndjockjunior@gmail.com</a></p>
+</footer>
+</div>
+</body>
+</html>

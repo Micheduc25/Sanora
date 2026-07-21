@@ -7,6 +7,7 @@ import {
   json,
   outputText,
   requireUser,
+  withoutIdentifiers,
 } from "../_shared/mod.ts";
 
 interface WorkoutRequest {
@@ -64,7 +65,7 @@ Deno.serve(async (req) => {
         parts: [{
           text:
             `You are a certified fitness coach. Design a safe, effective ${body.category} workout of about ${body.duration_minutes} minutes, personalized to the user's fitness level, goals, age and medical conditions. Favor progressions over impact for beginners; always include an implicit warm-up as the first exercise and a cool-down/stretch as the last. Estimate calories for the user's body weight.
-User profile: ${JSON.stringify(body.profile)}
+User profile: ${JSON.stringify(withoutIdentifiers(body.profile))}
 Health profile: ${JSON.stringify(body.health)}`,
         }],
       },

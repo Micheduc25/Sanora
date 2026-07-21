@@ -8,6 +8,7 @@ import {
   SseDecoder,
   streamedText,
   streamStop,
+  withoutIdentifiers,
 } from "../_shared/mod.ts";
 
 interface CoachRequest {
@@ -28,7 +29,7 @@ Principles:
 - You are not a doctor. For symptoms, medication changes or red-flag signs, advise seeing a healthcare professional.
 - Account for their medical conditions, medications and allergies in every suggestion.
 
-User profile (JSON): ${JSON.stringify(body.profile)}
+User profile (JSON): ${JSON.stringify(withoutIdentifiers(body.profile))}
 Computed health profile (JSON): ${JSON.stringify(body.health)}
 Today so far (JSON): ${JSON.stringify(body.today)}`;
 }

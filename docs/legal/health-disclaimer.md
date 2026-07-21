@@ -1,12 +1,10 @@
 # Health Disclaimer
 
-**Sanora — Know Your Body**, published by Innovation Cameroon.
+**Sanora — Know Your Body**, published by Ndjock Michel Junior under the name
+Innovation Cameroon.
 
 - Effective date: 21 July 2026
 - Applies to: Sanora mobile app version 1.0.0 and later
-
-This is a draft prepared for legal review. It has not been reviewed by a
-qualified lawyer or a clinician and is not a substitute for either.
 
 ## 1. Read this first
 
@@ -130,9 +128,11 @@ can cause real harm. This list is not exhaustive.
   designed for pregnancy and should not be followed during it.
 - **An eating disorder, or any history of one.** Calorie targets, weight goals,
   body fat percentages and food logging can trigger or worsen anorexia, bulimia,
-  binge eating disorder and orthorexia. If tracking numbers makes you feel worse,
-  stop, and please talk to someone. TODO: insert a local Cameroonian and regional
-  crisis or mental health support contact here, verified before publication.
+  binge eating disorder and orthorexia. If tracking numbers makes you feel
+  worse, stop using those features and talk to someone — your doctor, a mental
+  health professional, or someone close to you. If you are in immediate danger,
+  go to the nearest hospital emergency department. We would rather you delete
+  this app than use it to hurt yourself.
 - **Diabetes, prediabetes, or any use of insulin or glucose-lowering
   medication.** Sanora's carbohydrate figures are estimates and are not safe for
   insulin dosing. Changing your intake or activity can change your glucose and
@@ -188,5 +188,5 @@ By using Sanora you acknowledge that:
 If something in Sanora does not seem right for your situation, trust your
 clinician over the app.
 
-- Contact: TODO: support contact email address
-- Online version of this disclaimer: TODO: public URL where this disclaimer is hosted
+- Contact: ndjockjunior@gmail.com
+- Online version of this disclaimer: https://micheduc25.github.io/Sanora/health-disclaimer/

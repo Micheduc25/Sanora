@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Health Disclaimer — Sanora</title>
+<meta name="description" content="What Sanora&#x27;s numbers mean, what they do not mean, and when to see a clinician.">
+<link rel="canonical" href="https://micheduc25.github.io/Sanora/health-disclaimer/">
+<meta name="color-scheme" content="light dark">
+<style>
+:root {
+  --vital: #10a56d;
+  --canvas: #f7f8f6;
+  --surface: #ffffff;
+  --ink: #17211c;
+  --ink-muted: #5c6b63;
+  --line: #e6eae7;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --vital: #5cd6a6;
+    --canvas: #0e1512;
+    --surface: #151f1a;
+    --ink: #eef4f0;
+    --ink-muted: #9aab a2;
+    --ink-muted: #9aaba2;
+    --line: #24312b;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0 20px 80px;
+  background: var(--canvas);
+  color: var(--ink);
+  font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 46rem; margin: 0 auto; }
+header.site {
+  display: flex; align-items: center; gap: 12px;
+  padding: 28px 0 24px; border-bottom: 1px solid var(--line); margin-bottom: 36px;
+}
+header.site .mark {
+  width: 34px; height: 34px; border-radius: 11px; flex: none;
+  background: var(--vital); color: #fff; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+header.site a { color: inherit; text-decoration: none; font-weight: 600; }
+h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 8px; letter-spacing: -0.02em; }
+h2 {
+  font-size: 1.3rem; margin: 2.4em 0 0.6em; letter-spacing: -0.01em;
+  padding-top: 0.6em; border-top: 1px solid var(--line);
+}
+h3 { font-size: 1.05rem; margin: 1.8em 0 0.4em; }
+p, li { color: var(--ink); }
+ul { padding-left: 1.2em; }
+li { margin: 0.35em 0; }
+a { color: var(--vital); }
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 5px; padding: 0.1em 0.35em;
+}
+.meta {
+  color: var(--ink-muted); font-size: 0.92rem;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 14px; padding: 14px 18px; margin: 0 0 28px;
+}
+.meta ul { margin: 0; padding-left: 1.1em; }
+footer.site {
+  margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+  color: var(--ink-muted); font-size: 0.9rem;
+}
+footer.site a { margin-right: 14px; }
+.cards { display: grid; gap: 14px; margin: 28px 0; }
+.card {
+  display: block; padding: 18px 20px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 16px;
+  text-decoration: none; color: inherit;
+}
+.card:hover { border-color: var(--vital); }
+.card strong { display: block; font-size: 1.05rem; margin-bottom: 3px; }
+.card span { color: var(--ink-muted); font-size: 0.94rem; }
+.steps { counter-reset: step; list-style: none; padding: 0; }
+.steps li {
+  counter-increment: step; position: relative;
+  padding-left: 42px; margin: 0 0 18px;
+}
+.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: -1px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--vital); color: #fff; font-weight: 600; font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="site">
+  <div class="mark">S</div>
+  <a href="https://micheduc25.github.io/Sanora/">Sanora</a>
+</header>
+<h1>Health Disclaimer</h1>
+<p><strong>Sanora — Know Your Body</strong>, published by Ndjock Michel Junior under the name Innovation Cameroon.</p>
+<div class="meta"><ul><li>Effective date: 21 July 2026</li><li>Applies to: Sanora mobile app version 1.0.0 and later</li></ul></div>
+<h2>1. Read this first</h2>
+<p>Sanora is a wellness and self-tracking app. Everything it shows you — every score, target, category and coaching message — is <strong>informational guidance, not medical advice</strong>.</p>
+<p>Sanora does not diagnose. It does not treat. It does not prescribe. It cannot examine you, it cannot order a blood test, and it does not know anything about you that you did not type in.</p>
+<p><strong>Sanora is not a medical device</strong> and is not certified, cleared or approved as one by any regulator. No output should be read as a diagnosis or a clinical finding.</p>
+<p><strong>Always consult a qualified healthcare professional</strong> before starting or changing a diet, an exercise programme, a fasting regime, a supplement, or any medication. Never delay seeking medical advice, or disregard advice you have been given, because of something Sanora told you.</p>
+<p><strong>If you have symptoms that worry you — chest pain, breathlessness, fainting, severe or persistent pain, confusion, or any sudden change in your condition — stop using the app for guidance and seek medical care immediately.</strong> Sanora cannot recognise an emergency and will not call anyone for you.</p>
+<h2>2. What Sanora calculates, and what those numbers actually are</h2>
+<p>Sanora computes the following from what you enter. Each is an estimate produced by a published population-level formula. Population formulas describe averages; they do not describe you.</p>
+<p><strong>Body mass index (BMI) and BMI category.</strong> Weight divided by height squared, banded using WHO thresholds. BMI takes no account of muscle mass, bone density, body composition or ethnicity. A muscular person is routinely classified "overweight" by BMI, and the standard thresholds are known to perform differently across ethnic groups, including African and South Asian populations. Treat the category as a rough bucket, not a verdict.</p>
+<p><strong>Estimated body fat percentage.</strong> Estimated using Relative Fat Mass (Woolcott and Bergman, 2018) when you have entered a waist measurement, and the Deurenberg equation otherwise. This is an estimate from a tape measure and arithmetic, not a DEXA scan, and individual error can be several percentage points. Accuracy depends heavily on measuring your waist consistently and correctly.</p>
+<p><strong>Basal metabolic rate (BMR) and total daily energy expenditure (TDEE).</strong> BMR uses Mifflin-St Jeor, or Katch-McArdle where a body fat percentage is known. TDEE multiplies BMR by an activity factor you selected yourself. Real individual metabolic rate commonly varies from these predictions by 10 percent or more in either direction, and the activity multiplier is a self-assessment, not a measurement.</p>
+<p><strong>Calorie target.</strong> Derived from your TDEE and your stated goal: a deficit of 20 percent capped at 500 kcal for fat loss, a surplus of 10 percent capped at 300 kcal for muscle gain, maintenance otherwise. A floor is applied — 1200 kcal for women, 1500 kcal for men — so the app will not suggest a very-low-calorie intake. Very-low-calorie diets can be appropriate in some clinical situations, but only under medical supervision, and Sanora will not put you on one.</p>
+<p><strong>Protein target.</strong> 1.8 g per kg of reference body weight when you are losing fat or building muscle, 1.2 g/kg otherwise, using the top of your healthy weight range as the reference where your weight is above it. <strong>If you have reduced kidney function or any kidney disease, do not follow a protein target from this app without speaking to your doctor.</strong></p>
+<p><strong>Carbohydrate and fat targets.</strong> Whatever the calorie budget has left once protein is accounted for, split conventionally. These are not tailored to any medical condition.</p>
+<p><strong>Water target.</strong> Roughly 35 ml per kg of body weight, bounded to a practical 1.5-4 litre range. <strong>If you have heart failure, kidney disease, or have been told to restrict your fluid intake, follow your clinician's instruction, not this number.</strong></p>
+<p><strong>Step goal, weekly exercise minutes and sleep goal.</strong> Derived from your stated activity level and goals, anchored on WHO general population guidance of 150-300 minutes of moderate activity per week. General population guidance is not an exercise prescription for a person with a cardiac, joint, respiratory or metabolic condition.</p>
+<p><strong>Waist-to-height and waist-to-hip ratios, and the visceral fat risk band.</strong> Computed from measurements you took yourself, using WHO cut-offs. A "high" band is a signal to discuss it with a clinician. It is not a diagnosis of visceral adiposity or of any disease.</p>
+<p><strong>Metabolic health score (0-100) and lifestyle risk score (0-100).</strong> These are Sanora's own composite indicators. They start from a baseline and apply weighted adjustments for your BMI band, central adiposity, activity level, sleep hours, stress level and any conditions you told us about. <strong>They are not clinically validated risk instruments.</strong> They are not equivalent to, and must not be used in place of, validated tools such as a cardiovascular risk calculator or a diabetes risk score. Their purpose is to give you one number that moves in the right direction when your habits improve — nothing more.</p>
+<p><strong>Nutrition estimates from meals.</strong> Calories and macronutrients from a photo or a text description are AI estimates with a confidence score attached. Portion size, cooking oil, preparation method and hidden ingredients are frequently wrong. Do not use them to calculate a medication dose, to count carbohydrates for insulin dosing, or to manage any condition where precise intake matters.</p>
+<h2>3. The AI coach</h2>
+<p>The coach is a large language model. It can be wrong, and it can be wrong confidently and fluently. It has no clinical training, no licence, and no way to verify anything you tell it.</p>
+<p>It is instructed to refer you to a healthcare professional for symptoms, medication changes and warning signs. Please act on that referral rather than asking it to elaborate.</p>
+<p>Do not ask the coach to interpret test results, adjust a medication, or tell you whether a symptom is serious. It is not qualified to answer, and neither is the app.</p>
+<h2>4. Speak to a clinician before using Sanora's targets if any of these apply</h2>
+<p>These are situations where a generic calorie, protein, water or exercise target can cause real harm. This list is not exhaustive.</p>
+<ul><li><strong>Pregnancy or breastfeeding.</strong> Energy and nutrient requirements differ substantially and BMI categories do not apply. Sanora's targets are not designed for pregnancy and should not be followed during it.</li><li><strong>An eating disorder, or any history of one.</strong> Calorie targets, weight goals, body fat percentages and food logging can trigger or worsen anorexia, bulimia, binge eating disorder and orthorexia. If tracking numbers makes you feel worse, stop using those features and talk to someone — your doctor, a mental health professional, or someone close to you. If you are in immediate danger, go to the nearest hospital emergency department. We would rather you delete this app than use it to hurt yourself.</li><li><strong>Diabetes, prediabetes, or any use of insulin or glucose-lowering medication.</strong> Sanora's carbohydrate figures are estimates and are not safe for insulin dosing. Changing your intake or activity can change your glucose and your medication requirement.</li><li><strong>Hypertension or any cardiovascular or cardiac condition.</strong> Exercise intensity and sodium intake need individual medical guidance. Blood pressure values you log in Sanora are a record you keep, not a reading Sanora has verified or interpreted.</li><li><strong>Kidney disease or reduced kidney function.</strong> Protein and fluid targets can be actively harmful.</li><li><strong>Liver disease, thyroid disease, or any other metabolic or endocrine condition.</strong></li><li><strong>Any chronic illness, recent surgery, injury, or a condition that limits exercise.</strong></li><li><strong>Any prescribed medication</strong>, particularly where it interacts with food, fluid, weight or physical activity.</li><li><strong>Anyone under 18.</strong> Sanora's formulas are validated in adults. Adult BMI categories, calorie targets and body fat equations are not appropriate for children or adolescents, who need growth-chart-based assessment by a paediatric clinician.</li><li><strong>Older adults</strong>, where nutritional needs, sarcopenia and fall risk change the picture materially.</li></ul>
+<h2>5. Data you record is a record, not a reading</h2>
+<p>When you log blood pressure, blood sugar, heart rate, weight, sleep, mood or a symptom, Sanora stores what you typed. It does not measure it, verify it, or interpret it clinically.</p>
+<p>Data read from Apple Health or Health Connect comes from your device and its sensors. Consumer wearables are not medical instruments; step counts, heart rate and sleep staging from them are approximations.</p>
+<p>Sanora does not monitor your data for danger. <strong>It will not alert you, your family, or any medical service if a value you enter is dangerous.</strong> Do not use Sanora as a safety net.</p>
+<h2>6. Your responsibility</h2>
+<p>By using Sanora you acknowledge that:</p>
+<ul><li>You use its guidance at your own risk.</li><li>You are responsible for decisions you make about your diet, exercise, medication and medical care.</li><li>You will consult a qualified healthcare professional before acting on Sanora's output where your health or a medical condition is involved.</li><li>Innovation Cameroon is not liable for outcomes arising from your reliance on the app's estimates, scores or AI output, to the extent permitted by law and as set out in the Terms of Service.</li></ul>
+<h2>7. Questions</h2>
+<p>If something in Sanora does not seem right for your situation, trust your clinician over the app.</p>
+<ul><li>Contact: ndjockjunior@gmail.com</li><li>Online version of this disclaimer: <a href="https://micheduc25.github.io/Sanora/health-disclaimer/">https://micheduc25.github.io/Sanora/health-disclaimer/</a></li></ul>
+<footer class="site">
+<a href="https://micheduc25.github.io/Sanora/privacy/">Privacy</a><a href="https://micheduc25.github.io/Sanora/terms/">Terms</a><a href="https://micheduc25.github.io/Sanora/health-disclaimer/">Health disclaimer</a><a href="https://micheduc25.github.io/Sanora/delete-account/">Delete your account</a>
+<p>Sanora is published by Ndjock Michel Junior (Innovation Cameroon).
+Contact: <a href="mailto:ndjockjunior@gmail.com">ndjockjunior@gmail.com</a></p>
+</footer>
+</div>
+</body>
+</html>

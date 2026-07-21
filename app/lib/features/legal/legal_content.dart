@@ -21,13 +21,11 @@ abstract final class LegalContent {
   static const privacyPolicy = r'''
 # Privacy Policy
 
-**Sanora — Know Your Body**, published by Innovation Cameroon.
+**Sanora — Know Your Body**, published by Ndjock Michel Junior under the name
+Innovation Cameroon.
 
 - Effective date: 21 July 2026
 - Applies to: Sanora mobile app version 1.0.0 and later
-
-This is a draft prepared for legal review. It has not been reviewed by a
-qualified lawyer and is not a substitute for one.
 
 ## 1. In short
 
@@ -47,13 +45,26 @@ profiles for anyone other than you.
 
 ## 2. Who is responsible for your data
 
-Innovation Cameroon is the data controller for the personal data described in
-this policy.
+Sanora is built and operated by **Ndjock Michel Junior**, an individual
+developer based in Cameroon, who is the data controller — the *responsable du
+traitement* — for the personal data described in this policy. Innovation
+Cameroon is the name Sanora is published under; it is not a separate legal
+entity.
 
-- Legal entity: TODO: exact registered legal name and company registration number
-- Registered address: TODO: full registered address
-- Privacy contact: TODO: privacy contact email address
-- Data protection officer: TODO: name and contact of the DPO, or state that no DPO has been appointed
+- Data controller: Ndjock Michel Junior, individual developer, Cameroon
+- Privacy contact and data requests: ndjockjunior@gmail.com
+- Data protection officer: none appointed. Sanora is run by one person, who
+  handles every request to this address personally.
+
+Cameroonian law applies to this processing: Law No. 2024/017 of 23 December
+2024 on the protection of personal data covers, under its Article 2, any
+processing carried out by a controller established in Cameroon and any
+processing of the data of a person established, resident or in transit in
+Cameroon. Where you are in the European Economic Area or the United Kingdom,
+the GDPR applies to you in addition, and we honour it.
+
+If you write to the address above about your data, you will get an answer
+within 30 days.
 
 ## 3. Using Sanora without an account
 
@@ -241,9 +252,15 @@ database itself rather than by the app.
 
 ### 6.2 Google (Gemini API) — AI features
 
-Four features call Google's Gemini API. The request is always made by our backend,
-never by the app: the app never holds a Gemini key, and Google never sees your
-email address, your account identifier or your name.
+Four features call Google's Gemini API. The request is always made by our
+backend, never by the app: the app never holds a Gemini key, and Google never
+sees your email address or your account identifier.
+
+Your **name is removed from your profile by our backend before the request
+leaves it**, along with any e-mail address, phone number or account identifier
+the profile might carry. The stripping happens on the server rather than on
+your phone, so it applies to every version of the app. What Google receives is
+a health profile without a person's name attached to it.
 
 What is sent, per feature:
 
@@ -323,10 +340,26 @@ Transfers outside the European Economic Area rely on the European Commission's
 Standard Contractual Clauses in our agreements with those providers.
 
 If you are in Cameroon, note that your data is stored outside Cameroon, in
-France. TODO for counsel: confirm the applicable Cameroonian data protection
-statute, any registration or cross-border transfer authorisation required from
-the competent Cameroonian authority, and whether local-storage obligations
-apply.
+France, and that AI requests and crash reports are processed in the United
+States.
+
+Cameroonian law treats that as an international transfer. Under Article 32 of
+Law No. 2024/017 of 23 December 2024, transferring personal data to a foreign
+State or an international organisation requires prior authorisation from the
+Autorité de protection des données à caractère personnel, which must satisfy
+itself that the destination offers sufficient protection and that the parties
+have signed the standard contractual clauses it issues.
+
+That Authority is created by Article 53 of the same law, and Article 53(2)
+leaves its creation, organisation and functioning to a decree of the President
+of the Republic. At the effective date of this policy that decree has not been
+published, so the Authority is not yet able to receive an application, publish
+its standard clauses or grant the authorisation. We will apply for it as soon
+as it can be applied for. Until then we rely on your consent, we transfer only
+what the features you use require, and our agreements with Supabase, Google and
+Sentry bind them to process the data solely on our instructions.
+
+We will tell you in the app if this position changes.
 
 ## 9. Special protection for health data
 
@@ -360,8 +393,11 @@ everything above:
   data may persist in a backup for a short period before that backup rotates
   out, but it is not restored to the live system.
 
-TODO for counsel: confirm whether any statutory retention period applies to
-billing records for paid subscriptions in the relevant jurisdiction.
+- **Subscription records**: the store transaction identifier and expiry date we
+  use to know whether your account is Premium, kept while the account exists.
+  We hold no billing record beyond that — Apple and Google take the payment,
+  issue the invoice and keep the accounting record, each under their own
+  retention rules.
 
 ## 11. Your rights, and how to use them
 
@@ -381,8 +417,8 @@ conversations. You can edit your profile and measurements at any time.
 send anywhere.
 
 For a complete machine-readable export of everything in your account, contact
-us at the privacy address in section 2 and we will provide it. TODO: confirm the
-response time to commit to here; the GDPR default is one month.
+us at the privacy address in section 2. We will send it within 30 days, free of
+charge.
 
 ### Erasure
 
@@ -410,14 +446,22 @@ you want to keep first.
 ### Complaints
 
 If you believe we have handled your data improperly, please contact us first —
-we would rather fix it. You also have the right to complain to a data protection
-supervisory authority. TODO for counsel: identify the competent supervisory
-authority or authorities to name here, given a Cameroonian controller and
-EU-hosted processing.
+we would rather fix it. You also have the right to complain to a supervisory
+authority, and contacting us first is not a precondition for doing so.
+
+- **In Cameroon**, that is the Autorité de protection des données à caractère
+  personnel, created by Article 53 of Law No. 2024/017 of 23 December 2024,
+  which handles complaints from data subjects. As explained in section 8, the
+  decree establishing it had not been published at this policy's effective
+  date; Article 62 of the same law also lets you go directly to the competent
+  court, including on an urgent basis, if your rights are seriously affected.
+- **In the EEA or the UK**, the data protection authority of the country where
+  you live or work.
 
 ## 12. Children
 
-Sanora is not intended for anyone under 16, and we do not knowingly collect data
+Sanora is intended for adults. It is not for anyone under 18, it is listed for
+an adult audience in the app stores, and we do not knowingly collect data
 from children. Sanora's calculations — BMI categories, calorie targets, body fat
 estimates — are derived from formulas validated in adults and are not
 appropriate for children or adolescents.
@@ -441,35 +485,34 @@ updated policy.
 
 ## 15. Contact
 
-- Privacy enquiries and data requests: TODO: privacy contact email address
-- Postal address: TODO: full registered address
-- Online version of this policy: TODO: public URL where this policy is hosted
-  (needed for the App Store listing, the Google Play Data safety form, and the
-  Health Connect privacy policy link)
+- Privacy enquiries and data requests: ndjockjunior@gmail.com
+- Postal address: available on request to the address above
+- Online version of this policy: https://micheduc25.github.io/Sanora/privacy/
+- Request account deletion: https://micheduc25.github.io/Sanora/delete-account/
 ''';
 
   /// Mirrors docs/legal/terms-of-service.md.
   static const termsOfService = r'''
 # Terms of Service
 
-**Sanora — Know Your Body**, published by Innovation Cameroon.
+**Sanora — Know Your Body**, published by Ndjock Michel Junior under the name
+Innovation Cameroon.
 
 - Effective date: 21 July 2026
 - Applies to: Sanora mobile app version 1.0.0 and later
 
-This is a draft prepared for legal review. It has not been reviewed by a
-qualified lawyer and is not a substitute for one.
-
 ## 1. Agreement
 
-These Terms are a contract between you and Innovation Cameroon ("we", "us")
+These Terms are a contract between you and Ndjock Michel Junior ("we", "us")
 covering your use of the Sanora mobile application and its backend services (the
 "Service"). By installing or using Sanora you accept them. If you do not accept
 them, do not use the Service.
 
-- Legal entity: TODO: exact registered legal name and company registration number
-- Registered address: TODO: full registered address
-- Contact: TODO: support contact email address
+- Publisher: Ndjock Michel Junior, an individual developer based in Cameroon,
+  publishing under the name Innovation Cameroon, which is not a separate legal
+  entity
+- Contact: ndjockjunior@gmail.com
+- Postal address: available on request to the address above
 
 Our Privacy Policy and our Health Disclaimer form part of these Terms. Read
 them; the Health Disclaimer in particular sets out limits on what Sanora's
@@ -579,9 +622,25 @@ in the app before the change takes effect.
 
 Subscription terms:
 
-- TODO: price, currency and billing period for Premium
-- TODO: which billing channel is used — Apple App Store in-app purchase, Google Play Billing, or a third-party payment processor — and whether mobile money is supported for the Cameroon market
-- TODO: renewal, cancellation and refund terms, including the statutory withdrawal period if any applies
+- Premium is sold as a **monthly** or a **yearly** auto-renewing subscription.
+  The price and the currency are the ones shown on the purchase screen in the
+  app before you confirm, which are set per country by the store and may change
+  over time. That screen, at the moment you buy, is the price you pay.
+- Payment is taken **only through Apple's In-App Purchase or Google Play
+  Billing**, depending on where you installed Sanora. We never see or handle
+  your card, bank account or mobile money details, and we do not offer any
+  other payment channel.
+- Subscriptions **renew automatically** at the end of each period unless you
+  cancel at least 24 hours before it ends. You cancel in your Apple ID or
+  Google Play account settings — not in Sanora, which cannot cancel a
+  subscription for you. Cancelling stops the next renewal; the current period
+  runs to its end.
+- **Refunds** are handled by the store that took the payment, under its own
+  policy, and we cannot issue one directly. If you believe you are entitled to
+  a refund, contact Apple Support or Google Play Support; write to us as well
+  and we will support a fair request.
+- Where the law of your country gives you a statutory right to withdraw from a
+  distance contract, that right applies and nothing here removes it.
 
 Where a purchase is made through the Apple App Store or Google Play, that
 store's terms govern the transaction, billing, renewal and refunds, and you
@@ -628,9 +687,8 @@ To the maximum extent permitted by law:
   exemplary or punitive damages, or for loss of profit, revenue, data, goodwill
   or anticipated savings, arising from your use of the Service.
 - Our total aggregate liability arising out of or relating to the Service is
-  limited to the greater of the amount you paid us in the twelve months before
-  the event giving rise to the claim, or TODO: a fixed floor amount and currency,
-  for example the equivalent of USD 50.
+  limited to the greater of the amount you paid for the Service in the twelve
+  months before the event giving rise to the claim, or XAF 30,000.
 - We are not liable for any decision you make about your diet, exercise,
   medication or medical care based on Sanora's output. That is the substance of
   the Health Disclaimer and it is a condition of using the Service.
@@ -639,8 +697,12 @@ Nothing in this section limits liability for death or personal injury caused by
 our negligence, for fraud or fraudulent misrepresentation, or for any other
 liability that cannot lawfully be limited.
 
-TODO for counsel: confirm this section is enforceable in the governing
-jurisdiction and against consumers there, and adjust the cap accordingly.
+A limitation of liability does not always survive contact with consumer
+protection law. In Cameroon, Framework Law No. 2011/012 of 6 May 2011 on
+consumer protection prohibits terms that unfairly restrict a consumer's rights,
+and in the EEA and the UK similar rules apply. Where a limitation in this
+section is not enforceable against you, it simply does not apply to you, and
+the rest of these Terms stand.
 
 ## 12. Indemnity
 
@@ -667,14 +729,22 @@ you do not, delete your account.
 
 ## 15. Governing law and disputes
 
-TODO: governing law and jurisdiction. This needs a deliberate decision, not a
-default. Relevant considerations for counsel: the controller is established in
-Cameroon; data is processed in France; the primary user base is in Cameroon and
-the wider African region; the app is distributed through the Apple App Store and
-Google Play, whose terms impose their own requirements; and consumer protection
-rules in a user's country of residence may override a chosen forum regardless of
-what is written here. Decide the governing law, the forum, and whether any
-arbitration or mandatory pre-litigation mediation step applies.
+These Terms are governed by the law of the **Republic of Cameroon**, and the
+competent courts of Cameroon have jurisdiction over any dispute arising from
+them. That is where the publisher is established.
+
+Two things this does not do:
+
+- It does not take away rights you have where you live. If you are a consumer,
+  the mandatory consumer protection rules of your country of residence continue
+  to apply to you, and you keep any right they give you to bring proceedings
+  before your local courts.
+- It does not force you into court first. If something goes wrong, write to
+  ndjockjunior@gmail.com. Most disputes about a health app are a
+  misunderstanding or a bug, and both are cheaper to fix by e-mail.
+
+There is no arbitration clause and no mandatory pre-litigation step in these
+Terms.
 
 ## 16. General
 
@@ -688,22 +758,21 @@ arbitration or mandatory pre-litigation mediation step applies.
 
 ## 17. Contact
 
-- Support and general enquiries: TODO: support contact email address
-- Legal notices: TODO: legal contact email address and full registered address
-- Online version of these Terms: TODO: public URL where these Terms are hosted
+- Support and general enquiries: ndjockjunior@gmail.com
+- Legal notices: ndjockjunior@gmail.com; postal address on request
+- Online version of these Terms: https://micheduc25.github.io/Sanora/terms/
+- Privacy Policy: https://micheduc25.github.io/Sanora/privacy/
 ''';
 
   /// Mirrors docs/legal/health-disclaimer.md.
   static const healthDisclaimer = r'''
 # Health Disclaimer
 
-**Sanora — Know Your Body**, published by Innovation Cameroon.
+**Sanora — Know Your Body**, published by Ndjock Michel Junior under the name
+Innovation Cameroon.
 
 - Effective date: 21 July 2026
 - Applies to: Sanora mobile app version 1.0.0 and later
-
-This is a draft prepared for legal review. It has not been reviewed by a
-qualified lawyer or a clinician and is not a substitute for either.
 
 ## 1. Read this first
 
@@ -827,9 +896,11 @@ can cause real harm. This list is not exhaustive.
   designed for pregnancy and should not be followed during it.
 - **An eating disorder, or any history of one.** Calorie targets, weight goals,
   body fat percentages and food logging can trigger or worsen anorexia, bulimia,
-  binge eating disorder and orthorexia. If tracking numbers makes you feel worse,
-  stop, and please talk to someone. TODO: insert a local Cameroonian and regional
-  crisis or mental health support contact here, verified before publication.
+  binge eating disorder and orthorexia. If tracking numbers makes you feel
+  worse, stop using those features and talk to someone — your doctor, a mental
+  health professional, or someone close to you. If you are in immediate danger,
+  go to the nearest hospital emergency department. We would rather you delete
+  this app than use it to hurt yourself.
 - **Diabetes, prediabetes, or any use of insulin or glucose-lowering
   medication.** Sanora's carbohydrate figures are estimates and are not safe for
   insulin dosing. Changing your intake or activity can change your glucose and
@@ -885,7 +956,7 @@ By using Sanora you acknowledge that:
 If something in Sanora does not seem right for your situation, trust your
 clinician over the app.
 
-- Contact: TODO: support contact email address
-- Online version of this disclaimer: TODO: public URL where this disclaimer is hosted
+- Contact: ndjockjunior@gmail.com
+- Online version of this disclaimer: https://micheduc25.github.io/Sanora/health-disclaimer/
 ''';
 }

@@ -1,23 +1,23 @@
 # Terms of Service
 
-**Sanora — Know Your Body**, published by Innovation Cameroon.
+**Sanora — Know Your Body**, published by Ndjock Michel Junior under the name
+Innovation Cameroon.
 
 - Effective date: 21 July 2026
 - Applies to: Sanora mobile app version 1.0.0 and later
 
-This is a draft prepared for legal review. It has not been reviewed by a
-qualified lawyer and is not a substitute for one.
-
 ## 1. Agreement
 
-These Terms are a contract between you and Innovation Cameroon ("we", "us")
+These Terms are a contract between you and Ndjock Michel Junior ("we", "us")
 covering your use of the Sanora mobile application and its backend services (the
 "Service"). By installing or using Sanora you accept them. If you do not accept
 them, do not use the Service.
 
-- Legal entity: TODO: exact registered legal name and company registration number
-- Registered address: TODO: full registered address
-- Contact: TODO: support contact email address
+- Publisher: Ndjock Michel Junior, an individual developer based in Cameroon,
+  publishing under the name Innovation Cameroon, which is not a separate legal
+  entity
+- Contact: ndjockjunior@gmail.com
+- Postal address: available on request to the address above
 
 Our Privacy Policy and our Health Disclaimer form part of these Terms. Read
 them; the Health Disclaimer in particular sets out limits on what Sanora's
@@ -127,9 +127,25 @@ in the app before the change takes effect.
 
 Subscription terms:
 
-- TODO: price, currency and billing period for Premium
-- TODO: which billing channel is used — Apple App Store in-app purchase, Google Play Billing, or a third-party payment processor — and whether mobile money is supported for the Cameroon market
-- TODO: renewal, cancellation and refund terms, including the statutory withdrawal period if any applies
+- Premium is sold as a **monthly** or a **yearly** auto-renewing subscription.
+  The price and the currency are the ones shown on the purchase screen in the
+  app before you confirm, which are set per country by the store and may change
+  over time. That screen, at the moment you buy, is the price you pay.
+- Payment is taken **only through Apple's In-App Purchase or Google Play
+  Billing**, depending on where you installed Sanora. We never see or handle
+  your card, bank account or mobile money details, and we do not offer any
+  other payment channel.
+- Subscriptions **renew automatically** at the end of each period unless you
+  cancel at least 24 hours before it ends. You cancel in your Apple ID or
+  Google Play account settings — not in Sanora, which cannot cancel a
+  subscription for you. Cancelling stops the next renewal; the current period
+  runs to its end.
+- **Refunds** are handled by the store that took the payment, under its own
+  policy, and we cannot issue one directly. If you believe you are entitled to
+  a refund, contact Apple Support or Google Play Support; write to us as well
+  and we will support a fair request.
+- Where the law of your country gives you a statutory right to withdraw from a
+  distance contract, that right applies and nothing here removes it.
 
 Where a purchase is made through the Apple App Store or Google Play, that
 store's terms govern the transaction, billing, renewal and refunds, and you
@@ -176,9 +192,8 @@ To the maximum extent permitted by law:
   exemplary or punitive damages, or for loss of profit, revenue, data, goodwill
   or anticipated savings, arising from your use of the Service.
 - Our total aggregate liability arising out of or relating to the Service is
-  limited to the greater of the amount you paid us in the twelve months before
-  the event giving rise to the claim, or TODO: a fixed floor amount and currency,
-  for example the equivalent of USD 50.
+  limited to the greater of the amount you paid for the Service in the twelve
+  months before the event giving rise to the claim, or XAF 30,000.
 - We are not liable for any decision you make about your diet, exercise,
   medication or medical care based on Sanora's output. That is the substance of
   the Health Disclaimer and it is a condition of using the Service.
@@ -187,8 +202,12 @@ Nothing in this section limits liability for death or personal injury caused by
 our negligence, for fraud or fraudulent misrepresentation, or for any other
 liability that cannot lawfully be limited.
 
-TODO for counsel: confirm this section is enforceable in the governing
-jurisdiction and against consumers there, and adjust the cap accordingly.
+A limitation of liability does not always survive contact with consumer
+protection law. In Cameroon, Framework Law No. 2011/012 of 6 May 2011 on
+consumer protection prohibits terms that unfairly restrict a consumer's rights,
+and in the EEA and the UK similar rules apply. Where a limitation in this
+section is not enforceable against you, it simply does not apply to you, and
+the rest of these Terms stand.
 
 ## 12. Indemnity
 
@@ -215,14 +234,22 @@ you do not, delete your account.
 
 ## 15. Governing law and disputes
 
-TODO: governing law and jurisdiction. This needs a deliberate decision, not a
-default. Relevant considerations for counsel: the controller is established in
-Cameroon; data is processed in France; the primary user base is in Cameroon and
-the wider African region; the app is distributed through the Apple App Store and
-Google Play, whose terms impose their own requirements; and consumer protection
-rules in a user's country of residence may override a chosen forum regardless of
-what is written here. Decide the governing law, the forum, and whether any
-arbitration or mandatory pre-litigation mediation step applies.
+These Terms are governed by the law of the **Republic of Cameroon**, and the
+competent courts of Cameroon have jurisdiction over any dispute arising from
+them. That is where the publisher is established.
+
+Two things this does not do:
+
+- It does not take away rights you have where you live. If you are a consumer,
+  the mandatory consumer protection rules of your country of residence continue
+  to apply to you, and you keep any right they give you to bring proceedings
+  before your local courts.
+- It does not force you into court first. If something goes wrong, write to
+  ndjockjunior@gmail.com. Most disputes about a health app are a
+  misunderstanding or a bug, and both are cheaper to fix by e-mail.
+
+There is no arbitration clause and no mandatory pre-litigation step in these
+Terms.
 
 ## 16. General
 
@@ -236,6 +263,7 @@ arbitration or mandatory pre-litigation mediation step applies.
 
 ## 17. Contact
 
-- Support and general enquiries: TODO: support contact email address
-- Legal notices: TODO: legal contact email address and full registered address
-- Online version of these Terms: TODO: public URL where these Terms are hosted
+- Support and general enquiries: ndjockjunior@gmail.com
+- Legal notices: ndjockjunior@gmail.com; postal address on request
+- Online version of these Terms: https://micheduc25.github.io/Sanora/terms/
+- Privacy Policy: https://micheduc25.github.io/Sanora/privacy/

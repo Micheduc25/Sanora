@@ -69,6 +69,24 @@ export async function consumeAiAllowance(
   }
 }
 
+/**
+ * Direct identifiers stripped from a profile before it reaches Gemini.
+ *
+ * The coach is personal because it knows your numbers, not because it knows
+ * your name, and the privacy policy promises Google is never told who you are.
+ * The app sends the whole profile — filtering here rather than there means an
+ * older client cannot opt out of it.
+ */
+const IDENTIFIER_KEYS = new Set(["name", "email", "phone", "user_id", "id"]);
+
+export function withoutIdentifiers(
+  profile: Record<string, unknown> | undefined | null,
+): Record<string, unknown> {
+  return Object.fromEntries(
+    Object.entries(profile ?? {}).filter(([key]) => !IDENTIFIER_KEYS.has(key)),
+  );
+}
+
 const GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta/models";
 
 export function geminiModel(): string {
