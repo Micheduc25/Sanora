@@ -1,11 +1,14 @@
 # Google Play — App content answers (Sanora, `cm.sanora.app`)
 
 Every answer below is derived from the code, not from assumption. Where the
-code and the drafted privacy policy disagree, that is called out rather than
-smoothed over — a Data Safety form that contradicts the app is what gets a
+code and the privacy policy once disagreed, the code was changed rather than
+the claim softened — a Data Safety form that contradicts the app is what gets a
 listing suspended.
 
-Read **§0 Blockers** first. Four of them stop the submission outright.
+Backend state: all eight migrations are applied to the production project
+(`fbswsafqzxypqzibaogn`, eu-west-1), verified 21 July 2026.
+
+Read **§0 Blockers** first. One of them still stops the submission outright.
 
 ---
 
@@ -18,8 +21,8 @@ Read **§0 Blockers** first. Four of them stop the submission outright.
 | 3 | Privacy policy contradicted the code on what Gemini receives | **Done** — the backend now strips `name`, `email`, `phone` and account identifiers from the profile before calling Gemini (`supabase/functions/_shared/mod.ts`, applied in `ai-coach` and `generate-workout`), and the policy describes exactly that. |
 | 4 | Legal entity, address and contact emails | **Done** — controller is Ndjock Michel Junior, individual developer, Cameroon; contact ndjockjunior@gmail.com; postal address on request. |
 | 5 | **No reviewer test account exists yet** (needed for App access — see §2). | Open |
-| 6 | **The `.aab`/`.ipa` built on 21 Jul have no Supabase credentials** — built without `--dart-define-from-file`, so `AppConfig.hasSupabase` is false and the build is offline-only: no account, no community, no AI. Rebuild before uploading. | Open — `app/lib/core/config/app_config.dart:7-11`, `docs/DEPLOYMENT.md:100` |
-| 7 | **Cameroonian cross-border transfer authorisation.** Article 32 of Law No. 2024/017 makes every transfer Sanora performs (Supabase in France, Gemini and Sentry in the US) subject to prior authorisation from the APDP; Article 60 prices an unauthorised transfer at XAF 10–50 m. The APDP is not yet constituted (Art. 53(2) leaves it to a presidential decree), so the application cannot be filed. Not a Play blocker; a Cameroonian compliance exposure to monitor. | Open — watch for the decree |
+| 6 | Release artifacts built without Supabase credentials | **Done** — rebuilt at `1.0.0+2` with `--dart-define-from-file=dart_defines/prod.json`; the Supabase host is verified present in both binaries and both are release-signed. |
+| 7 | **Cameroonian cross-border transfer authorisation.** Article 32 of Law No. 2024/017 makes every transfer Sanora performs (Supabase in Ireland, Gemini and Sentry in the US) subject to prior authorisation from the APDP; Article 60 prices an unauthorised transfer at XAF 10–50 m. The APDP is not yet constituted (Art. 53(2) leaves it to a presidential decree), so the application cannot be filed. Not a Play blocker; a Cameroonian compliance exposure to monitor. | Open — watch for the decree |
 
 **URLs to paste into the console**
 
@@ -57,14 +60,14 @@ Consequences, all verified against that list:
 - No `SCHEDULE_EXACT_ALARM`, no `FOREGROUND_SERVICE` → neither declaration applies.
 
 **Build:** `applicationId cm.sanora.app`, `minSdk 26`, `targetSdk 35`,
-version `1.0.0+1` (`app/android/app/build.gradle.kts:37-42`, `app/pubspec.yaml:4`).
+version `1.0.0+2` (`app/android/app/build.gradle.kts:37-42`, `app/pubspec.yaml:4`).
 
 **Third parties that receive data** (all as processors acting on Sanora's behalf):
 
 | Party | Receives | Evidence |
 |---|---|---|
 | Supabase | The backend itself: profile, health metrics, meals, habits, workouts, reminders, AI chat history, community rows, subscription receipts | `app/lib/data/sync/sync_service.dart:56-116` |
-| Google (Gemini API) | Profile JSON **incl. name**, computed health profile, coach chat turns, meal photo (base64) or description, 7-day meal/metric history | `supabase/functions/_shared/mod.ts:72,92`; `ai-coach/index.ts:31-32`; `meal-analyze/index.ts:115-118` |
+| Google (Gemini API) | Health profile **with name, e-mail, phone and ids stripped by the backend**, coach chat turns, meal photo (base64) or description, 7-day meal/metric history | `supabase/functions/_shared/mod.ts` (`withoutIdentifiers`), `ai-coach/index.ts`, `meal-analyze/index.ts` |
 | Sentry | Crash reports + 20 % performance traces, **only if `SENTRY_DSN` is compiled in** | `app/lib/main.dart:19-32` |
 | Apple / Google Play | Purchase receipts (the store, not the app, handles payment) | `app/lib/features/premium/purchase_service.dart:119-133` |
 

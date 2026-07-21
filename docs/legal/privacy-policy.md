@@ -12,7 +12,7 @@ Sanora is a personal health companion. It is built offline-first: you can use it
 without an account, and in that case nothing you enter ever leaves your phone.
 
 If you create an account, your health data is synchronised to our database so
-you can recover it on a new device. That database is hosted in France and every
+you can recover it on a new device. That database is hosted in Ireland and every
 row is locked to you by row-level security — no other user, and no unauthorised
 service, can read it.
 
@@ -222,7 +222,7 @@ We use a small number of processors. Each acts on our instructions only.
 ### 6.1 Supabase — database, authentication, file storage and backend functions
 
 Your account and every synchronised row live in a Supabase-managed PostgreSQL
-database hosted in the **eu-west-3 (Paris, France)** region. Supabase also
+database hosted in the **eu-west-1 (Ireland)** region. Supabase also
 provides authentication and runs our backend functions.
 
 Every table containing personal data is protected by PostgreSQL row-level
@@ -310,7 +310,7 @@ happened.
 ## 8. Where your data is processed
 
 - **On your device** — always. Sanora's local database is the primary copy.
-- **France (eu-west-3)** — Supabase database, authentication, storage and
+- **Ireland (eu-west-1)** — Supabase database, authentication, storage and
   backend functions.
 - **United States** — Google processes AI requests via the Gemini API. Sentry, where enabled, may
   process crash data outside the EU.
@@ -319,7 +319,7 @@ Transfers outside the European Economic Area rely on the European Commission's
 Standard Contractual Clauses in our agreements with those providers.
 
 If you are in Cameroon, note that your data is stored outside Cameroon, in
-France, and that AI requests and crash reports are processed in the United
+Ireland, and that AI requests and crash reports are processed in the United
 States.
 
 Cameroonian law treats that as an international transfer. Under Article 32 of
