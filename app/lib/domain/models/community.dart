@@ -39,6 +39,36 @@ abstract class CommunityGroup with _$CommunityGroup {
       _$CommunityGroupFromJson(json);
 }
 
+/// An invite to a private group, as the person invited sees it: enough about
+/// the group to decide on it before joining.
+@freezed
+abstract class GroupInvite with _$GroupInvite {
+  const factory GroupInvite({
+    required String id,
+    required String groupId,
+    required String groupName,
+    @Default('') String groupDescription,
+    String? invitedBy,
+    String? expiresAt,
+  }) = _GroupInvite;
+
+  factory GroupInvite.fromJson(Map<String, dynamic> json) =>
+      _$GroupInviteFromJson(json);
+}
+
+/// An invite the group's owner sent and nobody has answered yet.
+@freezed
+abstract class SentGroupInvite with _$SentGroupInvite {
+  const factory SentGroupInvite({
+    required String id,
+    required String email,
+    String? expiresAt,
+  }) = _SentGroupInvite;
+
+  factory SentGroupInvite.fromJson(Map<String, dynamic> json) =>
+      _$SentGroupInviteFromJson(json);
+}
+
 @freezed
 abstract class ChallengeSummary with _$ChallengeSummary {
   const ChallengeSummary._();

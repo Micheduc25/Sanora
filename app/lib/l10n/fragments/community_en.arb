@@ -33,6 +33,29 @@
     "description": "Stands in for a friend who has no name set."
   },
   "communityRemoveFriend": "Remove friend",
+  "communityBlock": "Block",
+  "communityBlockHelp": "They can no longer see you or send you requests.",
+  "communityUnblock": "Unblock",
+  "communityBlockedSection": "Blocked",
+  "communityRequestBlocked": "You cannot send a request to this person.",
+
+  "communityReport": "Report",
+  "communityReportTitle": "Report {name}",
+  "@communityReportTitle": {
+    "description": "Report sheet title; name is a group, challenge or person.",
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "communityReportHelp": "Tell us what is wrong. We review every report within 24 hours and remove content or accounts that break the rules.",
+  "communityReportReason": "Reason",
+  "communityReasonSpam": "Spam or scam",
+  "communityReasonHarassment": "Harassment or bullying",
+  "communityReasonHate": "Hate or violence",
+  "communityReasonSexual": "Sexual content",
+  "communityReasonOther": "Something else",
+  "communityReportNoteHint": "Add details (optional)",
+  "communityReportAlsoBlock": "Also block this person",
+  "communityReportSubmit": "Send report",
+  "communityReportThanks": "Report sent. We review every report within 24 hours.",
 
   "communityAddFriendTitle": "Add a friend",
   "communityAddFriendHelp": "Enter the email they signed up with.",
@@ -72,6 +95,43 @@
   "communityPrivateGroupOff": "Anyone can find and join.",
   "communityCreateGroup": "Create group",
   "communityLeaveGroup": "Leave group",
+
+  "communityInviteToGroup": "Invite someone",
+  "communityInviteHelp": "A private group is invite-only. Enter the email they signed up with.",
+  "communityInviteSend": "Send invite",
+  "communityInviteSentTo": "Invite sent to {email}.",
+  "@communityInviteSentTo": {
+    "placeholders": { "email": { "type": "String" } }
+  },
+  "communityInviteSent": "Invite sent.",
+  "communityInviteNoAccount": "No Sanora account found for that email.",
+  "communityInviteSelf": "You are already in this group 🙂",
+  "communityInviteNotOwner": "Only the group owner can invite people.",
+  "communityInviteAlreadyMember": "They are already in this group.",
+  "communityInviteAlreadySent": "They have already been invited.",
+  "communityInviteBlocked": "You cannot invite this person.",
+  "communityPendingInvites": "Invited · {count}",
+  "@communityPendingInvites": {
+    "description": "Header above the invites an owner has sent and nobody has answered.",
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "communityInviteRevoke": "Revoke",
+  "communityInviteExpires": "Expires {date}",
+  "@communityInviteExpires": {
+    "description": "When a pending invite lapses, e.g. \"Expires 4 Aug\".",
+    "placeholders": { "date": { "type": "String" } }
+  },
+  "communityInvitations": "Invitations",
+  "@communityInvitations": {
+    "description": "Header above the private-group invites waiting for this user."
+  },
+  "communityInvitedYou": "{name} invited you",
+  "@communityInvitedYou": {
+    "placeholders": { "name": { "type": "String" } }
+  },
+  "communityInvitedYouAnonymous": "You have been invited",
+  "communityInviteAccept": "Accept",
+  "communityInviteDecline": "Decline",
 
   "communityNewChallenge": "New challenge",
   "communityNoChallengesTitle": "No challenges yet",

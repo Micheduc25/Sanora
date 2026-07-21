@@ -9,8 +9,10 @@ import '../../core/widgets/sanora_card.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../domain/models/community.dart';
 import '../../l10n/app_localizations.dart';
+import 'community_action.dart';
 import 'community_controller.dart';
 import 'group_detail_screen.dart';
+import 'report_sheet.dart';
 
 class CommunityScreen extends HookConsumerWidget {
   const CommunityScreen({super.key});
@@ -72,6 +74,9 @@ Widget _whenCommunity<T>(
   required Widget Function(T) data,
 }) {
   return value.when(
+    // These reload every minute; without this the list would blink back to a
+    // spinner each time.
+    skipLoadingOnReload: true,
     loading: () => const Center(child: CircularProgressIndicator()),
     error: (e, _) => e is AuthFailure
         ? const _SignInGate()
@@ -96,7 +101,9 @@ class _FriendsTab extends ConsumerWidget {
         label: Text(l.communityAddFriend),
       ),
       body: RefreshIndicator(
-        onRefresh: () async => ref.refresh(friendsProvider.future),
+        // Not `async =>`: that wraps the refresh in a future that completes
+        // immediately, so the spinner retracts before the request lands.
+        onRefresh: () => ref.refresh(friendsProvider.future),
         child: _whenCommunity(
           friends,
           data: (list) {
@@ -106,6 +113,9 @@ class _FriendsTab extends ConsumerWidget {
                 .toList();
             final outgoing = list
                 .where((f) => f.status == FriendStatus.pending && !f.incoming)
+                .toList();
+            final blocked = list
+                .where((f) => f.status == FriendStatus.blocked)
                 .toList();
             if (list.isEmpty) {
               return _ScrollableEmpty(
@@ -129,6 +139,10 @@ class _FriendsTab extends ConsumerWidget {
                   SectionHeader(l.communityInvitedSection),
                   for (final f in outgoing)
                     _FriendRow(friend: f, pending: true),
+                ],
+                if (blocked.isNotEmpty) ...[
+                  SectionHeader(l.communityBlockedSection),
+                  for (final f in blocked) _BlockedRow(friend: f),
                 ],
               ],
             );
@@ -171,12 +185,26 @@ class _RequestRow extends ConsumerWidget {
             ),
             IconButton.filledTonal(
               icon: const Icon(Icons.check_rounded),
-              onPressed: () => controller.respond(friend.userId, accept: true),
+              onPressed: () => runCommunityAction(
+                context,
+                controller.respond(friend.userId, accept: true),
+              ),
             ),
             const SizedBox(width: 6),
             IconButton(
               icon: const Icon(Icons.close_rounded),
-              onPressed: () => controller.respond(friend.userId, accept: false),
+              onPressed: () => runCommunityAction(
+                context,
+                controller.respond(friend.userId, accept: false),
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.block_rounded),
+              tooltip: L.of(context).communityBlock,
+              onPressed: () => runCommunityAction(
+                context,
+                controller.blockUser(friend.userId),
+              ),
             ),
           ],
         ),
@@ -216,23 +244,100 @@ class _FriendRow extends ConsumerWidget {
                 icon: const Icon(Icons.more_horiz_rounded),
                 onPressed: () => showModalBottomSheet(
                   context: context,
-                  builder: (_) => SafeArea(
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.person_remove_rounded,
-                        color: theme.colorScheme.error,
-                      ),
-                      title: Text(l.communityRemoveFriend),
-                      onTap: () {
-                        ref
-                            .read(communityControllerProvider)
-                            .removeFriend(friend.userId);
-                        Navigator.pop(context);
-                      },
+                  builder: (sheetContext) => SafeArea(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          leading: const Icon(Icons.person_remove_rounded),
+                          title: Text(l.communityRemoveFriend),
+                          onTap: () {
+                            Navigator.pop(sheetContext);
+                            runCommunityAction(
+                              context,
+                              ref
+                                  .read(communityControllerProvider)
+                                  .removeFriend(friend.userId),
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.flag_outlined),
+                          title: Text(l.communityReport),
+                          onTap: () {
+                            Navigator.pop(sheetContext);
+                            showReportSheet(
+                              context,
+                              target: ReportTarget.user,
+                              targetId: friend.userId,
+                              label: friend.name ?? l.communitySanoraUser,
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(
+                            Icons.block_rounded,
+                            color: theme.colorScheme.error,
+                          ),
+                          title: Text(l.communityBlock),
+                          subtitle: Text(
+                            l.communityBlockHelp,
+                            style: theme.textTheme.bodySmall,
+                          ),
+                          onTap: () {
+                            Navigator.pop(sheetContext);
+                            runCommunityAction(
+                              context,
+                              ref
+                                  .read(communityControllerProvider)
+                                  .blockUser(friend.userId),
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BlockedRow extends ConsumerWidget {
+  const _BlockedRow({required this.friend});
+
+  final Friend friend;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final l = L.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: SanoraCard(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        child: Row(
+          children: [
+            _Avatar(name: friend.name),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                friend.name ?? l.communitySanoraUser,
+                style: theme.textTheme.titleMedium,
+              ),
+            ),
+            TextButton(
+              onPressed: () => runCommunityAction(
+                context,
+                ref
+                    .read(communityControllerProvider)
+                    .unblockUser(friend.userId),
+              ),
+              child: Text(l.communityUnblock),
+            ),
           ],
         ),
       ),
@@ -264,6 +369,7 @@ class _AddFriendSheet extends HookConsumerWidget {
           'not_found' => l.communityNoAccountForEmail,
           'self' => l.communityOwnEmail,
           'already_friends' => l.communityAlreadyFriends,
+          'blocked' => l.communityRequestBlocked,
           _ => l.communityRequestSent,
         };
         Navigator.pop(context);
@@ -334,6 +440,7 @@ class _GroupsTab extends ConsumerWidget {
     final l = L.of(context);
     final mine = ref.watch(myGroupsProvider);
     final discover = ref.watch(discoverGroupsProvider);
+    final invites = ref.watch(myInvitesProvider);
 
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
@@ -350,6 +457,7 @@ class _GroupsTab extends ConsumerWidget {
         onRefresh: () => Future.wait([
           ref.refresh(myGroupsProvider.future),
           ref.refresh(discoverGroupsProvider.future),
+          ref.refresh(myInvitesProvider.future),
         ]),
         child: _whenCommunity(
           mine,
@@ -357,6 +465,22 @@ class _GroupsTab extends ConsumerWidget {
             return ListView(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 96),
               children: [
+                // First: an invite is the only way into a private group, and
+                // it expires.
+                invites.maybeWhen(
+                  skipLoadingOnReload: true,
+                  data: (list) => list.isEmpty
+                      ? const SizedBox.shrink()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SectionHeader(l.communityInvitations),
+                            for (final invite in list)
+                              _InviteRow(invite: invite),
+                          ],
+                        ),
+                  orElse: () => const SizedBox.shrink(),
+                ),
                 if (myGroups.isEmpty)
                   _InlineEmpty(
                     icon: Icons.groups_outlined,
@@ -383,6 +507,106 @@ class _GroupsTab extends ConsumerWidget {
               ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class _InviteRow extends ConsumerWidget {
+  const _InviteRow({required this.invite});
+
+  final GroupInvite invite;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final l = L.of(context);
+    final controller = ref.read(communityControllerProvider);
+    // The inviter's name only comes back for someone already connected to the
+    // reader; a stranger's invite says so without naming them.
+    final from = invite.invitedBy == null
+        ? l.communityInvitedYouAnonymous
+        : l.communityInvitedYou(invite.invitedBy!);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: SanoraCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 46,
+                  height: 46,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.secondaryContainer,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Icon(
+                    Icons.mark_email_unread_rounded,
+                    color: theme.colorScheme.onSecondaryContainer,
+                  ),
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        invite.groupName,
+                        style: theme.textTheme.titleMedium,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        from,
+                        style: theme.textTheme.bodySmall,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            if (invite.groupDescription.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Text(
+                invite.groupDescription,
+                style: theme.textTheme.bodySmall,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                TextButton(
+                  onPressed: () => runCommunityAction(
+                    context,
+                    controller.revokeInvite(invite.id),
+                  ),
+                  child: Text(l.communityInviteDecline),
+                ),
+                const SizedBox(width: 8),
+                // Filled buttons are full-width by theme, which is an infinite
+                // minimum width; a Row hands its children unbounded width, so
+                // one has to be given a bound of its own.
+                Expanded(
+                  child: FilledButton.tonal(
+                    onPressed: () => runCommunityAction(
+                      context,
+                      controller.acceptInvite(invite.id),
+                    ),
+                    child: Text(l.communityInviteAccept),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -445,10 +669,18 @@ class _GroupRow extends ConsumerWidget {
             if (joined)
               const Icon(Icons.chevron_right_rounded)
             else
-              FilledButton.tonal(
-                onPressed: () =>
+              // Filled buttons are full-width by theme, which is an infinite
+              // minimum width; a Row hands its children unbounded width, so
+              // the button needs a bound of its own.
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 120),
+                child: FilledButton.tonal(
+                  onPressed: () => runCommunityAction(
+                    context,
                     ref.read(communityControllerProvider).joinGroup(group.id),
-                child: Text(l.communityJoin),
+                  ),
+                  child: Text(l.communityJoin),
+                ),
               ),
           ],
         ),

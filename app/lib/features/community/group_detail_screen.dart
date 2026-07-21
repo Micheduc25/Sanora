@@ -4,12 +4,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/error/failures.dart';
+import '../../core/providers/app_providers.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widgets/sanora_card.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../domain/models/community.dart';
 import '../../l10n/app_localizations.dart';
+import 'community_action.dart';
 import 'community_controller.dart';
+import 'report_sheet.dart';
 
 /// The unit a challenge counts in, in the reader's language.
 ///
@@ -34,24 +37,52 @@ class GroupDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final challenges = ref.watch(groupChallengesProvider(group.id));
-    final theme = Theme.of(context);
     final l = L.of(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(group.name),
         actions: [
+          if (group.isOwner)
+            IconButton(
+              icon: const Icon(Icons.person_add_alt_rounded),
+              tooltip: l.communityInviteToGroup,
+              onPressed: () => showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (_) => _InviteSheet(groupId: group.id),
+              ),
+            ),
           if (!group.isOwner)
             IconButton(
               icon: const Icon(Icons.logout_rounded),
               tooltip: l.communityLeaveGroup,
               onPressed: () async {
-                await ref
-                    .read(communityControllerProvider)
-                    .leaveGroup(group.id);
+                try {
+                  await ref
+                      .read(communityControllerProvider)
+                      .leaveGroup(group.id);
+                } catch (e) {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(messageFor(e))));
+                  }
+                  return;
+                }
                 if (context.mounted) Navigator.pop(context);
               },
             ),
+          IconButton(
+            icon: const Icon(Icons.flag_outlined),
+            tooltip: l.communityReport,
+            onPressed: () => showReportSheet(
+              context,
+              target: ReportTarget.group,
+              targetId: group.id,
+              label: group.name,
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -65,16 +96,18 @@ class GroupDetailScreen extends ConsumerWidget {
         label: Text(l.communityNewChallenge),
       ),
       body: RefreshIndicator(
-        onRefresh: () async =>
-            ref.refresh(groupChallengesProvider(group.id).future),
+        onRefresh: () => ref.refresh(groupChallengesProvider(group.id).future),
         child: challenges.when(
+          skipLoadingOnReload: true,
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (e, _) => Center(child: Text(messageFor(e))),
           data: (list) => list.isEmpty
               ? ListView(
+                  padding: const EdgeInsets.fromLTRB(20, 12, 20, 96),
                   children: [
+                    _GroupHeader(group: group),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.7,
+                      height: MediaQuery.of(context).size.height * 0.6,
                       child: EmptyState(
                         icon: Icons.emoji_events_outlined,
                         title: l.communityNoChallengesTitle,
@@ -83,19 +116,223 @@ class GroupDetailScreen extends ConsumerWidget {
                     ),
                   ],
                 )
-              : ListView(
+              // `.builder`, because each card watches its own leaderboard: a
+              // plain ListView builds every child at once and fires one
+              // request per challenge the moment the group opens.
+              : ListView.builder(
                   padding: const EdgeInsets.fromLTRB(20, 12, 20, 96),
-                  children: [
-                    Text(
-                      l.communityMemberCount(group.memberCount),
-                      style: theme.textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: 8),
-                    for (final challenge in list)
-                      _ChallengeCard(groupId: group.id, challenge: challenge),
-                  ],
+                  itemCount: list.length + 1,
+                  itemBuilder: (context, index) {
+                    if (index == 0) return _GroupHeader(group: group);
+                    return _ChallengeCard(
+                      groupId: group.id,
+                      challenge: list[index - 1],
+                    );
+                  },
                 ),
         ),
+      ),
+    );
+  }
+}
+
+/// The member count, and — for the owner — whoever has been invited and has
+/// not answered. Nobody else can read the invite list, so it is not asked for.
+class _GroupHeader extends ConsumerWidget {
+  const _GroupHeader({required this.group});
+
+  final CommunityGroup group;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final l = L.of(context);
+    final invites = group.isOwner
+        ? ref.watch(groupInvitesProvider(group.id))
+        : const AsyncValue<List<SentGroupInvite>>.data([]);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Text(
+            l.communityMemberCount(group.memberCount),
+            style: theme.textTheme.bodySmall,
+          ),
+        ),
+        // An invite list that fails to load is not worth an error next to the
+        // challenges; the owner still has the invite button.
+        invites.maybeWhen(
+          skipLoadingOnReload: true,
+          data: (list) => list.isEmpty
+              ? const SizedBox.shrink()
+              : Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: SanoraCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l.communityPendingInvites(list.length),
+                          style: theme.textTheme.titleSmall,
+                        ),
+                        for (final invite in list)
+                          _PendingInviteRow(groupId: group.id, invite: invite),
+                      ],
+                    ),
+                  ),
+                ),
+          orElse: () => const SizedBox.shrink(),
+        ),
+      ],
+    );
+  }
+}
+
+class _PendingInviteRow extends ConsumerWidget {
+  const _PendingInviteRow({required this.groupId, required this.invite});
+
+  final String groupId;
+  final SentGroupInvite invite;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final l = L.of(context);
+    final expires = _expiry(invite.expiresAt);
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Row(
+        children: [
+          const Icon(Icons.mail_outline_rounded, size: 18),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  invite.email,
+                  style: theme.textTheme.bodyMedium,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                if (expires != null)
+                  Text(
+                    l.communityInviteExpires(expires),
+                    style: theme.textTheme.bodySmall,
+                  ),
+              ],
+            ),
+          ),
+          TextButton(
+            onPressed: () => runCommunityAction(
+              context,
+              ref
+                  .read(communityControllerProvider)
+                  .revokeInvite(invite.id, groupId: groupId),
+            ),
+            child: Text(l.communityInviteRevoke),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// `expires_at` is a server timestamp string; an unparseable one drops the
+/// line rather than throwing out of a build.
+String? _expiry(String? raw) {
+  final parsed = raw == null ? null : DateTime.tryParse(raw);
+  return parsed == null ? null : DateFormat('d MMM').format(parsed.toLocal());
+}
+
+class _InviteSheet extends HookConsumerWidget {
+  const _InviteSheet({required this.groupId});
+
+  final String groupId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final email = useTextEditingController();
+    final busy = useState(false);
+    final theme = Theme.of(context);
+    final l = L.of(context);
+
+    Future<void> submit() async {
+      final value = email.text.trim();
+      if (value.isEmpty) return;
+      busy.value = true;
+      try {
+        final code = await ref
+            .read(communityControllerProvider)
+            .inviteToGroup(groupId, value);
+        if (!context.mounted) return;
+        final message = switch (code) {
+          'ok' => l.communityInviteSentTo(value),
+          'not_found' => l.communityInviteNoAccount,
+          'self' => l.communityInviteSelf,
+          'not_owner' => l.communityInviteNotOwner,
+          'already_member' => l.communityInviteAlreadyMember,
+          'already_invited' => l.communityInviteAlreadySent,
+          'blocked' => l.communityInviteBlocked,
+          _ => l.communityInviteSent,
+        };
+        Navigator.pop(context);
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(message)));
+      } on Failure catch (f) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(f.message)));
+        }
+      } finally {
+        busy.value = false;
+      }
+    }
+
+    return Padding(
+      padding: EdgeInsets.only(
+        left: 24,
+        right: 24,
+        top: 8,
+        bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(l.communityInviteToGroup, style: theme.textTheme.headlineSmall),
+          const SizedBox(height: 8),
+          Text(l.communityInviteHelp, style: theme.textTheme.bodyMedium),
+          const SizedBox(height: 16),
+          TextField(
+            controller: email,
+            autofocus: true,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              hintText: l.communityEmailHint,
+              prefixIcon: const Icon(Icons.mail_outline_rounded),
+            ),
+            onSubmitted: (_) => submit(),
+          ),
+          const SizedBox(height: 16),
+          FilledButton(
+            onPressed: busy.value ? null : submit,
+            child: busy.value
+                ? const SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2.5,
+                      color: Colors.white,
+                    ),
+                  )
+                : Text(l.communityInviteSend),
+          ),
+        ],
       ),
     );
   }
@@ -134,12 +371,23 @@ class _ChallengeCard extends ConsumerWidget {
                         l.communityChallengeSummary(
                           _fmt(challenge.target),
                           _metricUnit(context, challenge.metric),
-                          dateFmt.format(DateTime.parse(challenge.startsOn)),
-                          dateFmt.format(DateTime.parse(challenge.endsOn)),
+                          _date(dateFmt, challenge.startsOn),
+                          _date(dateFmt, challenge.endsOn),
                         ),
                         style: theme.textTheme.bodySmall,
                       ),
                     ],
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.flag_outlined, size: 18),
+                  visualDensity: VisualDensity.compact,
+                  tooltip: l.communityReport,
+                  onPressed: () => showReportSheet(
+                    context,
+                    target: ReportTarget.challenge,
+                    targetId: challenge.id,
+                    label: challenge.name,
                   ),
                 ),
               ],
@@ -179,20 +427,23 @@ class _ChallengeCard extends ConsumerWidget {
               ),
             ] else
               FilledButton.tonal(
-                onPressed: () =>
-                    controller.joinChallenge(groupId, challenge.id),
+                onPressed: () => runCommunityAction(
+                  context,
+                  controller.joinChallenge(groupId, challenge.id),
+                ),
                 child: Text(l.communityJoinChallenge),
               ),
             const Divider(height: 24),
             Text(l.communityLeaderboard, style: theme.textTheme.titleSmall),
             const SizedBox(height: 8),
             leaderboard.when(
+              skipLoadingOnReload: true,
               loading: () => const Padding(
                 padding: EdgeInsets.all(8),
                 child: LinearProgressIndicator(),
               ),
               error: (e, _) => Text(
-                l.communityLeaderboardError,
+                e is Failure ? e.message : l.communityLeaderboardError,
                 style: theme.textTheme.bodySmall,
               ),
               data: (entries) => entries.isEmpty
@@ -252,17 +503,27 @@ class _ChallengeCard extends ConsumerWidget {
   }
 
   static String _fmt(double v) => NumberFormat.compact().format(v);
+
+  /// The dates come back as server strings; one malformed row must not throw
+  /// out of a build and take the whole group down with it.
+  static String _date(DateFormat format, String raw) {
+    final parsed = DateTime.tryParse(raw);
+    return parsed == null ? raw : format.format(parsed);
+  }
 }
 
-class _LeaderRow extends StatelessWidget {
+class _LeaderRow extends ConsumerWidget {
   const _LeaderRow({required this.entry, required this.challenge});
 
   final LeaderboardEntry entry;
   final ChallengeSummary challenge;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    // A display name from someone you have never met is exactly the content
+    // Guideline 1.2 is about; your own is not reportable.
+    final isMe = entry.userId == ref.watch(currentUserIdProvider);
     final medal = switch (entry.place) {
       1 => '🥇',
       2 => '🥈',
@@ -308,6 +569,18 @@ class _LeaderRow extends StatelessWidget {
             NumberFormat.compact().format(entry.progress),
             style: theme.textTheme.labelMedium,
           ),
+          if (!isMe)
+            IconButton(
+              icon: const Icon(Icons.flag_outlined, size: 16),
+              visualDensity: VisualDensity.compact,
+              tooltip: L.of(context).communityReport,
+              onPressed: () => showReportSheet(
+                context,
+                target: ReportTarget.user,
+                targetId: entry.userId,
+                label: entry.name,
+              ),
+            ),
         ],
       ),
     );

@@ -3,29 +3,65 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../core/providers/app_providers.dart';
 import '../../domain/models/community.dart';
 
-final friendsProvider = FutureProvider.autoDispose<List<Friend>>(
-  (ref) => ref.watch(communityRepositoryProvider).friends(),
+/// Everything here lives on the server, and the server has no way to tell this
+/// device that a friend accepted an invite or that someone passed you on a
+/// leaderboard. Re-asking on a timer is what stands in for that; it runs only
+/// while a community screen is watching, and [appResumeProvider] covers the
+/// gap while the app was away.
+final communityTickProvider = StreamProvider.autoDispose<int>(
+  (ref) => Stream.periodic(const Duration(seconds: 60), (tick) => tick),
 );
 
-final myGroupsProvider = FutureProvider.autoDispose<List<CommunityGroup>>(
-  (ref) => ref.watch(communityRepositoryProvider).myGroups(),
-);
+/// Watched by every community read: the session gate ([AuthFailure] and the
+/// sign-in gate it drives), plus the two freshness signals. Signing in has to
+/// reach these or the gate stays up over a perfectly good session.
+void _communityDeps(Ref ref) {
+  ref.watch(isSignedInProvider);
+  ref.watch(communityTickProvider);
+  ref.watch(appResumeProvider);
+}
+
+final friendsProvider = FutureProvider.autoDispose<List<Friend>>((ref) {
+  _communityDeps(ref);
+  return ref.watch(communityRepositoryProvider).friends();
+});
+
+final myGroupsProvider = FutureProvider.autoDispose<List<CommunityGroup>>((
+  ref,
+) {
+  _communityDeps(ref);
+  return ref.watch(communityRepositoryProvider).myGroups();
+});
 
 final discoverGroupsProvider = FutureProvider.autoDispose<List<CommunityGroup>>(
-  (ref) => ref.watch(communityRepositoryProvider).discoverGroups(),
+  (ref) {
+    _communityDeps(ref);
+    return ref.watch(communityRepositoryProvider).discoverGroups();
+  },
 );
 
+final myInvitesProvider = FutureProvider.autoDispose<List<GroupInvite>>((ref) {
+  _communityDeps(ref);
+  return ref.watch(communityRepositoryProvider).myInvites();
+});
+
+final groupInvitesProvider = FutureProvider.autoDispose
+    .family<List<SentGroupInvite>, String>((ref, groupId) {
+      _communityDeps(ref);
+      return ref.watch(communityRepositoryProvider).groupInvites(groupId);
+    });
+
 final groupChallengesProvider = FutureProvider.autoDispose
-    .family<List<ChallengeSummary>, String>(
-      (ref, groupId) =>
-          ref.watch(communityRepositoryProvider).groupChallenges(groupId),
-    );
+    .family<List<ChallengeSummary>, String>((ref, groupId) {
+      _communityDeps(ref);
+      return ref.watch(communityRepositoryProvider).groupChallenges(groupId);
+    });
 
 final leaderboardProvider = FutureProvider.autoDispose
-    .family<List<LeaderboardEntry>, String>(
-      (ref, challengeId) =>
-          ref.watch(communityRepositoryProvider).leaderboard(challengeId),
-    );
+    .family<List<LeaderboardEntry>, String>((ref, challengeId) {
+      _communityDeps(ref);
+      return ref.watch(communityRepositoryProvider).leaderboard(challengeId);
+    });
 
 class CommunityController {
   CommunityController(this._ref);
@@ -58,6 +94,32 @@ class CommunityController {
     _refreshFriends();
   }
 
+  Future<void> blockUser(String userId) async {
+    await _ref.read(communityRepositoryProvider).blockUser(userId);
+    _refreshFriends();
+  }
+
+  Future<void> unblockUser(String userId) async {
+    await _ref.read(communityRepositoryProvider).unblockUser(userId);
+    _refreshFriends();
+  }
+
+  /// Nothing on this device changes when a report lands — the row is ours to
+  /// act on, not theirs to see — so there is no provider to invalidate.
+  Future<void> report({
+    required String targetType,
+    required String targetId,
+    required String reason,
+    String note = '',
+  }) => _ref
+      .read(communityRepositoryProvider)
+      .reportContent(
+        targetType: targetType,
+        targetId: targetId,
+        reason: reason,
+        note: note,
+      );
+
   Future<void> createGroup({
     required String name,
     required String description,
@@ -81,6 +143,27 @@ class CommunityController {
   Future<void> leaveGroup(String groupId) async {
     await _ref.read(communityRepositoryProvider).leaveGroup(groupId);
     _refreshGroups();
+  }
+
+  Future<String> inviteToGroup(String groupId, String email) async {
+    final code = await _ref
+        .read(communityRepositoryProvider)
+        .inviteToGroup(groupId, email);
+    _ref.invalidate(groupInvitesProvider(groupId));
+    return code;
+  }
+
+  Future<void> acceptInvite(String inviteId) async {
+    await _ref.read(communityRepositoryProvider).acceptInvite(inviteId);
+    _ref.invalidate(myInvitesProvider);
+    _refreshGroups();
+  }
+
+  /// The owner revoking one they sent, or the invitee declining.
+  Future<void> revokeInvite(String inviteId, {String? groupId}) async {
+    await _ref.read(communityRepositoryProvider).revokeInvite(inviteId);
+    _ref.invalidate(myInvitesProvider);
+    if (groupId != null) _ref.invalidate(groupInvitesProvider(groupId));
   }
 
   Future<void> createChallenge({
