@@ -6,7 +6,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import '../../core/providers/app_providers.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../l10n/app_localizations.dart';
 import 'premium_controller.dart';
 import 'premium_products.dart';
@@ -30,7 +30,7 @@ class PaywallScreen extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 40),
         children: [
-          BodiCard(
+          SanoraCard(
             color: theme.colorScheme.primaryContainer,
             borderColor: Colors.transparent,
             child: Column(
@@ -60,7 +60,7 @@ class PaywallScreen extends ConsumerWidget {
           ),
 
           SectionHeader(l.premiumUnlocksSection),
-          BodiCard(
+          SanoraCard(
             child: Column(
               children: [
                 _Feature(
@@ -93,7 +93,7 @@ class PaywallScreen extends ConsumerWidget {
           ),
 
           SectionHeader(l.premiumFreeForeverSection),
-          BodiCard(
+          SanoraCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -364,7 +364,7 @@ class _PlanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l = L.of(context);
-    return BodiCard(
+    return SanoraCard(
       onTap: enabled ? onTap : null,
       borderColor: saving.isEmpty ? null : theme.colorScheme.primary,
       child: Row(
@@ -439,7 +439,7 @@ class _NoticeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final tint = color ?? theme.colorScheme.onSurfaceVariant;
-    return BodiCard(
+    return SanoraCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

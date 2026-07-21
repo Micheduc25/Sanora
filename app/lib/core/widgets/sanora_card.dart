@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
 /// Base surface for dashboard tiles and content sections.
-class BodiCard extends StatelessWidget {
-  const BodiCard({
+class SanoraCard extends StatelessWidget {
+  const SanoraCard({
     super.key,
     required this.child,
     this.onTap,

@@ -6,7 +6,7 @@ import '../../core/l10n/enum_labels.dart';
 import '../../core/providers/app_providers.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/extensions.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../data/sync/sync_service.dart';
 import '../../domain/models/enums.dart';
 import '../../l10n/app_localizations.dart';
@@ -40,7 +40,7 @@ class ProfileScreen extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
         children: [
-          BodiCard(
+          SanoraCard(
             child: Row(
               children: [
                 CircleAvatar(
@@ -86,7 +86,7 @@ class ProfileScreen extends ConsumerWidget {
             ),
           ),
           SectionHeader(l.profileHealthSection),
-          BodiCard(
+          SanoraCard(
             child: Column(
               children: [
                 _ProfileRow(
@@ -147,7 +147,7 @@ class ProfileScreen extends ConsumerWidget {
           const SizedBox(height: 8),
           Text(l.profileDisclaimer, style: theme.textTheme.bodySmall),
           SectionHeader(l.profileAccountSection),
-          BodiCard(
+          SanoraCard(
             padding: EdgeInsets.zero,
             child: Column(
               children: [

@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../core/error/failures.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../domain/models/food_item.dart';
 import '../../l10n/app_localizations.dart';
 import 'meal_detail_sheet.dart';
@@ -154,7 +154,7 @@ class _PhotoTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        BodiCard(
+        SanoraCard(
           onTap: () => _pick(ImageSource.camera),
           child: Row(
             children: [
@@ -175,7 +175,7 @@ class _PhotoTab extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        BodiCard(
+        SanoraCard(
           onTap: () => _pick(ImageSource.gallery),
           child: Row(
             children: [

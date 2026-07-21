@@ -7,7 +7,7 @@ import '../../core/error/failures.dart';
 import '../../core/providers/app_providers.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/extensions.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../core/widgets/progress_ring.dart';
 import '../../core/widgets/stat_tile.dart';
 import '../../domain/models/insight.dart';
@@ -178,7 +178,7 @@ class _ScoreCard extends StatelessWidget {
         : score.total >= 55
         ? l.dashboardScoreMessageMid
         : l.dashboardScoreMessageLow;
-    return BodiCard(
+    return SanoraCard(
       child: Row(
         children: [
           ProgressRing(
@@ -312,7 +312,7 @@ class _BodyTrendCard extends StatelessWidget {
       );
     }
 
-    return BodiCard(
+    return SanoraCard(
       onTap: () => context.push('/health'),
       child: Row(
         children: [
@@ -339,7 +339,7 @@ class _InsightCard extends StatelessWidget {
       InsightSeverity.nudge => AppColors.sun,
       InsightSeverity.warning => AppColors.coral,
     };
-    return BodiCard(
+    return SanoraCard(
       onTap: () => context.push('/insights'),
       borderColor: color.withValues(alpha: 0.4),
       child: Row(
@@ -378,7 +378,7 @@ class _HabitsCard extends ConsumerWidget {
     final theme = Theme.of(context);
     final l = L.of(context);
     if (data.habitsDue.isEmpty) {
-      return BodiCard(
+      return SanoraCard(
         onTap: () => context.push('/habits'),
         child: Row(
           children: [
@@ -395,7 +395,7 @@ class _HabitsCard extends ConsumerWidget {
         ),
       );
     }
-    return BodiCard(
+    return SanoraCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -430,7 +430,7 @@ class _QuickActions extends StatelessWidget {
     final l = L.of(context);
     Widget action(IconData icon, String label, String route, Color color) =>
         Expanded(
-          child: BodiCard(
+          child: SanoraCard(
             padding: const EdgeInsets.symmetric(vertical: 16),
             onTap: () => context.push(route),
             child: Column(
@@ -499,7 +499,7 @@ class _ConnectHealthCard extends ConsumerWidget {
     // width, so one inside a Row fails layout and the whole card vanishes.
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
-      child: BodiCard(
+      child: SanoraCard(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

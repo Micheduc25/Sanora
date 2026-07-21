@@ -1,11 +1,11 @@
-import 'package:bodi/core/error/failures.dart';
-import 'package:bodi/domain/health/insight_rules_engine.dart';
-import 'package:bodi/domain/models/enums.dart';
-import 'package:bodi/domain/models/health_profile.dart';
-import 'package:bodi/domain/models/meal.dart';
-import 'package:bodi/domain/models/metric_entry.dart';
-import 'package:bodi/domain/models/nutrition.dart';
-import 'package:bodi/domain/models/user_profile.dart';
+import 'package:sanora/core/error/failures.dart';
+import 'package:sanora/domain/health/insight_rules_engine.dart';
+import 'package:sanora/domain/models/enums.dart';
+import 'package:sanora/domain/models/health_profile.dart';
+import 'package:sanora/domain/models/meal.dart';
+import 'package:sanora/domain/models/metric_entry.dart';
+import 'package:sanora/domain/models/nutrition.dart';
+import 'package:sanora/domain/models/user_profile.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

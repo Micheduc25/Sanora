@@ -97,7 +97,7 @@ Two boundaries worth keeping:
   controllers that throw one take an `L` and resolve the message at throw time
   rather than at render time.
 
-`main()` calls `initializeDateFormatting()` and `BodiApp` sets
+`main()` calls `initializeDateFormatting()` and `SanoraApp` sets
 `Intl.defaultLocale` from inside `Localizations` — without both, every
 `DateFormat` silently renders English month and weekday names under French.
 

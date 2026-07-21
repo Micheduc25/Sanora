@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../core/providers/app_providers.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../domain/models/workout.dart';
 import '../../l10n/app_localizations.dart';
 import 'workouts_screen.dart';
@@ -94,7 +94,7 @@ class _ExerciseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return BodiCard(
+    return SanoraCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

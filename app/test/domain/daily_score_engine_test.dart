@@ -1,4 +1,4 @@
-import 'package:bodi/domain/health/daily_score_engine.dart';
+import 'package:sanora/domain/health/daily_score_engine.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 DailyScoreInput input({

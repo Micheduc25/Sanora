@@ -8,8 +8,8 @@ import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'l10n/app_localizations.dart';
 
-class BodiApp extends ConsumerWidget {
-  const BodiApp({super.key});
+class SanoraApp extends ConsumerWidget {
+  const SanoraApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

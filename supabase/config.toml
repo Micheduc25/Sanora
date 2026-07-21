@@ -1,4 +1,4 @@
-project_id = "bodi"
+project_id = "sanora"
 
 [api]
 enabled = true
@@ -12,7 +12,7 @@ major_version = 15
 
 [auth]
 enabled = true
-site_url = "bodi://auth-callback"
+site_url = "sanora://auth-callback"
 enable_signup = true
 
 [auth.email]

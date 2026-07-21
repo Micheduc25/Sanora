@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import 'legal_content.dart';
 
 /// The documents in docs/legal/, as reachable from inside the app.
@@ -120,7 +120,7 @@ List<_Block> _parse(String source) {
 final _numberedItem = RegExp(r'^(\d+)\. ');
 final _inlineSpan = RegExp(r'\*\*(.+?)\*\*|`(.+?)`');
 
-/// Groups the parsed blocks into one [BodiCard] per `##` section, matching how
+/// Groups the parsed blocks into one [SanoraCard] per `##` section, matching how
 /// the rest of the app stacks a [SectionHeader] above its content.
 List<Widget> _render(BuildContext context, String source) {
   final widgets = <Widget>[];
@@ -129,7 +129,7 @@ List<Widget> _render(BuildContext context, String source) {
   void closeSection() {
     if (section.isEmpty) return;
     widgets.add(
-      BodiCard(
+      SanoraCard(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: section,

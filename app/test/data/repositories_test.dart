@@ -1,17 +1,17 @@
 import 'dart:io';
 
-import 'package:bodi/core/storage/local_store.dart';
-import 'package:bodi/data/repositories/habits_repository.dart';
-import 'package:bodi/data/repositories/meals_repository.dart';
-import 'package:bodi/data/repositories/metrics_repository.dart';
-import 'package:bodi/data/notifications/notification_service.dart';
-import 'package:bodi/data/supabase_service.dart';
-import 'package:bodi/data/sync/sync_service.dart';
-import 'package:bodi/domain/models/enums.dart';
-import 'package:bodi/domain/models/habit.dart';
-import 'package:bodi/domain/models/meal.dart';
-import 'package:bodi/domain/models/metric_entry.dart';
-import 'package:bodi/domain/models/nutrition.dart';
+import 'package:sanora/core/storage/local_store.dart';
+import 'package:sanora/data/repositories/habits_repository.dart';
+import 'package:sanora/data/repositories/meals_repository.dart';
+import 'package:sanora/data/repositories/metrics_repository.dart';
+import 'package:sanora/data/notifications/notification_service.dart';
+import 'package:sanora/data/supabase_service.dart';
+import 'package:sanora/data/sync/sync_service.dart';
+import 'package:sanora/domain/models/enums.dart';
+import 'package:sanora/domain/models/habit.dart';
+import 'package:sanora/domain/models/meal.dart';
+import 'package:sanora/domain/models/metric_entry.dart';
+import 'package:sanora/domain/models/nutrition.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce/hive.dart';
 
@@ -22,7 +22,7 @@ void main() {
   final notifications = NotificationService();
 
   setUpAll(() async {
-    tempDir = await Directory.systemTemp.createTemp('bodi_test');
+    tempDir = await Directory.systemTemp.createTemp('sanora_test');
     Hive.init(tempDir.path);
     await LocalStore.open();
   });

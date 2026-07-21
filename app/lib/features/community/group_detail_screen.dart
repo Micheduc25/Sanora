@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../../core/error/failures.dart';
 import '../../core/theme/app_colors.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../domain/models/community.dart';
 import '../../l10n/app_localizations.dart';
@@ -117,7 +117,7 @@ class _ChallengeCard extends ConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
-      child: BodiCard(
+      child: SanoraCard(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

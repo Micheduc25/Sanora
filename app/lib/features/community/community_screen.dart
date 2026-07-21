@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../core/error/failures.dart';
 import '../../core/theme/app_colors.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../domain/models/community.dart';
 import '../../l10n/app_localizations.dart';
@@ -157,7 +157,7 @@ class _RequestRow extends ConsumerWidget {
     final controller = ref.read(communityControllerProvider);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: BodiCard(
+      child: SanoraCard(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         child: Row(
           children: [
@@ -197,7 +197,7 @@ class _FriendRow extends ConsumerWidget {
     final l = L.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: BodiCard(
+      child: SanoraCard(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         child: Row(
           children: [
@@ -402,7 +402,7 @@ class _GroupRow extends ConsumerWidget {
     final members = l.communityMemberCount(group.memberCount);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: BodiCard(
+      child: SanoraCard(
         onTap: joined
             ? () => Navigator.of(context).push(
                 MaterialPageRoute(

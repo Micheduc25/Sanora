@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../core/error/failures.dart';
 import '../../core/l10n/enum_labels.dart';
 import '../../core/providers/app_providers.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../data/repositories/workouts_repository.dart';
 import '../../domain/models/enums.dart';
 import '../../domain/models/workout.dart';
@@ -113,7 +113,7 @@ class WorkoutsScreen extends HookConsumerWidget {
                 for (final category in WorkoutCategory.values)
                   Padding(
                     padding: const EdgeInsets.only(right: 10),
-                    child: BodiCard(
+                    child: SanoraCard(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 18,
                         vertical: 12,
@@ -196,7 +196,7 @@ class _WorkoutCard extends ConsumerWidget {
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
-      child: BodiCard(
+      child: SanoraCard(
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (_) => WorkoutDetailScreen(workout: workout),

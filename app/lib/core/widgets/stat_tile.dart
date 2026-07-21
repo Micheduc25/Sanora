@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'bodi_card.dart';
+import 'sanora_card.dart';
 
 /// Compact metric tile: icon, value, label, optional goal progress.
 class StatTile extends StatelessWidget {
@@ -32,7 +32,7 @@ class StatTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return BodiCard(
+    return SanoraCard(
       onTap: onTap,
       padding: const EdgeInsets.all(16),
       child: Column(

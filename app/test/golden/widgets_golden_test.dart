@@ -1,8 +1,8 @@
-import 'package:bodi/core/theme/app_colors.dart';
-import 'package:bodi/core/theme/app_theme.dart';
-import 'package:bodi/core/widgets/empty_state.dart';
-import 'package:bodi/core/widgets/progress_ring.dart';
-import 'package:bodi/core/widgets/stat_tile.dart';
+import 'package:sanora/core/theme/app_colors.dart';
+import 'package:sanora/core/theme/app_theme.dart';
+import 'package:sanora/core/widgets/empty_state.dart';
+import 'package:sanora/core/widgets/progress_ring.dart';
+import 'package:sanora/core/widgets/stat_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

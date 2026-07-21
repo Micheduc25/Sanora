@@ -46,7 +46,7 @@ class NotificationService {
 
   static const _channel = NotificationDetails(
     android: AndroidNotificationDetails(
-      'bodi_reminders',
+      'sanora_reminders',
       'Reminders',
       channelDescription: 'Health habit and wellness reminders',
       importance: Importance.high,

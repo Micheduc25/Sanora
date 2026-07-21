@@ -1,4 +1,4 @@
-name: bodi
+name: sanora
 description: "Sanora — Know Your Body. AI-powered personal health companion."
 publish_to: 'none'
 version: 1.0.0+1
@@ -107,33 +107,33 @@ flutter:
 
 # Brand mark -> platform launcher icons. Regenerate: dart run flutter_launcher_icons
 flutter_launcher_icons:
-  image_path: assets/icon/bodi_icon.png
+  image_path: assets/icon/sanora_icon.png
   android: true
   ios: true
   remove_alpha_ios: true
   min_sdk_android: 24
   adaptive_icon_background: "#10A56D"
-  adaptive_icon_foreground: assets/icon/bodi_icon_foreground.png
-  adaptive_icon_monochrome: assets/icon/bodi_icon_foreground.png
+  adaptive_icon_foreground: assets/icon/sanora_icon_foreground.png
+  adaptive_icon_monochrome: assets/icon/sanora_icon_foreground.png
   web:
     generate: true
-    image_path: assets/icon/bodi_icon.png
+    image_path: assets/icon/sanora_icon.png
     background_color: "#10A56D"
     theme_color: "#10A56D"
 
 # Launch screen. Regenerate: dart run flutter_native_splash:create
 flutter_native_splash:
   color: "#10A56D"
-  image: assets/icon/bodi_splash.png
+  image: assets/icon/sanora_splash.png
   color_dark: "#0E1512"
-  image_dark: assets/icon/bodi_splash.png
+  image_dark: assets/icon/sanora_splash.png
   android: true
   ios: true
   web: false
   android_12:
-    image: assets/icon/bodi_splash_android12.png
+    image: assets/icon/sanora_splash_android12.png
     color: "#10A56D"
     icon_background_color: "#10A56D"
-    image_dark: assets/icon/bodi_splash_android12.png
+    image_dark: assets/icon/sanora_splash_android12.png
     color_dark: "#0E1512"
     icon_background_color_dark: "#0E1512"

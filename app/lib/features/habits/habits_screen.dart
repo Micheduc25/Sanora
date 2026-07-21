@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../l10n/app_localizations.dart';
 import 'habits_controller.dart';
@@ -41,7 +41,7 @@ class HabitsScreen extends ConsumerWidget {
                 for (final (emoji, name) in suggestedHabits(l))
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8),
-                    child: BodiCard(
+                    child: SanoraCard(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 12,
@@ -72,7 +72,7 @@ class HabitsScreen extends ConsumerWidget {
                 for (final habit in habits)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
-                    child: BodiCard(
+                    child: SanoraCard(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 6,

@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:bodi/core/storage/local_store.dart';
-import 'package:bodi/core/theme/app_theme.dart';
-import 'package:bodi/domain/models/enums.dart';
-import 'package:bodi/domain/models/metric_entry.dart';
-import 'package:bodi/features/health/health_screen.dart';
-import 'package:bodi/l10n/app_localizations.dart';
+import 'package:sanora/core/storage/local_store.dart';
+import 'package:sanora/core/theme/app_theme.dart';
+import 'package:sanora/domain/models/enums.dart';
+import 'package:sanora/domain/models/metric_entry.dart';
+import 'package:sanora/features/health/health_screen.dart';
+import 'package:sanora/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -36,7 +36,7 @@ void main() {
   late Directory tempDir;
 
   setUpAll(() async {
-    tempDir = await Directory.systemTemp.createTemp('bodi_health_screen');
+    tempDir = await Directory.systemTemp.createTemp('sanora_health_screen');
     Hive.init(tempDir.path);
     await LocalStore.open();
   });

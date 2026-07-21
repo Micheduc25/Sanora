@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../core/providers/app_providers.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/extensions.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../domain/models/enums.dart';
 import '../../l10n/app_localizations.dart';
 import '../../domain/models/metric_entry.dart';
@@ -65,7 +65,7 @@ class HealthScreen extends ConsumerWidget {
                 .where((e) => e.recordedAt.isSameDay(today))
                 .fold<double>(0, (sum, e) => sum + e.value)
           : entries.first.value;
-      return BodiCard(
+      return SanoraCard(
         padding: const EdgeInsets.all(16),
         onTap: () => context.push('/health/log?type=${type.name}'),
         child: Column(
@@ -171,7 +171,7 @@ class HealthScreen extends ConsumerWidget {
             onAction: () => context.push('/habits'),
           ),
           if (habits.isEmpty)
-            BodiCard(
+            SanoraCard(
               onTap: () => context.push('/habits'),
               child: Row(
                 children: [
@@ -188,7 +188,7 @@ class HealthScreen extends ConsumerWidget {
               ),
             )
           else
-            BodiCard(
+            SanoraCard(
               child: Column(
                 children: [
                   for (final habit in habits.where((h) => h.active))
@@ -197,7 +197,7 @@ class HealthScreen extends ConsumerWidget {
               ),
             ),
           SectionHeader('More'),
-          BodiCard(
+          SanoraCard(
             padding: EdgeInsets.zero,
             child: Column(
               children: [

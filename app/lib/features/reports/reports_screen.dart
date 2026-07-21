@@ -8,7 +8,7 @@ import 'package:printing/printing.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/extensions.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../l10n/app_localizations.dart';
 import 'report_controller.dart';
@@ -97,7 +97,7 @@ class ReportsScreen extends ConsumerWidget {
             ],
           ),
           SectionHeader(l.reportsCaloriesEaten),
-          BodiCard(
+          SanoraCard(
             child: SizedBox(
               height: 180,
               child: BarChart(
@@ -157,7 +157,7 @@ class ReportsScreen extends ConsumerWidget {
             ),
           ),
           SectionHeader(l.metricSteps),
-          BodiCard(
+          SanoraCard(
             child: SizedBox(
               height: 160,
               child: BarChart(
@@ -185,7 +185,7 @@ class ReportsScreen extends ConsumerWidget {
             ),
           ),
           SectionHeader(l.reportsWeekAtAGlance),
-          BodiCard(
+          SanoraCard(
             child: Column(
               children: [
                 _GlanceRow(
@@ -229,7 +229,7 @@ Future<void> _exportPdf(BuildContext context, WeeklyReport report) async {
     final bytes = await buildWeeklyReportPdf(l, report);
     await Printing.sharePdf(
       bytes: Uint8List.fromList(bytes),
-      filename: 'bodi-weekly-report.pdf',
+      filename: 'sanora-weekly-report.pdf',
     );
   } catch (_) {
     messenger.showSnackBar(SnackBar(content: Text(l.reportsExportError)));
@@ -263,7 +263,7 @@ class _SummaryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Expanded(
-      child: BodiCard(
+      child: SanoraCard(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

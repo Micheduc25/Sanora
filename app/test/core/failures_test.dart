@@ -1,4 +1,4 @@
-import 'package:bodi/core/error/failures.dart';
+import 'package:sanora/core/error/failures.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

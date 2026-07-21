@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../core/providers/app_providers.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../domain/models/reminder.dart';
 import '../../l10n/app_localizations.dart';
@@ -46,7 +46,7 @@ class RemindersScreen extends ConsumerWidget {
                 for (final reminder in reminders)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
-                    child: BodiCard(
+                    child: SanoraCard(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 8,

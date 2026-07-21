@@ -76,7 +76,7 @@ Future<void> _start() async {
   unawaited(container.read(syncServiceProvider).synchronise());
 
   runApp(
-    UncontrolledProviderScope(container: container, child: const BodiApp()),
+    UncontrolledProviderScope(container: container, child: const SanoraApp()),
   );
 }
 

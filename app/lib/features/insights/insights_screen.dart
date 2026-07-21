@@ -7,7 +7,7 @@ import '../../core/error/failures.dart';
 import '../../core/providers/app_providers.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/extensions.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../domain/health/insight_rules_engine.dart';
 import '../../domain/models/health_profile.dart';
@@ -166,7 +166,7 @@ class InsightsScreen extends ConsumerWidget {
                 };
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: BodiCard(
+                  child: SanoraCard(
                     onTap: () {
                       ref.read(insightsRepositoryProvider).markRead(insight);
                       ref.invalidate(insightsListProvider);

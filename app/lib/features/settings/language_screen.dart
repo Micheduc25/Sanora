@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../core/l10n/locale_controller.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../l10n/app_localizations.dart';
 
 /// Language is a device preference, not part of the health profile — someone
@@ -26,7 +26,7 @@ class LanguageScreen extends ConsumerWidget {
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 16),
-          BodiCard(
+          SanoraCard(
             padding: EdgeInsets.zero,
             // Empty string stands for "follow the device" so the radio group
             // has a non-null value to compare against.

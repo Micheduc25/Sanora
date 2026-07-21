@@ -1,4 +1,4 @@
-import 'package:bodi/data/supabase_service.dart';
+import 'package:sanora/data/supabase_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

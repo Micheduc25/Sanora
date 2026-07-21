@@ -1,6 +1,6 @@
-import 'package:bodi/domain/health/health_engine.dart';
-import 'package:bodi/domain/models/enums.dart';
-import 'package:bodi/domain/models/user_profile.dart';
+import 'package:sanora/domain/health/health_engine.dart';
+import 'package:sanora/domain/models/enums.dart';
+import 'package:sanora/domain/models/user_profile.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 UserProfile profile({

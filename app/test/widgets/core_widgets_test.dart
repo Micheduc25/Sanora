@@ -1,8 +1,8 @@
-import 'package:bodi/core/widgets/bodi_card.dart';
-import 'package:bodi/core/widgets/empty_state.dart';
-import 'package:bodi/core/widgets/progress_ring.dart';
-import 'package:bodi/core/widgets/stat_tile.dart';
-import 'package:bodi/features/onboarding/widgets/onboarding_widgets.dart';
+import 'package:sanora/core/widgets/sanora_card.dart';
+import 'package:sanora/core/widgets/empty_state.dart';
+import 'package:sanora/core/widgets/progress_ring.dart';
+import 'package:sanora/core/widgets/stat_tile.dart';
+import 'package:sanora/features/onboarding/widgets/onboarding_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -11,10 +11,10 @@ Widget host(Widget child) => MaterialApp(
 );
 
 void main() {
-  testWidgets('BodiCard renders child and reacts to tap', (tester) async {
+  testWidgets('SanoraCard renders child and reacts to tap', (tester) async {
     var tapped = false;
     await tester.pumpWidget(
-      host(BodiCard(onTap: () => tapped = true, child: const Text('hello'))),
+      host(SanoraCard(onTap: () => tapped = true, child: const Text('hello'))),
     );
     await tester.tap(find.text('hello'));
     expect(tapped, isTrue);

@@ -6,7 +6,7 @@ import '../../core/l10n/enum_labels.dart';
 import '../../core/providers/app_providers.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/extensions.dart';
-import '../../core/widgets/bodi_card.dart';
+import '../../core/widgets/sanora_card.dart';
 import '../../core/widgets/empty_state.dart';
 import '../../domain/models/enums.dart';
 import '../../domain/models/meal.dart';
@@ -64,7 +64,7 @@ class MealsScreen extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 96),
               children: [
                 if (health != null)
-                  BodiCard(
+                  SanoraCard(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -217,7 +217,7 @@ class _MealRow extends ConsumerWidget {
     };
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: BodiCard(
+      child: SanoraCard(
         padding: const EdgeInsets.all(14),
         onTap: () => showMealDetailSheet(context, meal, editable: false),
         child: Row(
