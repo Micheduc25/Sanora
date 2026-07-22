@@ -1,0 +1,26 @@
+// Sanora production dart-defines, baked into the iOS Release build.
+//
+// Why this file exists: Flutter passes --dart-define values to the native
+// build through Generated.xcconfig, which is git-ignored and rewritten by
+// every `flutter` command. A `flutter run`, a `flutter build ios` without
+// --dart-define-from-file, or an Xcode "Product > Archive" therefore produces
+// a binary with an EMPTY DART_DEFINES — no SUPABASE_URL, so AppConfig.hasSupabase
+// is false and the app boots into offline-only mode. A build like that once
+// reached TestFlight and showed "This build has no backend configured".
+//
+// Included after Generated.xcconfig in Release.xcconfig, this appends the
+// production backend to whatever Generated.xcconfig holds. When the build DID
+// pass the flag, the values are simply repeated (last wins, same value); when
+// it did not, they are the only copy — so a Release build always has a backend.
+//
+// The values are base64-encoded `KEY=VALUE` pairs, the exact format Flutter
+// itself writes. Only SUPABASE_ANON_KEY is a credential, and it is the
+// publishable key that already ships in every client binary; row-level security
+// is what protects the data, not the secrecy of this key. Do NOT put the
+// service-role key or the Gemini key here — those live only in the backend.
+//
+// This file is Release-only. Debug and Profile builds still come from the
+// flutter command line, so `flutter run` against a local or dev backend is
+// unaffected.
+
+DART_DEFINES=$(inherited),U1VQQUJBU0VfVVJMPWh0dHBzOi8vZmJzd3NhZnF6eHlwcXppYmFvZ24uc3VwYWJhc2UuY28=,U1VQQUJBU0VfQU5PTl9LRVk9c2JfcHVibGlzaGFibGVfd08tTzZ1ZDFIQ2xLZGNIamRzSk13Z19uNDZvUG45bw==,UkVMRUFTRV9DSEFOTkVMPXByb2R1Y3Rpb24=

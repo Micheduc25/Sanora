@@ -80,6 +80,27 @@ looks dead, check these first.
   duplicate-key and encryption entries after running it.
   TestFlight uploads via `fastlane beta` (`app/ios/fastlane/`) need a seeded
   `match` repo before `readonly: true` can work.
+- **iOS dart-defines survive an Xcode archive.** `Generated.xcconfig` carries
+  the `--dart-define` values but is git-ignored and rewritten by every
+  `flutter` command, so a `flutter run`, a `flutter build ios` without the
+  flag, or an Xcode **Product → Archive** produces a binary with an empty
+  `DART_DEFINES` — no `SUPABASE_URL`, so the app boots into offline-only mode
+  and shows "This build has no backend configured". A build like that reached
+  TestFlight once. `app/ios/Flutter/Sanora.xcconfig` (tracked, included after
+  `Generated.xcconfig` in `Release.xcconfig`) appends the production backend
+  via `$(inherited)`, so **every Release build has a backend regardless of how
+  it was invoked**. It holds only the publishable anon key, which already ships
+  in every binary; the service-role and Gemini keys must never go there.
+  Still prefer `flutter build ipa --dart-define-from-file=dart_defines/prod.json`
+  and upload that `build/ios/ipa/*.ipa` — the xcconfig is the safety net, not
+  the primary path.
+- **iOS build numbers auto-increment at export.** Flutter's generated
+  `ExportOptions.plist` sets `manageAppVersionAndBuildNumber = true`, so the
+  export step queries App Store Connect and bumps `CFBundleVersion` above the
+  highest build already there. The `+N` in `pubspec.yaml` is therefore only a
+  floor for iOS — the shipped build number can be higher, and that is expected,
+  not drift. **Android has no such mechanism: `versionCode` comes straight from
+  `pubspec.yaml` and must be bumped by hand for every Play upload.**
 
 ## 3. CI/CD (GitHub Actions)
 

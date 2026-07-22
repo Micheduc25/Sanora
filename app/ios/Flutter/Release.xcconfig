@@ -1,2 +1,7 @@
 #include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
 #include "Generated.xcconfig"
+// Must come AFTER Generated.xcconfig: it appends the production backend to
+// DART_DEFINES via $(inherited), so a Release build (including an Xcode
+// archive) always has a backend even when the flutter command omitted the
+// --dart-define-from-file flag. See Sanora.xcconfig for the full rationale.
+#include "Sanora.xcconfig"
