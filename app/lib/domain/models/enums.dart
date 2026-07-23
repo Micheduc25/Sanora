@@ -199,3 +199,35 @@ enum WorkoutCategory {
   final String label;
   final String emoji;
 }
+
+enum ExerciseIllustration {
+  @JsonValue('squat')
+  squat('squat'),
+  @JsonValue('lunge')
+  lunge('lunge'),
+  @JsonValue('push_up')
+  pushUp('push_up'),
+  @JsonValue('plank')
+  plank('plank'),
+  @JsonValue('crunch')
+  crunch('crunch'),
+  @JsonValue('glute_bridge')
+  gluteBridge('glute_bridge'),
+  @JsonValue('jumping_jack')
+  jumpingJack('jumping_jack'),
+  @JsonValue('burpee')
+  burpee('burpee'),
+  @JsonValue('run')
+  run('run'),
+  @JsonValue('dumbbell')
+  dumbbell('dumbbell'),
+  @JsonValue('stretch')
+  stretch('stretch'),
+  @JsonValue('yoga')
+  yoga('yoga');
+
+  const ExerciseIllustration(this.slug);
+  final String slug;
+
+  String get asset => 'assets/illustrations/exercises/$slug.svg';
+}

@@ -64,6 +64,7 @@ class WorkoutsRepository {
       build('Full-Body Starter', WorkoutCategory.home, 'Beginner', 20, 140, const [
         WorkoutExercise(
           name: 'Bodyweight squat',
+          illustration: ExerciseIllustration.squat,
           instructions:
               'Feet shoulder-width apart, chest up. Sit back and down until thighs are parallel to the floor, then drive up through your heels.',
           sets: 3,
@@ -72,6 +73,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Incline push-up',
+          illustration: ExerciseIllustration.pushUp,
           instructions:
               'Hands on a table or wall, body in a straight line. Lower your chest to the edge and press back up. Move to the floor as you get stronger.',
           sets: 3,
@@ -80,6 +82,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Glute bridge',
+          illustration: ExerciseIllustration.gluteBridge,
           instructions:
               'Lie on your back, knees bent. Squeeze your glutes and lift your hips until your body forms a straight line from knees to shoulders.',
           sets: 3,
@@ -88,6 +91,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Plank',
+          illustration: ExerciseIllustration.plank,
           instructions:
               'Forearms on the floor, body straight, glutes tight. Breathe steadily — do not let your hips sag.',
           sets: 3,
@@ -98,6 +102,7 @@ class WorkoutsRepository {
       build('Desk Reset', WorkoutCategory.office, 'Beginner', 8, 40, const [
         WorkoutExercise(
           name: 'Neck rolls',
+          illustration: ExerciseIllustration.stretch,
           instructions:
               'Slowly circle your head in each direction. Stop at tight spots and breathe.',
           sets: 1,
@@ -106,6 +111,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Chair squat',
+          illustration: ExerciseIllustration.squat,
           instructions:
               'Stand up from your chair without using your hands, sit back down with control. Repeat.',
           sets: 2,
@@ -114,6 +120,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Desk push-up',
+          illustration: ExerciseIllustration.pushUp,
           instructions:
               'Hands on the desk edge, walk your feet back, lower chest to the desk and press away.',
           sets: 2,
@@ -122,6 +129,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Chest opener stretch',
+          illustration: ExerciseIllustration.stretch,
           instructions:
               'Clasp hands behind your back, lift gently and open your chest. Undoes hours of sitting.',
           sets: 1,
@@ -138,6 +146,7 @@ class WorkoutsRepository {
         const [
           WorkoutExercise(
             name: 'Jumping jacks',
+            illustration: ExerciseIllustration.jumpingJack,
             instructions:
                 'Jump feet wide while raising arms overhead; return. Keep a steady rhythm.',
             sets: 4,
@@ -146,6 +155,7 @@ class WorkoutsRepository {
           ),
           WorkoutExercise(
             name: 'Squat to press (bodyweight)',
+            illustration: ExerciseIllustration.squat,
             instructions:
                 'Squat down, and as you stand drive your arms overhead. Move fast but with control.',
             sets: 4,
@@ -154,6 +164,7 @@ class WorkoutsRepository {
           ),
           WorkoutExercise(
             name: 'Mountain climbers',
+            illustration: ExerciseIllustration.plank,
             instructions:
                 'From a push-up position, drive knees toward your chest alternately. Keep hips level.',
             sets: 4,
@@ -162,6 +173,7 @@ class WorkoutsRepository {
           ),
           WorkoutExercise(
             name: 'Burpee (step-back option)',
+            illustration: ExerciseIllustration.burpee,
             instructions:
                 'Squat, place hands down, step or jump back to plank, return and stand tall. Step back instead of jumping to lower impact.',
             sets: 4,
@@ -173,6 +185,7 @@ class WorkoutsRepository {
       build('Strength Foundations', WorkoutCategory.gym, 'Intermediate', 45, 300, const [
         WorkoutExercise(
           name: 'Goblet squat',
+          illustration: ExerciseIllustration.squat,
           instructions:
               'Hold a dumbbell at your chest. Squat deep keeping your chest tall, elbows inside knees at the bottom.',
           sets: 4,
@@ -181,6 +194,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Dumbbell bench press',
+          illustration: ExerciseIllustration.dumbbell,
           instructions:
               'Lower the dumbbells to chest level with elbows at ~45°, press up until arms are straight.',
           sets: 4,
@@ -189,6 +203,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Single-arm dumbbell row',
+          illustration: ExerciseIllustration.dumbbell,
           instructions:
               'One hand on a bench, flat back. Pull the dumbbell to your hip, squeeze your shoulder blade, lower slowly.',
           sets: 4,
@@ -197,6 +212,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Romanian deadlift',
+          illustration: ExerciseIllustration.dumbbell,
           instructions:
               'Soft knees, hinge at the hips pushing them back, dumbbells sliding down your thighs. Stand tall by squeezing glutes.',
           sets: 3,
@@ -205,6 +221,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Farmer carry',
+          illustration: ExerciseIllustration.dumbbell,
           instructions:
               'Heavy dumbbells at your sides, shoulders back, walk tall. Grip, core and posture in one move.',
           sets: 3,
@@ -215,6 +232,7 @@ class WorkoutsRepository {
       build('Evening Unwind Yoga', WorkoutCategory.yoga, 'Beginner', 15, 60, const [
         WorkoutExercise(
           name: 'Cat–cow',
+          illustration: ExerciseIllustration.yoga,
           instructions:
               'On all fours, alternate arching and rounding your spine with your breath.',
           sets: 1,
@@ -223,6 +241,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Downward dog',
+          illustration: ExerciseIllustration.yoga,
           instructions:
               'Hands and feet on the floor, hips high. Pedal your heels and relax your neck.',
           sets: 1,
@@ -231,6 +250,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Low lunge stretch',
+          illustration: ExerciseIllustration.stretch,
           instructions:
               'Step one foot forward, back knee down, sink hips forward. Opens hip flexors shortened by sitting.',
           sets: 1,
@@ -239,6 +259,7 @@ class WorkoutsRepository {
         ),
         WorkoutExercise(
           name: 'Child\'s pose',
+          illustration: ExerciseIllustration.yoga,
           instructions:
               'Knees wide, hips to heels, arms long. Slow breaths out longer than in.',
           sets: 1,
@@ -255,6 +276,7 @@ class WorkoutsRepository {
         const [
           WorkoutExercise(
             name: 'Warm-up walk',
+            illustration: ExerciseIllustration.run,
             instructions: 'Easy pace, relaxed shoulders, look ahead.',
             sets: 1,
             repsOrDuration: '5 minutes',
@@ -262,6 +284,7 @@ class WorkoutsRepository {
           ),
           WorkoutExercise(
             name: 'Brisk intervals',
+            illustration: ExerciseIllustration.run,
             instructions:
                 'Alternate 2 minutes brisk (you can talk but not sing) with 1 minute easy.',
             sets: 7,
@@ -270,6 +293,7 @@ class WorkoutsRepository {
           ),
           WorkoutExercise(
             name: 'Cool-down walk',
+            illustration: ExerciseIllustration.run,
             instructions: 'Ease the pace down and let your breathing settle.',
             sets: 1,
             repsOrDuration: '4 minutes',

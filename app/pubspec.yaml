@@ -40,6 +40,7 @@ dependencies:
   fl_chart: ^0.71.0
   shimmer: ^3.0.0
   smooth_page_indicator: ^1.2.1
+  flutter_svg: ^2.0.17
 
   # Purchases (App Store / Play Billing)
   in_app_purchase: ^3.3.0
@@ -89,6 +90,7 @@ flutter:
   generate: true
   assets:
     - assets/data/
+    - assets/illustrations/exercises/
   fonts:
     - family: Manrope
       fonts:

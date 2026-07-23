@@ -37,7 +37,14 @@ const workoutSchema = {
       items: {
         type: "object",
         additionalProperties: false,
-        required: ["name", "instructions", "sets", "reps_or_duration", "rest_seconds"],
+        required: [
+          "name",
+          "instructions",
+          "sets",
+          "reps_or_duration",
+          "rest_seconds",
+          "illustration",
+        ],
         properties: {
           name: { type: "string" },
           instructions: {
@@ -47,6 +54,25 @@ const workoutSchema = {
           sets: { type: "integer" },
           reps_or_duration: { type: "string" },
           rest_seconds: { type: "integer" },
+          illustration: {
+            type: "string",
+            enum: [
+              "squat",
+              "lunge",
+              "push_up",
+              "plank",
+              "crunch",
+              "glute_bridge",
+              "jumping_jack",
+              "burpee",
+              "run",
+              "dumbbell",
+              "stretch",
+              "yoga",
+            ],
+            description:
+              "The movement archetype closest to this exercise; the app shows a matching illustration",
+          },
         },
       },
     },

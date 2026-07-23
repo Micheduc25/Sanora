@@ -13,6 +13,9 @@ abstract class WorkoutExercise with _$WorkoutExercise {
     @Default(3) int sets,
     @Default('12 reps') String repsOrDuration,
     @Default(60) int restSeconds,
+    // ignore: invalid_annotation_target
+    @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
+    ExerciseIllustration? illustration,
   }) = _WorkoutExercise;
 
   factory WorkoutExercise.fromJson(Map<String, dynamic> json) =>

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../core/providers/app_providers.dart';
@@ -114,6 +115,25 @@ class _ExerciseCard extends StatelessWidget {
               Expanded(
                 child: Text(exercise.name, style: theme.textTheme.titleMedium),
               ),
+              if (exercise.illustration != null) ...[
+                const SizedBox(width: 12),
+                Container(
+                  width: 64,
+                  height: 64,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: SvgPicture.asset(
+                    exercise.illustration!.asset,
+                    colorFilter: ColorFilter.mode(
+                      theme.colorScheme.primary,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
           const SizedBox(height: 10),
