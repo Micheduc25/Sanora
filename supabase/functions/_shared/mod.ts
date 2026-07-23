@@ -93,34 +93,54 @@ export function geminiModel(): string {
   return Deno.env.get("GEMINI_MODEL") ?? "gemini-3.5-flash";
 }
 
+export function geminiFallbackModel(): string {
+  return Deno.env.get("GEMINI_FALLBACK_MODEL") ?? "gemini-3.5-flash-lite";
+}
+
+/** Overload and rate limits are transient; anything else is our bug. */
+const RETRYABLE_STATUSES = new Set([429, 500, 503]);
+const BACKOFF_MS = [500, 1000];
+
 /**
  * Calls the Gemini generateContent API. Set `stream` for the coach, which uses
  * `streamGenerateContent?alt=sse` and yields partial candidates.
+ *
+ * When a model is overloaded Google sheds free-tier keys first (503
+ * UNAVAILABLE), so a failed call is retried with backoff and then tried once
+ * on the fallback model, whose capacity pool is separate from the primary's.
  *
  * The key travels as a header rather than the `?key=` query parameter Google
  * also accepts, so it cannot end up in a proxy or access log.
  */
 export async function callGemini(
   body: Record<string, unknown>,
-  { stream = false }: { stream?: boolean } = {},
+  { stream = false, fetcher = fetch }: {
+    stream?: boolean;
+    fetcher?: typeof fetch;
+  } = {},
 ): Promise<Response> {
   const key = Deno.env.get("GEMINI_API_KEY");
   if (!key) throw new HttpError(500, "AI is not configured on this project.");
   const method = stream ? "streamGenerateContent?alt=sse" : "generateContent";
-  const response = await fetch(`${GEMINI_BASE}/${geminiModel()}:${method}`, {
-    method: "POST",
-    headers: {
-      "x-goog-api-key": key,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
-  if (!response.ok) {
+  const models = [geminiModel(), geminiModel(), geminiFallbackModel()];
+  for (const [attempt, model] of models.entries()) {
+    if (attempt > 0) {
+      await new Promise((r) => setTimeout(r, BACKOFF_MS[attempt - 1]));
+    }
+    const response = await fetcher(`${GEMINI_BASE}/${model}:${method}`, {
+      method: "POST",
+      headers: {
+        "x-goog-api-key": key,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    if (response.ok) return response;
     const detail = await response.text();
-    console.error("gemini error", response.status, detail);
-    throw new HttpError(502, "The AI service is unavailable right now.");
+    console.error("gemini error", response.status, model, detail);
+    if (!RETRYABLE_STATUSES.has(response.status)) break;
   }
-  return response;
+  throw new HttpError(502, "The AI service is unavailable right now.");
 }
 
 /**

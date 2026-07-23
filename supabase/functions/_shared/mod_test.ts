@@ -1,5 +1,11 @@
-import { assertEquals } from "jsr:@std/assert@1";
-import { SseDecoder, streamedText, streamStop } from "./mod.ts";
+import { assertEquals, assertRejects } from "jsr:@std/assert@1";
+import {
+  callGemini,
+  HttpError,
+  SseDecoder,
+  streamedText,
+  streamStop,
+} from "./mod.ts";
 
 const chunk = (text: string) =>
   JSON.stringify({ candidates: [{ content: { parts: [{ text }] } }] });
@@ -51,6 +57,41 @@ Deno.test("never leaks a thinking model's reasoning as the answer", () => {
     }],
   });
   assertEquals(streamedText(payload), "Salad in the morning is great.");
+});
+
+const stubFetch = (
+  responses: Array<{ status: number }>,
+  calls: string[],
+): typeof fetch =>
+(input) => {
+  calls.push(String(input));
+  const { status } = responses[calls.length - 1];
+  return Promise.resolve(
+    new Response(status === 200 ? "{}" : `{"error":{"code":${status}}}`, {
+      status,
+    }),
+  );
+};
+
+Deno.test("retries an overloaded model, then falls back to the lite model", async () => {
+  Deno.env.set("GEMINI_API_KEY", "test-key");
+  const calls: string[] = [];
+  const fetcher = stubFetch([{ status: 503 }, { status: 503 }, {
+    status: 200,
+  }], calls);
+  const response = await callGemini({}, { fetcher });
+  assertEquals(response.status, 200);
+  assertEquals(calls.length, 3);
+  assertEquals(calls[0].includes("gemini-3.5-flash:"), true);
+  assertEquals(calls[2].includes("gemini-3.5-flash-lite:"), true);
+});
+
+Deno.test("does not retry a client error", async () => {
+  Deno.env.set("GEMINI_API_KEY", "test-key");
+  const calls: string[] = [];
+  const fetcher = stubFetch([{ status: 400 }], calls);
+  await assertRejects(() => callGemini({}, { fetcher }), HttpError);
+  assertEquals(calls.length, 1);
 });
 
 Deno.test("reports why a stream carried no text", () => {
