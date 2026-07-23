@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/providers/app_providers.dart';
 import '../../core/widgets/sanora_card.dart';
@@ -144,6 +145,23 @@ class _ExerciseCard extends StatelessWidget {
             '${exercise.restSeconds > 0 ? ' · rest ${exercise.restSeconds}s' : ''}',
             style: theme.textTheme.labelMedium?.copyWith(
               color: theme.colorScheme.primary,
+            ),
+          ),
+          const SizedBox(height: 4),
+          TextButton.icon(
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+              visualDensity: VisualDensity.compact,
+            ),
+            icon: const Icon(Icons.play_circle_outline, size: 18),
+            label: Text(L.of(context).workoutsWatchTutorial),
+            onPressed: () => launchUrl(
+              Uri.https('www.youtube.com', '/results', {
+                'search_query':
+                    '${exercise.name} '
+                    '${L.of(context).workoutsTutorialSearchSuffix}',
+              }),
+              mode: LaunchMode.inAppBrowserView,
             ),
           ),
         ],

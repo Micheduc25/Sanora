@@ -13,6 +13,8 @@
   "workoutsGenerateFailed": "Could not generate a workout. Please try again.",
   "workoutsOfflineTemplate": "Offline — added a coach-curated workout instead. Connect for a personalized one.",
   "workoutsQuotaTemplate": "You have used today's AI calls — added a coach-curated workout instead.",
+  "workoutsWatchTutorial": "Watch tutorial",
+  "workoutsTutorialSearchSuffix": "proper form",
   "workoutsDurationMinutes": "{minutes} min",
   "@workoutsDurationMinutes": {
     "placeholders": { "minutes": { "type": "int" } }

@@ -13,6 +13,8 @@
   "workoutsGenerateFailed": "Impossible de générer une séance. Veuillez réessayer.",
   "workoutsOfflineTemplate": "Hors ligne — une séance préparée par un coach a été ajoutée. Connectez-vous pour une séance personnalisée.",
   "workoutsQuotaTemplate": "Vous avez utilisé vos appels IA du jour — une séance préparée par un coach a été ajoutée.",
+  "workoutsWatchTutorial": "Voir le tutoriel",
+  "workoutsTutorialSearchSuffix": "technique",
   "workoutsDurationMinutes": "{minutes} min",
   "@workoutsDurationMinutes": {
     "placeholders": { "minutes": { "type": "int" } }

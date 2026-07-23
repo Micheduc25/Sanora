@@ -51,6 +51,7 @@ void main() {
       (svg.bytesLoader as SvgAssetLoader).assetName,
       'assets/illustrations/exercises/squat.svg',
     );
+    expect(find.text('Watch tutorial'), findsOneWidget);
   });
 
   testWidgets('an untagged exercise renders without an illustration', (
